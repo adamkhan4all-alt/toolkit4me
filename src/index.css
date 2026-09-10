@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+   Design tokens — Phase 2 UI/UX spec, Section 2
+   --------------------------------------------------------------------- */
+@theme {
+  /* Color palette */
+  --color-brand-50: #eff6ff;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+
+  --color-neutral-0: #ffffff;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-600: #4b5563;
+  --color-neutral-900: #111827;
+
+  --color-success-50: #f0fdf4;
+  --color-success-600: #16a34a;
+
+  --color-warning-50: #fffbeb;
+  --color-warning-600: #d97706;
+
+  --color-error-50: #fef2f2;
+  --color-error-600: #dc2626;
+
+  /* Typography */
+  --font-sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Radii */
+  --radius-card: 12px;
+  --radius-control: 8px;
+}
+
+html,
+body {
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-900);
+  font-family: var(--font-sans);
+}
+
+/* Accessible focus ring used across all interactive elements */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 1px;
+}
+
+/* Indeterminate progress animation (Section 2.9 / 5.2 State 4) */
+@keyframes indeterminate-stripe {
+  0% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(160%);
+  }
+}
+.animate-indeterminate {
+  animation: indeterminate-stripe 1.2s ease-in-out infinite;
+}
