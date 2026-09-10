@@ -22,8 +22,8 @@ function stubBrowserImageApis() {
 }
 
 describe("getClientProcessor", () => {
-  it("returns a processor for each of the 4 client-side tools", () => {
-    for (const id of ["compress-image", "jpg-to-png", "png-to-jpg", "jpg-to-pdf"]) {
+  it("returns a processor for each of the 5 client-side tools", () => {
+    for (const id of ["compress-image", "jpg-to-png", "png-to-jpg", "jpg-to-pdf", "split-pdf"]) {
       expect(getClientProcessor(id)).toBeDefined();
     }
   });
@@ -32,9 +32,9 @@ describe("getClientProcessor", () => {
     expect(getClientProcessor("pdf-to-word")).toBeUndefined();
   });
 
-  it("registry exposes exactly the 4 expected keys", () => {
+  it("registry exposes exactly the 5 expected keys", () => {
     expect(Object.keys(CLIENT_PROCESSORS).sort()).toEqual(
-      ["compress-image", "jpg-to-pdf", "jpg-to-png", "png-to-jpg"].sort()
+      ["compress-image", "jpg-to-pdf", "jpg-to-png", "png-to-jpg", "split-pdf"].sort()
     );
   });
 });

@@ -68,7 +68,24 @@ export function UploadWorkspace({ tool }: { tool: ToolDefinition }) {
   };
 
   const handleStart = () => {
-    start(files, optionValues);
+    // Generic, tool-agnostic convention: a tool that collects a
+    // "confirmPassword" option alongside "password" (protect-pdf) gets its
+    // match checked client-side before anything is uploaded. This is a
+    // UX safety net only — the backend never receives or needs the
+    // confirmation field itself.
+    if ("confirmPassword" in optionValues) {
+      if (optionValues.password !== optionValues.confirmPassword) {
+        setValidationError("Passwords don't match.");
+        return;
+      }
+      if (!optionValues.password) {
+        setValidationError("Enter a password.");
+        return;
+      }
+    }
+    setValidationError(null);
+    const { confirmPassword: _confirmPassword, ...submitValues } = optionValues;
+    start(files, submitValues);
   };
 
   const handleReset = () => {

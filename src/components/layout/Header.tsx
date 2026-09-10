@@ -12,7 +12,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white">
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 sm:px-6">
         <Link to="/" className="focus-ring rounded text-lg font-bold text-neutral-900">
-          Tier1<span className="text-brand-600">Tools</span>
+          Toolkit4Me
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">

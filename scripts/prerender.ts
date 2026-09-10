@@ -223,8 +223,8 @@ writePage(
   "/",
   renderHead({
     route: "/",
-    title: "Tier1Tools — Free Online PDF & Image Tools",
-    description: "Convert, compress, merge, and extract text from PDFs and images for free — fast, secure, and no account required.",
+    title: "Toolkit4Me — Free Tools for Everyday Digital Tasks",
+    description: "Toolkit4Me provides free online tools for everyday digital tasks, including PDF conversion, image conversion, compression and OCR.",
     breadcrumbs: [{ name: "Home", path: "/" }],
   }),
   renderHomeBody()
@@ -235,8 +235,8 @@ writePage(
   "/tools",
   renderHead({
     route: "/tools",
-    title: "All Tools — Free PDF & Image Tools | Tier1Tools",
-    description: "Browse every PDF and image tool on Tier1Tools: convert, compress, merge, and extract text, all free and no account required.",
+    title: "All Tools — Free PDF & Image Tools | Toolkit4Me",
+    description: "Browse every PDF and image tool on Toolkit4Me: convert, compress, merge, and extract text, all free and no account required.",
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "All Tools", path: "/tools" },

@@ -8,7 +8,7 @@
 // ToolDefinition object and registering it — nothing else.
 // ---------------------------------------------------------------------
 
-export type ToolCategory = "convert" | "compress" | "merge" | "ocr";
+export type ToolCategory = "convert" | "compress" | "merge" | "ocr" | "edit" | "security";
 
 /**
  * Where the actual conversion/compression work happens.
@@ -23,9 +23,14 @@ export type ProcessingMode = "CLIENT" | "SERVER";
 export interface ToolOption {
   id: string;
   label: string;
-  type: "select" | "radio";
-  choices: { value: string; label: string }[];
+  type: "select" | "radio" | "password" | "text";
+  /** Required for "select"/"radio"; unused for "password"/"text". */
+  choices?: { value: string; label: string }[];
   defaultValue: string;
+  /** "password"/"text" only — shown when the field is empty. */
+  placeholder?: string;
+  /** "password"/"text" only — short guidance shown under the field. */
+  helpText?: string;
 }
 
 export interface ToolFaqEntry {
@@ -82,6 +87,8 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
   compress: "Compress",
   merge: "Merge",
   ocr: "OCR",
+  edit: "Edit",
+  security: "Security",
 };
 
-export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr"];
+export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr", "edit", "security"];

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.tier1tools.com/sitemap.xml
+Sitemap: https://toolkit4me.com/sitemap.xml

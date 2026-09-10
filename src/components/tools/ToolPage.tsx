@@ -3,6 +3,7 @@ import { getClientProcessor } from "../../lib/processing/clientProcessors";
 import { ToolHeader } from "./ToolHeader";
 import { UploadWorkspace } from "./UploadWorkspace";
 import { ClientToolWorkspace } from "./ClientToolWorkspace";
+import { PdfEditorWorkspace } from "./PdfEditorWorkspace";
 import { ToolInstructions } from "./ToolInstructions";
 import { SupportedFormats } from "./SupportedFormats";
 import { PrivacySection } from "./PrivacySection";
@@ -17,11 +18,13 @@ import { SeoHead } from "../seo/SeoHead";
  * components driven entirely by a ToolDefinition. No tool-specific markup
  * exists anywhere in this file or its children.
  *
- * The one branch here is intentional and stays generic: a tool with a
+ * The branches here are intentional and stay minimal: a tool with a
  * registered ClientProcessor (real, in-browser processing) renders
- * ClientToolWorkspace; every other tool falls back to the mocked
- * UploadWorkspace until its real backend exists. Nothing tool-specific
- * leaks into this file either way.
+ * ClientToolWorkspace; the one genuinely interactive tool (PDF Editor —
+ * page-by-page management, not a single upload/process/download step)
+ * renders its own dedicated PdfEditorWorkspace; every other tool uses the
+ * real server-backed UploadWorkspace. Nothing else tool-specific leaks
+ * into this file either way.
  *
  * SEO (Phase 8): every field this page renders — title, description, H1,
  * intro copy, how-it-works steps, formats, FAQ — comes from the tool's own
@@ -59,7 +62,13 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
         <div className="flex w-full flex-col gap-8 lg:max-w-[720px]">
           <ToolHeader tool={tool} />
 
-          {hasClientProcessor ? <ClientToolWorkspace tool={tool} /> : <UploadWorkspace tool={tool} />}
+          {tool.id === "pdf-editor" ? (
+            <PdfEditorWorkspace tool={tool} />
+          ) : hasClientProcessor ? (
+            <ClientToolWorkspace tool={tool} />
+          ) : (
+            <UploadWorkspace tool={tool} />
+          )}
 
           <section aria-labelledby="intro-heading" className="flex flex-col gap-4">
             <h2 id="intro-heading" className="text-2xl font-semibold text-neutral-900">

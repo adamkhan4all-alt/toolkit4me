@@ -55,7 +55,7 @@ export function Footer() {
 
       <div className="border-t border-neutral-200 px-4 py-5 sm:px-6">
         <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-2 sm:flex-row">
-          <p className="text-xs text-neutral-400">© {new Date().getFullYear()} Tier1Tools. All rights reserved.</p>
+          <p className="text-xs text-neutral-400">© {new Date().getFullYear()} Toolkit4Me. All rights reserved.</p>
           <span className="text-xs text-neutral-400">English (US)</span>
         </div>
       </div>

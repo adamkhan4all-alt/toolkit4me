@@ -16,14 +16,27 @@ export function ToolOptions({ options, values, onChange }: ToolOptionsProps) {
             {option.label}
           </label>
 
-          {option.type === "select" ? (
+          {option.type === "password" || option.type === "text" ? (
+            <>
+              <input
+                id={option.id}
+                type={option.type}
+                value={values[option.id] ?? option.defaultValue}
+                placeholder={option.placeholder}
+                autoComplete={option.type === "password" ? "new-password" : "off"}
+                onChange={(e) => onChange(option.id, e.target.value)}
+                className="focus-ring h-11 w-full rounded-[var(--radius-control)] border border-neutral-200 bg-white px-3 text-sm text-neutral-900"
+              />
+              {option.helpText && <p className="mt-1.5 text-xs text-neutral-400">{option.helpText}</p>}
+            </>
+          ) : option.type === "select" ? (
             <select
               id={option.id}
               value={values[option.id] ?? option.defaultValue}
               onChange={(e) => onChange(option.id, e.target.value)}
               className="focus-ring h-11 w-full rounded-[var(--radius-control)] border border-neutral-200 bg-white px-3 text-sm text-neutral-900"
             >
-              {option.choices.map((c) => (
+              {(option.choices ?? []).map((c) => (
                 <option key={c.value} value={c.value}>
                   {c.label}
                 </option>
@@ -31,7 +44,7 @@ export function ToolOptions({ options, values, onChange }: ToolOptionsProps) {
             </select>
           ) : (
             <div className="flex flex-col gap-2">
-              {option.choices.map((c) => (
+              {(option.choices ?? []).map((c) => (
                 <label
                   key={c.value}
                   className="focus-ring flex cursor-pointer items-center gap-2 rounded-md border border-neutral-200 p-2.5 text-sm text-neutral-900 has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50"

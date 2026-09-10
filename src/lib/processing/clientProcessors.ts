@@ -9,6 +9,7 @@
 
 import { buildPdfFromImages, type PdfPageSize } from "./pdfProcessing";
 import { convertImage, extensionForFormat, replaceExtension } from "./imageProcessing";
+import { splitPdf } from "./pdfSplit";
 
 export interface ClientProcessOutput {
   fileName: string;
@@ -28,6 +29,10 @@ export interface ClientProcessorOptions {
   maxWidth?: number;
   /** Used by jpg-to-pdf. */
   pageSize?: PdfPageSize;
+  /** Used by split-pdf. */
+  mode?: string;
+  ranges?: string;
+  everyN?: string;
 }
 
 export type ClientProcessor = (files: File[], options: ClientProcessorOptions) => Promise<ClientProcessOutput[]>;
@@ -98,11 +103,27 @@ const jpgToPdf: ClientProcessor = async (files, options) => {
   return [{ fileName, blob, originalSizeBytes, outputSizeBytes: blob.size }];
 };
 
+const splitPdfProcessor: ClientProcessor = async (files, options) => {
+  const file = files[0];
+  const outputs = await splitPdf(file, {
+    mode: options.mode === "every" ? "every" : "ranges",
+    ranges: options.ranges ?? "",
+    everyN: options.everyN ?? "1",
+  });
+  return outputs.map((o) => ({
+    fileName: o.fileName,
+    blob: o.blob,
+    originalSizeBytes: file.size,
+    outputSizeBytes: o.blob.size,
+  }));
+};
+
 export const CLIENT_PROCESSORS: Record<string, ClientProcessor> = {
   "compress-image": compressImage,
   "jpg-to-png": jpgToPng,
   "png-to-jpg": pngToJpg,
   "jpg-to-pdf": jpgToPdf,
+  "split-pdf": splitPdfProcessor,
 };
 
 export function getClientProcessor(toolId: string): ClientProcessor | undefined {

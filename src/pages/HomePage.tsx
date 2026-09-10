@@ -17,17 +17,18 @@ export function HomePage() {
   return (
     <div className="flex flex-col gap-16 pb-16">
       <SeoHead
-        title="Tier1Tools — Free Online PDF & Image Tools"
-        description="Convert, compress, merge, and extract text from PDFs and images for free — fast, secure, and no account required."
+        title="Toolkit4Me — Free Tools for Everyday Digital Tasks"
+        description="Toolkit4Me provides free online tools for everyday digital tasks, including PDF conversion, image conversion, compression and OCR."
         path="/"
       />
       <section className="bg-neutral-100 px-4 pt-12 pb-10 sm:px-6 sm:pt-20 sm:pb-16">
         <div className="mx-auto flex max-w-[720px] flex-col items-center gap-5 text-center">
           <h1 className="text-[28px] leading-tight font-bold text-neutral-900 sm:text-[40px] sm:leading-[48px]">
-            Free Online PDF &amp; Image Tools
+            Toolkit4Me
           </h1>
+          <p className="text-lg font-medium text-neutral-700 sm:text-xl">Free tools for everyday digital tasks.</p>
           <p className="max-w-[560px] text-base text-neutral-600">
-            Convert, compress and process your documents and images quickly and securely.
+            Toolkit4Me provides free online tools for converting, compressing and working with documents and images.
           </p>
           <div className="w-full max-w-[640px]">
             <SearchBar large onSelect={(slug) => navigate(`/tools/${slug}`)} />

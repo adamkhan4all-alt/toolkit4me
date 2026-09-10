@@ -52,7 +52,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             onClick={this.handleReload}
             className="focus-ring rounded-[var(--radius-control)] bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-700"
           >
-            Reload Tier1Tools
+            Reload Toolkit4Me
           </button>
         </div>
       );

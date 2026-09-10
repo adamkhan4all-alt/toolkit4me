@@ -29,8 +29,8 @@ export function ToolsDirectoryPage() {
   return (
     <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-4 py-8 sm:px-6">
       <SeoHead
-        title="All Tools — Free PDF & Image Tools | Tier1Tools"
-        description="Browse every PDF and image tool on Tier1Tools: convert, compress, merge, and extract text, all free and no account required."
+        title="All Tools — Free PDF & Image Tools | Toolkit4Me"
+        description="Browse every PDF and image tool on Toolkit4Me: convert, compress, merge, and extract text, all free and no account required."
         path="/tools"
         breadcrumbs={[
           { name: "Home", path: "/" },

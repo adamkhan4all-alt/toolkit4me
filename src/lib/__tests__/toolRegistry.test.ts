@@ -13,11 +13,18 @@ const REQUIRED_SLUGS = [
   "image-to-text",
   "jpg-to-png",
   "png-to-jpg",
+  "pdf-editor",
+  "split-pdf",
+  "powerpoint-to-pdf",
+  "excel-to-pdf",
+  "unlock-pdf",
+  "protect-pdf",
+  "unprotect-pdf",
 ];
 
 describe("toolRegistry (singleton)", () => {
-  it("contains exactly the 10 required tools", () => {
-    expect(toolRegistry.count()).toBe(10);
+  it("contains exactly the 17 required tools", () => {
+    expect(toolRegistry.count()).toBe(17);
     const slugs = toolRegistry.getAll().map((t) => t.slug);
     for (const slug of REQUIRED_SLUGS) {
       expect(slugs).toContain(slug);

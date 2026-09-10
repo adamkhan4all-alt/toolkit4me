@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import type { ClientProcessOutput, ClientProcessor, ClientProcessorOptions } from "../lib/processing/clientProcessors";
 import { ImageProcessingError } from "../lib/processing/imageProcessing";
+import { PdfSplitError } from "../lib/processing/pdfSplit";
 
 export type ClientWorkflowState = "empty" | "selected" | "processing" | "completed" | "error";
 
@@ -46,7 +47,7 @@ export function useClientProcessing(processor: ClientProcessor): UseClientProces
       } catch (err) {
         if (runToken.current !== token) return;
         const message =
-          err instanceof ImageProcessingError
+          err instanceof ImageProcessingError || err instanceof PdfSplitError
             ? err.message
             : "Something went wrong while processing your file. Try a different file or try again.";
         setErrorMessage(message);

@@ -25,7 +25,7 @@ function renderAt(path: string) {
 describe("routing", () => {
   it("renders the homepage at /", async () => {
     renderAt("/");
-    expect(await screen.findByRole("heading", { level: 1, name: /Free Online PDF & Image Tools/i })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: /Toolkit4Me/i })).toBeInTheDocument();
   });
 
   it("renders the tools directory at /tools", async () => {
@@ -53,6 +53,11 @@ describe("routing", () => {
 
   it("every registered tool resolves to a route that renders its process action", async () => {
     for (const tool of toolRegistry.getAll()) {
+      // pdf-editor is the one deliberately different, interactive
+      // workspace (see PdfEditorWorkspace) — dropping a file opens the
+      // page-editing UI directly rather than a separate labeled process
+      // button, so it has no single element matching tool.actionLabel.
+      if (tool.id === "pdf-editor") continue;
       const { unmount } = renderAt(`/tools/${tool.slug}`);
       expect(await screen.findByRole("button", { name: tool.actionLabel })).toBeInTheDocument();
       unmount();
