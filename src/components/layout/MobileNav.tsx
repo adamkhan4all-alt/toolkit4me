@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { toolRegistry } from "../../lib/toolRegistry";
+import { CATEGORIES, CATEGORY_LABELS } from "../../types/tool";
 
 interface MobileNavProps {
   open: boolean;
@@ -11,6 +12,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<Element | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   // Move focus into the panel on open, restore it to whatever triggered
   // the menu on close — without this, keyboard/screen-reader users lose
@@ -56,6 +58,16 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open, onClose]);
 
+  // Prevent the page behind the drawer from scrolling while it's open.
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
+
   if (!open) return null;
 
   return (
@@ -89,18 +101,40 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           All Tools
         </Link>
 
-        <div className="mt-2 flex flex-col">
-          {toolRegistry.getAll().map((tool) => (
-            <Link
-              key={tool.slug}
-              to={`/tools/${tool.slug}`}
-              onClick={onClose}
-              className="focus-ring rounded-md px-2 py-2.5 text-sm text-neutral-600 hover:bg-neutral-100 hover:text-brand-600"
-            >
-              {tool.shortName}
-            </Link>
-          ))}
+        <div className="mt-2 flex flex-col divide-y divide-neutral-200 border-t border-neutral-200">
+          {CATEGORIES.map((category) => {
+            const tools = toolRegistry.getByCategory(category);
+            const isOpen = expanded === category;
+            return (
+              <div key={category}>
+                <button
+                  type="button"
+                  className="focus-ring flex w-full items-center justify-between rounded-md px-2 py-3 text-left text-sm font-semibold text-neutral-900 hover:bg-neutral-100"
+                  aria-expanded={isOpen}
+                  onClick={() => setExpanded(isOpen ? null : category)}
+                >
+                  {CATEGORY_LABELS[category]}
+                  <span aria-hidden="true" className="text-neutral-400">{isOpen ? "−" : "+"}</span>
+                </button>
+                {isOpen && (
+                  <div className="flex flex-col pb-2 pl-2">
+                    {tools.map((tool) => (
+                      <Link
+                        key={tool.slug}
+                        to={`/tools/${tool.slug}`}
+                        onClick={onClose}
+                        className="focus-ring rounded-md px-2 py-2 text-sm text-neutral-600 hover:bg-neutral-100 hover:text-brand-600"
+                      >
+                        {tool.shortName}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
+
       </div>
     </div>
   );

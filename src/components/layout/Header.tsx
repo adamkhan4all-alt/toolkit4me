@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MobileNav } from "./MobileNav";
 import { SearchBar } from "./SearchBar";
+import { CATEGORIES, CATEGORY_LABELS } from "../../types/tool";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,22 +16,19 @@ export function Header() {
           Toolkit4Me
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-3 lg:gap-5 md:flex overflow-x-auto">
           <Link to="/tools" className="focus-ring rounded text-sm font-medium text-neutral-600 hover:text-brand-600">
             All Tools
           </Link>
-          <Link
-            to="/tools?category=convert"
-            className="focus-ring rounded text-sm font-medium text-neutral-600 hover:text-brand-600"
-          >
-            Convert
-          </Link>
-          <Link
-            to="/tools?category=compress"
-            className="focus-ring rounded text-sm font-medium text-neutral-600 hover:text-brand-600"
-          >
-            Compress
-          </Link>
+          {CATEGORIES.map((category) => (
+            <Link
+              key={category}
+              to={`/tools?category=${category}`}
+              className="focus-ring rounded text-sm font-medium text-neutral-600 hover:text-brand-600"
+            >
+              {CATEGORY_LABELS[category]}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2">

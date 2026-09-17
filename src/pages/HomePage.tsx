@@ -1,9 +1,28 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SearchBar } from "../components/layout/SearchBar";
 import { ToolCard } from "../components/tools/ToolCard";
 import { AdBanner, AdInContent, AdMobile } from "../components/ads";
 import { SeoHead } from "../components/seo/SeoHead";
 import { toolRegistry } from "../lib/toolRegistry";
+import { CATEGORIES, CATEGORY_LABELS } from "../types/tool";
+
+const categoryIcons: Record<string, string> = {
+  convert: "⇄",
+  compress: "▤",
+  merge: "▥",
+  ocr: "🔎",
+  edit: "✎",
+  security: "🔒",
+};
+
+const categoryDescriptions: Record<string, string> = {
+  convert: "Turn files into the format you need.",
+  compress: "Shrink file size without losing quality.",
+  merge: "Combine multiple files into one.",
+  ocr: "Pull editable text out of scans and images.",
+  edit: "Make direct changes to your documents.",
+  security: "Protect, lock, and unlock your files.",
+};
 
 const trustPoints = [
   { title: "Secure", body: "Files are transferred over encrypted connections and deleted automatically after 1 hour." },
@@ -41,6 +60,36 @@ export function HomePage() {
         <AdBanner />
         <AdMobile />
       </div>
+
+      <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+        <h2 className="mb-6 text-2xl font-semibold text-neutral-900">Browse by Category</h2>
+        <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+          {CATEGORIES.map((category) => {
+            const count = toolRegistry.getByCategory(category).length;
+            return (
+              <Link
+                key={category}
+                to={`/tools?category=${category}`}
+                className="focus-ring group flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-brand-600"
+              >
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-base text-brand-700"
+                >
+                  {categoryIcons[category]}
+                </span>
+                <h3 className="text-base font-semibold text-neutral-900 group-hover:text-brand-600">
+                  {CATEGORY_LABELS[category]}
+                </h3>
+                <p className="text-sm text-neutral-600">{categoryDescriptions[category]}</p>
+                <span className="mt-1 text-xs font-medium text-neutral-400">
+                  {count} {count === 1 ? "tool" : "tools"}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
       <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
         <h2 className="mb-6 text-2xl font-semibold text-neutral-900">Popular Tools</h2>
