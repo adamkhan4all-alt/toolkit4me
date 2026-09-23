@@ -5,6 +5,27 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--
+      Google AdSense site-verification/loader script. Present in <head> on
+      every page (prerender.ts only rewrites title/description/canonical/
+      og/twitter tags — see writePage() — so this survives untouched into
+      every prerendered route), independent of whether any individual ad
+      slot is configured yet, per AdSense's own setup instructions.
+
+      data-adsbygoogle-loader="true" matches the attribute
+      src/lib/adsense.ts's ensureAdSenseScript() checks for before
+      injecting its own copy, so once real ad slot IDs are added the
+      per-placement ad units reuse this tag instead of loading a second
+      one. Client ID must stay in sync with VITE_ADSENSE_CLIENT_ID in
+      .env.production (src/config/ads.ts is the single source of truth
+      for every other consumer).
+    -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6133117250071116"
+      crossorigin="anonymous"
+      data-adsbygoogle-loader="true"
+    ></script>
+    <!--
       This <head> is the CSR fallback for the root document, replaced at
       runtime per-route by <SeoHead> (src/components/seo/SeoHead.tsx) via
       react-helmet-async, and replaced per-route at build time for static
