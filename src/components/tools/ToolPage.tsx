@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import type { ToolDefinition } from "../../types/tool";
 import { getClientProcessor } from "../../lib/processing/clientProcessors";
 import { ToolHeader } from "./ToolHeader";
@@ -43,6 +44,24 @@ import { SeoHead } from "../seo/SeoHead";
  */
 export function ToolPage({ tool }: { tool: ToolDefinition }) {
   const hasClientProcessor = Boolean(getClientProcessor(tool.id));
+  const workspaceRef = useRef<HTMLDivElement>(null);
+
+  // Land the visitor at the actual working area (upload/dropzone), not the
+  // top of the page's marketing/SEO copy — no matter which entry point was
+  // used to get here (nav, homepage card, category page, search, related
+  // tools all resolve to this same ToolPage component). Keyed ONLY on
+  // tool.slug so it fires once on navigation to a tool route (or to a
+  // different tool route) and never again on local state changes inside
+  // the workspace (file selected, uploading, processing, result, error) —
+  // those don't change tool.slug, so this effect simply doesn't re-run for
+  // them, no extra guard needed.
+  useEffect(() => {
+    const node = workspaceRef.current;
+    if (!node || typeof node.scrollIntoView !== "function") return;
+    const prefersReducedMotion =
+      typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    node.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+  }, [tool.slug]);
 
   return (
     <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-4 py-8 sm:px-6">
@@ -62,13 +81,19 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
         <div className="flex w-full flex-col gap-8 lg:max-w-[720px]">
           <ToolHeader tool={tool} />
 
-          {tool.id === "pdf-editor" ? (
-            <PdfEditorWorkspace tool={tool} />
-          ) : hasClientProcessor ? (
-            <ClientToolWorkspace tool={tool} />
-          ) : (
-            <UploadWorkspace tool={tool} />
-          )}
+          {/* The tool's actual working area. `scroll-mt-24` keeps it clear
+              of the sticky header (h-16) when scrolled into view; the id +
+              data attribute give the mount-effect above (and any other
+              entry point) a single, stable target. */}
+          <div id="tool-workspace" data-tool-workspace ref={workspaceRef} className="scroll-mt-24">
+            {tool.id === "pdf-editor" ? (
+              <PdfEditorWorkspace tool={tool} />
+            ) : hasClientProcessor ? (
+              <ClientToolWorkspace tool={tool} />
+            ) : (
+              <UploadWorkspace tool={tool} />
+            )}
+          </div>
 
           <section aria-labelledby="intro-heading" className="flex flex-col gap-4">
             <h2 id="intro-heading" className="text-2xl font-semibold text-neutral-900">

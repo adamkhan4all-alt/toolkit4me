@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toolRegistry } from "../../lib/toolRegistry";
 import { CATEGORIES, CATEGORY_LABELS } from "../../types/tool";
+import { SearchBar } from "./SearchBar";
 
 interface MobileNavProps {
   open: boolean;
@@ -13,6 +14,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<Element | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   // Move focus into the panel on open, restore it to whatever triggered
   // the menu on close — without this, keyboard/screen-reader users lose
@@ -91,6 +93,15 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           >
             ✕
           </button>
+        </div>
+
+        <div className="mb-4">
+          <SearchBar
+            onSelect={(slug) => {
+              onClose();
+              navigate(`/tools/${slug}`);
+            }}
+          />
         </div>
 
         <Link

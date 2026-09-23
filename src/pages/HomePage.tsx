@@ -30,8 +30,11 @@ const trustPoints = [
   { title: "Free", body: "Every tool is free to use, with no account required and no watermarks added." },
 ];
 
+const MOBILE_POPULAR_COUNT = 6;
+
 export function HomePage() {
   const navigate = useNavigate();
+  const popularTools = toolRegistry.getAll().slice(0, MOBILE_POPULAR_COUNT);
 
   return (
     <div className="flex flex-col gap-16 pb-16">
@@ -93,7 +96,27 @@ export function HomePage() {
 
       <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
         <h2 className="mb-6 text-2xl font-semibold text-neutral-900">Popular Tools</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+        {/* Mobile: a bounded set of popular tools (no `popular`/`featured`
+            flag exists on ToolDefinition yet, so this takes the first
+            MOBILE_POPULAR_COUNT tools in registry order as a reasonable
+            stand-in — a real "popular" flag on ToolRegistry would be a
+            better long-term source for this) plus a link to the full
+            directory, instead of dumping every tool on the page. Desktop
+            keeps the full grid. */}
+        <div className="grid grid-cols-1 gap-3 sm:hidden">
+          {popularTools.map((tool) => (
+            <ToolCard key={tool.slug} tool={tool} />
+          ))}
+        </div>
+        <Link
+          to="/tools"
+          className="focus-ring mt-4 flex h-11 items-center justify-center rounded-[var(--radius-control)] border border-neutral-200 bg-white text-sm font-semibold text-brand-700 hover:border-brand-600 sm:hidden"
+        >
+          View all tools →
+        </Link>
+
+        <div className="hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4">
           {toolRegistry.getAll().map((tool) => (
             <ToolCard key={tool.slug} tool={tool} />
           ))}
