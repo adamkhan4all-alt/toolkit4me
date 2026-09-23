@@ -13,6 +13,8 @@ const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m
 const ToolsDirectoryPage = lazy(() => import("./pages/ToolsDirectoryPage").then((m) => ({ default: m.ToolsDirectoryPage })));
 const ToolPageRoute = lazy(() => import("./pages/ToolPage").then((m) => ({ default: m.ToolPageRoute })));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })));
+const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage").then((m) => ({ default: m.PrivacyPolicyPage })));
+const TermsOfServicePage = lazy(() => import("./pages/TermsOfServicePage").then((m) => ({ default: m.TermsOfServicePage })));
 
 /**
  * Routing is intentionally minimal: a single dynamic `/tools/:slug` route
@@ -29,6 +31,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/tools" element={<ToolsDirectoryPage />} />
           <Route path="/tools/:slug" element={<ToolPageRoute />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

@@ -20,14 +20,15 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.resolve(__dirname, "../public");
 
 const staticRoutes = ["/", "/tools"];
+const legalRoutes = ["/privacy", "/terms"];
 const toolRoutes = TOOL_DEFINITIONS.map((t) => `/tools/${t.slug}`);
-const allRoutes = [...staticRoutes, ...toolRoutes];
+const allRoutes = [...staticRoutes, ...toolRoutes, ...legalRoutes];
 
 function buildSitemap(): string {
   const urls = allRoutes
     .map((route) => {
-      const priority = route === "/" ? "1.0" : route === "/tools" ? "0.8" : "0.9";
-      const changefreq = route === "/" || route === "/tools" ? "weekly" : "monthly";
+      const priority = route === "/" ? "1.0" : route === "/tools" ? "0.8" : legalRoutes.includes(route) ? "0.2" : "0.9";
+      const changefreq = route === "/" || route === "/tools" ? "weekly" : legalRoutes.includes(route) ? "yearly" : "monthly";
       return `  <url>
     <loc>${SITE_URL}${route}</loc>
     <changefreq>${changefreq}</changefreq>

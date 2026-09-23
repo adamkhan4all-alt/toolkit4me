@@ -187,6 +187,14 @@ function renderHomeBody(): string {
   </div>`;
 }
 
+function renderLegalBody(title: string, paragraphs: string[]): string {
+  const body = paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
+  return `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
+    <h1>${escapeHtml(title)}</h1>
+    ${body}
+  </div>`;
+}
+
 function renderDirectoryBody(): string {
   const links = TOOL_DEFINITIONS.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`).join(
     "\n"
@@ -245,6 +253,47 @@ writePage(
   renderDirectoryBody()
 );
 
+// --- Legal pages ---
+// Full text lives in the React components (src/pages/PrivacyPolicyPage.tsx
+// / TermsOfServicePage.tsx) for the JS-hydrated experience; this is just a
+// short, real (non-JS) fallback so crawlers/link-preview bots see actual
+// content and correct <head> tags rather than an empty shell.
+writePage(
+  "/privacy",
+  renderHead({
+    route: "/privacy",
+    title: "Privacy Policy — Toolkit4Me",
+    description: "How Toolkit4Me handles the files you process and the data collected while you use our free PDF and image tools.",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Privacy Policy", path: "/privacy" },
+    ],
+  }),
+  renderLegalBody("Privacy Policy", [
+    "Toolkit4Me provides free online tools for converting, compressing, merging, and otherwise processing documents and images, without requiring an account.",
+    "Tools that run entirely in your browser never send your file to our servers. Tools that require server-side processing upload your file over an encrypted connection, use it only to produce the output you requested, and delete it automatically one hour after upload.",
+    "We show ads through Google AdSense, which may use cookies to personalize ads and measure performance. See the full policy for details on your choices, third-party providers, and your rights.",
+  ])
+);
+
+writePage(
+  "/terms",
+  renderHead({
+    route: "/terms",
+    title: "Terms of Service — Toolkit4Me",
+    description: "The terms that apply when you use Toolkit4Me's free online PDF and image tools.",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Terms of Service", path: "/terms" },
+    ],
+  }),
+  renderLegalBody("Terms of Service", [
+    "These Terms govern your use of Toolkit4Me's free, browser-based tools for converting, compressing, merging, and otherwise processing documents and images. No account or payment is required.",
+    "You retain ownership of any file you process through the Service and are responsible for having the rights to it. The Service is provided \"as is,\" without warranties, and our liability is limited accordingly.",
+    "See the full Terms for acceptable use, advertising and third-party links, intellectual property, and how changes to the Service or these Terms are communicated.",
+  ])
+);
+
 // --- Every tool page ---
 for (const tool of TOOL_DEFINITIONS) {
   const route = `/tools/${tool.slug}`;
@@ -265,4 +314,4 @@ for (const tool of TOOL_DEFINITIONS) {
   );
 }
 
-console.log(`prerender: wrote ${2 + TOOL_DEFINITIONS.length} static pages into ${distDir}`);
+console.log(`prerender: wrote ${4 + TOOL_DEFINITIONS.length} static pages into ${distDir}`);

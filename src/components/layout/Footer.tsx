@@ -38,8 +38,8 @@ export function Footer() {
           <h3 className="mb-3 text-sm font-semibold text-neutral-900">Company</h3>
           <ul className="flex flex-col gap-2">
             <li><span className="text-sm text-neutral-600">About</span></li>
-            <li><span className="text-sm text-neutral-600">Privacy Policy</span></li>
-            <li><span className="text-sm text-neutral-600">Terms of Service</span></li>
+            <li><Link to="/privacy" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">Privacy Policy</Link></li>
+            <li><Link to="/terms" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">Terms of Service</Link></li>
             <li><span className="text-sm text-neutral-600">Contact</span></li>
           </ul>
         </div>
