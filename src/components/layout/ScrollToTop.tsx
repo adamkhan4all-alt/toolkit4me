@@ -12,7 +12,11 @@ export function ScrollToTop() {
 
   useEffect(() => {
     if (pathname.startsWith("/tools/")) return;
-    window.scrollTo(0, 0);
+    // Deferred to the next frame rather than called synchronously inside
+    // the effect, so it doesn't force a layout pass in the same tick as
+    // the route's own DOM writes (Lighthouse: "Forced reflow").
+    const id = requestAnimationFrame(() => window.scrollTo(0, 0));
+    return () => cancelAnimationFrame(id);
   }, [pathname]);
 
   return null;

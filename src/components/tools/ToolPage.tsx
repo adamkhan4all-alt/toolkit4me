@@ -1,10 +1,8 @@
-import { useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import type { ToolDefinition } from "../../types/tool";
 import { getClientProcessor } from "../../lib/processing/clientProcessors";
 import { ToolHeader } from "./ToolHeader";
 import { UploadWorkspace } from "./UploadWorkspace";
-import { ClientToolWorkspace } from "./ClientToolWorkspace";
-import { PdfEditorWorkspace } from "./PdfEditorWorkspace";
 import { ToolInstructions } from "./ToolInstructions";
 import { SupportedFormats } from "./SupportedFormats";
 import { PrivacySection } from "./PrivacySection";
@@ -12,6 +10,17 @@ import { FAQ } from "./FAQ";
 import { RelatedTools } from "./RelatedTools";
 import { AdInContent, AdMobile, AdSidebar } from "../ads";
 import { SeoHead } from "../seo/SeoHead";
+import { LoadingState } from "../ui/LoadingState";
+
+// Lazy, not static: both of these (and everything they import — pdf-lib,
+// pdfjs-dist, jspdf) are only needed by the small subset of tools that
+// actually use client-side PDF processing or the PDF editor. ToolPage is
+// the one component every tool route renders, so a static import here
+// put ~220 KiB of PDF-library JS into the bundle for every visitor,
+// including someone on a plain server-backed tool like compress-pdf who
+// never touches either of these (Lighthouse: "Reduce unused JavaScript").
+const ClientToolWorkspace = lazy(() => import("./ClientToolWorkspace").then((m) => ({ default: m.ClientToolWorkspace })));
+const PdfEditorWorkspace = lazy(() => import("./PdfEditorWorkspace").then((m) => ({ default: m.PdfEditorWorkspace })));
 
 /**
  * The generic tool page framework (Phase 2 spec, Section 4). This is the
@@ -58,9 +67,17 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
   useEffect(() => {
     const node = workspaceRef.current;
     if (!node || typeof node.scrollIntoView !== "function") return;
-    const prefersReducedMotion =
-      typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    node.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    // Deferred to the next frame, after the browser has painted this
+    // commit, rather than measuring/scrolling synchronously inside the
+    // effect — scrollIntoView has to read layout to compute its target,
+    // and doing that in the same tick as React's DOM writes is exactly
+    // the "forced reflow" (layout thrashing) pattern Lighthouse flags.
+    const id = requestAnimationFrame(() => {
+      const prefersReducedMotion =
+        typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      node.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    });
+    return () => cancelAnimationFrame(id);
   }, [tool.slug]);
 
   return (
@@ -87,9 +104,13 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
               entry point) a single, stable target. */}
           <div id="tool-workspace" data-tool-workspace ref={workspaceRef} className="scroll-mt-24">
             {tool.id === "pdf-editor" ? (
-              <PdfEditorWorkspace tool={tool} />
+              <Suspense fallback={<LoadingState label="Loading editor…" />}>
+                <PdfEditorWorkspace tool={tool} />
+              </Suspense>
             ) : hasClientProcessor ? (
-              <ClientToolWorkspace tool={tool} />
+              <Suspense fallback={<LoadingState label="Loading…" />}>
+                <ClientToolWorkspace tool={tool} />
+              </Suspense>
             ) : (
               <UploadWorkspace tool={tool} />
             )}
