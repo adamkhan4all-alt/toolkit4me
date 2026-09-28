@@ -5,22 +5,22 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--
-      Warm the connections AdSense's loader script will need (DNS + TCP +
-      TLS) before it's even requested, since it's about to fetch its own
-      impl/companion-ad scripts from these hosts regardless of whether any
-      ad slot has real content yet. This doesn't change what Google caches
-      on its own domains (out of our control — see the AdSense loader
-      comment below) but removes connection setup time from that request
-      chain. crossorigin is required on the googlesyndication.com one
-      since it's fetched via <script crossorigin>; dns-prefetch is a
-      no-cost fallback for browsers that don't support preconnect.
+      Warm the connections AdSense's loader script actually uses (checked
+      against a real Lighthouse trace — see git history for this line).
+      googleads.g.doubleclick.net and tpc.googlesyndication.com were
+      dropped after Lighthouse reported them as unused preconnects (no ad
+      slots are configured yet, so the deeper ad-serving/creative hosts
+      are never hit); fundingchoicesmessages.google.com was added after
+      Lighthouse flagged it as a real ~80ms LCP opportunity — it's
+      Google's consent-management script, auto-loaded by the AdSense
+      loader itself, not something we invoke directly. Re-check this list
+      against a real trace if ad behavior changes (e.g. once real slot
+      IDs are added) rather than assuming it's still accurate.
     -->
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-    <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
-    <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
-    <link rel="preconnect" href="https://tpc.googlesyndication.com" />
-    <link rel="dns-prefetch" href="https://tpc.googlesyndication.com" />
+    <link rel="preconnect" href="https://fundingchoicesmessages.google.com" />
+    <link rel="dns-prefetch" href="https://fundingchoicesmessages.google.com" />
     <!--
       Google AdSense site-verification/loader script. Present in <head> on
       every page (prerender.ts only rewrites title/description/canonical/

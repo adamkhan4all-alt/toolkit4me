@@ -21,7 +21,7 @@ export function DimensionsBadge({ file }: { file: File }) {
 
   if (!dims) return null;
   return (
-    <span className="text-xs text-neutral-400">
+    <span className="text-xs text-neutral-600">
       {dims.width} × {dims.height} px
     </span>
   );

@@ -28,7 +28,7 @@ export function ProcessingState(props: ProcessingStateProps) {
       ) : (
         <>
           <ProgressIndicator variant="indeterminate" label="Processing your file…" />
-          <p className="text-xs text-neutral-400">Usually takes a few seconds</p>
+          <p className="text-xs text-neutral-600">Usually takes a few seconds</p>
         </>
       )}
       <Button variant="secondary" onClick={props.onCancel}>

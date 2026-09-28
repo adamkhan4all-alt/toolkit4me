@@ -125,7 +125,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                   onClick={() => setExpanded(isOpen ? null : category)}
                 >
                   {CATEGORY_LABELS[category]}
-                  <span aria-hidden="true" className="text-neutral-400">{isOpen ? "−" : "+"}</span>
+                  <span aria-hidden="true" className="text-neutral-600">{isOpen ? "−" : "+"}</span>
                 </button>
                 {isOpen && (
                   <div className="flex flex-col pb-2 pl-2">

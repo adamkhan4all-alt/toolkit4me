@@ -10,15 +10,15 @@ export function SupportedFormats({ tool }: { tool: ToolDefinition }) {
       <div className="rounded-lg border border-neutral-200 bg-white p-4">
         <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div>
-            <dt className="text-xs font-semibold tracking-wide text-neutral-400 uppercase">Accepts</dt>
+            <dt className="text-xs font-semibold tracking-wide text-neutral-600 uppercase">Accepts</dt>
             <dd className="mt-1 text-sm text-neutral-900">{tool.acceptedFormats.join(", ")}</dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold tracking-wide text-neutral-400 uppercase">Max file size</dt>
+            <dt className="text-xs font-semibold tracking-wide text-neutral-600 uppercase">Max file size</dt>
             <dd className="mt-1 text-sm text-neutral-900">{tool.maxFileSize}MB per file</dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold tracking-wide text-neutral-400 uppercase">Output</dt>
+            <dt className="text-xs font-semibold tracking-wide text-neutral-600 uppercase">Output</dt>
             <dd className="mt-1 text-sm text-neutral-900">.{tool.outputExtension}</dd>
           </div>
         </dl>

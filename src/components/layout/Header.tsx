@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MobileNav } from "./MobileNav";
 import { SearchBar } from "./SearchBar";
 import { CATEGORIES, CATEGORY_LABELS } from "../../types/tool";
 
+// Lazy: MobileNav (accordion, focus trap, its own SearchBar instance) is
+// only needed on screens narrow enough to hide the desktop nav, and only
+// once someone actually opens it — but Header renders on every single
+// page, so a static import here put that code in the main bundle for
+// every visitor regardless of viewport (Lighthouse: "Reduce unused
+// JavaScript"). `mobileNavMounted` below gates the *first* mount on the
+// first tap of the hamburger button; once mounted it stays mounted for
+// the rest of the session (matching the previous always-mounted
+// behavior) so open/close and focus-restore keep working exactly as
+// before on every subsequent toggle.
+const MobileNav = lazy(() => import("./MobileNav").then((m) => ({ default: m.MobileNav })));
+
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileNavMounted, setMobileNavMounted] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -45,7 +57,10 @@ export function Header() {
             className="focus-ring flex h-10 w-10 items-center justify-center rounded-md text-neutral-600 hover:bg-neutral-100 md:hidden"
             aria-label="Open menu"
             aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen(true)}
+            onClick={() => {
+              setMobileNavMounted(true);
+              setMobileOpen(true);
+            }}
           >
             ☰
           </button>
@@ -64,7 +79,11 @@ export function Header() {
         </div>
       )}
 
-      <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      {mobileNavMounted && (
+        <Suspense fallback={null}>
+          <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
+        </Suspense>
+      )}
     </header>
   );
 }

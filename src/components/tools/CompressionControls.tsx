@@ -65,7 +65,7 @@ export function CompressionControls({
           className="focus-ring h-2 w-full cursor-pointer accent-[var(--color-brand-600)] disabled:cursor-not-allowed disabled:opacity-50"
           aria-valuetext={`${quality}%`}
         />
-        <div className="mt-1 flex justify-between text-xs text-neutral-400">
+        <div className="mt-1 flex justify-between text-xs text-neutral-600">
           <span>Smaller file</span>
           <span>Higher quality</span>
         </div>
@@ -87,7 +87,7 @@ export function CompressionControls({
           />
           <span className="shrink-0 text-sm text-neutral-600">px wide</span>
         </div>
-        <p className="mt-1 text-xs text-neutral-400">Leave blank to keep the original dimensions.</p>
+        <p className="mt-1 text-xs text-neutral-600">Leave blank to keep the original dimensions.</p>
       </div>
     </div>
   );

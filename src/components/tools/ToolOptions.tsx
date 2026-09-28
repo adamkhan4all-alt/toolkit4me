@@ -27,7 +27,7 @@ export function ToolOptions({ options, values, onChange }: ToolOptionsProps) {
                 onChange={(e) => onChange(option.id, e.target.value)}
                 className="focus-ring h-11 w-full rounded-[var(--radius-control)] border border-neutral-200 bg-white px-3 text-sm text-neutral-900"
               />
-              {option.helpText && <p className="mt-1.5 text-xs text-neutral-400">{option.helpText}</p>}
+              {option.helpText && <p className="mt-1.5 text-xs text-neutral-600">{option.helpText}</p>}
             </>
           ) : option.type === "select" ? (
             <select

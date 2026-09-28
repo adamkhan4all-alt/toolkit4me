@@ -225,18 +225,18 @@ export function ClientToolWorkspace({ tool }: { tool: ToolDefinition }) {
                     <p className="text-sm text-neutral-600">
                       Estimated output size:{" "}
                       {estimating ? (
-                        <span className="text-neutral-400">calculating…</span>
+                        <span className="text-neutral-600">calculating…</span>
                       ) : estimatedSize !== null ? (
                         <span className="font-medium text-neutral-900">
                           {formatFileSize(estimatedSize)}
                           {files[0].size > 0 && (
-                            <span className="ml-1 text-neutral-400">
+                            <span className="ml-1 text-neutral-600">
                               (original {formatFileSize(files[0].size)})
                             </span>
                           )}
                         </span>
                       ) : (
-                        <span className="text-neutral-400">unavailable</span>
+                        <span className="text-neutral-600">unavailable</span>
                       )}
                     </p>
                   )}
@@ -261,7 +261,7 @@ export function ClientToolWorkspace({ tool }: { tool: ToolDefinition }) {
                     ))}
                   </select>
                   {files.length > 1 && (
-                    <p className="mt-2 text-xs text-neutral-400">Use the ▲▼ controls above to reorder pages.</p>
+                    <p className="mt-2 text-xs text-neutral-600">Use the ▲▼ controls above to reorder pages.</p>
                   )}
                 </div>
               )}
@@ -287,7 +287,7 @@ export function ClientToolWorkspace({ tool }: { tool: ToolDefinition }) {
       {state === "processing" && (
         <div className="flex flex-col items-center gap-4 py-4 text-center">
           <ProgressIndicator variant="indeterminate" label="Processing your file…" />
-          <p className="text-xs text-neutral-400">Running locally in your browser — usually just a moment</p>
+          <p className="text-xs text-neutral-600">Running locally in your browser — usually just a moment</p>
           <Button variant="secondary" onClick={cancel}>
             Cancel
           </Button>

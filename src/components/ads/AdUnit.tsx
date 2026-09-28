@@ -53,7 +53,7 @@ export function AdUnit({ placement, boxClassName, wrapperClassName = "my-8", for
     <div className={wrapperClassName} data-ad-placement={placement}>
       <div className="flex flex-col items-center gap-1.5">
         <span
-          className="text-[10px] font-medium tracking-wide text-neutral-400 uppercase select-none"
+          className="text-[10px] font-medium tracking-wide text-neutral-600 uppercase select-none"
           aria-hidden="true"
         >
           Advertisement
@@ -73,7 +73,7 @@ export function AdUnit({ placement, boxClassName, wrapperClassName = "my-8", for
               data-full-width-responsive={responsive ? "true" : "false"}
             />
           ) : (
-            <span className="px-3 text-center text-xs font-medium text-neutral-400 select-none" aria-hidden="true">
+            <span className="px-3 text-center text-xs font-medium text-neutral-600 select-none" aria-hidden="true">
               Ad space — {placement}
             </span>
           )}

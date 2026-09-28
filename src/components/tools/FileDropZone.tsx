@@ -59,7 +59,7 @@ export function FileDropZone({
         <p className="text-base font-semibold text-neutral-900">Drag &amp; drop your file{multiple ? "s" : ""} here</p>
         <p className="text-sm text-neutral-600">or click to browse</p>
       </div>
-      <p className="text-xs text-neutral-400">
+      <p className="text-xs text-neutral-600">
         Supported format{acceptedFormats.length > 1 ? "s" : ""}: {acceptedFormats.join(", ")} · Max size: {maxFileSizeMB}MB
       </p>
       <input

@@ -12,7 +12,7 @@ export function PrivacyNotice({ processingMode }: { processingMode: ProcessingMo
       : "Your file is transferred securely and automatically deleted from our servers after 1 hour.";
 
   return (
-    <p className="flex items-center gap-1.5 text-xs text-neutral-400">
+    <p className="flex items-center gap-1.5 text-xs text-neutral-600">
       <span aria-hidden="true">🔒</span>
       {message}
     </p>

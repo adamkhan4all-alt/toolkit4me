@@ -85,7 +85,7 @@ export function HomePage() {
                   {CATEGORY_LABELS[category]}
                 </h3>
                 <p className="text-sm text-neutral-600">{categoryDescriptions[category]}</p>
-                <span className="mt-1 text-xs font-medium text-neutral-400">
+                <span className="mt-1 text-xs font-medium text-neutral-600">
                   {count} {count === 1 ? "tool" : "tools"}
                 </span>
               </Link>
@@ -143,17 +143,17 @@ export function HomePage() {
         <h2 className="text-2xl font-semibold text-neutral-900">About our tools</h2>
         <p className="text-sm leading-6 text-neutral-600">
           Our platform brings together the everyday document and image tools people need most, from{" "}
-          <a href="/tools/pdf-to-word" className="text-brand-600 hover:underline">PDF to Word</a> and{" "}
-          <a href="/tools/word-to-pdf" className="text-brand-600 hover:underline">Word to PDF</a> conversion to{" "}
-          <a href="/tools/compress-pdf" className="text-brand-600 hover:underline">PDF compression</a> and{" "}
-          <a href="/tools/merge-pdf" className="text-brand-600 hover:underline">merging</a>. Everything runs directly
+          <a href="/tools/pdf-to-word" className="text-brand-600 underline hover:text-brand-700">PDF to Word</a> and{" "}
+          <a href="/tools/word-to-pdf" className="text-brand-600 underline hover:text-brand-700">Word to PDF</a> conversion to{" "}
+          <a href="/tools/compress-pdf" className="text-brand-600 underline hover:text-brand-700">PDF compression</a> and{" "}
+          <a href="/tools/merge-pdf" className="text-brand-600 underline hover:text-brand-700">merging</a>. Everything runs directly
           in your browser — no software to install and no account required.
         </p>
         <p className="text-sm leading-6 text-neutral-600">
           Working with images? Convert between{" "}
-          <a href="/tools/jpg-to-png" className="text-brand-600 hover:underline">JPG and PNG</a>, turn scans into
-          searchable text with our <a href="/tools/image-to-text" className="text-brand-600 hover:underline">OCR tool</a>,
-          or shrink large photos with <a href="/tools/compress-image" className="text-brand-600 hover:underline">Compress
+          <a href="/tools/jpg-to-png" className="text-brand-600 underline hover:text-brand-700">JPG and PNG</a>, turn scans into
+          searchable text with our <a href="/tools/image-to-text" className="text-brand-600 underline hover:text-brand-700">OCR tool</a>,
+          or shrink large photos with <a href="/tools/compress-image" className="text-brand-600 underline hover:text-brand-700">Compress
           Image</a>. Every file you upload is processed securely and removed from our servers automatically.
         </p>
       </section>
