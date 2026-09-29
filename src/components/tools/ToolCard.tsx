@@ -18,7 +18,7 @@ export function ToolCard({ tool }: { tool: ToolDefinition }) {
     >
       <span
         aria-hidden="true"
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-brand-50 text-sm font-semibold tracking-tight text-brand-700 sm:h-auto sm:w-fit sm:px-2.5 sm:py-1 sm:text-xs"
+        className="inline-flex h-9 w-fit shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-brand-50 px-2 text-xs font-semibold tracking-tight text-brand-700 sm:h-auto sm:px-2.5 sm:py-1"
       >
         {tool.icon}
       </span>
