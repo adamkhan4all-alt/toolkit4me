@@ -123,8 +123,8 @@ export function TermsOfServicePage() {
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">Contact us</h2>
           <p>
             Questions about these Terms? Contact us at{" "}
-            <a href="mailto:adamkhan4all@gmail.com" className="text-brand-600 underline hover:text-brand-700">
-              adamkhan4all@gmail.com
+            <a href="mailto:toolkit4me@gmail.com" className="text-brand-600 underline hover:text-brand-700">
+              toolkit4me@gmail.com
             </a>
             .
           </p>

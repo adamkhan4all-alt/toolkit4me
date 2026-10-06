@@ -328,7 +328,7 @@ writePage(
     ],
   }),
   renderLegalBody("Contact", [
-    "Reach us at adamkhan4all@gmail.com for a bug report, a tool request, a privacy question, or anything else about the site.",
+    "Reach us at toolkit4me@gmail.com for a bug report, a tool request, a privacy question, or anything else about the site.",
   ])
 );
 

@@ -15,8 +15,8 @@ export function ContactPage() {
       <div className="flex flex-col gap-6 text-sm leading-6 text-neutral-700">
         <p>
           Reach us at{" "}
-          <a href="mailto:adamkhan4all@gmail.com" className="text-brand-600 underline hover:text-brand-700">
-            adamkhan4all@gmail.com
+          <a href="mailto:toolkit4me@gmail.com" className="text-brand-600 underline hover:text-brand-700">
+            toolkit4me@gmail.com
           </a>{" "}
           for any of the following:
         </p>
