@@ -294,6 +294,44 @@ writePage(
   ])
 );
 
+// --- About / Contact ---
+// renderLegalBody is a generic "title + paragraphs" renderer despite the
+// name (it was only ever legal-pages-specific by usage, not by code) —
+// reused as-is rather than adding a near-identical second function.
+writePage(
+  "/about",
+  renderHead({
+    route: "/about",
+    title: "About Toolkit4Me",
+    description: "What Toolkit4Me is, how it processes your files, and the principles behind it — free PDF and image tools with no account required.",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "About", path: "/about" },
+    ],
+  }),
+  renderLegalBody("About Toolkit4Me", [
+    "Toolkit4Me is a collection of free, browser-based tools for everyday document and image tasks -- converting a PDF to Word, merging PDFs, compressing a photo, pulling text out of a scan. No account, subscription, or email address required.",
+    "Some tools run entirely in your browser and never upload your file anywhere. Tools that need server-side processing upload your file over an encrypted connection and delete it automatically one hour later, whether or not you downloaded the result.",
+    "The site is supported by advertising rather than paywalls, so every tool stays free and fully usable.",
+  ])
+);
+
+writePage(
+  "/contact",
+  renderHead({
+    route: "/contact",
+    title: "Contact Toolkit4Me",
+    description: "Get in touch with Toolkit4Me — bug reports, tool requests, or privacy questions.",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Contact", path: "/contact" },
+    ],
+  }),
+  renderLegalBody("Contact", [
+    "Reach us at adamkhan4all@gmail.com for a bug report, a tool request, a privacy question, or anything else about the site.",
+  ])
+);
+
 // --- Every tool page ---
 for (const tool of TOOL_DEFINITIONS) {
   const route = `/tools/${tool.slug}`;
@@ -314,4 +352,4 @@ for (const tool of TOOL_DEFINITIONS) {
   );
 }
 
-console.log(`prerender: wrote ${4 + TOOL_DEFINITIONS.length} static pages into ${distDir}`);
+console.log(`prerender: wrote ${6 + TOOL_DEFINITIONS.length} static pages into ${distDir}`);

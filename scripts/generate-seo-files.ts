@@ -21,14 +21,27 @@ const publicDir = path.resolve(__dirname, "../public");
 
 const staticRoutes = ["/", "/tools"];
 const legalRoutes = ["/privacy", "/terms"];
+const infoRoutes = ["/about", "/contact"];
 const toolRoutes = TOOL_DEFINITIONS.map((t) => `/tools/${t.slug}`);
-const allRoutes = [...staticRoutes, ...toolRoutes, ...legalRoutes];
+const allRoutes = [...staticRoutes, ...toolRoutes, ...infoRoutes, ...legalRoutes];
 
 function buildSitemap(): string {
   const urls = allRoutes
     .map((route) => {
-      const priority = route === "/" ? "1.0" : route === "/tools" ? "0.8" : legalRoutes.includes(route) ? "0.2" : "0.9";
-      const changefreq = route === "/" || route === "/tools" ? "weekly" : legalRoutes.includes(route) ? "yearly" : "monthly";
+      const priority = route === "/"
+        ? "1.0"
+        : route === "/tools"
+          ? "0.8"
+          : legalRoutes.includes(route)
+            ? "0.2"
+            : infoRoutes.includes(route)
+              ? "0.4"
+              : "0.9";
+      const changefreq = route === "/" || route === "/tools"
+        ? "weekly"
+        : legalRoutes.includes(route) || infoRoutes.includes(route)
+          ? "yearly"
+          : "monthly";
       return `  <url>
     <loc>${SITE_URL}${route}</loc>
     <changefreq>${changefreq}</changefreq>
