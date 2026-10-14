@@ -24,18 +24,16 @@ export interface AdUnitProps {
  *   - reads config only from src/config/ads.ts — no publisher/slot ID is
  *     ever hard-coded in a page or component
  *   - renders a real AdSense unit only when that placement is fully
- *     configured (isAdReady) and the master switch is on; otherwise a
- *     clearly-labeled, non-interactive development placeholder
- *   - always shows an explicit "Advertisement" label in normal document
- *     flow (not overlaid), so labeled space is part of the reserved
- *     layout and can never visually merge with real content or controls
+ *     configured (isAdReady) and the master switch is on; otherwise
+ *     nothing at all in production (see the early return below), or a
+ *     clearly-labeled, non-interactive placeholder in local dev only
  *   - the ad box itself is non-interactive chrome (dashed border, muted
  *     background) in dev, and a neutral bordered frame around the real
  *     unit in production — neither is ever styled with the app's
  *     button/CTA treatment (brand color fill, pill shape, download/
  *     upload iconography), so an ad can never be mistaken for app UI
  *   - fixed/reserved box dimensions per placement prevent layout shift
- *     whether or not a real ad fills
+ *     once a real ad fills
  */
 export function AdUnit({ placement, boxClassName, wrapperClassName = "my-8", format = "auto", responsive = true }: AdUnitProps) {
   const ready = isAdReady(placement);
@@ -48,6 +46,16 @@ export function AdUnit({ placement, boxClassName, wrapperClassName = "my-8", for
     const id = window.setTimeout(() => requestAdFill(), 0);
     return () => window.clearTimeout(id);
   }, [ready]);
+
+  // In production, render nothing at all until this placement has a real
+  // ad slot configured. An empty, dashed "Ad space — banner" box labeled
+  // "ADVERTISEMENT" was visible on every page of the live site the whole
+  // time AdSense approval was pending (no VITE_AD_SLOT_* is set yet) —
+  // exactly the kind of unfinished-looking placeholder a site-quality
+  // review flags, and twice in a row did. Still shown in local dev
+  // (`import.meta.env.DEV`) so the reserved layout space stays visible
+  // while building a new placement.
+  if (!ready && !import.meta.env.DEV) return null;
 
   return (
     <div className={wrapperClassName} data-ad-placement={placement}>
