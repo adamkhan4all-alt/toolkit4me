@@ -14,16 +14,18 @@ import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { TOOL_DEFINITIONS } from "../src/data/tools";
+import { GUIDES } from "../src/data/guides";
 import { SITE_URL } from "../src/config/site";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.resolve(__dirname, "../public");
 
-const staticRoutes = ["/", "/tools"];
+const staticRoutes = ["/", "/tools", "/guides"];
 const legalRoutes = ["/privacy", "/terms"];
 const infoRoutes = ["/about", "/contact"];
 const toolRoutes = TOOL_DEFINITIONS.map((t) => `/tools/${t.slug}`);
-const allRoutes = [...staticRoutes, ...toolRoutes, ...infoRoutes, ...legalRoutes];
+const guideRoutes = GUIDES.map((g) => g.path);
+const allRoutes = [...staticRoutes, ...toolRoutes, ...guideRoutes, ...infoRoutes, ...legalRoutes];
 
 function buildSitemap(): string {
   const urls = allRoutes

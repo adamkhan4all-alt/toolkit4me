@@ -41,6 +41,9 @@ export function Header() {
               {CATEGORY_LABELS[category]}
             </Link>
           ))}
+          <Link to="/guides" className="focus-ring rounded text-sm font-medium text-neutral-600 hover:text-brand-600">
+            Guides
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">

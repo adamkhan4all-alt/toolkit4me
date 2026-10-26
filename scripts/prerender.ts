@@ -33,6 +33,7 @@ import { TOOL_DEFINITIONS } from "../src/data/tools";
 import { toolRegistry } from "../src/lib/toolRegistry";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from "../src/config/site";
 import type { ToolDefinition } from "../src/types/tool";
+import { GUIDES, type GuideDefinition } from "../src/data/guides";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, "../dist");
@@ -179,11 +180,60 @@ function renderToolBody(tool: ToolDefinition): string {
 
 function renderHomeBody(): string {
   const links = TOOL_DEFINITIONS.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a></li>`).join("\n");
+  const guideLinks = GUIDES.map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a> — ${escapeHtml(g.summary)}</li>`).join("\n");
   return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
     <h1>Free Online PDF &amp; Image Tools</h1>
     <p>Convert, compress and process your documents and images quickly and securely.</p>
     <h2>Popular tools</h2>
     <ul>${links}</ul>
+    <h2>Guides &amp; tips</h2>
+    <ul>${guideLinks}</ul>
+  </div>`;
+}
+
+function renderGuidesIndexBody(): string {
+  const links = GUIDES.map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a> — ${escapeHtml(g.summary)}</li>`).join("\n");
+  return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
+    ${renderBreadcrumbNav([
+      { name: "Home", path: "/" },
+      { name: "Guides", path: "/guides" },
+    ])}
+    <h1>Guides</h1>
+    <p>Practical explanations of the file formats and tasks behind our tools — why files get large, which format to pick, and how to get the cleanest result.</p>
+    <ul>${links}</ul>
+  </div>`;
+}
+
+function guideBreadcrumbs(guide: GuideDefinition) {
+  return [
+    { name: "Home", path: "/" },
+    { name: "Guides", path: "/guides" },
+    { name: guide.title, path: guide.path },
+  ];
+}
+
+function renderGuideBody(guide: GuideDefinition): string {
+  const sections = guide.sections
+    .map((s) => {
+      const heading = s.heading ? `<h2>${escapeHtml(s.heading)}</h2>` : "";
+      const paragraphs = (s.paragraphs ?? []).map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
+      const list = s.list ? `<ul>${s.list.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n")}</ul>` : "";
+      return `${heading}\n${paragraphs}\n${list}`;
+    })
+    .join("\n");
+  const related = (guide.relatedTools ?? [])
+    .map((slug) => toolRegistry.getBySlug(slug))
+    .filter((t) => t !== undefined)
+    .map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a></li>`)
+    .join("\n");
+
+  return `<div style="max-width:760px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
+    ${renderBreadcrumbNav(guideBreadcrumbs(guide))}
+    <h1>${escapeHtml(guide.title)}</h1>
+    <p><small>Last updated: ${escapeHtml(guide.updated)}</small></p>
+    <p>${escapeHtml(guide.summary)}</p>
+    ${sections}
+    ${related ? `<h2>Related tools</h2>\n<ul>${related}</ul>` : ""}
   </div>`;
 }
 
@@ -352,4 +402,27 @@ for (const tool of TOOL_DEFINITIONS) {
   );
 }
 
-console.log(`prerender: wrote ${6 + TOOL_DEFINITIONS.length} static pages into ${distDir}`);
+// --- Guides index + every guide ---
+writePage(
+  "/guides",
+  renderHead({
+    route: "/guides",
+    title: "Guides — PDF & Image How-Tos | Toolkit4Me",
+    description: "Practical, plain-English guides to working with PDFs and images: shrinking files, choosing formats, OCR, merging and password protection.",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Guides", path: "/guides" },
+    ],
+  }),
+  renderGuidesIndexBody()
+);
+
+for (const guide of GUIDES) {
+  writePage(
+    guide.path,
+    renderHead({ route: guide.path, title: guide.seoTitle, description: guide.metaDescription, breadcrumbs: guideBreadcrumbs(guide) }),
+    renderGuideBody(guide)
+  );
+}
+
+console.log(`prerender: wrote ${7 + TOOL_DEFINITIONS.length + GUIDES.length} static pages into ${distDir}`);

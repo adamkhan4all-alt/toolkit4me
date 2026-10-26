@@ -22,47 +22,17 @@
     <link rel="preconnect" href="https://fundingchoicesmessages.google.com" />
     <link rel="dns-prefetch" href="https://fundingchoicesmessages.google.com" />
     <!--
-      Google AdSense loader, deferred to `window.load` instead of fetched
-      immediately (2026-09-28 Lighthouse mobile run: this ~289 KiB script
-      chain -- loader + impl + consent -- was competing with our own
-      content for bandwidth during the LCP window, for zero ad revenue
-      since no ad slot IDs are configured yet). Accepted trade-off: the
-      literal <script src="...pagead2...adsbygoogle.js..."> tag AdSense's
-      setup instructions ask for is no longer present verbatim in the raw
-      HTML -- if this site is mid-way through Google's site-verification/
-      account-approval flow and that stalls or fails, revert to a plain
-      static tag (see git history for this block) until approval is
-      confirmed, then re-defer.
-
-      Present on every page (prerender.ts only rewrites title/description/
-      canonical/og/twitter tags — see writePage() — so this survives
-      untouched into every prerendered route). The dedup guard here
-      matches src/lib/adsense.ts's ensureAdSenseScript(): whichever of the
-      two runs first (this, on window.load — or an ad component mounting
-      sooner via useEffect) wins, and the other becomes a no-op, so ads
-      still work correctly regardless of load timing once real slot IDs
-      exist. Client ID must stay in sync with VITE_ADSENSE_CLIENT_ID in
-      .env.production (src/config/ads.ts is the single source of truth
-      for every other consumer).
+      Google AdSense code, exactly as given in the AdSense dashboard. Kept
+      as a literal static tag (not deferred/injected by JS) while the site
+      is in AdSense review, so the reviewer finds it in the raw HTML of
+      every prerendered page (prerender.ts only rewrites title/description/
+      canonical/og/twitter tags, so this survives into every route).
+      src/lib/adsense.ts detects this tag and never injects a second copy.
+      Client ID must stay in sync with VITE_ADSENSE_CLIENT_ID in
+      .env.production.
     -->
-    <script>
-      (function () {
-        function loadAdSense() {
-          if (document.querySelector('script[data-adsbygoogle-loader="true"]')) return;
-          var s = document.createElement("script");
-          s.async = true;
-          s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6133117250071116";
-          s.crossOrigin = "anonymous";
-          s.setAttribute("data-adsbygoogle-loader", "true");
-          document.head.appendChild(s);
-        }
-        if (document.readyState === "complete") {
-          loadAdSense();
-        } else {
-          window.addEventListener("load", loadAdSense);
-        }
-      })();
-    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6133117250071116"
+     crossorigin="anonymous"></script>
     <!--
       This <head> is the CSR fallback for the root document, replaced at
       runtime per-route by <SeoHead> (src/components/seo/SeoHead.tsx) via

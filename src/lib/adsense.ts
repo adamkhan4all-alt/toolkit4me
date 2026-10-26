@@ -18,7 +18,8 @@ let scriptInjected = false;
 /** Injects the AdSense loader script into <head> once per page load. Safe to call repeatedly — no-ops after the first successful call. */
 export function ensureAdSenseScript(): void {
   if (scriptInjected || !ADS_ENABLED || !ADSENSE_CLIENT_ID) return;
-  if (document.querySelector('script[data-adsbygoogle-loader="true"]')) {
+  // index.html ships the loader as a static tag; never add a second copy.
+  if (document.querySelector('script[data-adsbygoogle-loader="true"], script[src*="adsbygoogle.js"]')) {
     scriptInjected = true;
     return;
   }

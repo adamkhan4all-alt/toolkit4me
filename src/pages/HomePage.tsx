@@ -5,6 +5,7 @@ import { AdBanner, AdInContent, AdMobile } from "../components/ads";
 import { SeoHead } from "../components/seo/SeoHead";
 import { toolRegistry } from "../lib/toolRegistry";
 import { CATEGORIES, CATEGORY_LABELS } from "../types/tool";
+import { GUIDES } from "../data/guides";
 
 const categoryIcons: Record<string, string> = {
   convert: "⇄",
@@ -156,6 +157,27 @@ export function HomePage() {
           or shrink large photos with <a href="/tools/compress-image" className="text-brand-600 underline hover:text-brand-700">Compress
           Image</a>. Every file you upload is processed securely and removed from our servers automatically.
         </p>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+        <div className="mb-6 flex items-baseline justify-between gap-4">
+          <h2 className="text-2xl font-semibold text-neutral-900">Guides &amp; tips</h2>
+          <Link to="/guides" className="focus-ring rounded text-sm font-medium text-brand-700 hover:underline">
+            All guides →
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {GUIDES.slice(0, 3).map((guide) => (
+            <Link
+              key={guide.path}
+              to={guide.path}
+              className="focus-ring group flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-brand-600"
+            >
+              <h3 className="text-base font-semibold text-neutral-900 group-hover:text-brand-600">{guide.title}</h3>
+              <p className="text-sm leading-6 text-neutral-600">{guide.summary}</p>
+            </Link>
+          ))}
+        </div>
       </section>
     </div>
   );

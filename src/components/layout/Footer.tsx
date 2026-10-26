@@ -48,6 +48,7 @@ export function Footer() {
           <h3 className="mb-3 text-sm font-semibold text-neutral-900">Resources</h3>
           <ul className="flex flex-col gap-2">
             <li><Link to="/tools" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">All Tools</Link></li>
+            <li><Link to="/guides" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">Guides</Link></li>
           </ul>
         </div>
       </div>

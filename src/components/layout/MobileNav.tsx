@@ -111,6 +111,13 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         >
           All Tools
         </Link>
+        <Link
+          to="/guides"
+          onClick={onClose}
+          className="focus-ring rounded-md px-2 py-3 text-base font-semibold text-neutral-900 hover:bg-neutral-100"
+        >
+          Guides
+        </Link>
 
         <div className="mt-2 flex flex-col divide-y divide-neutral-200 border-t border-neutral-200">
           {CATEGORIES.map((category) => {
