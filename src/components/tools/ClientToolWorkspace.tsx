@@ -46,9 +46,9 @@ export function ClientToolWorkspace({ tool }: { tool: ToolDefinition }) {
   // jpg-to-pdf controls
   const [pageSize, setPageSize] = useState<PdfPageSize>("a4");
 
-  // split-pdf controls — reuses the same generic ToolOptions component
-  // SERVER-mode tools use, driven by tool.options from the ToolDefinition.
-  const [splitOptionValues, setSplitOptionValues] = useState<Record<string, string>>(
+  // Schema-driven controls (split-pdf, image-resizer, …) — the same generic
+  // ToolOptions component SERVER-mode tools use, driven by tool.options.
+  const [optionValues, setOptionValues] = useState<Record<string, string>>(
     () => Object.fromEntries((tool.options ?? []).map((o) => [o.id, o.defaultValue]))
   );
 
@@ -58,7 +58,8 @@ export function ClientToolWorkspace({ tool }: { tool: ToolDefinition }) {
 
   const isCompress = tool.id === "compress-image";
   const isPdf = tool.id === "jpg-to-pdf";
-  const isSplit = tool.id === "split-pdf";
+  // compress-image and jpg-to-pdf have dedicated controls above; every other tool's options render generically.
+  const hasGenericOptions = !isCompress && !isPdf && Boolean(tool.options?.length);
 
   // Load original dimensions for the live compression estimate.
   useEffect(() => {
@@ -160,9 +161,10 @@ export function ClientToolWorkspace({ tool }: { tool: ToolDefinition }) {
       outputFormat,
       maxWidth: maxWidth ?? undefined,
       pageSize,
-      mode: splitOptionValues.mode,
-      ranges: splitOptionValues.ranges,
-      everyN: splitOptionValues.everyN,
+      mode: optionValues.mode,
+      ranges: optionValues.ranges,
+      everyN: optionValues.everyN,
+      values: optionValues,
     });
   };
 
@@ -266,11 +268,11 @@ export function ClientToolWorkspace({ tool }: { tool: ToolDefinition }) {
                 </div>
               )}
 
-              {isSplit && tool.options && (
+              {hasGenericOptions && tool.options && (
                 <ToolOptions
                   options={tool.options}
-                  values={splitOptionValues}
-                  onChange={(id, value) => setSplitOptionValues((prev) => ({ ...prev, [id]: value }))}
+                  values={optionValues}
+                  onChange={(id, value) => setOptionValues((prev) => ({ ...prev, [id]: value }))}
                 />
               )}
             </div>

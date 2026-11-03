@@ -5,6 +5,7 @@
 // ---------------------------------------------------------------------
 
 import type { ToolDefinition } from "../types/tool";
+import { UTILITY_TOOLS } from "./utilityTools";
 
 export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
@@ -1138,4 +1139,5 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       keywords: ["unprotect pdf", "remove pdf restrictions", "remove pdf printing restriction free"],
     },
   },
+  ...UTILITY_TOOLS,
 ];

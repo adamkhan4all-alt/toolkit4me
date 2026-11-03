@@ -16,6 +16,8 @@ const categoryIcons: Record<string, string> = {
   ocr: "🔎",
   edit: "✎",
   security: "🔒",
+  text: "¶",
+  web: "</>",
 };
 
 const categoryDescriptions: Record<string, string> = {
@@ -25,6 +27,8 @@ const categoryDescriptions: Record<string, string> = {
   ocr: "Pull editable text out of scans and images.",
   edit: "Make direct changes to your documents.",
   security: "Protect, lock, and unlock your files.",
+  text: "Count, compare and check your writing.",
+  web: "Format, encode and generate for the web.",
 };
 
 const trustPoints = [

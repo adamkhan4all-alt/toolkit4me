@@ -8,7 +8,7 @@
 // ---------------------------------------------------------------------
 
 import { buildPdfFromImages, type PdfPageSize } from "./pdfProcessing";
-import { convertImage, extensionForFormat, replaceExtension } from "./imageProcessing";
+import { convertImage, extensionForFormat, ImageProcessingError, replaceExtension, type ImageFormat } from "./imageProcessing";
 import { splitPdf } from "./pdfSplit";
 
 export interface ClientProcessOutput {
@@ -33,7 +33,47 @@ export interface ClientProcessorOptions {
   mode?: string;
   ranges?: string;
   everyN?: string;
+  /** Raw values of the tool's schema-driven options (ToolDefinition.options), keyed by option id. */
+  values?: Record<string, string>;
 }
+
+/** Parses an optional whole-number field ("" means not set). */
+function optionalPixels(raw: string | undefined, label: string): number | undefined {
+  const value = (raw ?? "").trim();
+  if (!value) return undefined;
+  if (!/^\d+$/.test(value) || Number(value) < 1 || Number(value) > 20000) {
+    throw new ImageProcessingError(`${label} must be a whole number of pixels between 1 and 20,000.`);
+  }
+  return Number(value);
+}
+
+function outputFormatFor(choice: string | undefined, file: File): ImageFormat {
+  if (choice === "jpeg" || choice === "png" || choice === "webp") return choice;
+  if (file.type === "image/png") return "png";
+  if (file.type === "image/webp") return "webp";
+  return "jpeg";
+}
+
+const resizeImage: ClientProcessor = async (files, options) => {
+  const v = options.values ?? {};
+  const width = optionalPixels(v.width, "Width");
+  const height = optionalPixels(v.height, "Height");
+  const fit = v.fit === "exact" ? "exact" : "contain";
+  const results: ClientProcessOutput[] = [];
+  for (const file of files) {
+    const format = outputFormatFor(v.outputFormat, file);
+    const { blob, width: w, height: h } = await convertImage(file, { format, quality: 0.92, resize: { width, height, fit } });
+    results.push({
+      fileName: `${file.name.replace(/\.[^/.]+$/, "")}-${w}x${h}.${extensionForFormat(format)}`,
+      blob,
+      originalSizeBytes: file.size,
+      outputSizeBytes: blob.size,
+      width: w,
+      height: h,
+    });
+  }
+  return results;
+};
 
 export type ClientProcessor = (files: File[], options: ClientProcessorOptions) => Promise<ClientProcessOutput[]>;
 
@@ -124,6 +164,7 @@ export const CLIENT_PROCESSORS: Record<string, ClientProcessor> = {
   "png-to-jpg": pngToJpg,
   "jpg-to-pdf": jpgToPdf,
   "split-pdf": splitPdfProcessor,
+  "image-resizer": resizeImage,
 };
 
 export function getClientProcessor(toolId: string): ClientProcessor | undefined {

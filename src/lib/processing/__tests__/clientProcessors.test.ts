@@ -32,10 +32,45 @@ describe("getClientProcessor", () => {
     expect(getClientProcessor("pdf-to-word")).toBeUndefined();
   });
 
-  it("registry exposes exactly the 5 expected keys", () => {
+  it("registry exposes exactly the expected keys", () => {
     expect(Object.keys(CLIENT_PROCESSORS).sort()).toEqual(
-      ["compress-image", "jpg-to-pdf", "jpg-to-png", "png-to-jpg", "split-pdf"].sort()
+      ["compress-image", "jpg-to-pdf", "jpg-to-png", "png-to-jpg", "split-pdf", "image-resizer"].sort()
     );
+  });
+});
+
+describe("image-resizer processor", () => {
+  beforeEach(stubBrowserImageApis);
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+  const file = () => new File(["x"], "my.photo.jpg", { type: "image/jpeg" });
+  const resize = (values: Record<string, string>) =>
+    getClientProcessor("image-resizer")!([file()], { values: { width: "", height: "", fit: "contain", outputFormat: "original", ...values } });
+
+  it("resizes by width, keeping the aspect ratio, and names the file with its new size", async () => {
+    const [out] = await resize({ width: "150" });
+    expect(out).toMatchObject({ width: 150, height: 100, fileName: "my.photo-150x100.jpg" });
+  });
+
+  it("stretches to an exact size and switches format when asked", async () => {
+    const [out] = await resize({ width: "64", height: "64", fit: "exact", outputFormat: "png" });
+    expect(out).toMatchObject({ width: 64, height: 64, fileName: "my.photo-64x64.png" });
+  });
+
+  it("rejects invalid or missing dimensions with a clear message", async () => {
+    await expect(resize({ width: "abc" })).rejects.toThrow(/whole number of pixels/);
+    await expect(resize({ width: "0" })).rejects.toThrow(/between 1 and 20,000/);
+    await expect(resize({})).rejects.toThrow(/Enter a width/);
+  });
+
+  it("refuses outputs larger than browsers can safely allocate", async () => {
+    await expect(resize({ width: "20000", height: "20000", fit: "exact" })).rejects.toThrow(/16.7 megapixels/);
+  });
+
+  it("errors clearly when the browser can't encode WebP instead of returning a mislabelled file", async () => {
+    await expect(resize({ width: "100", outputFormat: "webp" })).rejects.toThrow(/can't create WebP/);
   });
 });
 

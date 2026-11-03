@@ -10,6 +10,7 @@ import { FAQ } from "./FAQ";
 import { RelatedTools } from "./RelatedTools";
 import { RelatedGuides } from "./RelatedGuides";
 import { ToolNotes } from "./ToolNotes";
+import { renderCustomWorkspace } from "./workspaces/registry";
 import { webApplicationSchema } from "../../lib/seo/structuredData";
 import { AdInContent, AdMobile, AdSidebar } from "../ads";
 import { SeoHead } from "../seo/SeoHead";
@@ -56,6 +57,7 @@ const PdfEditorWorkspace = lazy(() => import("./PdfEditorWorkspace").then((m) =>
  */
 export function ToolPage({ tool }: { tool: ToolDefinition }) {
   const hasClientProcessor = Boolean(getClientProcessor(tool.id));
+  const customWorkspace = renderCustomWorkspace(tool);
   const workspaceRef = useRef<HTMLDivElement>(null);
 
   // Land the visitor at the actual working area (upload/dropzone), not the
@@ -107,7 +109,9 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
               data attribute give the mount-effect above (and any other
               entry point) a single, stable target. */}
           <div id="tool-workspace" data-tool-workspace ref={workspaceRef} className="scroll-mt-24">
-            {tool.id === "pdf-editor" ? (
+            {customWorkspace ? (
+              customWorkspace
+            ) : tool.id === "pdf-editor" ? (
               <Suspense fallback={<LoadingState label="Loading editor…" />}>
                 <PdfEditorWorkspace tool={tool} />
               </Suspense>

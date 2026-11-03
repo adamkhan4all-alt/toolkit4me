@@ -145,9 +145,11 @@ function renderToolBody(tool: ToolDefinition): string {
     .join("\n");
 
   const privacyText =
-    tool.processingMode === "CLIENT"
-      ? `${tool.shortName} runs entirely in your browser — your file is never uploaded to a server.`
-      : `Your file is transferred securely and automatically deleted from our servers after 1 hour.`;
+    tool.processingMode === "CLIENT" && tool.inputKind === "text"
+      ? `${tool.shortName} runs entirely in your browser — the text you enter is never sent to our servers or stored.`
+      : tool.processingMode === "CLIENT"
+        ? `${tool.shortName} runs entirely in your browser — your file is never uploaded to a server.`
+        : `Your file is transferred securely and automatically deleted from our servers after 1 hour.`;
 
   return `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
     ${renderBreadcrumbNav([
@@ -168,7 +170,7 @@ function renderToolBody(tool: ToolDefinition): string {
     <ol>${steps}</ol>
 
     <h2>Supported formats</h2>
-    <p>Accepts: ${escapeHtml(tool.acceptedFormats.join(", "))} — Max file size: ${tool.maxFileSize}MB — Output: .${tool.outputExtension}</p>
+    <p>${tool.inputKind === "text" ? "Input" : "Accepts"}: ${escapeHtml(tool.acceptedFormats.join(", "))} — ${escapeHtml(tool.inputLimitLabel ?? `Max file size: ${tool.maxFileSize}MB`)} — Output: .${tool.outputExtension}</p>
     <p>${escapeHtml(tool.formatsNote)}</p>
 
     <h2>Limitations</h2>

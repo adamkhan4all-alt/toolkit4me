@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { toolRegistry, ToolRegistry } from "../toolRegistry";
 import type { ToolDefinition } from "../../types/tool";
+import { UTILITY_TOOLS } from "../../data/utilityTools";
 
 const REQUIRED_SLUGS = [
   "pdf-to-word",
@@ -23,10 +24,11 @@ const REQUIRED_SLUGS = [
 ];
 
 describe("toolRegistry (singleton)", () => {
-  it("contains exactly the 17 required tools", () => {
-    expect(toolRegistry.count()).toBe(17);
+  it("contains the 17 original tools plus every utility tool, with unique slugs", () => {
+    expect(toolRegistry.count()).toBe(17 + UTILITY_TOOLS.length);
     const slugs = toolRegistry.getAll().map((t) => t.slug);
-    for (const slug of REQUIRED_SLUGS) {
+    expect(new Set(slugs).size).toBe(slugs.length);
+    for (const slug of [...REQUIRED_SLUGS, ...UTILITY_TOOLS.map((t) => t.slug)]) {
       expect(slugs).toContain(slug);
     }
   });

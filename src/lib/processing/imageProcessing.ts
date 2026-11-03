@@ -3,20 +3,33 @@
 //
 // Everything here runs entirely in the browser using the Canvas API —
 // no external library needed, and the file being processed never leaves
-// the device. Used by Compress Image, JPG to PNG, and PNG to JPG.
+// the device. Used by Compress Image, JPG to PNG, PNG to JPG, Image
+// Resizer and WebP Converter.
 // ---------------------------------------------------------------------
 
-export class ImageProcessingError extends Error {}
+import { UserFacingError } from "./errors";
+
+export class ImageProcessingError extends UserFacingError {}
 
 export interface ImageDimensions {
   width: number;
   height: number;
 }
 
-const MIME_BY_FORMAT: Record<"jpeg" | "png", string> = {
+export type ImageFormat = "jpeg" | "png" | "webp";
+
+const MIME_BY_FORMAT: Record<ImageFormat, string> = {
   jpeg: "image/jpeg",
   png: "image/png",
+  webp: "image/webp",
 };
+
+/**
+ * Largest canvas we'll allocate, in pixels. iOS Safari refuses canvases
+ * above ~16.7 million pixels (4096 × 4096), and big canvases are the main
+ * memory risk on low-end phones, so every resize/convert stays under it.
+ */
+export const MAX_CANVAS_PIXELS = 16_777_216;
 
 /**
  * Decodes a File into an HTMLImageElement via an object URL. Rejects with
@@ -44,15 +57,12 @@ export async function getImageDimensions(file: File): Promise<ImageDimensions> {
   return { width: img.naturalWidth, height: img.naturalHeight };
 }
 
-function drawToCanvas(img: HTMLImageElement, format: "jpeg" | "png", maxWidth?: number): HTMLCanvasElement {
-  let { naturalWidth: width, naturalHeight: height } = img;
-
-  if (maxWidth && width > maxWidth) {
-    const ratio = maxWidth / width;
-    width = Math.round(width * ratio);
-    height = Math.round(height * ratio);
+function createCanvas(width: number, height: number, format: ImageFormat): { canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D } {
+  if (width * height > MAX_CANVAS_PIXELS) {
+    throw new ImageProcessingError(
+      `The output would be ${width} × ${height} pixels, which is more than browsers can safely handle (about 16.7 megapixels). Choose a smaller size.`
+    );
   }
-
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
@@ -61,14 +71,15 @@ function drawToCanvas(img: HTMLImageElement, format: "jpeg" | "png", maxWidth?: 
     throw new ImageProcessingError("Your browser doesn't support the canvas features this tool needs.");
   }
   // JPEG has no alpha channel, so transparent areas need an opaque (white)
-  // background. PNG output keeps its transparency — filling it white would
-  // flatten e.g. a transparent logo run through Compress Image.
+  // background. PNG and WebP output keep their transparency — filling it
+  // white would flatten e.g. a transparent logo run through Compress Image.
   if (format === "jpeg") {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, width, height);
   }
-  ctx.drawImage(img, 0, 0, width, height);
-  return canvas;
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  return { canvas, ctx };
 }
 
 function canvasToBlob(canvas: HTMLCanvasElement, mime: string, quality?: number): Promise<Blob> {
@@ -88,11 +99,13 @@ function canvasToBlob(canvas: HTMLCanvasElement, mime: string, quality?: number)
 }
 
 export interface ConvertImageOptions {
-  format: "jpeg" | "png";
-  /** 0–1, only meaningful for JPEG output. */
+  format: ImageFormat;
+  /** 0–1, only meaningful for JPEG and WebP output. */
   quality?: number;
   /** Downscale so width never exceeds this many pixels; omit to keep original size. */
   maxWidth?: number;
+  /** Image Resizer's request (takes precedence over maxWidth) — see resolveResize. */
+  resize?: { width?: number; height?: number; fit: "contain" | "exact" };
 }
 
 export interface ConvertImageResult {
@@ -101,19 +114,64 @@ export interface ConvertImageResult {
   height: number;
 }
 
-export async function convertImage(file: File, options: ConvertImageOptions): Promise<ConvertImageResult> {
-  const img = await loadImage(file);
-  const canvas = drawToCanvas(img, options.format, options.maxWidth);
-  const mime = MIME_BY_FORMAT[options.format];
-  const blob = await canvasToBlob(canvas, mime, options.format === "jpeg" ? options.quality ?? 0.9 : undefined);
-  return { blob, width: canvas.width, height: canvas.height };
+function targetSize(img: HTMLImageElement, options: ConvertImageOptions): ImageDimensions {
+  if (options.resize) return resolveResize({ width: img.naturalWidth, height: img.naturalHeight }, options.resize);
+  let { naturalWidth: width, naturalHeight: height } = img;
+  if (options.maxWidth && width > options.maxWidth) {
+    const ratio = options.maxWidth / width;
+    width = Math.round(width * ratio);
+    height = Math.round(height * ratio);
+  }
+  return { width, height };
 }
 
-export function extensionForFormat(format: "jpeg" | "png"): string {
-  return format === "jpeg" ? "jpg" : "png";
+export async function convertImage(file: File, options: ConvertImageOptions): Promise<ConvertImageResult> {
+  const img = await loadImage(file);
+  const { width, height } = targetSize(img, options);
+  const { canvas, ctx } = createCanvas(width, height, options.format);
+  ctx.drawImage(img, 0, 0, width, height);
+
+  const lossy = options.format === "jpeg" || options.format === "webp";
+  const blob = await canvasToBlob(canvas, MIME_BY_FORMAT[options.format], lossy ? options.quality ?? 0.9 : undefined);
+  // Free the canvas backing store now rather than waiting for GC — matters on low-memory phones.
+  canvas.width = 0;
+  canvas.height = 0;
+
+  // Browsers that can't encode a format silently fall back to PNG; never hand that back labelled as WebP.
+  if (options.format === "webp" && blob.type !== "image/webp") {
+    throw new ImageProcessingError(
+      "This browser can't create WebP images (older Safari versions can't). Try Chrome, Edge or Firefox, or choose JPG or PNG instead."
+    );
+  }
+  return { blob, width, height };
+}
+
+export function extensionForFormat(format: ImageFormat): string {
+  return format === "jpeg" ? "jpg" : format;
 }
 
 export function replaceExtension(fileName: string, newExtension: string): string {
   const base = fileName.replace(/\.[^/.]+$/, "");
   return `${base}.${newExtension}`;
+}
+
+/**
+ * Works out the output size for Image Resizer. `fit: "contain"` keeps the
+ * aspect ratio inside the requested box (a blank side is calculated from
+ * the other); `fit: "exact"` uses both numbers as given, which can stretch.
+ */
+export function resolveResize(
+  original: ImageDimensions,
+  request: { width?: number; height?: number; fit: "contain" | "exact" }
+): ImageDimensions {
+  const { width, height, fit } = request;
+  if (!width && !height) {
+    throw new ImageProcessingError("Enter a width, a height, or both.");
+  }
+  if (fit === "exact" && width && height) return { width, height };
+  const scale = Math.min(width ? width / original.width : Infinity, height ? height / original.height : Infinity);
+  return {
+    width: Math.max(1, Math.round(original.width * scale)),
+    height: Math.max(1, Math.round(original.height * scale)),
+  };
 }

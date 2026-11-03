@@ -2,6 +2,7 @@ import type { ToolDefinition } from "../../types/tool";
 
 /** Dedicated "Supported formats" section — explicit input/output/size-limit info as real page content, not just dropzone copy. */
 export function SupportedFormats({ tool }: { tool: ToolDefinition }) {
+  const isText = tool.inputKind === "text";
   return (
     <section aria-labelledby="formats-heading" className="flex flex-col gap-4">
       <h2 id="formats-heading" className="text-2xl font-semibold text-neutral-900">
@@ -10,12 +11,12 @@ export function SupportedFormats({ tool }: { tool: ToolDefinition }) {
       <div className="rounded-lg border border-neutral-200 bg-white p-4">
         <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div>
-            <dt className="text-xs font-semibold tracking-wide text-neutral-600 uppercase">Accepts</dt>
+            <dt className="text-xs font-semibold tracking-wide text-neutral-600 uppercase">{isText ? "Input" : "Accepts"}</dt>
             <dd className="mt-1 text-sm text-neutral-900">{tool.acceptedFormats.join(", ")}</dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold tracking-wide text-neutral-600 uppercase">Max file size</dt>
-            <dd className="mt-1 text-sm text-neutral-900">{tool.maxFileSize}MB per file</dd>
+            <dt className="text-xs font-semibold tracking-wide text-neutral-600 uppercase">{isText ? "Input limit" : "Max file size"}</dt>
+            <dd className="mt-1 text-sm text-neutral-900">{tool.inputLimitLabel ?? `${tool.maxFileSize}MB per file`}</dd>
           </div>
           <div>
             <dt className="text-xs font-semibold tracking-wide text-neutral-600 uppercase">Output</dt>

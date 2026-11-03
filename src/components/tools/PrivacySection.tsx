@@ -15,7 +15,12 @@ export function PrivacySection({ tool }: { tool: ToolDefinition }) {
         Privacy &amp; security
       </h2>
       <div className="rounded-lg border border-neutral-200 bg-white p-4 text-sm leading-6 text-neutral-600">
-        {isClient ? (
+        {isClient && tool.inputKind === "text" ? (
+          <p>
+            {tool.shortName} runs entirely in your browser — the text you enter is processed on your device and is
+            never sent to our servers or stored anywhere. Closing or refreshing the page clears it.
+          </p>
+        ) : isClient ? (
           <p>
             {tool.shortName} runs entirely in your browser using local processing — your file is never uploaded to a
             server. Nothing about its contents leaves your device at any point, which makes this a good option for

@@ -8,7 +8,7 @@
 // ToolDefinition object and registering it — nothing else.
 // ---------------------------------------------------------------------
 
-export type ToolCategory = "convert" | "compress" | "merge" | "ocr" | "edit" | "security";
+export type ToolCategory = "convert" | "compress" | "merge" | "ocr" | "edit" | "security" | "text" | "web";
 
 /**
  * Where the actual conversion/compression work happens.
@@ -62,6 +62,10 @@ export interface ToolDefinition {
   acceptedFormats: string[];
   acceptedMime: string[];
   maxFileSize: number; // MB
+  /** "text" for tools whose input is typed/pasted rather than an uploaded file — adjusts the formats/privacy wording. Defaults to "file". */
+  inputKind?: "file" | "text";
+  /** Human-readable input limit shown instead of "{maxFileSize}MB per file", e.g. "Up to 1,000,000 characters". */
+  inputLimitLabel?: string;
   multiple: boolean;
   processingMode: ProcessingMode;
   /** API endpoint used when processingMode is SERVER. Null for CLIENT-mode tools. */
@@ -97,6 +101,8 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
   ocr: "OCR",
   edit: "Edit",
   security: "Security",
+  text: "Text",
+  web: "Web & Developer",
 };
 
-export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr", "edit", "security"];
+export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr", "edit", "security", "text", "web"];
