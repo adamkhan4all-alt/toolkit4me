@@ -270,4 +270,238 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
       keywords: ["image resizer", "resize image", "resize photo online", "resize jpg"],
     },
   },
+  {
+    id: "word-counter",
+    slug: "word-counter",
+    lastModified: ADDED,
+    name: "Word Counter",
+    shortName: "Word Counter",
+    category: "text",
+    categoryLabel: "Text",
+    description: "Count words, characters, sentences and paragraphs as you type, with reading time and your most-used words.",
+    acceptedFormats: ["Plain text"],
+    acceptedMime: [],
+    maxFileSize: 1,
+    inputKind: "text",
+    inputLimitLabel: "Up to 1,000,000 characters",
+    multiple: false,
+    processingMode: "CLIENT",
+    endpoint: null,
+    actionLabel: "Copy counts",
+    icon: "WORDS",
+    outputExtension: "txt",
+    howItWorks: [
+      "Type in the box or paste your text.",
+      "The counts update instantly as you write.",
+      "Check the most frequent words to spot repetition.",
+      "Copy the counts if you need to report them.",
+    ],
+    features: [
+      "Words, characters (with and without spaces), sentences, paragraphs and lines",
+      "Reading and speaking time estimates",
+      "Your ten most frequent words, ignoring filler words",
+      "Language-aware counting, including Chinese and Japanese text",
+    ],
+    useCases: [
+      "Keeping an essay or application answer within a word limit",
+      "Fitting a meta description or social post into a character limit",
+      "Estimating how long a speech or presentation script will take",
+    ],
+    limitations: [
+      "Counts can differ slightly from Word or Google Docs, which treat things like URLs and numbers with symbols in their own ways",
+      "Reading and speaking times are estimates based on average speeds (238 and 140 words per minute)",
+      "Frequent-word filtering uses an English list of common words",
+      "Up to 1,000,000 characters are counted",
+    ],
+    faq: [
+      {
+        question: "How are words counted?",
+        answer:
+          "Words are found using your browser's built-in, language-aware text segmentation, so punctuation isn't counted, contractions like “don't” count as one word, and hyphenated words like “well-known” count as one, as in most word processors. Languages written without spaces, such as Chinese and Japanese, are split into words rather than counted as one long word.",
+      },
+      {
+        question: "Do characters include spaces?",
+        answer:
+          "Both counts are shown. “Characters” includes spaces and line breaks — the number most character limits (like social media posts) refer to. “Characters (no spaces)” leaves all whitespace out. Emoji and accented letters count as one character each.",
+      },
+      {
+        question: "How is reading time worked out?",
+        answer:
+          "Reading time divides the word count by 238 words per minute, the average silent-reading speed for adults reading non-fiction; speaking time uses 140 words per minute, a comfortable presentation pace. Technical text and slower speakers will take longer.",
+      },
+      {
+        question: "Is my text saved or uploaded?",
+        answer: "No. Everything is counted in your browser and nothing is stored — refreshing the page clears the text.",
+      },
+    ],
+    relatedTools: ["text-compare", "meta-tag-generator", "image-to-text", "json-formatter"],
+    intro: [
+      "Word limits are everywhere: essays, job applications, grant forms, product descriptions, social posts. This counter shows your word and character counts the moment you start typing, so you can trim or expand while you write instead of checking at the end.",
+      "Alongside the basic counts you get sentences, paragraphs, estimated reading and speaking time, and a list of the words you use most — handy for spotting a term you've repeated too often. Counting is language-aware, so contractions, hyphenated words, emoji and non-Latin scripts are all handled sensibly.",
+    ],
+    formatsNote: "Type or paste plain text of up to 1,000,000 characters. Formatting such as bold or links isn't counted, only the text itself.",
+    seo: {
+      title: "Word Counter – Count Words & Characters Online | Toolkit4Me",
+      metaDescription:
+        "Free online word counter: count words, characters (with and without spaces), sentences and paragraphs as you type, plus reading time and most-used words.",
+      h1: "Word Counter",
+      keywords: ["word counter", "character counter", "count words online", "word count tool"],
+    },
+  },
+  {
+    id: "text-compare",
+    slug: "text-compare",
+    lastModified: ADDED,
+    name: "Text Compare (Diff Checker)",
+    shortName: "Text Compare",
+    category: "text",
+    categoryLabel: "Text",
+    description: "Compare two versions of a text and see exactly what was added, removed or changed — line by line or word by word.",
+    acceptedFormats: ["Plain text", "Code"],
+    acceptedMime: [],
+    maxFileSize: 1,
+    inputKind: "text",
+    inputLimitLabel: "Up to 300,000 characters per side",
+    multiple: false,
+    processingMode: "CLIENT",
+    endpoint: null,
+    actionLabel: "Compare text",
+    icon: "DIFF",
+    outputExtension: "diff",
+    howItWorks: [
+      "Paste the original text on the left and the changed version on the right.",
+      "Choose line or word comparison, and whether to ignore case or extra spaces.",
+      "Select Compare text to highlight additions in green and removals in red.",
+      "Download the result as a standard .diff file if you need to share or apply it.",
+    ],
+    features: [
+      "Line-by-line or word-by-word comparison",
+      "Ignore differences in upper/lower case or spacing",
+      "Counts of added and removed lines or words",
+      "Download a standard unified .diff (patch) file",
+    ],
+    useCases: [
+      "Seeing what changed between two drafts of a contract or policy",
+      "Checking which settings differ between two configuration files",
+      "Reviewing edits someone made to text you wrote",
+    ],
+    limitations: [
+      "Plain text only — formatting in Word or PDF documents isn't compared (copy the text out first)",
+      "Moved paragraphs show up as a removal plus an addition, not as a move",
+      "Very large or completely different texts may be too slow to compare and will show a message instead",
+      "Up to 300,000 characters on each side",
+    ],
+    faq: [
+      {
+        question: "Should I compare by line or by word?",
+        answer:
+          "Line mode suits code, configuration files, lists and anything where each line is meaningful — it shows which lines changed. Word mode suits prose: it highlights the exact words that were added or removed inside a paragraph.",
+      },
+      {
+        question: "What does “ignore extra spaces” do?",
+        answer:
+          "In line mode it treats lines as equal if they differ only in leading, trailing or repeated spaces, so re-indented code or a stray double space doesn't show up as a change.",
+      },
+      {
+        question: "What is the .diff download?",
+        answer:
+          "It's a unified diff, the standard format used by Git and the patch command. Developers can review it in any code editor or apply it to the original file to produce the changed version.",
+      },
+      {
+        question: "Is my text uploaded?",
+        answer: "No. The comparison runs in your browser, so neither version is sent anywhere — safe for confidential drafts.",
+      },
+    ],
+    relatedTools: ["word-counter", "json-formatter", "base64-encoder-decoder", "pdf-to-word"],
+    intro: [
+      "When two versions of a document look almost the same, finding what actually changed by eye is slow and unreliable. Paste both versions here and every difference is highlighted: added text in green, removed text in red, with a count of how much changed.",
+      "Compare line by line for code, configuration and lists, or word by word for prose, where you want to see the exact words that were edited. Options to ignore case and spacing help you focus on real changes rather than formatting noise.",
+    ],
+    formatsNote: "Paste plain text or code, up to 300,000 characters on each side. Results can be downloaded as a unified .diff file.",
+    seo: {
+      title: "Text Compare – Free Online Diff Checker | Toolkit4Me",
+      metaDescription:
+        "Compare two texts and highlight every difference, line by line or word by word. Ignore case or spacing, download a .diff, and keep your text private in the browser.",
+      h1: "Text Compare (Diff Checker)",
+      keywords: ["text compare", "diff checker", "compare two texts", "find differences in text"],
+    },
+  },
+  {
+    id: "base64-encoder-decoder",
+    slug: "base64-encoder-decoder",
+    lastModified: ADDED,
+    name: "Base64 Encoder / Decoder",
+    shortName: "Base64 Encode / Decode",
+    category: "web",
+    categoryLabel: "Web & Developer",
+    description: "Encode text or files to Base64, or decode Base64 back to text or a downloadable file. Handles UTF-8 and URL-safe Base64.",
+    acceptedFormats: ["Text", "Base64", "Any file (to encode)"],
+    acceptedMime: [],
+    maxFileSize: 10,
+    inputKind: "text",
+    inputLimitLabel: "10,000,000 characters of text, or files up to 10MB",
+    multiple: false,
+    processingMode: "CLIENT",
+    endpoint: null,
+    actionLabel: "Encode",
+    icon: "B64",
+    outputExtension: "txt",
+    howItWorks: [
+      "Paste text to encode, or Base64 to decode — or choose a file to encode.",
+      "Optionally switch on URL-safe output, or data: URL output for files.",
+      "Select Encode or Decode.",
+      "Copy the result, or download it; Base64 that decodes to a file (such as an image) downloads as that file.",
+    ],
+    features: [
+      "Correct UTF-8 handling for accented letters, non-Latin scripts and emoji",
+      "Standard and URL-safe Base64, with or without padding",
+      "Encode any file up to 10MB, optionally as a data: URL",
+      "Decodes images and other files back to a downloadable file",
+    ],
+    useCases: [
+      "Decoding a Base64 value from an API response or a JWT payload to read it",
+      "Embedding a small image in CSS or HTML as a data: URL",
+      "Encoding credentials or binary data for a config file or HTTP header",
+    ],
+    limitations: [
+      "Base64 is an encoding, not encryption — anyone can decode it, so never use it to hide secrets",
+      "Encoded output is about a third larger than the original",
+      "Text up to 10,000,000 characters and files up to 10MB",
+    ],
+    faq: [
+      {
+        question: "What is Base64 used for?",
+        answer:
+          "Base64 represents binary data using only 64 safe text characters (A–Z, a–z, 0–9, + and /), so it can travel through systems built for text: email attachments, JSON and XML fields, data: URLs in web pages, and HTTP authentication headers.",
+      },
+      {
+        question: "Why does my non-English text decode as gibberish elsewhere?",
+        answer:
+          "Base64 encodes bytes, not letters, so the text must be turned into bytes first. This tool always uses UTF-8, the web's standard. If another tool used a different character encoding — or the browser's btoa function, which can't handle characters outside Latin-1 at all — the results won't match.",
+      },
+      {
+        question: "What's the difference between standard and URL-safe Base64?",
+        answer:
+          "Standard Base64 uses + and / and pads the end with =, which have special meanings in URLs. URL-safe Base64 (RFC 4648) uses - and _ instead and usually drops the padding, so the value can sit in a URL or filename unchanged. The decoder accepts both.",
+      },
+      {
+        question: "Is Base64 secure?",
+        answer:
+          "No — it's an encoding, not encryption, and decoding it takes no key. Use it to transport data, never to protect it. Since this tool runs in your browser, nothing you encode or decode is sent to a server.",
+      },
+    ],
+    relatedTools: ["json-formatter", "qr-code-generator", "meta-tag-generator", "text-compare"],
+    intro: [
+      "Base64 turns any data — text, an image, a PDF — into plain letters and numbers that can be pasted into JSON, HTML, email or an HTTP header without being corrupted. This tool encodes text and files to Base64 and decodes Base64 back again, telling you clearly when a value is malformed and where.",
+      "Text is converted with UTF-8, so accented letters, emoji and non-Latin scripts survive the round trip — the classic btoa function fails on them. Both standard and URL-safe Base64 are supported, and if a value decodes to a file rather than text, you can download that file directly.",
+    ],
+    formatsNote: "Encodes text (UTF-8) up to 10,000,000 characters and any file up to 10MB. Decodes standard and URL-safe Base64, with or without padding, line breaks or a data: URL prefix.",
+    seo: {
+      title: "Base64 Encoder & Decoder – Text, Files & UTF-8 | Toolkit4Me",
+      metaDescription:
+        "Encode text or files to Base64 and decode Base64 back to text or a file. Correct UTF-8 handling, URL-safe Base64 and data URLs — all in your browser.",
+      h1: "Base64 Encoder / Decoder",
+      keywords: ["base64 encode", "base64 decode", "base64 to image", "base64 converter"],
+    },
+  },
 ];
