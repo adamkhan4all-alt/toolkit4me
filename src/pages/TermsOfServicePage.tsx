@@ -12,6 +12,10 @@ export function TermsOfServicePage() {
         title="Terms of Service — Toolkit4Me"
         description="The terms that apply when you use Toolkit4Me's free online PDF and image tools."
         path="/terms"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Terms of Service", path: "/terms" },
+        ]}
       />
 
       <h1 className="mb-2 text-3xl font-bold text-neutral-900">Terms of Service</h1>

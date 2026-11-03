@@ -6,6 +6,8 @@ import { SeoHead } from "../components/seo/SeoHead";
 import { toolRegistry } from "../lib/toolRegistry";
 import { CATEGORIES, CATEGORY_LABELS } from "../types/tool";
 import { GUIDES } from "../data/guides";
+import { organizationSchema, websiteSchema } from "../lib/seo/structuredData";
+import { HOME_DESCRIPTION } from "../config/site";
 
 const categoryIcons: Record<string, string> = {
   convert: "⇄",
@@ -41,8 +43,9 @@ export function HomePage() {
     <div className="flex flex-col gap-16 pb-16">
       <SeoHead
         title="Toolkit4Me — Free Tools for Everyday Digital Tasks"
-        description="Toolkit4Me provides free online tools for everyday digital tasks, including PDF conversion, image conversion, compression and OCR."
+        description={HOME_DESCRIPTION}
         path="/"
+        jsonLd={[websiteSchema(HOME_DESCRIPTION), organizationSchema()]}
       />
       <section className="bg-neutral-100 px-4 pt-12 pb-10 sm:px-6 sm:pt-20 sm:pb-16">
         <div className="mx-auto flex max-w-[720px] flex-col items-center gap-5 text-center">

@@ -8,6 +8,10 @@ export function AboutPage() {
         title="About Toolkit4Me"
         description="What Toolkit4Me is, how it processes your files, and the principles behind it — free PDF and image tools with no account required."
         path="/about"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]}
       />
 
       <h1 className="mb-8 text-3xl font-bold text-neutral-900">About Toolkit4Me</h1>

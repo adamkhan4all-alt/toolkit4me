@@ -8,6 +8,10 @@ export function ContactPage() {
         title="Contact Toolkit4Me"
         description="Get in touch with Toolkit4Me — bug reports, tool requests, or privacy questions."
         path="/contact"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
       />
 
       <h1 className="mb-8 text-3xl font-bold text-neutral-900">Contact</h1>

@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { DEFAULT_OG_IMAGE, SITE_NAME, TWITTER_HANDLE, absoluteUrl } from "../../config/site";
+import { breadcrumbSchema, faqSchema, type JsonLd } from "../../lib/seo/structuredData";
 
 export interface BreadcrumbLink {
   name: string;
@@ -20,6 +21,8 @@ export interface SeoHeadProps {
   breadcrumbs?: BreadcrumbLink[];
   faq?: FaqEntry[];
   ogImage?: string;
+  /** Extra page-specific JSON-LD (WebSite/Organization, WebApplication, Article) from src/lib/seo/structuredData.ts. */
+  jsonLd?: JsonLd[];
 }
 
 /**
@@ -29,37 +32,17 @@ export interface SeoHeadProps {
  * exactly one of these so head content is always unique per URL and never
  * duplicated between pages.
  */
-export function SeoHead({ title, description, path, noindex, breadcrumbs, faq, ogImage }: SeoHeadProps) {
+export function SeoHead({ title, description, path, noindex, breadcrumbs, faq, ogImage, jsonLd = [] }: SeoHeadProps) {
   const url = absoluteUrl(path);
   const image = ogImage ?? DEFAULT_OG_IMAGE;
 
-  const breadcrumbJsonLd = breadcrumbs?.length
-    ? {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: breadcrumbs.map((crumb, i) => ({
-          "@type": "ListItem",
-          position: i + 1,
-          name: crumb.name,
-          item: absoluteUrl(crumb.path),
-        })),
-      }
-    : null;
-
-  const faqJsonLd = faq?.length
-    ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: faq.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: item.answer,
-          },
-        })),
-      }
-    : null;
+  // Same builders scripts/prerender.ts uses, so the prerendered and
+  // client-rendered <head> carry identical structured data.
+  const structuredData: JsonLd[] = [
+    ...(breadcrumbs?.length ? [breadcrumbSchema(breadcrumbs)] : []),
+    ...(faq?.length ? [faqSchema(faq)] : []),
+    ...jsonLd,
+  ];
 
   return (
     <Helmet>
@@ -83,8 +66,11 @@ export function SeoHead({ title, description, path, noindex, breadcrumbs, faq, o
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
-      {breadcrumbJsonLd && <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>}
-      {faqJsonLd && <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>}
+      {structuredData.map((data) => (
+        <script key={String(data["@type"])} type="application/ld+json">
+          {JSON.stringify(data)}
+        </script>
+      ))}
     </Helmet>
   );
 }

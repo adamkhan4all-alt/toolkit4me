@@ -5,6 +5,8 @@ import { AdInContent } from "../components/ads";
 import { SeoHead } from "../components/seo/SeoHead";
 import { getGuide, GUIDES } from "../data/guides";
 import { toolRegistry } from "../lib/toolRegistry";
+import { formatLongDate } from "../lib/format";
+import { articleSchema } from "../lib/seo/structuredData";
 
 /** Renders one guide from src/data/guides.ts; unknown slugs fall back to the guides index. */
 export function GuidePage() {
@@ -22,12 +24,18 @@ export function GuidePage() {
 
   return (
     <div className="mx-auto flex w-full max-w-[760px] flex-col gap-8 px-4 py-8 sm:px-6">
-      <SeoHead title={guide.seoTitle} description={guide.metaDescription} path={guide.path} breadcrumbs={crumbs} />
+      <SeoHead
+        title={guide.seoTitle}
+        description={guide.metaDescription}
+        path={guide.path}
+        breadcrumbs={crumbs}
+        jsonLd={[articleSchema(guide)]}
+      />
       <Breadcrumb items={crumbs.map((c, i) => (i === crumbs.length - 1 ? { label: c.name } : { label: c.name, href: c.path }))} />
 
       <header className="flex flex-col gap-3">
         <h1 className="text-[28px] leading-tight font-bold text-neutral-900 sm:text-[36px]">{guide.title}</h1>
-        <p className="text-xs text-neutral-600">Last updated: {guide.updated}</p>
+        <p className="text-xs text-neutral-600">Last updated: {formatLongDate(guide.updated)}</p>
         <p className="text-base leading-7 text-neutral-700">{guide.summary}</p>
       </header>
 

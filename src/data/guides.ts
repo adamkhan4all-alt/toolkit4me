@@ -22,14 +22,17 @@ export interface GuideDefinition {
   metaDescription: string;
   /** Lead paragraph under the H1; also the card text on the guides index. */
   summary: string;
-  /** Shown as "Last updated" under the H1. */
+  /** ISO date (YYYY-MM-DD) first published — Article structured data. */
+  published: string;
+  /** ISO date (YYYY-MM-DD) of the last meaningful content change — shown as "Last updated", and used for the sitemap <lastmod> and Article dateModified. */
   updated: string;
   sections: GuideSection[];
   /** Tool slugs linked at the end of the guide. */
   relatedTools?: string[];
 }
 
-const GUIDES_UPDATED = "26 October 2026";
+const GUIDES_PUBLISHED = "2026-10-26";
+const GUIDES_UPDATED = "2026-10-26";
 
 export const GUIDES: GuideDefinition[] = [
   {
@@ -38,6 +41,7 @@ export const GUIDES: GuideDefinition[] = [
     seoTitle: `How to Reduce PDF File Size (Without Losing Quality) | ${SITE_NAME}`,
     metaDescription: "Why PDFs get so large, which compression level to pick, and practical tricks for getting a PDF under an email or upload limit.",
     summary: "Email attachments are often capped at 20–25MB and many job portals and government forms accept only 2–5MB. Here is why PDFs grow so large and how to shrink them without making them unreadable.",
+    published: GUIDES_PUBLISHED,
     updated: GUIDES_UPDATED,
     sections: [
       {
@@ -88,6 +92,7 @@ export const GUIDES: GuideDefinition[] = [
     seoTitle: `JPG vs PNG — Differences and When to Use Each | ${SITE_NAME}`,
     metaDescription: "A plain-English comparison of JPG and PNG: compression, transparency, file size and the best format for photos, screenshots, logos and the web.",
     summary: "JPG and PNG are the two most common image formats, and picking the wrong one can mean blurry screenshots or photos that are ten times larger than they need to be. Here is how they differ and when to use each.",
+    published: GUIDES_PUBLISHED,
     updated: GUIDES_UPDATED,
     sections: [
       {
@@ -130,6 +135,7 @@ export const GUIDES: GuideDefinition[] = [
     seoTitle: `How to Convert PDF to Word (and Keep the Formatting) | ${SITE_NAME}`,
     metaDescription: "Convert a PDF into an editable Word file, understand why some layouts shift, and fix common problems with scanned or complex PDFs.",
     summary: "PDFs are designed to look the same everywhere, not to be edited. Converting one to Word gives you an editable document — here is how to do it and how to get the cleanest result.",
+    published: GUIDES_PUBLISHED,
     updated: GUIDES_UPDATED,
     sections: [
       {
@@ -171,6 +177,7 @@ export const GUIDES: GuideDefinition[] = [
     seoTitle: `Extract Text from Images with OCR — Tips for Accurate Results | ${SITE_NAME}`,
     metaDescription: "Learn how OCR turns photos and scans into editable text, and simple capture tips that dramatically improve accuracy.",
     summary: "Optical character recognition (OCR) turns the text in a photo or scan into words you can copy, search and edit. Accuracy depends heavily on the image you start with — these tips make the difference between clean text and gibberish.",
+    published: GUIDES_PUBLISHED,
     updated: GUIDES_UPDATED,
     sections: [
       {
@@ -212,6 +219,7 @@ export const GUIDES: GuideDefinition[] = [
     seoTitle: `How to Password Protect a PDF — A Practical Guide | ${SITE_NAME}`,
     metaDescription: "Add a password to a PDF, choose a strong one, understand open vs permissions passwords, and share protected files safely.",
     summary: "Adding a password to a PDF is a simple way to keep payslips, contracts, medical letters and ID documents private when you send them by email or store them in the cloud.",
+    published: GUIDES_PUBLISHED,
     updated: GUIDES_UPDATED,
     sections: [
       {
@@ -254,6 +262,7 @@ export const GUIDES: GuideDefinition[] = [
     seoTitle: `How to Merge, Split and Reorder PDF Pages | ${SITE_NAME}`,
     metaDescription: "Combine several PDFs into one, pull out just the pages you need, and reorder or rotate pages before sending a document.",
     summary: "Job applications, visa forms, expense claims and insurance requests often ask for a single PDF that contains several documents in a set order. Here is how to put one together cleanly.",
+    published: GUIDES_PUBLISHED,
     updated: GUIDES_UPDATED,
     sections: [
       {
@@ -297,4 +306,9 @@ export const GUIDES: GuideDefinition[] = [
 
 export function getGuide(path: string): GuideDefinition | undefined {
   return GUIDES.find((g) => g.path === path);
+}
+
+/** Guides that list `slug` in their relatedTools — used to link tool pages back to their guides. */
+export function guidesForTool(slug: string): GuideDefinition[] {
+  return GUIDES.filter((g) => g.relatedTools?.includes(slug));
 }

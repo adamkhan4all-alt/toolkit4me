@@ -10,6 +10,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "pdf-to-word",
     slug: "pdf-to-word",
+    lastModified: "2026-11-03",
     name: "PDF to Word Converter",
     shortName: "PDF to Word",
     category: "convert",
@@ -49,8 +50,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts PDF files up to 50MB. Output is a standard .docx file compatible with Microsoft Word, Google Docs, and LibreOffice Writer.",
     seo: {
-      title: "PDF to Word Converter — Free Online Tool",
-      metaDescription: "Convert PDF to editable Word (.docx) files for free, in seconds, with no watermark.",
+      title: "PDF to Word Converter – Editable DOCX, Free | Toolkit4Me",
+      metaDescription: "Convert PDF to an editable Word (.docx) document online for free. Keeps layout and formatting where possible, adds no watermark, and needs no sign-up.",
       h1: "PDF to Word Converter",
       keywords: ["pdf to word", "pdf to docx", "convert pdf to word free"],
     },
@@ -58,6 +59,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "word-to-pdf",
     slug: "word-to-pdf",
+    lastModified: "2026-11-03",
     name: "Word to PDF Converter",
     shortName: "Word to PDF",
     category: "convert",
@@ -100,8 +102,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts .doc and .docx files up to 50MB. Output is a standard, universally viewable PDF.",
     seo: {
-      title: "Word to PDF Converter — Free Online Tool",
-      metaDescription: "Convert Word documents to PDF for free, in seconds, with formatting preserved.",
+      title: "Word to PDF Converter – DOC & DOCX to PDF | Toolkit4Me",
+      metaDescription: "Convert Word documents (.doc or .docx) to PDF online for free. Fonts, images and layout are preserved, with no watermark and no account required.",
       h1: "Word to PDF Converter",
       keywords: ["word to pdf", "docx to pdf", "convert word to pdf free"],
     },
@@ -109,6 +111,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "jpg-to-pdf",
     slug: "jpg-to-pdf",
+    lastModified: "2026-11-03",
     name: "JPG to PDF Converter",
     shortName: "JPG to PDF",
     category: "convert",
@@ -162,8 +165,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts JPG/JPEG images up to 25MB each, any number of files. Output is a single combined PDF.",
     seo: {
-      title: "JPG to PDF Converter — Free Online Tool",
-      metaDescription: "Combine JPG images into a single PDF file for free, in seconds.",
+      title: "JPG to PDF Converter – Combine Images Free | Toolkit4Me",
+      metaDescription: "Turn one or more JPG images into a single PDF in the order you choose. Runs entirely in your browser, so your photos are never uploaded. Free, no watermark.",
       h1: "JPG to PDF Converter",
       keywords: ["jpg to pdf", "image to pdf", "combine images into pdf"],
     },
@@ -171,6 +174,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "pdf-to-jpg",
     slug: "pdf-to-jpg",
+    lastModified: "2026-11-03",
     name: "PDF to JPG Converter",
     shortName: "PDF to JPG",
     category: "convert",
@@ -210,8 +214,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts PDF files up to 50MB. Output is one .jpg per page (a .zip when there's more than one page).",
     seo: {
-      title: "PDF to JPG Converter — Free Online Tool",
-      metaDescription: "Convert PDF pages to high-quality JPG images for free, in seconds.",
+      title: "PDF to JPG Converter – PDF Pages to Images | Toolkit4Me",
+      metaDescription: "Convert the pages of a PDF into high-quality JPG images online for free. Upload a PDF up to 50MB and download its pages as images, with no watermark.",
       h1: "PDF to JPG Converter",
       keywords: ["pdf to jpg", "pdf to image", "convert pdf pages to jpg"],
     },
@@ -219,6 +223,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "compress-pdf",
     slug: "compress-pdf",
+    lastModified: "2026-11-03",
     name: "Compress PDF",
     shortName: "Compress PDF",
     category: "compress",
@@ -267,8 +272,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts PDF files up to 100MB. Output is a smaller PDF in the same format.",
     seo: {
-      title: "Compress PDF — Free Online Tool",
-      metaDescription: "Reduce PDF file size for free while keeping documents readable and shareable.",
+      title: "Compress PDF – Reduce PDF File Size Online | Toolkit4Me",
+      metaDescription: "Compress PDF files online for free. Shrink large PDFs to fit email and upload limits while keeping text sharp and pages readable. Files up to 100MB.",
       h1: "Compress PDF",
       keywords: ["compress pdf", "reduce pdf size", "shrink pdf free"],
     },
@@ -276,6 +281,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "merge-pdf",
     slug: "merge-pdf",
+    lastModified: "2026-11-03",
     name: "Merge PDF",
     shortName: "Merge PDF",
     category: "merge",
@@ -311,8 +317,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts two or more PDF files, up to 50MB each. Output is one combined PDF.",
     seo: {
-      title: "Merge PDF — Free Online Tool",
-      metaDescription: "Combine multiple PDF files into one document for free, in the order you choose.",
+      title: "Merge PDF – Combine PDF Files Online Free | Toolkit4Me",
+      metaDescription: "Merge multiple PDF files into one document online for free. Arrange the files in the order you want, then download a single combined PDF. No watermark.",
       h1: "Merge PDF",
       keywords: ["merge pdf", "combine pdf files", "join pdf free"],
     },
@@ -320,6 +326,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "compress-image",
     slug: "compress-image",
+    lastModified: "2026-11-03",
     name: "Compress Image",
     shortName: "Compress Image",
     category: "compress",
@@ -368,8 +375,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts JPG and PNG images up to 25MB each, any number of files. Output matches your chosen format.",
     seo: {
-      title: "Compress Image — Free Online Tool",
-      metaDescription: "Reduce JPG and PNG image file size for free, right in your browser.",
+      title: "Compress Image – Reduce JPG & PNG Size | Toolkit4Me",
+      metaDescription: "Compress JPG and PNG images online for free. Reduce image file size for websites, email and upload forms; processing runs in your browser, so images stay private.",
       h1: "Compress Image",
       keywords: ["compress image", "reduce image size", "shrink jpg png free"],
     },
@@ -377,6 +384,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "image-to-text",
     slug: "image-to-text",
+    lastModified: "2026-11-03",
     name: "Image to Text (OCR)",
     shortName: "Image to Text",
     category: "ocr",
@@ -430,8 +438,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts JPG, PNG, or PDF files up to 25MB. Output is plain text (.txt), viewable or downloadable.",
     seo: {
-      title: "Image to Text (OCR) — Free Online Tool",
-      metaDescription: "Extract text from images and scanned PDFs for free using OCR.",
+      title: "Image to Text (OCR) – Extract Text Online | Toolkit4Me",
+      metaDescription: "Extract text from images and scanned PDFs with free online OCR. Upload a JPG, PNG or PDF and copy the recognised text in seconds. No sign-up required.",
       h1: "Image to Text (OCR)",
       keywords: ["image to text", "ocr online", "extract text from image free"],
     },
@@ -439,6 +447,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "jpg-to-png",
     slug: "jpg-to-png",
+    lastModified: "2026-11-03",
     name: "JPG to PNG Converter",
     shortName: "JPG to PNG",
     category: "convert",
@@ -474,8 +483,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts JPG/JPEG images up to 25MB each, any number of files. Output is .png.",
     seo: {
-      title: "JPG to PNG Converter — Free Online Tool",
-      metaDescription: "Convert JPG images to PNG for free, right in your browser.",
+      title: "JPG to PNG Converter – Free & Private | Toolkit4Me",
+      metaDescription: "Convert JPG images to PNG online for free. Conversion runs in your browser, so files are never uploaded. Convert several images at once, with no watermark.",
       h1: "JPG to PNG Converter",
       keywords: ["jpg to png", "convert jpg to png free"],
     },
@@ -483,6 +492,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "png-to-jpg",
     slug: "png-to-jpg",
+    lastModified: "2026-11-03",
     name: "PNG to JPG Converter",
     shortName: "PNG to JPG",
     category: "convert",
@@ -518,8 +528,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     formatsNote: "Accepts PNG images up to 25MB each, any number of files. Output is .jpg.",
     seo: {
-      title: "PNG to JPG Converter — Free Online Tool",
-      metaDescription: "Convert PNG images to JPG for free, right in your browser.",
+      title: "PNG to JPG Converter – Smaller Image Files | Toolkit4Me",
+      metaDescription: "Convert PNG images to JPG online for free to cut file size for photos. Runs entirely in your browser, handles several images at once, and adds no watermark.",
       h1: "PNG to JPG Converter",
       keywords: ["png to jpg", "convert png to jpg free"],
     },
@@ -527,6 +537,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "pdf-editor",
     slug: "pdf-editor",
+    lastModified: "2026-11-03",
     name: "PDF Editor",
     shortName: "PDF Editor",
     category: "edit",
@@ -575,7 +586,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     formatsNote: "Accepts a single PDF file up to 50MB. Output is your edited PDF.",
     seo: {
       title: "PDF Editor – Free Online PDF Editor | Toolkit4Me",
-      metaDescription: "Reorder, rotate, delete pages and add text to your PDF for free, right in your browser.",
+      metaDescription: "Edit PDF pages online for free: reorder, rotate and delete pages, or add text. Everything runs in your browser, so your document is never uploaded.",
       h1: "PDF Editor",
       keywords: ["pdf editor", "edit pdf online free", "reorder pdf pages", "rotate pdf pages"],
     },
@@ -583,6 +594,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "split-pdf",
     slug: "split-pdf",
+    lastModified: "2026-11-03",
     name: "Split PDF",
     shortName: "Split PDF",
     category: "edit",
@@ -651,7 +663,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     formatsNote: "Accepts a single PDF file up to 50MB. Output is one or more PDF files, depending on your split settings.",
     seo: {
       title: "Split PDF – Free Online PDF Splitter | Toolkit4Me",
-      metaDescription: "Extract pages or page ranges from a PDF, or split it every N pages, for free in your browser.",
+      metaDescription: "Split a PDF online for free. Extract specific pages or page ranges, or split the file every N pages. Runs in your browser, so your PDF never leaves your device.",
       h1: "Split PDF",
       keywords: ["split pdf", "extract pdf pages", "pdf splitter free"],
     },
@@ -659,6 +671,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "powerpoint-to-pdf",
     slug: "powerpoint-to-pdf",
+    lastModified: "2026-11-03",
     name: "PowerPoint to PDF Converter",
     shortName: "PowerPoint to PDF",
     category: "convert",
@@ -699,7 +712,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     formatsNote: "Accepts .ppt and .pptx files up to 50MB. Output is a standard, universally viewable PDF.",
     seo: {
       title: "PowerPoint to PDF – Free Online Converter | Toolkit4Me",
-      metaDescription: "Convert PowerPoint presentations to PDF for free, with formatting and layout preserved.",
+      metaDescription: "Convert PowerPoint presentations (.ppt or .pptx) to PDF online for free. Slide layout and formatting are preserved, ready to share or print. No watermark.",
       h1: "PowerPoint to PDF Converter",
       keywords: ["powerpoint to pdf", "ppt to pdf", "pptx to pdf free"],
     },
@@ -707,6 +720,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "excel-to-pdf",
     slug: "excel-to-pdf",
+    lastModified: "2026-11-03",
     name: "Excel to PDF Converter",
     shortName: "Excel to PDF",
     category: "convert",
@@ -747,7 +761,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     formatsNote: "Accepts .xls and .xlsx files up to 50MB. Output is a standard, printable PDF.",
     seo: {
       title: "Excel to PDF – Free Online Converter | Toolkit4Me",
-      metaDescription: "Convert Excel spreadsheets to PDF for free, with every sheet included and formatting preserved.",
+      metaDescription: "Convert Excel spreadsheets (.xls or .xlsx) to PDF online for free. Every sheet is included with its formatting preserved, ready to share or print.",
       h1: "Excel to PDF Converter",
       keywords: ["excel to pdf", "xls to pdf", "xlsx to pdf free"],
     },
@@ -755,6 +769,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "unlock-pdf",
     slug: "unlock-pdf",
+    lastModified: "2026-11-03",
     name: "Unlock PDF",
     shortName: "Unlock PDF",
     category: "security",
@@ -805,7 +820,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     formatsNote: "Accepts a single password-protected PDF file up to 100MB. Output is the same PDF with its open password removed.",
     seo: {
       title: "Unlock PDF – Free Online PDF Unlocker | Toolkit4Me",
-      metaDescription: "Remove a PDF's password using the real password, for free — no cracking, no guessing.",
+      metaDescription: "Remove the password from a PDF you own, for free, using its correct password. No cracking or guessing — just an unlocked copy that opens without a prompt.",
       h1: "Unlock PDF",
       keywords: ["unlock pdf", "remove pdf password", "pdf password remover free"],
     },
@@ -813,6 +828,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "protect-pdf",
     slug: "protect-pdf",
+    lastModified: "2026-11-03",
     name: "Protect PDF",
     shortName: "Protect PDF",
     category: "security",
@@ -870,7 +886,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     formatsNote: "Accepts a single PDF file up to 100MB. Output is the same PDF, encrypted with the password you set.",
     seo: {
       title: "Protect PDF – Add Password to PDF Online | Toolkit4Me",
-      metaDescription: "Add strong AES-256 password protection to a PDF for free, right from your browser.",
+      metaDescription: "Password protect a PDF online for free with strong AES-256 encryption. Choose a password, download the protected file, and share it securely.",
       h1: "Protect PDF",
       keywords: ["protect pdf", "password protect pdf", "encrypt pdf free"],
     },
@@ -878,6 +894,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "unprotect-pdf",
     slug: "unprotect-pdf",
+    lastModified: "2026-11-03",
     name: "UnProtect PDF",
     shortName: "UnProtect PDF",
     category: "security",

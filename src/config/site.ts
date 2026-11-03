@@ -27,6 +27,11 @@ export const SITE_NAME = "Toolkit4Me";
 export const TAGLINE = "Free tools for everyday digital tasks.";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 export const TWITTER_HANDLE = "@toolkit4me";
+/** Homepage meta description — shared by HomePage and scripts/prerender.ts so the static and client-rendered <head> match. */
+export const HOME_DESCRIPTION =
+  "Toolkit4Me provides free online tools for everyday digital tasks, including PDF conversion, image conversion, compression and OCR.";
+/** Public support inbox — used in Organization structured data. */
+export const CONTACT_EMAIL = "toolkit4me@gmail.com";
 
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

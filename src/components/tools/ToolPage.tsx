@@ -8,6 +8,8 @@ import { SupportedFormats } from "./SupportedFormats";
 import { PrivacySection } from "./PrivacySection";
 import { FAQ } from "./FAQ";
 import { RelatedTools } from "./RelatedTools";
+import { RelatedGuides } from "./RelatedGuides";
+import { webApplicationSchema } from "../../lib/seo/structuredData";
 import { AdInContent, AdMobile, AdSidebar } from "../ads";
 import { SeoHead } from "../seo/SeoHead";
 import { LoadingState } from "../ui/LoadingState";
@@ -92,6 +94,7 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
           { name: tool.name, path: `/tools/${tool.slug}` },
         ]}
         faq={tool.faq}
+        jsonLd={[webApplicationSchema(tool)]}
       />
 
       <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
@@ -164,6 +167,8 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
           </section>
 
           <RelatedTools tool={tool} />
+
+          <RelatedGuides tool={tool} />
         </div>
 
         {/* Desktop sidebar: its own layout column, beside — never

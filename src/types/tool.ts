@@ -52,6 +52,8 @@ export interface ToolDefinition {
   name: string;
   shortName: string;
   slug: string;
+  /** ISO date (YYYY-MM-DD) this tool's page content last changed meaningfully. Feeds the sitemap <lastmod>; bump it when editing the tool's copy. */
+  lastModified: string;
   category: ToolCategory;
   categoryLabel: string;
   description: string;

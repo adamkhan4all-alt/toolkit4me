@@ -31,9 +31,19 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { TOOL_DEFINITIONS } from "../src/data/tools";
 import { toolRegistry } from "../src/lib/toolRegistry";
-import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from "../src/config/site";
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE, HOME_DESCRIPTION } from "../src/config/site";
 import type { ToolDefinition } from "../src/types/tool";
-import { GUIDES, type GuideDefinition } from "../src/data/guides";
+import { GUIDES, guidesForTool, type GuideDefinition } from "../src/data/guides";
+import { formatLongDate } from "../src/lib/format";
+import {
+  articleSchema,
+  breadcrumbSchema,
+  faqSchema,
+  organizationSchema,
+  webApplicationSchema,
+  websiteSchema,
+  type JsonLd,
+} from "../src/lib/seo/structuredData";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, "../dist");
@@ -61,56 +71,43 @@ interface PageMeta {
   description: string;
   breadcrumbs: { name: string; path: string }[];
   faq?: { question: string; answer: string }[];
-  bodyHtml: string;
+  /** Extra page-specific JSON-LD, built with the same helpers <SeoHead> uses. */
+  jsonLd?: JsonLd[];
+  noindex?: boolean;
 }
 
-function jsonLdBreadcrumb(breadcrumbs: { name: string; path: string }[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbs.map((crumb, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: crumb.name,
-      item: `${SITE_URL}${crumb.path}`,
-    })),
-  };
+/** JSON for an inline <script>: escape "<" so a "</script>" inside text content can't end the tag early. */
+function inlineJson(data: JsonLd): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
-function jsonLdFaq(faq: { question: string; answer: string }[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faq.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  };
-}
-
+// Every tag is marked data-prerender="true": these serve non-JS crawlers,
+// and src/main.tsx removes them on boot (src/lib/seo/prerenderedHead.ts)
+// because <SeoHead> re-emits the same tags — so there's never a second
+// canonical / description / JSON-LD block once the app is running.
 function renderHead(meta: PageMeta): string {
-  const url = `${SITE_URL}${meta.route}`;
-  const scripts: string[] = [];
-  scripts.push(`<script type="application/ld+json">${JSON.stringify(jsonLdBreadcrumb(meta.breadcrumbs))}</script>`);
-  if (meta.faq?.length) {
-    scripts.push(`<script type="application/ld+json">${JSON.stringify(jsonLdFaq(meta.faq))}</script>`);
-  }
+  const url = meta.route === "/" ? `${SITE_URL}/` : `${SITE_URL}${meta.route}`;
+  const structuredData: JsonLd[] = [
+    ...(meta.breadcrumbs.length ? [breadcrumbSchema(meta.breadcrumbs)] : []),
+    ...(meta.faq?.length ? [faqSchema(meta.faq)] : []),
+    ...(meta.jsonLd ?? []),
+  ];
+  const scripts = structuredData.map((d) => `<script data-prerender="true" type="application/ld+json">${inlineJson(d)}</script>`);
 
-  return `<title>${escapeHtml(meta.title)}</title>
-    <meta name="description" content="${escapeHtml(meta.description)}" />
-    <link rel="canonical" href="${url}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="${SITE_NAME}" />
-    <meta property="og:title" content="${escapeHtml(meta.title)}" />
-    <meta property="og:description" content="${escapeHtml(meta.description)}" />
-    <meta property="og:url" content="${url}" />
-    <meta property="og:image" content="${DEFAULT_OG_IMAGE}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="${TWITTER_HANDLE}" />
-    <meta name="twitter:title" content="${escapeHtml(meta.title)}" />
-    <meta name="twitter:description" content="${escapeHtml(meta.description)}" />
-    <meta name="twitter:image" content="${DEFAULT_OG_IMAGE}" />
+  return `<title data-prerender="true">${escapeHtml(meta.title)}</title>
+    <meta data-prerender="true" name="description" content="${escapeHtml(meta.description)}" />
+    ${meta.noindex ? `<meta data-prerender="true" name="robots" content="noindex, nofollow" />` : `<link data-prerender="true" rel="canonical" href="${url}" />`}
+    <meta data-prerender="true" property="og:type" content="website" />
+    <meta data-prerender="true" property="og:site_name" content="${SITE_NAME}" />
+    <meta data-prerender="true" property="og:title" content="${escapeHtml(meta.title)}" />
+    <meta data-prerender="true" property="og:description" content="${escapeHtml(meta.description)}" />
+    <meta data-prerender="true" property="og:url" content="${url}" />
+    <meta data-prerender="true" property="og:image" content="${DEFAULT_OG_IMAGE}" />
+    <meta data-prerender="true" name="twitter:card" content="summary_large_image" />
+    <meta data-prerender="true" name="twitter:site" content="${TWITTER_HANDLE}" />
+    <meta data-prerender="true" name="twitter:title" content="${escapeHtml(meta.title)}" />
+    <meta data-prerender="true" name="twitter:description" content="${escapeHtml(meta.description)}" />
+    <meta data-prerender="true" name="twitter:image" content="${DEFAULT_OG_IMAGE}" />
     ${scripts.join("\n    ")}`;
 }
 
@@ -138,6 +135,9 @@ function renderToolBody(tool: ToolDefinition): string {
     .join("\n");
   const relatedLinks = related
     .map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a></li>`)
+    .join("\n");
+  const guideLinks = guidesForTool(tool.slug)
+    .map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a></li>`)
     .join("\n");
 
   const privacyText =
@@ -175,6 +175,7 @@ function renderToolBody(tool: ToolDefinition): string {
 
     <h2>Related tools</h2>
     <ul>${relatedLinks}</ul>
+    ${guideLinks ? `<h2>Helpful guides</h2>\n    <ul>${guideLinks}</ul>` : ""}
   </div>`;
 }
 
@@ -230,7 +231,7 @@ function renderGuideBody(guide: GuideDefinition): string {
   return `<div style="max-width:760px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
     ${renderBreadcrumbNav(guideBreadcrumbs(guide))}
     <h1>${escapeHtml(guide.title)}</h1>
-    <p><small>Last updated: ${escapeHtml(guide.updated)}</small></p>
+    <p><small>Last updated: ${escapeHtml(formatLongDate(guide.updated))}</small></p>
     <p>${escapeHtml(guide.summary)}</p>
     ${sections}
     ${related ? `<h2>Related tools</h2>\n<ul>${related}</ul>` : ""}
@@ -246,7 +247,7 @@ function renderLegalBody(title: string, paragraphs: string[]): string {
 }
 
 function renderDirectoryBody(): string {
-  const links = TOOL_DEFINITIONS.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`).join(
+  const links = TOOL_DEFINITIONS.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> (${escapeHtml(t.categoryLabel)}) — ${escapeHtml(t.description)}</li>`).join(
     "\n"
   );
   return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
@@ -261,7 +262,12 @@ function renderDirectoryBody(): string {
 }
 
 function writePage(route: string, headHtml: string, bodyHtml: string) {
-  const outputPath = route === "/" ? path.join(distDir, "index.html") : path.join(distDir, route.slice(1), "index.html");
+  const outputPath =
+    route === "/"
+      ? path.join(distDir, "index.html")
+      : route.endsWith(".html")
+        ? path.join(distDir, route.slice(1))
+        : path.join(distDir, route.slice(1), "index.html");
 
   let html = template;
   html = html.replace(/<title>.*?<\/title>\s*/s, "");
@@ -282,8 +288,9 @@ writePage(
   renderHead({
     route: "/",
     title: "Toolkit4Me — Free Tools for Everyday Digital Tasks",
-    description: "Toolkit4Me provides free online tools for everyday digital tasks, including PDF conversion, image conversion, compression and OCR.",
-    breadcrumbs: [{ name: "Home", path: "/" }],
+    description: HOME_DESCRIPTION,
+    breadcrumbs: [],
+    jsonLd: [websiteSchema(HOME_DESCRIPTION), organizationSchema()],
   }),
   renderHomeBody()
 );
@@ -397,6 +404,7 @@ for (const tool of TOOL_DEFINITIONS) {
         { name: tool.name, path: route },
       ],
       faq: tool.faq,
+      jsonLd: [webApplicationSchema(tool)],
     }),
     renderToolBody(tool)
   );
@@ -420,9 +428,35 @@ writePage(
 for (const guide of GUIDES) {
   writePage(
     guide.path,
-    renderHead({ route: guide.path, title: guide.seoTitle, description: guide.metaDescription, breadcrumbs: guideBreadcrumbs(guide) }),
+    renderHead({
+      route: guide.path,
+      title: guide.seoTitle,
+      description: guide.metaDescription,
+      breadcrumbs: guideBreadcrumbs(guide),
+      jsonLd: [articleSchema(guide)],
+    }),
     renderGuideBody(guide)
   );
 }
 
-console.log(`prerender: wrote ${7 + TOOL_DEFINITIONS.length + GUIDES.length} static pages into ${distDir}`);
+// --- 404 ---
+// Vercel serves dist/404.html, with a real 404 status, for any URL with no
+// matching file — so unknown paths are hard 404s (never soft 404s), while
+// still giving visitors a way back into the site. noindex, no canonical.
+writePage(
+  "/404.html",
+  renderHead({
+    route: "/404",
+    title: "Page not found — Toolkit4Me",
+    description: "The page you're looking for doesn't exist or may have moved.",
+    breadcrumbs: [],
+    noindex: true,
+  }),
+  `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
+    <h1>Page not found</h1>
+    <p>The page you're looking for doesn't exist or may have moved.</p>
+    <p><a href="/tools">Browse all tools</a> · <a href="/guides">Read our guides</a> · <a href="/">Go to the homepage</a></p>
+  </div>`
+);
+
+console.log(`prerender: wrote ${8 + TOOL_DEFINITIONS.length + GUIDES.length} static pages (incl. 404.html) into ${distDir}`);

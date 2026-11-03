@@ -5,6 +5,8 @@ import { HelmetProvider } from "react-helmet-async";
 import App from "../App";
 import { toolRegistry } from "../lib/toolRegistry";
 import { ToastProvider } from "../components/ui/ToastProvider";
+import { STATIC_PAGES } from "../lib/seo/pages";
+import { GUIDES } from "../data/guides";
 
 function renderAt(path: string) {
   return render(
@@ -37,7 +39,8 @@ describe("routing", () => {
     "renders the correct H1 for /tools/%s",
     async (slug, expectedH1) => {
       renderAt(`/tools/${slug}`);
-      expect(await screen.findByRole("heading", { level: 1, name: expectedH1 })).toBeInTheDocument();
+      // The first case pays the cold lazy-import cost of the whole tool-page chunk, which can exceed findBy's default 1s.
+      expect(await screen.findByRole("heading", { level: 1, name: expectedH1 }, { timeout: 5000 })).toBeInTheDocument();
     }
   );
 
@@ -62,5 +65,18 @@ describe("routing", () => {
       expect(await screen.findByRole("button", { name: tool.actionLabel })).toBeInTheDocument();
       unmount();
     }
+  });
+
+  // Every URL the sitemaps advertise must be a real, rendering route —
+  // never the not-found page.
+  it.each(STATIC_PAGES.map((p) => [p.path] as const))("sitemap page %s renders a real page", async (path) => {
+    renderAt(path);
+    const h1 = await screen.findByRole("heading", { level: 1 });
+    expect(h1).not.toHaveTextContent(/Page not found/i);
+  });
+
+  it.each(GUIDES.map((g) => [g.path, g.title] as const))("renders the guide at %s", async (path, title) => {
+    renderAt(path);
+    expect(await screen.findByRole("heading", { level: 1, name: title })).toBeInTheDocument();
   });
 });

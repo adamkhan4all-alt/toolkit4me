@@ -18,6 +18,10 @@ export function PrivacyPolicyPage() {
         title="Privacy Policy — Toolkit4Me"
         description="How Toolkit4Me handles the files you process and the data collected while you use our free PDF and image tools."
         path="/privacy"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Privacy Policy", path: "/privacy" },
+        ]}
       />
 
       <h1 className="mb-2 text-3xl font-bold text-neutral-900">Privacy Policy</h1>
