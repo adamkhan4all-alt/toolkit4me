@@ -44,7 +44,7 @@ export async function getImageDimensions(file: File): Promise<ImageDimensions> {
   return { width: img.naturalWidth, height: img.naturalHeight };
 }
 
-function drawToCanvas(img: HTMLImageElement, maxWidth?: number): HTMLCanvasElement {
+function drawToCanvas(img: HTMLImageElement, format: "jpeg" | "png", maxWidth?: number): HTMLCanvasElement {
   let { naturalWidth: width, naturalHeight: height } = img;
 
   if (maxWidth && width > maxWidth) {
@@ -60,9 +60,13 @@ function drawToCanvas(img: HTMLImageElement, maxWidth?: number): HTMLCanvasEleme
   if (!ctx) {
     throw new ImageProcessingError("Your browser doesn't support the canvas features this tool needs.");
   }
-  // PNG -> JPEG needs an opaque background since JPEG has no alpha channel.
-  ctx.fillStyle = "#FFFFFF";
-  ctx.fillRect(0, 0, width, height);
+  // JPEG has no alpha channel, so transparent areas need an opaque (white)
+  // background. PNG output keeps its transparency — filling it white would
+  // flatten e.g. a transparent logo run through Compress Image.
+  if (format === "jpeg") {
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, width, height);
+  }
   ctx.drawImage(img, 0, 0, width, height);
   return canvas;
 }
@@ -99,7 +103,7 @@ export interface ConvertImageResult {
 
 export async function convertImage(file: File, options: ConvertImageOptions): Promise<ConvertImageResult> {
   const img = await loadImage(file);
-  const canvas = drawToCanvas(img, options.maxWidth);
+  const canvas = drawToCanvas(img, options.format, options.maxWidth);
   const mime = MIME_BY_FORMAT[options.format];
   const blob = await canvasToBlob(canvas, mime, options.format === "jpeg" ? options.quality ?? 0.9 : undefined);
   return { blob, width: canvas.width, height: canvas.height };

@@ -9,7 +9,7 @@ import { SeoHead } from "../components/seo/SeoHead";
 // relying on it for regulatory compliance (GDPR/CCPA etc.).
 // ---------------------------------------------------------------------
 
-const LAST_UPDATED = "September 23, 2026";
+const LAST_UPDATED = "November 3, 2026";
 
 export function PrivacyPolicyPage() {
   return (
@@ -58,9 +58,25 @@ export function PrivacyPolicyPage() {
           <ul className="mt-3 list-disc pl-5">
             <li>The file is transmitted over an encrypted (HTTPS) connection.</li>
             <li>It's used only to produce the output you requested — we don't inspect, scan, or read file content for any other purpose.</li>
-            <li><strong>It is automatically and permanently deleted from our servers one hour after upload</strong>, whether or not you download the result.</li>
+            <li>
+              <strong>Your uploaded file is deleted as soon as processing finishes.</strong> The converted result is
+              kept for up to one hour so you can download it, then deleted automatically — whether or not you
+              downloaded it. A cleanup job checks for expired results every few minutes.
+            </li>
             <li>We don't keep backups of uploaded or processed files beyond that window.</li>
+            <li>
+              Processing runs on our own server using open-source software (such as LibreOffice, Ghostscript, qpdf
+              and the Tesseract OCR engine). Your files are not sent to any third-party conversion service.
+            </li>
+            <li>
+              Passwords you enter in the PDF password tools are used only for that one operation and are never
+              logged or stored.
+            </li>
           </ul>
+          <p className="mt-3">
+            Server-side limits: files up to 25–100MB depending on the tool (each tool's page states its limit), and
+            up to 20 files per merge.
+          </p>
         </section>
 
         <section>

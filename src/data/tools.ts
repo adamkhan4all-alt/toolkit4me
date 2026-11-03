@@ -16,7 +16,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     category: "convert",
     categoryLabel: "Convert PDF",
     description:
-      "Convert your PDF documents into fully editable Word files (.docx) in seconds. No installs, no watermarks — upload a file to get started.",
+      "Convert a PDF into an editable Word (.docx) document. The text comes across as clean, editable paragraphs — no installs, no watermarks.",
     acceptedFormats: ["PDF"],
     acceptedMime: ["application/pdf"],
     maxFileSize: 50,
@@ -26,32 +26,43 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     actionLabel: "Convert to Word",
     icon: "PDF→DOCX",
     howItWorks: [
-      "Upload your PDF file.",
-      "We convert it automatically, preserving layout and formatting.",
-      "Download your editable Word document.",
+      "Upload your PDF (up to 50MB).",
+      "We extract the text — or, for a scanned PDF of up to 15 pages, read it with OCR — and build a .docx.",
+      "Download the Word document and apply any formatting you need.",
     ],
     features: [
-      "Preserves original formatting and layout",
-      "Works with scanned and text-based PDFs",
+      "Real, editable .docx output — not an image of the page",
+      "Scanned PDFs (up to 15 pages) are read with English OCR",
       "No software to install",
       "Files are automatically deleted after 1 hour",
     ],
+    useCases: [
+      "Updating an old letter or contract you only have as a PDF",
+      "Reusing paragraphs from a report without retyping them",
+      "Turning a scanned one-page letter into editable text",
+    ],
+    limitations: [
+      "Only the text is converted — layout, fonts, tables and images are not reproduced",
+      "Scanned PDFs are read with English OCR and are limited to 15 pages",
+      "Password-protected PDFs need to be unlocked first with Unlock PDF",
+      "One PDF of up to 50MB at a time",
+    ],
     faq: [
       { question: "Is this PDF to Word converter free?", answer: "Yes, converting PDF to Word is completely free with no hidden limits on this tool." },
-      { question: "Will my formatting stay the same?", answer: "We do our best to preserve fonts, layout, images, and tables, though very complex layouts may shift slightly." },
+      { question: "Will my formatting stay the same?", answer: "No. The converter extracts the text in reading order and rebuilds it as plain paragraphs. Fonts, colours, columns, tables and images are not carried over, so you may need to restyle the document. The result is clean and editable, but it is not a copy of the PDF's layout." },
       { question: "Is my file secure?", answer: "Your file is processed securely and automatically deleted from our servers after 1 hour." },
-      { question: "Can I convert scanned PDFs?", answer: "Yes, scanned PDFs are supported, though editable output quality depends on scan clarity." },
+      { question: "Can I convert scanned PDFs?", answer: "Yes, up to 15 pages. When a PDF has no selectable text, each page is read with OCR in English. Accuracy depends on scan quality, so check names and numbers carefully. For a longer scan, split it into parts with Split PDF first." },
     ],
     outputExtension: "docx",
     relatedTools: ["word-to-pdf", "compress-pdf", "merge-pdf", "pdf-to-jpg"],
     intro: [
       "If you've ever needed to pull a paragraph out of a PDF and actually edit it, you already know the frustration — most PDFs simply aren't built to be typed into. This tool bridges that gap: upload a PDF and get back a genuine .docx file you can open in Word, Google Docs, or LibreOffice and edit like any other document.",
-      "It works well for contracts, resumes, reports, and other text-heavy PDFs. Very complex layouts (multi-column magazines, heavily designed brochures) may not carry over perfectly, since the goal here is an editable document rather than a pixel-perfect replica — but for the everyday PDF, the result is ready to work with immediately.",
+      "It works best on text-heavy PDFs such as letters, contracts, résumés and reports. Be clear about what it does: it extracts the text in reading order and rebuilds it as plain paragraphs in a .docx. Fonts, colours, columns, tables and images are not reproduced, so expect to reapply formatting in Word. If you need the page to look identical rather than be editable, keep the PDF — or use PDF to JPG for an image of each page.",
     ],
     formatsNote: "Accepts PDF files up to 50MB. Output is a standard .docx file compatible with Microsoft Word, Google Docs, and LibreOffice Writer.",
     seo: {
       title: "PDF to Word Converter – Editable DOCX, Free | Toolkit4Me",
-      metaDescription: "Convert PDF to an editable Word (.docx) document online for free. Keeps layout and formatting where possible, adds no watermark, and needs no sign-up.",
+      metaDescription: "Convert PDF to an editable Word (.docx) document online for free. Extracts the text into editable paragraphs, reads scanned PDFs with OCR, and adds no watermark.",
       h1: "PDF to Word Converter",
       keywords: ["pdf to word", "pdf to docx", "convert pdf to word free"],
     },
@@ -65,7 +76,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     category: "convert",
     categoryLabel: "Convert PDF",
     description:
-      "Turn your .doc or .docx files into polished, universally readable PDF documents in seconds — formatting stays exactly as intended.",
+      "Turn your .doc or .docx files into polished, universally readable PDF documents in seconds, with text, images and tables kept in place.",
     acceptedFormats: ["DOC", "DOCX"],
     acceptedMime: [
       "application/msword",
@@ -88,10 +99,21 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       "No formatting knowledge required",
       "Files are automatically deleted after 1 hour",
     ],
+    useCases: [
+      "Sending a CV or cover letter that must look the same on the employer's screen",
+      "Turning an invoice or quote into a file the recipient can't accidentally edit",
+      "Submitting an assignment or form where PDF is the required format",
+    ],
+    limitations: [
+      "Fonts not installed on our server are replaced with a similar font, which can move line or page breaks",
+      "Password-protected Word files can't be converted — remove the password in Word first",
+      "Macros and other interactive features don't carry over into the PDF",
+      "One document of up to 50MB at a time",
+    ],
     faq: [
       { question: "Is this Word to PDF converter free?", answer: "Yes, this tool is free to use with no watermark added." },
       { question: "Does it support .doc and .docx?", answer: "Both legacy .doc and modern .docx formats are supported." },
-      { question: "Will fonts render correctly?", answer: "Common fonts render identically; unusual custom fonts may be substituted." },
+      { question: "Will fonts render correctly?", answer: "Widely available fonts render as expected. If your document uses a font our server doesn't have, a similar font is substituted, which can occasionally move a line or page break — so check the PDF before you send it." },
       { question: "Is my document kept private?", answer: "Files are processed securely and deleted automatically after 1 hour." },
     ],
     outputExtension: "pdf",
@@ -134,7 +156,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     features: [
       "Combine multiple images into one PDF",
       "Reorder pages before converting",
-      "Automatic page sizing",
+      "Choose A4, Letter, or pages sized to each image",
       "Processed locally in your browser — images never leave your device",
     ],
     options: [
@@ -150,9 +172,20 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
         defaultValue: "a4",
       },
     ],
+    useCases: [
+      "Collecting receipt photos into one PDF for an expense claim",
+      "Sending phone photos of a signed form as a single document",
+      "Combining scanned ID pages for an online application",
+    ],
+    limitations: [
+      "Only JPG/JPEG images — convert PNGs first with PNG to JPG",
+      "Images are placed as they are; the tool doesn't crop, straighten or enhance photos",
+      "Large photos make large PDFs — run them through Compress Image first if size matters",
+      "Each image can be up to 25MB",
+    ],
     faq: [
       { question: "Can I upload multiple images?", answer: "Yes, you can upload several JPGs and combine them into one PDF." },
-      { question: "Can I reorder the pages?", answer: "Yes, drag the thumbnails to set the order before converting." },
+      { question: "Can I reorder the pages?", answer: "Yes — use the up and down arrows next to each image to set the order before converting." },
       { question: "Is there a file limit?", answer: "Each image can be up to 25MB; you may add multiple images per PDF." },
       { question: "Is this free?", answer: "Yes, converting JPG to PDF is free with no watermark." },
       { question: "Does my image get uploaded anywhere?", answer: "No — the PDF is built entirely in your browser, so your images never leave your device." },
@@ -191,18 +224,29 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     icon: "PDF→JPG",
     howItWorks: [
       "Upload your PDF file.",
-      "We render each page as a high-resolution JPG.",
-      "Download the images individually or as a ZIP.",
+      "We render each page as a JPG at 150 DPI.",
+      "Download a single JPG, or a ZIP with every page numbered in order.",
     ],
     features: [
-      "High-resolution page rendering",
+      "Pages rendered at 150 DPI, high JPEG quality",
       "Multi-page PDFs export as a ZIP",
-      "No quality loss on text-based pages",
+      "One numbered image per page",
       "Files are automatically deleted after 1 hour",
+    ],
+    useCases: [
+      "Dropping one page of a PDF into a slide deck or social post",
+      "Sharing a page in a chat app that previews images but not PDFs",
+      "Creating a preview thumbnail of a document",
+    ],
+    limitations: [
+      "JPG is a lossy format, so very small text can look slightly soft when you zoom in",
+      "The text in the images is no longer selectable — use PDF to Word if you need the words",
+      "Password-protected PDFs need to be unlocked first",
+      "One PDF of up to 50MB at a time",
     ],
     faq: [
       { question: "What happens with multi-page PDFs?", answer: "Each page becomes its own JPG, delivered together in a ZIP file." },
-      { question: "What resolution are the images?", answer: "Images are rendered at high resolution suitable for screen and print." },
+      { question: "What resolution are the images?", answer: "Pages are rendered at 150 DPI — sharp on screen and fine for everyday printing. An A4 page comes out at roughly 1240 × 1754 pixels." },
       { question: "Is this free?", answer: "Yes, PDF to JPG conversion is free." },
       { question: "Is my file kept private?", answer: "Files are deleted automatically from our servers after 1 hour." },
     ],
@@ -258,9 +302,20 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
         defaultValue: "recommended",
       },
     ],
+    useCases: [
+      "Getting a scanned document under an email attachment limit",
+      "Meeting a job portal or government form's 2–5MB upload limit",
+      "Reducing storage used by large archives of scanned paperwork",
+    ],
+    limitations: [
+      "Text-only or already-optimised PDFs may barely shrink — in rare cases the output can even be slightly larger, in which case keep the original",
+      "High compression can make photos and small print in scans look blurry",
+      "Compression doesn't remove pages — use Split PDF to drop pages you don't need",
+      "Password-protected PDFs need to be unlocked first; up to 100MB per file",
+    ],
     faq: [
       { question: "Will compression reduce quality?", answer: "Higher compression trades some visual quality for a smaller file size; Recommended balances both." },
-      { question: "How much smaller will my file be?", answer: "Results vary by content, but most PDFs shrink 40–70%." },
+      { question: "How much smaller will my file be?", answer: "It depends on what's inside the file. Scans and image-heavy PDFs shrink the most, because their images are downsampled; PDFs that are mostly text, or already optimised, may barely change. In our own test, a three-page PDF of 300 DPI scans shrank 53% at Recommended and 87% at High, while Low left it essentially the same size. The tool always shows the real before and after sizes." },
       { question: "Is this free?", answer: "Yes, PDF compression is free with no file-count limit." },
       { question: "Is my file kept private?", answer: "Files are deleted automatically after 1 hour." },
     ],
@@ -281,6 +336,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "merge-pdf",
     slug: "merge-pdf",
+    maxFiles: 20,
     lastModified: "2026-11-03",
     name: "Merge PDF",
     shortName: "Merge PDF",
@@ -296,26 +352,36 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     endpoint: "/api/v1/process/merge-pdf",
     actionLabel: "Merge PDFs",
     icon: "PDF+PDF",
-    howItWorks: ["Upload two or more PDF files.", "Drag to reorder them.", "Download one combined PDF."],
+    howItWorks: ["Upload two or more PDF files.", "Use the arrows to put them in order.", "Download one combined PDF."],
     features: [
-      "Combine unlimited PDF files",
-      "Reorder files by drag and drop",
+      "Combine up to 20 PDFs in one go",
+      "Reorder files with the up and down arrows",
       "Preserves original quality",
       "Files are automatically deleted after 1 hour",
     ],
+    useCases: [
+      "Building one application file from a CV, cover letter and certificates",
+      "Combining monthly statements into a single document for your records",
+      "Assembling chapters or sections written separately into one report",
+    ],
+    limitations: [
+      "Up to 20 files per merge, each up to 50MB",
+      "Bookmarks and fillable form fields from the original files may not carry over",
+      "Password-protected PDFs need to be unlocked first",
+    ],
     faq: [
-      { question: "How many files can I merge?", answer: "There is no fixed limit — add as many PDFs as you need." },
-      { question: "Can I reorder files before merging?", answer: "Yes, drag files into the order you want before merging." },
+      { question: "How many files can I merge?", answer: "Up to 20 files per merge. To combine more, merge them in batches and then merge the results." },
+      { question: "Can I reorder files before merging?", answer: "Yes — use the up and down arrows next to each file to set the order before merging." },
       { question: "Is this free?", answer: "Yes, merging PDFs is completely free." },
       { question: "Is my file kept private?", answer: "Files are deleted automatically from our servers after 1 hour." },
     ],
     outputExtension: "pdf",
     relatedTools: ["compress-pdf", "pdf-to-word", "jpg-to-pdf", "pdf-to-jpg"],
     intro: [
-      "Whether you're assembling a single report from several chapters, combining scanned pages into one file, or putting together a client packet from separate documents, this tool merges any number of PDFs into a single, ordered file in a few clicks.",
+      "Whether you're assembling a single report from several chapters, combining scanned pages into one file, or putting together a client packet from separate documents, this tool merges up to 20 PDFs into a single, ordered file in a few clicks.",
       "You control the order — arrange your files before merging so the final document reads exactly the way you intend, with nothing to reassemble by hand afterward.",
     ],
-    formatsNote: "Accepts two or more PDF files, up to 50MB each. Output is one combined PDF.",
+    formatsNote: "Accepts 2 to 20 PDF files, up to 50MB each. Output is one combined PDF.",
     seo: {
       title: "Merge PDF – Combine PDF Files Online Free | Toolkit4Me",
       metaDescription: "Merge multiple PDF files into one document online for free. Arrange the files in the order you want, then download a single combined PDF. No watermark.",
@@ -332,7 +398,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     category: "compress",
     categoryLabel: "Compress",
     description:
-      "Reduce JPG and PNG file sizes without a noticeable drop in quality — perfect for faster websites and easier sharing.",
+      "Reduce JPG and PNG file sizes by adjusting quality, format and dimensions — ideal for faster websites, email and upload forms.",
     acceptedFormats: ["JPG", "PNG"],
     acceptedMime: ["image/jpeg", "image/png"],
     maxFileSize: 25,
@@ -341,10 +407,10 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     endpoint: null,
     actionLabel: "Compress Image",
     icon: "IMG↓",
-    howItWorks: ["Upload one or more JPG or PNG images.", "Choose a compression level.", "Download your smaller images."],
+    howItWorks: ["Upload one or more JPG or PNG images.", "Set the quality, output format and, optionally, a maximum width.", "Download your smaller images."],
     features: [
       "Supports JPG and PNG",
-      "Adjustable compression level",
+      "Quality slider, format choice and optional resizing",
       "Batch compress multiple images",
       "Processed locally in your browser — files never leave your device",
     ],
@@ -361,8 +427,18 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
         defaultValue: "recommended",
       },
     ],
+    useCases: [
+      "Shrinking product photos before uploading them to an online store or website",
+      "Getting a photo under an upload form's size limit",
+      "Making images small enough to email several at once",
+    ],
+    limitations: [
+      "The quality slider affects JPG output only — PNG is lossless, so PNGs shrink only by resizing or saving as JPG",
+      "Re-saving removes embedded photo metadata such as camera details and location",
+      "Each image can be up to 25MB",
+    ],
     faq: [
-      { question: "Will my images lose quality?", answer: "Recommended compression is visually lossless for most photos; High trades some quality for smaller size." },
+      { question: "Will my images lose quality?", answer: "For JPG output, a quality setting around 70–80 usually looks the same as the original at normal viewing size; lower settings save more space but can show blockiness. PNG is lossless, so the quality slider doesn't change PNG output — to shrink a PNG, reduce its maximum width or save it as JPG." },
       { question: "Can I compress multiple images at once?", answer: "Yes, you can upload and compress several images in one batch." },
       { question: "Is this free?", answer: "Yes, image compression is free." },
       { question: "Does my image get uploaded anywhere?", answer: "No — compression runs locally in your browser, so the file never leaves your device." },
@@ -390,9 +466,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     category: "ocr",
     categoryLabel: "OCR",
     description:
-      "Extract editable, copyable text from JPG, PNG, or PDF files using optical character recognition — no retyping required.",
-    acceptedFormats: ["JPG", "PNG", "PDF"],
-    acceptedMime: ["image/jpeg", "image/png", "application/pdf"],
+      "Extract editable, copyable text from JPG and PNG images using optical character recognition — no retyping required.",
+    acceptedFormats: ["JPG", "PNG"],
+    acceptedMime: ["image/jpeg", "image/png"],
     maxFileSize: 25,
     multiple: false,
     processingMode: "SERVER",
@@ -400,12 +476,12 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     actionLabel: "Extract Text",
     icon: "IMG→TXT",
     howItWorks: [
-      "Upload an image or PDF containing text.",
+      "Upload a JPG or PNG image containing text.",
       "We scan it using optical character recognition.",
       "Copy or download the extracted text.",
     ],
     features: [
-      "Supports JPG, PNG, and PDF input",
+      "Supports JPG and PNG images",
       "Multiple language support",
       "Copy text instantly or download as .txt",
       "Files are automatically deleted after 1 hour",
@@ -424,6 +500,17 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
         defaultValue: "en",
       },
     ],
+    useCases: [
+      "Copying text out of a screenshot or a photo of a printed page",
+      "Pulling a quote from a book page without retyping it",
+      "Getting the details off a printed receipt or label into a spreadsheet",
+    ],
+    limitations: [
+      "Works best on clear, printed text — handwriting and stylised fonts are often misread",
+      "Supports English, Spanish, French and German",
+      "Columns and tables come out as plain lines of text; the layout isn't kept",
+      "One JPG or PNG image of up to 25MB at a time (no PDFs)",
+    ],
     faq: [
       { question: "How accurate is the text extraction?", answer: "Accuracy depends on image clarity; clean, high-resolution scans give the best results." },
       { question: "What languages are supported?", answer: "English, Spanish, French, and German are currently supported." },
@@ -434,12 +521,12 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     relatedTools: ["pdf-to-jpg", "compress-image", "jpg-to-png", "png-to-jpg"],
     intro: [
       "Retyping text out of a photo, screenshot, or scanned document is slow and error-prone. This tool uses optical character recognition to read the text straight out of your image and hand it back to you as real, selectable text — ready to copy into an email, document, or spreadsheet.",
-      "It works on printed text in JPGs, PNGs, and PDFs, in English, Spanish, French, or German, and the extracted text is never stored beyond the time it takes to process your file.",
+      "It works on printed text in JPG and PNG images, in English, Spanish, French or German. Your image is deleted as soon as it's processed, and the extracted text is kept only long enough for you to download it (at most one hour). Have a scanned PDF instead? PDF to Word reads scanned PDFs with OCR, or PDF to JPG turns each page into an image you can use here.",
     ],
-    formatsNote: "Accepts JPG, PNG, or PDF files up to 25MB. Output is plain text (.txt), viewable or downloadable.",
+    formatsNote: "Accepts one JPG or PNG image up to 25MB. Output is plain text (.txt), viewable or downloadable.",
     seo: {
       title: "Image to Text (OCR) – Extract Text Online | Toolkit4Me",
-      metaDescription: "Extract text from images and scanned PDFs with free online OCR. Upload a JPG, PNG or PDF and copy the recognised text in seconds. No sign-up required.",
+      metaDescription: "Extract text from JPG and PNG images with free online OCR in English, Spanish, French or German. Upload an image and copy the recognised text in seconds.",
       h1: "Image to Text (OCR)",
       keywords: ["image to text", "ocr online", "extract text from image free"],
     },
@@ -468,6 +555,16 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       "Batch convert multiple images",
       "No quality loss during conversion",
       "Processed locally in your browser — files never leave your device",
+    ],
+    useCases: [
+      "Uploading to a site or app that only accepts PNG",
+      "Editing a graphic several times without adding new JPG compression each time",
+      "Converting a screenshot that was saved as JPG by mistake",
+    ],
+    limitations: [
+      "PNG files are often several times larger than the original JPG",
+      "Converting doesn't make the background transparent — it stays as it was",
+      "Detail already lost to JPG compression can't be restored",
     ],
     faq: [
       { question: "Will converting to PNG improve quality?", answer: "PNG is lossless, so no further compression artifacts are added, but existing JPG artifacts remain." },
@@ -513,6 +610,16 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       "Batch convert multiple images",
       "Broad compatibility with apps and devices",
       "Processed locally in your browser — files never leave your device",
+    ],
+    useCases: [
+      "Making a large PNG photo small enough for an upload form",
+      "Converting screenshots or exports for a site that only accepts JPG",
+      "Reducing the size of photos before emailing them",
+    ],
+    limitations: [
+      "Transparent areas become white, because JPG has no transparency",
+      "JPG is lossy, so sharp text, line art and logos can pick up faint artefacts — keep those as PNG",
+      "Each image can be up to 25MB",
     ],
     faq: [
       { question: "Will transparency be preserved?", answer: "JPG does not support transparency; transparent areas are filled with white." },
@@ -562,6 +669,16 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       "Add text anywhere on a page",
       "Processed locally in your browser — your file never leaves your device",
       "No account or watermark",
+    ],
+    useCases: [
+      "Rotating sideways pages in a phone scan before sending it",
+      "Removing blank or duplicate pages from a document",
+      "Adding a short label, date or note onto a page",
+    ],
+    limitations: [
+      "Existing text in the PDF can't be edited — you can add new text, not change what's there",
+      "Drawing, highlighting and signature images aren't supported",
+      "One PDF of up to 50MB at a time; password-protected PDFs need to be unlocked first",
     ],
     faq: [
       {
@@ -648,6 +765,16 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
         helpText: "Used when split mode is \"Split every N pages\".",
       },
     ],
+    useCases: [
+      "Pulling one invoice out of a monthly batch",
+      "Sending only the relevant pages of a long statement",
+      "Breaking a large scan into smaller files that fit upload limits",
+    ],
+    limitations: [
+      "Bookmarks and fillable form fields may not carry over into the split files",
+      "Password-protected PDFs need to be unlocked first",
+      "One PDF of up to 50MB at a time",
+    ],
     faq: [
       { question: "Can I extract just a few pages?", answer: "Yes — enter page numbers and/or ranges like \"1-3,4,7-9\", and each group becomes its own PDF." },
       { question: "Can I split a PDF every few pages automatically?", answer: "Yes, switch to \"Split every N pages\" and set how many pages should go in each file." },
@@ -693,21 +820,32 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     ],
     features: [
       "Supports both .ppt and .pptx",
-      "Preserves slide layout, fonts, and images",
+      "Preserves slide layout and images",
       "One PDF page per slide",
       "Files are automatically deleted after 1 hour",
+    ],
+    useCases: [
+      "Sending slides to someone who doesn't have PowerPoint",
+      "Sharing handouts that print the same on any printer",
+      "Uploading a presentation to a portal that only accepts PDF",
+    ],
+    limitations: [
+      "Animations, transitions and embedded video don't carry over — each slide becomes a static page",
+      "Speaker notes aren't included in the PDF",
+      "Fonts not installed on our server are replaced with a similar font",
+      "One file of up to 50MB at a time",
     ],
     faq: [
       { question: "Is this PowerPoint to PDF converter free?", answer: "Yes, converting PowerPoint to PDF is completely free." },
       { question: "Does it support .ppt and .pptx?", answer: "Both legacy .ppt and modern .pptx formats are supported." },
-      { question: "Will my slide layout stay the same?", answer: "Yes — conversion uses a real presentation engine, so fonts, images, and layout carry over faithfully." },
+      { question: "Will my slide layout stay the same?", answer: "Usually, yes — slides are rendered by LibreOffice's presentation engine, so layout and images carry over. Fonts that aren't installed on our server are substituted with a similar font, which can shift text slightly; for exact results, use common fonts or embed fonts when saving in PowerPoint." },
       { question: "Is my file kept private?", answer: "Your file is processed securely and automatically deleted from our servers after 1 hour." },
     ],
     outputExtension: "pdf",
     relatedTools: ["excel-to-pdf", "word-to-pdf", "merge-pdf", "compress-pdf"],
     intro: [
       "PowerPoint files depend on the right fonts and software being installed to look correct — a PDF doesn't. Converting your presentation to PDF locks in exactly how it looked when you finished it, so it opens identically for anyone, on any device, without PowerPoint installed.",
-      "Each slide becomes one PDF page, with layout, images, and fonts preserved by rendering through a real presentation engine rather than an approximation.",
+      "Each slide becomes one PDF page. Conversion runs through LibreOffice's presentation engine, so slide layout, images and text are rendered properly rather than approximated — with the caveat that fonts our server doesn't have are replaced with a similar one.",
     ],
     formatsNote: "Accepts .ppt and .pptx files up to 50MB. Output is a standard, universally viewable PDF.",
     seo: {
@@ -745,6 +883,17 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       "Converts every sheet in the workbook",
       "Preserves formatting and layout",
       "Files are automatically deleted after 1 hour",
+    ],
+    useCases: [
+      "Sending a budget or report that the recipient shouldn't edit",
+      "Printing a workbook consistently, whatever software the printer uses",
+      "Attaching a price list or timesheet to an email as a fixed document",
+    ],
+    limitations: [
+      "Page breaks follow the workbook's own page setup — wide sheets may spread over several pages, so set 'Fit to page width' in Excel first",
+      "Formulas appear as their calculated values; the PDF isn't interactive",
+      "Fonts not installed on our server are replaced with a similar font",
+      "One file of up to 50MB at a time",
     ],
     faq: [
       { question: "Is this Excel to PDF converter free?", answer: "Yes, converting Excel to PDF is completely free." },
@@ -804,6 +953,16 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
         placeholder: "Enter the PDF's password",
         helpText: "You need to already know this password — we never attempt to crack or bypass PDF protection.",
       },
+    ],
+    useCases: [
+      "Removing the password from your own bank or utility statements so they open without a prompt",
+      "Preparing a protected PDF you own for merging, splitting or compressing",
+      "Archiving documents you'll need to open years from now",
+    ],
+    limitations: [
+      "You must know the correct password — forgotten passwords can't be recovered",
+      "Only removes the open password; to remove printing or copying restrictions, use UnProtect PDF",
+      "One PDF of up to 100MB at a time",
     ],
     faq: [
       { question: "Do I need to know the password?", answer: "Yes. This tool removes protection using the real password you provide — it can't recover a forgotten password or bypass encryption." },
@@ -871,6 +1030,17 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
         placeholder: "Re-enter the password",
       },
     ],
+    useCases: [
+      "Emailing payslips, contracts or medical letters",
+      "Storing ID scans or tax documents in cloud storage",
+      "Sharing a confidential report with a specific person",
+    ],
+    limitations: [
+      "The password must be at least 4 characters; a longer passphrase is much stronger",
+      "The same password is used to open the file and to change its permissions",
+      "A forgotten password can't be recovered — we never store it",
+      "One PDF of up to 100MB at a time",
+    ],
     faq: [
       { question: "How strong is the encryption?", answer: "PDFs are encrypted with AES-256, a strong, widely trusted standard." },
       { question: "What if I forget the password?", answer: "There's no way to recover it — we don't store your password, so keep it somewhere safe." },
@@ -929,6 +1099,16 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
         placeholder: "Leave blank if unknown",
         helpText: "Only needed if this PDF also requires a password just to open it. If it only restricts printing/editing, leave this blank.",
       },
+    ],
+    useCases: [
+      "Printing a PDF you own that has printing disabled",
+      "Copying text from a document whose copy permission is turned off",
+      "Preparing a restricted PDF for merging or editing",
+    ],
+    limitations: [
+      "If the PDF also needs a password to open, you must provide it",
+      "It never cracks passwords or bypasses DRM — those files return an error",
+      "One PDF of up to 100MB at a time",
     ],
     faq: [
       {

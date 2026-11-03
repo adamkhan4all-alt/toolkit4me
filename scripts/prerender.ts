@@ -33,7 +33,7 @@ import { TOOL_DEFINITIONS } from "../src/data/tools";
 import { toolRegistry } from "../src/lib/toolRegistry";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE, HOME_DESCRIPTION } from "../src/config/site";
 import type { ToolDefinition } from "../src/types/tool";
-import { GUIDES, guidesForTool, type GuideDefinition } from "../src/data/guides";
+import { GUIDES, guidesForTool, relatedGuidesFor, type GuideDefinition } from "../src/data/guides";
 import { formatLongDate } from "../src/lib/format";
 import {
   articleSchema,
@@ -124,6 +124,10 @@ function renderBreadcrumbNav(breadcrumbs: { name: string; path: string }[]): str
   return `<nav aria-label="Breadcrumb" style="font-size:14px;color:#4b5563;margin-bottom:16px">${items}</nav>`;
 }
 
+function listItems(items: string[]): string {
+  return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n");
+}
+
 function renderToolBody(tool: ToolDefinition): string {
   const related = toolRegistry.getRelated(tool);
 
@@ -157,12 +161,18 @@ function renderToolBody(tool: ToolDefinition): string {
     <h2>About this tool</h2>
     ${intro}
 
+    <h2>Common uses</h2>
+    <ul>${listItems(tool.useCases)}</ul>
+
     <h2>How it works</h2>
     <ol>${steps}</ol>
 
     <h2>Supported formats</h2>
     <p>Accepts: ${escapeHtml(tool.acceptedFormats.join(", "))} — Max file size: ${tool.maxFileSize}MB — Output: .${tool.outputExtension}</p>
     <p>${escapeHtml(tool.formatsNote)}</p>
+
+    <h2>Limitations</h2>
+    <ul>${listItems(tool.limitations)}</ul>
 
     <h2>Features</h2>
     <ul>${features}</ul>
@@ -235,6 +245,10 @@ function renderGuideBody(guide: GuideDefinition): string {
     <p>${escapeHtml(guide.summary)}</p>
     ${sections}
     ${related ? `<h2>Related tools</h2>\n<ul>${related}</ul>` : ""}
+    <h2>More guides</h2>
+    <ul>${relatedGuidesFor(guide)
+      .map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a></li>`)
+      .join("\n")}</ul>
   </div>`;
 }
 
@@ -328,7 +342,7 @@ writePage(
   }),
   renderLegalBody("Privacy Policy", [
     "Toolkit4Me provides free online tools for converting, compressing, merging, and otherwise processing documents and images, without requiring an account.",
-    "Tools that run entirely in your browser never send your file to our servers. Tools that require server-side processing upload your file over an encrypted connection, use it only to produce the output you requested, and delete it automatically one hour after upload.",
+    "Tools that run entirely in your browser never send your file to our servers. Tools that require server-side processing upload your file over an encrypted connection and use it only to produce the output you requested. The upload is deleted as soon as processing finishes, and the result is deleted automatically within one hour. Processing runs on our own server; files are not sent to third-party conversion services.",
     "We show ads through Google AdSense, which may use cookies to personalize ads and measure performance. See the full policy for details on your choices, third-party providers, and your rights.",
   ])
 );
@@ -368,7 +382,7 @@ writePage(
   }),
   renderLegalBody("About Toolkit4Me", [
     "Toolkit4Me is a collection of free, browser-based tools for everyday document and image tasks -- converting a PDF to Word, merging PDFs, compressing a photo, pulling text out of a scan. No account, subscription, or email address required.",
-    "Some tools run entirely in your browser and never upload your file anywhere. Tools that need server-side processing upload your file over an encrypted connection and delete it automatically one hour later, whether or not you downloaded the result.",
+    "Some tools run entirely in your browser and never upload your file anywhere. Tools that need server-side processing upload your file over an encrypted connection; the upload is deleted as soon as it's processed, and the result within one hour, whether or not you downloaded it.",
     "The site is supported by advertising rather than paywalls, so every tool stays free and fully usable.",
   ])
 );
@@ -386,6 +400,43 @@ writePage(
   }),
   renderLegalBody("Contact", [
     "Reach us at toolkit4me@gmail.com for a bug report, a tool request, a privacy question, or anything else about the site.",
+  ])
+);
+
+// --- Disclaimer / Editorial policy ---
+writePage(
+  "/disclaimer",
+  renderHead({
+    route: "/disclaimer",
+    title: "Disclaimer — Toolkit4Me",
+    description: "What you can and can't rely on when using Toolkit4Me's free PDF and image tools and guides.",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Disclaimer", path: "/disclaimer" },
+    ],
+  }),
+  renderLegalBody("Disclaimer", [
+    "Toolkit4Me's tools are free and provided \"as is\". Conversion results depend on the file you start with, so always keep your original and check the result before you send, print or submit it.",
+    "Known limitations: PDF to Word converts a PDF's text into editable paragraphs but does not reproduce its layout, fonts, tables or images; OCR is never 100% accurate; Word, PowerPoint and Excel conversions substitute fonts our server doesn't have; compression results depend on the content. Each tool page lists its own limitations.",
+    "Our guides are general information, not legal, financial, security or other professional advice. Ads are served by Google AdSense and are not endorsements. Microsoft Word, Excel and PowerPoint are trademarks of Microsoft Corporation; Toolkit4Me is not affiliated with Microsoft, Adobe or Google.",
+  ])
+);
+
+writePage(
+  "/editorial-policy",
+  renderHead({
+    route: "/editorial-policy",
+    title: "Editorial Policy — Toolkit4Me",
+    description: "How Toolkit4Me writes, checks and updates its tool pages and guides, and how advertising is kept separate from content.",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Editorial Policy", path: "/editorial-policy" },
+    ],
+  }),
+  renderLegalBody("Editorial Policy", [
+    "Toolkit4Me publishes a page for each tool — what it does, how to use it and what its limits are — and guides that explain the file formats and tasks behind those tools. We only write about tasks our tools actually support.",
+    "Tool descriptions are written from how each tool actually works and checked by running real files through it. We don't promise results we can't guarantee; where we quote a figure, it comes from a test we ran. Pages may be drafted with the help of AI writing tools, but each is checked against the tool's real behaviour before publishing.",
+    "Guides show the date they were last updated, and pages are revised when a tool changes. Advertisers have no influence over content, we don't publish sponsored content, and every ad is labelled. To report an error, email toolkit4me@gmail.com.",
   ])
 );
 
@@ -459,4 +510,4 @@ writePage(
   </div>`
 );
 
-console.log(`prerender: wrote ${8 + TOOL_DEFINITIONS.length + GUIDES.length} static pages (incl. 404.html) into ${distDir}`);
+console.log(`prerender: wrote ${10 + TOOL_DEFINITIONS.length + GUIDES.length} static pages (incl. 404.html) into ${distDir}`);

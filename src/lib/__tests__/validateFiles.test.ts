@@ -48,4 +48,11 @@ describe("validateFiles", () => {
     expect(result.error).toBeUndefined();
     expect(result.valid).toEqual([a, b]);
   });
+
+  it("enforces a tool's maxFiles limit (Merge PDF: 20, matching the server)", () => {
+    const mergePdf = toolRegistry.getBySlug("merge-pdf")!;
+    const pdf = () => makeFile("a.pdf", 1024, "application/pdf");
+    expect(validateFiles(mergePdf, [pdf(), pdf()], 18).error).toBeUndefined();
+    expect(validateFiles(mergePdf, [pdf(), pdf()], 19).error?.message).toMatch(/up to 20 files/);
+  });
 });

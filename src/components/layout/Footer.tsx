@@ -41,6 +41,8 @@ export function Footer() {
             <li><Link to="/privacy" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">Privacy Policy</Link></li>
             <li><Link to="/terms" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">Terms of Service</Link></li>
             <li><Link to="/contact" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">Contact</Link></li>
+            <li><Link to="/disclaimer" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">Disclaimer</Link></li>
+            <li><Link to="/editorial-policy" className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600">Editorial Policy</Link></li>
           </ul>
         </div>
 

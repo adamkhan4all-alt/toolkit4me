@@ -42,7 +42,7 @@ export const GUIDES: GuideDefinition[] = [
     metaDescription: "Why PDFs get so large, which compression level to pick, and practical tricks for getting a PDF under an email or upload limit.",
     summary: "Email attachments are often capped at 20–25MB and many job portals and government forms accept only 2–5MB. Here is why PDFs grow so large and how to shrink them without making them unreadable.",
     published: GUIDES_PUBLISHED,
-    updated: GUIDES_UPDATED,
+    updated: "2026-11-03",
     sections: [
       {
         heading: "Why some PDFs are so large",
@@ -60,9 +60,15 @@ export const GUIDES: GuideDefinition[] = [
       {
         heading: "Choosing a compression level",
         list: [
-          "Low compression: best when the PDF will be printed or contains detailed photos or diagrams. Expect a modest reduction.",
-          "Recommended / medium: the right choice for most documents being emailed or uploaded. Images remain clear on screen while the file shrinks substantially.",
-          "High / extreme: use when you must meet a strict limit such as 1–2MB. Photos may look soft, but text stays readable.",
+          "Low compression keeps images at around 300 DPI, print quality. It's best for documents you'll print, but a PDF that is already at or below 300 DPI may barely shrink.",
+          "Recommended brings images down to around 150 DPI — still clear on any screen — and is the right choice for most documents being emailed or uploaded.",
+          "High brings images down to around 72 DPI. Use it when you must meet a strict limit such as 1–2MB; photos may look soft, but text stays readable.",
+        ],
+      },
+      {
+        heading: "A real example",
+        paragraphs: [
+          "To show the difference, we ran a three-page PDF made of 300 DPI page scans (0.94MB) through Compress PDF at each level. Low left it essentially unchanged, because its images were already at print resolution. Recommended cut it by 53% to about 0.45MB, and High by 87% to about 0.12MB. A small PDF containing only text, on the other hand, didn't shrink at all — there were no images to downsample. Your results will depend on your file, which is why the tool shows the real before and after sizes.",
         ],
       },
       {
@@ -131,35 +137,42 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/how-to-convert-pdf-to-word",
-    title: "How to Convert a PDF to an Editable Word Document",
-    seoTitle: `How to Convert PDF to Word (and Keep the Formatting) | ${SITE_NAME}`,
-    metaDescription: "Convert a PDF into an editable Word file, understand why some layouts shift, and fix common problems with scanned or complex PDFs.",
-    summary: "PDFs are designed to look the same everywhere, not to be edited. Converting one to Word gives you an editable document — here is how to do it and how to get the cleanest result.",
+    title: "How to Convert a PDF to Word — and What Happens to the Formatting",
+    seoTitle: `How to Convert PDF to Word: Text, Formatting and Scans Explained | ${SITE_NAME}`,
+    metaDescription: "Convert a PDF into an editable Word file, understand what carries over and what doesn't, and how to keep formatting when it matters.",
+    summary: "PDFs are designed to look the same everywhere, not to be edited. Converting one to Word gives you editable text — but the layout is a different matter. Here's what to expect, and what to do when the formatting is what you actually need.",
     published: GUIDES_PUBLISHED,
-    updated: GUIDES_UPDATED,
+    updated: "2026-11-03",
     sections: [
       {
         heading: "Why PDFs are hard to edit",
         paragraphs: [
-          "A PDF records where each piece of text and each image sits on the page, but not the document structure behind it — it doesn't know which lines form a paragraph, which text is a heading, or where a table begins. A converter has to reconstruct that structure, which is why simple documents convert almost perfectly while elaborate designs may need some tidying.",
+          "A PDF records where each piece of text and each image sits on the page, but not the structure behind it — it doesn't know which lines form a paragraph, which text is a heading, or where a table begins. Any converter has to guess that structure back, and the more elaborate the design, the more guessing is involved.",
+          "Toolkit4Me's PDF to Word takes the dependable route: it extracts the text in reading order and rebuilds it as clean, editable paragraphs in a .docx file. You get every word, ready to edit — but not the original fonts, colours, columns, tables or images.",
+        ],
+      },
+      {
+        heading: "What carries over, and what doesn't",
+        list: [
+          "Carries over: all the text, in reading order, split into paragraphs.",
+          "Doesn't carry over: fonts and colours, multi-column layout, tables (cell text comes through as separate lines), images, headers and footers as separate regions.",
+          "Scanned PDFs: if a PDF has no selectable text, each page (up to 15) is read with English OCR, so check names and numbers against the original.",
         ],
       },
       {
         heading: "Step by step",
         list: [
-          "Open the PDF to Word tool and select your PDF (up to 50MB).",
-          "Wait a few seconds while the file is converted on our server.",
+          "Open the PDF to Word tool and select your PDF (up to 50MB). If it asks for a password when you open it, remove the password first with Unlock PDF.",
+          "Wait a few seconds while the text is extracted on our server.",
           "Download the .docx file and open it in Microsoft Word, Google Docs or LibreOffice Writer.",
-          "Scroll through and check tables, headers and footers, and any multi-column sections.",
+          "Apply headings and styles with Word's style gallery — it's faster than formatting paragraph by paragraph.",
         ],
       },
       {
-        heading: "Getting the best result",
-        list: [
-          "Text-based PDFs (exported from Word or another program) convert far better than scans.",
-          "If your PDF is a scan or photo of paper, the text is really an image. Run it through Image to Text (OCR) first if you mainly need the words rather than the layout.",
-          "Multi-column layouts may come through as text boxes. In Word, you can copy the text out of the boxes into normal paragraphs if you need to reflow it.",
-          "Unusual fonts may be substituted with a similar font if they are not installed on your computer.",
+        heading: "When you need the formatting, not just the text",
+        paragraphs: [
+          "Ask first whether you really need to edit the document. If the goal is to fill in a few blanks, add a note or remove a page, editing the PDF directly keeps the layout untouched: the PDF Editor can add text to a page, reorder, rotate and delete pages.",
+          "If you need an image of a page exactly as it looks — for a slide or a report — PDF to JPG renders each page as a picture. And if you created the original in Word, the most reliable route is to go back to that .docx rather than converting the PDF.",
         ],
       },
       {
@@ -178,7 +191,7 @@ export const GUIDES: GuideDefinition[] = [
     metaDescription: "Learn how OCR turns photos and scans into editable text, and simple capture tips that dramatically improve accuracy.",
     summary: "Optical character recognition (OCR) turns the text in a photo or scan into words you can copy, search and edit. Accuracy depends heavily on the image you start with — these tips make the difference between clean text and gibberish.",
     published: GUIDES_PUBLISHED,
-    updated: GUIDES_UPDATED,
+    updated: "2026-11-03",
     sections: [
       {
         heading: "How OCR works",
@@ -207,7 +220,13 @@ export const GUIDES: GuideDefinition[] = [
         list: [
           "Proofread numbers carefully — OCR can confuse 0 and O, 1 and l, or 5 and S.",
           "Paste the text into a word processor and use spell-check to catch remaining errors quickly.",
-          "If you need an editable document that keeps the page layout, try PDF to Word on a text-based PDF instead.",
+          "Remember that OCR gives you text, not layout: columns and tables come out as plain lines that you may need to rearrange.",
+        ],
+      },
+      {
+        heading: "Languages and file types on Toolkit4Me",
+        paragraphs: [
+          "Image to Text reads JPG and PNG images in English, Spanish, French or German — pick the language that matches the text, because the recogniser uses it to resolve unclear letters. For a scanned PDF, either convert the pages to images with PDF to JPG and run the page you need through Image to Text, or use PDF to Word, which automatically reads scanned PDFs of up to 15 pages with English OCR.",
         ],
       },
     ],
@@ -263,7 +282,7 @@ export const GUIDES: GuideDefinition[] = [
     metaDescription: "Combine several PDFs into one, pull out just the pages you need, and reorder or rotate pages before sending a document.",
     summary: "Job applications, visa forms, expense claims and insurance requests often ask for a single PDF that contains several documents in a set order. Here is how to put one together cleanly.",
     published: GUIDES_PUBLISHED,
-    updated: GUIDES_UPDATED,
+    updated: "2026-11-03",
     sections: [
       {
         heading: "Plan the final document first",
@@ -274,8 +293,8 @@ export const GUIDES: GuideDefinition[] = [
       {
         heading: "Merging files",
         list: [
-          "Open Merge PDF and add all the files you want to combine.",
-          "Arrange them in the correct order before merging.",
+          "Open Merge PDF and add the files you want to combine — up to 20 at a time. For more, merge them in batches and then merge the results.",
+          "Use the up and down arrows next to each file to put them in the right order.",
           "Download the combined PDF and flip through it to confirm nothing is missing or upside-down.",
         ],
       },
@@ -288,7 +307,8 @@ export const GUIDES: GuideDefinition[] = [
       {
         heading: "Reordering, rotating and deleting pages",
         paragraphs: [
-          "The PDF Editor shows a thumbnail of every page so you can drag pages into a new order, rotate sideways scans, and delete blank or duplicate pages. It runs entirely in your browser, which makes it a good choice for personal documents.",
+          "The PDF Editor shows a thumbnail of every page, with buttons to move each page earlier or later, rotate it in 90° steps, or delete it — handy for sideways scans and blank or duplicate pages. It runs entirely in your browser, which makes it a good choice for personal documents.",
+          "If any of the files are password-protected, unlock them first with Unlock PDF: merging, splitting and editing all need to be able to open the file.",
         ],
       },
       {
@@ -302,7 +322,116 @@ export const GUIDES: GuideDefinition[] = [
     ],
     relatedTools: ["merge-pdf", "split-pdf", "pdf-editor", "compress-pdf"],
   },
+  {
+    path: "/guides/how-to-compress-images",
+    title: "How to Compress Images for Websites, Email and Upload Forms",
+    seoTitle: `How to Compress Images (JPG & PNG) Without Wrecking Quality | ${SITE_NAME}`,
+    metaDescription: "Why photos are so large, how quality, resolution and format each affect file size, and the settings that work for websites, email and upload forms.",
+    summary: "A single phone photo is often 3–6MB — far more than a website, email or upload form needs. Three settings decide how small an image gets: its pixel dimensions, its format, and (for JPG) its quality. Here's how to use each one.",
+    published: "2026-11-03",
+    updated: "2026-11-03",
+    sections: [
+      {
+        heading: "Why photos are so large",
+        paragraphs: [
+          "Modern phone cameras capture 12 megapixels or more — roughly 4000 × 3000 pixels. A website column or an email preview rarely displays an image wider than 1000–2000 pixels, so most of that data is never seen. File size grows with the number of pixels, so the biggest savings almost always come from reducing the dimensions, not from fiddling with quality.",
+        ],
+      },
+      {
+        heading: "The three settings that matter",
+        list: [
+          "Dimensions: halving the width and height leaves a quarter of the pixels, and the file shrinks dramatically. In Compress Image, set a maximum width — the height scales to match.",
+          "Format: JPG is built for photographs and is usually far smaller than PNG for the same photo. PNG is lossless and suits screenshots, logos and anything with transparency.",
+          "Quality (JPG only): a quality around 70–80 typically looks the same as the original at normal viewing size. Below about 50, blocky artefacts start to appear around edges and in smooth areas like skies.",
+        ],
+      },
+      {
+        heading: "Settings that work for common jobs",
+        list: [
+          "Website or online store photos: maximum width around 1600–2000 pixels, JPG, quality 75–80.",
+          "Email attachments: maximum width around 1200–1600 pixels, JPG, quality around 75.",
+          "Strict upload forms (e.g. a 200KB or 1MB limit): reduce the width first, then lower the quality step by step until the file fits.",
+          "Logos, icons and screenshots: keep PNG, and reduce the width if the image is larger than it will be displayed.",
+        ],
+      },
+      {
+        heading: "Why a PNG didn't get smaller",
+        paragraphs: [
+          "PNG compression is lossless, so there is no quality setting to lower — re-saving a PNG at the same size often produces a file of almost the same size. To shrink a PNG, reduce its maximum width, or, if it's a photo without transparency, save it as JPG instead. Converting a transparent logo to JPG would fill the transparent areas with white, so keep those as PNG.",
+        ],
+      },
+      {
+        heading: "Things to know before you compress",
+        list: [
+          "Keep your original. Compression can't be undone, and re-compressing an already-compressed JPG adds new artefacts each time.",
+          "Re-saving an image removes embedded metadata such as the camera model and the GPS location where a photo was taken — usually a privacy benefit when you're posting photos online.",
+          "Compress Image runs entirely in your browser, so your photos are never uploaded.",
+        ],
+      },
+    ],
+    relatedTools: ["compress-image", "png-to-jpg", "jpg-to-png", "jpg-to-pdf"],
+  },
+  {
+    path: "/guides/convert-office-documents-to-pdf",
+    title: "How to Keep Formatting When Converting Word, Excel and PowerPoint to PDF",
+    seoTitle: `Convert Word, Excel & PowerPoint to PDF Without Layout Surprises | ${SITE_NAME}`,
+    metaDescription: "Why fonts, page breaks and spreadsheet layouts sometimes shift when converting Office files to PDF, and how to prepare your file so the PDF looks right.",
+    summary: "Converting a document to PDF should freeze it exactly as you see it. Usually it does — but fonts, page breaks and wide spreadsheets are the usual trouble spots. A few minutes of preparation in Word, Excel or PowerPoint avoids nearly all of them.",
+    published: "2026-11-03",
+    updated: "2026-11-03",
+    sections: [
+      {
+        heading: "Why layouts can shift",
+        paragraphs: [
+          "Word, Excel and PowerPoint files don't contain a fixed picture of each page. They contain text and instructions, and the software that opens them works out where every line and page break falls — using the fonts installed on that computer. Toolkit4Me converts Office files with LibreOffice on our server. When your document uses a font the server has, the result matches closely; when it doesn't, a similar font is substituted, and because letters have slightly different widths, a line or page break can move.",
+        ],
+      },
+      {
+        heading: "Word documents",
+        list: [
+          "Use widely available fonts, such as Arial or Times New Roman, for documents where exact line breaks matter, like CVs and forms.",
+          "If you use a special font, embed it: in Word, go to File → Options → Save and tick \"Embed fonts in the file\" before saving.",
+          "Insert page breaks deliberately (Ctrl+Enter) instead of pressing Enter repeatedly — manual blank lines are the first thing to move when line heights change.",
+          "Remove the document password before converting; protected files can't be opened for conversion.",
+        ],
+      },
+      {
+        heading: "Excel workbooks",
+        list: [
+          "The PDF follows each sheet's page setup. Wide sheets spill onto extra pages unless you set Page Layout → Scale to Fit → Width: 1 page.",
+          "Set a print area (Page Layout → Print Area) if you only want part of a sheet in the PDF.",
+          "Choose landscape orientation for wide tables, and repeat header rows on every page (Page Layout → Print Titles).",
+          "Formulas appear as their calculated values — the PDF is a snapshot, not a live spreadsheet.",
+        ],
+      },
+      {
+        heading: "PowerPoint presentations",
+        list: [
+          "Each slide becomes one PDF page. Animations, transitions and embedded video don't carry over, so make sure each slide makes sense in its final, fully built state.",
+          "Speaker notes aren't included in the converted PDF.",
+          "Embedded fonts help here too: File → Options → Save → \"Embed fonts in the file\".",
+        ],
+      },
+      {
+        heading: "Check before you send",
+        paragraphs: [
+          "Open the PDF and page through it before sending — compare the page count with the original and look at the end of each page, where shifted breaks show up first. If something moved, adjust the original and convert again; it takes seconds.",
+        ],
+      },
+    ],
+    relatedTools: ["word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "merge-pdf"],
+  },
 ];
+
+/** Other guides ranked by how many tools they share with `guide` — the most closely related first. */
+export function relatedGuidesFor(guide: GuideDefinition, limit = 3): GuideDefinition[] {
+  const tools = new Set(guide.relatedTools ?? []);
+  return GUIDES.filter((g) => g.path !== guide.path)
+    .map((g, index) => ({ g, index, shared: (g.relatedTools ?? []).filter((t) => tools.has(t)).length }))
+    .sort((a, b) => b.shared - a.shared || a.index - b.index)
+    .slice(0, limit)
+    .map(({ g }) => g);
+}
 
 export function getGuide(path: string): GuideDefinition | undefined {
   return GUIDES.find((g) => g.path === path);

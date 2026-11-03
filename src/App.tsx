@@ -19,6 +19,8 @@ const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default:
 const ContactPage = lazy(() => import("./pages/ContactPage").then((m) => ({ default: m.ContactPage })));
 const GuidesIndexPage = lazy(() => import("./pages/GuidesIndexPage").then((m) => ({ default: m.GuidesIndexPage })));
 const GuidePage = lazy(() => import("./pages/GuidePage").then((m) => ({ default: m.GuidePage })));
+const DisclaimerPage = lazy(() => import("./pages/DisclaimerPage").then((m) => ({ default: m.DisclaimerPage })));
+const EditorialPolicyPage = lazy(() => import("./pages/EditorialPolicyPage").then((m) => ({ default: m.EditorialPolicyPage })));
 
 /**
  * Routing is intentionally minimal: a single dynamic `/tools/:slug` route
@@ -39,6 +41,8 @@ function App() {
           <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/disclaimer" element={<DisclaimerPage />} />
+          <Route path="/editorial-policy" element={<EditorialPolicyPage />} />
           <Route path="/guides" element={<GuidesIndexPage />} />
           <Route path="/guides/:slug" element={<GuidePage />} />
           <Route path="*" element={<NotFoundPage />} />

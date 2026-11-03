@@ -3,7 +3,7 @@ import { Breadcrumb } from "../components/layout/Breadcrumb";
 import { ToolCard } from "../components/tools/ToolCard";
 import { AdInContent } from "../components/ads";
 import { SeoHead } from "../components/seo/SeoHead";
-import { getGuide, GUIDES } from "../data/guides";
+import { getGuide, relatedGuidesFor } from "../data/guides";
 import { toolRegistry } from "../lib/toolRegistry";
 import { formatLongDate } from "../lib/format";
 import { articleSchema } from "../lib/seo/structuredData";
@@ -20,7 +20,7 @@ export function GuidePage() {
     { name: guide.title, path: guide.path },
   ];
   const relatedTools = (guide.relatedTools ?? []).map((s) => toolRegistry.getBySlug(s)).filter((t) => t !== undefined);
-  const moreGuides = GUIDES.filter((g) => g.path !== guide.path).slice(0, 3);
+  const moreGuides = relatedGuidesFor(guide);
 
   return (
     <div className="mx-auto flex w-full max-w-[760px] flex-col gap-8 px-4 py-8 sm:px-6">

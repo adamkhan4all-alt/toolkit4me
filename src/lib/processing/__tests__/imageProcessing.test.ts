@@ -49,6 +49,7 @@ function stubCanvas(toBlobBehavior: "success" | "null" = "success") {
       callback(new Blob(["x".repeat(1000)], { type: "image/jpeg" }));
     }
   });
+  return fakeCtx;
 }
 
 describe("imageProcessing", () => {
@@ -82,6 +83,16 @@ describe("imageProcessing", () => {
     vi.stubGlobal("Image", SizedImage);
     const dims = await getImageDimensions(new File(["x"], "wide.jpg", { type: "image/jpeg" }));
     expect(dims).toEqual({ width: 1600, height: 900 });
+  });
+
+  it("fills transparent areas with white only for JPEG output, so PNG output keeps its transparency", async () => {
+    const ctx = stubCanvas();
+    await convertImage(new File(["x"], "logo.png", { type: "image/png" }), { format: "png" });
+    expect(ctx.fillRect).not.toHaveBeenCalled();
+
+    await convertImage(new File(["x"], "logo.png", { type: "image/png" }), { format: "jpeg", quality: 0.9 });
+    expect(ctx.fillRect).toHaveBeenCalledTimes(1);
+    expect(ctx.fillStyle).toBe("#FFFFFF");
   });
 
   it("convertImage keeps original dimensions when no maxWidth is given", async () => {

@@ -52,6 +52,8 @@ export interface ToolDefinition {
   name: string;
   shortName: string;
   slug: string;
+  /** Upper bound on files per run when `multiple` is true, matching the backend's limit. Omit for no limit (client-side tools). */
+  maxFiles?: number;
   /** ISO date (YYYY-MM-DD) this tool's page content last changed meaningfully. Feeds the sitemap <lastmod>; bump it when editing the tool's copy. */
   lastModified: string;
   category: ToolCategory;
@@ -69,6 +71,10 @@ export interface ToolDefinition {
   outputExtension: string;
   howItWorks: string[];
   features: string[];
+  /** Concrete, everyday situations this tool is the right choice for — rendered as "Common uses". */
+  useCases: string[];
+  /** Honest, verified limits of what the tool does (formats, fidelity, size/count caps) — rendered as "Limitations". */
+  limitations: string[];
   faq: ToolFaqEntry[];
   options?: ToolOption[];
   relatedTools: string[]; // tool ids

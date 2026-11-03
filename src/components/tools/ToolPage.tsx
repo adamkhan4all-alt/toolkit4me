@@ -9,6 +9,7 @@ import { PrivacySection } from "./PrivacySection";
 import { FAQ } from "./FAQ";
 import { RelatedTools } from "./RelatedTools";
 import { RelatedGuides } from "./RelatedGuides";
+import { ToolNotes } from "./ToolNotes";
 import { webApplicationSchema } from "../../lib/seo/structuredData";
 import { AdInContent, AdMobile, AdSidebar } from "../ads";
 import { SeoHead } from "../seo/SeoHead";
@@ -130,9 +131,13 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
             ))}
           </section>
 
+          <ToolNotes id="use-cases-heading" heading="Common uses" items={tool.useCases} />
+
           <ToolInstructions steps={tool.howItWorks} />
 
           <SupportedFormats tool={tool} />
+
+          <ToolNotes id="limitations-heading" heading="Limitations" items={tool.limitations} />
 
           {/* First ad placement: below a full block of informational content
               (intro, how-it-works, supported formats), well separated from

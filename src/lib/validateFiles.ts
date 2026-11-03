@@ -19,6 +19,9 @@ export function validateFiles(tool: ToolDefinition, incoming: File[], existingCo
   if (!tool.multiple && incoming.length + existingCount > 1) {
     return { valid: [], error: { message: "This tool accepts only one file at a time. Remove the current file first." } };
   }
+  if (tool.maxFiles && incoming.length + existingCount > tool.maxFiles) {
+    return { valid: [], error: { message: `${tool.shortName} accepts up to ${tool.maxFiles} files at a time.` } };
+  }
   for (const file of incoming) {
     const isAccepted =
       tool.acceptedMime.includes(file.type) ||

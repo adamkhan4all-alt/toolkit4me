@@ -50,8 +50,9 @@ export function AboutPage() {
             <li>
               <strong>Processed on our server.</strong> Tools that need heavier processing (Word/PDF conversion,
               OCR, PowerPoint and Excel conversion) upload your file over an encrypted connection, process it, and
-              return the result. The file is then <strong>deleted automatically one hour later</strong>, whether or
-              not you downloaded it. Full details are in the{" "}
+              return the result. Your upload is deleted as soon as it's processed, and the result is{" "}
+              <strong>deleted automatically within one hour</strong>, whether or not you downloaded it. Full details
+              are in the{" "}
               <Link to="/privacy" className="text-brand-600 underline hover:text-brand-700">
                 Privacy Policy
               </Link>
