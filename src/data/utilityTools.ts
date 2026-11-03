@@ -504,4 +504,230 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
       keywords: ["base64 encode", "base64 decode", "base64 to image", "base64 converter"],
     },
   },
+  {
+    id: "pdf-page-numbers",
+    slug: "pdf-page-numbers",
+    lastModified: ADDED,
+    name: "Add Page Numbers to PDF",
+    shortName: "PDF Page Numbers",
+    category: "edit",
+    categoryLabel: "Edit PDF",
+    description: "Add page numbers to a PDF — choose the position, style and starting number, and skip the cover page if you like. Runs in your browser.",
+    acceptedFormats: ["PDF"],
+    acceptedMime: ["application/pdf"],
+    maxFileSize: 50,
+    multiple: false,
+    processingMode: "CLIENT",
+    endpoint: null,
+    actionLabel: "Add page numbers",
+    icon: "1 2 3",
+    outputExtension: "pdf",
+    options: [
+      {
+        id: "position",
+        label: "Position",
+        type: "select",
+        choices: [
+          { value: "bottom-center", label: "Bottom centre" },
+          { value: "bottom-right", label: "Bottom right" },
+          { value: "bottom-left", label: "Bottom left" },
+          { value: "top-center", label: "Top centre" },
+          { value: "top-right", label: "Top right" },
+          { value: "top-left", label: "Top left" },
+        ],
+        defaultValue: "bottom-center",
+      },
+      {
+        id: "format",
+        label: "Style",
+        type: "select",
+        choices: [
+          { value: "n", label: "1" },
+          { value: "page-n", label: "Page 1" },
+          { value: "page-n-of-t", label: "Page 1 of 10" },
+          { value: "n-of-t", label: "1 / 10" },
+        ],
+        defaultValue: "n",
+      },
+      { id: "startAt", label: "Start numbering at", type: "text", defaultValue: "1", placeholder: "1", helpText: "Useful when this PDF continues a longer document." },
+      {
+        id: "fontSize",
+        label: "Text size",
+        type: "select",
+        choices: [
+          { value: "9", label: "Small (9 pt)" },
+          { value: "11", label: "Medium (11 pt)" },
+          { value: "14", label: "Large (14 pt)" },
+        ],
+        defaultValue: "11",
+      },
+      {
+        id: "skipFirst",
+        label: "First page",
+        type: "select",
+        choices: [
+          { value: "no", label: "Number every page" },
+          { value: "yes", label: "Leave the first page (cover) unnumbered" },
+        ],
+        defaultValue: "no",
+      },
+    ],
+    howItWorks: [
+      "Add your PDF (up to 50MB).",
+      "Choose where the numbers go, their style, size and starting number.",
+      "Decide whether the first page — often a cover — should be left unnumbered.",
+      "Select Add page numbers and download the numbered PDF.",
+    ],
+    features: [
+      "Six positions: top or bottom, left, centre or right",
+      "Styles: 1, Page 1, Page 1 of 10, or 1 / 10",
+      "Custom starting number and optional unnumbered cover page",
+      "Correct placement on rotated and cropped pages",
+    ],
+    useCases: [
+      "Numbering a report or thesis before printing or submitting it",
+      "Making a merged PDF easier to reference in a meeting (“see page 12”)",
+      "Continuing the numbering of a chapter that's part of a larger document",
+    ],
+    limitations: [
+      "Numbers are added on top of the page — if a page already has content where the number goes, they'll overlap, so choose a clear position",
+      "Numbers use Arabic numerals (1, 2, 3) in Helvetica; Roman numerals and custom fonts aren't available",
+      "Password-protected PDFs need to be unlocked first",
+      "One PDF of up to 50MB at a time",
+    ],
+    faq: [
+      {
+        question: "Can I leave the cover page without a number?",
+        answer:
+          "Yes — choose “Leave the first page (cover) unnumbered”. The second page then gets the starting number (1 by default), and “of N” totals count only the numbered pages.",
+      },
+      {
+        question: "Why would I start at a number other than 1?",
+        answer:
+          "If the PDF is one part of a longer document — say chapter 3 starting on page 41 — set “Start numbering at” to 41 so the numbers match the full document.",
+      },
+      {
+        question: "Will it work on landscape or rotated pages?",
+        answer:
+          "Yes. The tool reads each page's rotation and visible area, so the number sits upright in the position you chose on every page, including mixed portrait and landscape documents.",
+      },
+      {
+        question: "Is my PDF uploaded?",
+        answer: "No. The numbers are added in your browser with the open-source pdf-lib library, so the document never leaves your device.",
+      },
+    ],
+    relatedTools: ["merge-pdf", "split-pdf", "pdf-editor", "compress-pdf"],
+    intro: [
+      "Page numbers make a long PDF far easier to use — for the reader flipping to a reference, for the reviewer leaving comments, and for anyone who prints it and drops the pages. This tool adds them to every page of an existing PDF in the position and style you choose.",
+      "You can leave a cover page unnumbered and start counting from any number, which helps when the PDF is one chapter of something larger. Each page's rotation and visible area are taken into account, so numbers stay upright and on the page even in mixed portrait and landscape documents.",
+    ],
+    formatsNote: "Accepts one PDF up to 50MB. Output is the same PDF with page numbers added; nothing else about the pages is changed.",
+    seo: {
+      title: "Add Page Numbers to PDF – Free & In Your Browser | Toolkit4Me",
+      metaDescription:
+        "Add page numbers to a PDF online for free. Choose position, style (Page 1 of 10), starting number and an unnumbered cover — processed privately in your browser.",
+      h1: "Add Page Numbers to PDF",
+      keywords: ["add page numbers to pdf", "pdf page numbers", "number pdf pages", "insert page numbers pdf"],
+    },
+  },
+  {
+    id: "webp-converter",
+    slug: "webp-converter",
+    lastModified: ADDED,
+    name: "WebP Converter",
+    shortName: "WebP Converter",
+    category: "convert",
+    categoryLabel: "Convert Image",
+    description: "Convert JPG and PNG images to WebP for faster web pages, or convert WebP back to JPG or PNG — several at once, in your browser.",
+    acceptedFormats: ["JPG", "PNG", "WEBP"],
+    acceptedMime: ["image/jpeg", "image/png", "image/webp"],
+    maxFileSize: 25,
+    maxFiles: 20,
+    multiple: true,
+    processingMode: "CLIENT",
+    endpoint: null,
+    actionLabel: "Convert images",
+    icon: "WEBP",
+    outputExtension: "webp / .jpg / .png",
+    options: [
+      {
+        id: "to",
+        label: "Convert to",
+        type: "select",
+        choices: [
+          { value: "webp", label: "WebP" },
+          { value: "jpeg", label: "JPG" },
+          { value: "png", label: "PNG" },
+        ],
+        defaultValue: "webp",
+      },
+      {
+        id: "quality",
+        label: "Quality (WebP and JPG)",
+        type: "select",
+        choices: [
+          { value: "0.9", label: "High (90)" },
+          { value: "0.8", label: "Balanced (80)" },
+          { value: "0.7", label: "Smaller files (70)" },
+        ],
+        defaultValue: "0.8",
+      },
+    ],
+    howItWorks: [
+      "Add up to 20 JPG, PNG or WebP images.",
+      "Choose the format to convert to — WebP, JPG or PNG.",
+      "Pick a quality level for WebP or JPG output.",
+      "Select Convert images and download the results.",
+    ],
+    features: [
+      "JPG and PNG to WebP, and WebP to JPG or PNG",
+      "Transparency kept when converting between PNG and WebP",
+      "Three quality levels to balance size and sharpness",
+      "Batch-convert up to 20 images at once",
+    ],
+    useCases: [
+      "Making website images load faster by serving WebP",
+      "Opening a WebP image you downloaded in an app that only accepts JPG or PNG",
+      "Shrinking a folder of PNG screenshots for a blog or documentation site",
+    ],
+    limitations: [
+      "Creating WebP files needs Chrome, Edge or Firefox; older Safari versions can open WebP but not create it (converting from WebP works everywhere)",
+      "Animated WebP images are converted as a single still frame",
+      "Converting to JPG fills transparent areas with white",
+      "Each image up to 25MB, 20 per batch, and up to about 16.7 megapixels",
+    ],
+    faq: [
+      {
+        question: "Why use WebP?",
+        answer:
+          "WebP is an image format designed for the web. At similar visual quality, its files are typically noticeably smaller than JPG for photos and much smaller than PNG for graphics, so pages load faster and use less data. Every current major browser can display it.",
+      },
+      {
+        question: "Will WebP keep my transparent background?",
+        answer: "Yes. Unlike JPG, WebP supports transparency, so a PNG logo with a transparent background stays transparent when converted to WebP — and back to PNG.",
+      },
+      {
+        question: "Which quality should I choose?",
+        answer:
+          "Balanced (80) suits most photos on websites. Choose High (90) for images where fine detail matters, or Smaller files (70) for thumbnails and backgrounds. The result screen shows each file's size before and after so you can compare.",
+      },
+      {
+        question: "Are my images uploaded?",
+        answer: "No. Conversion uses your browser's own image encoder, so your images never leave your device.",
+      },
+    ],
+    relatedTools: ["image-resizer", "compress-image", "png-to-jpg", "jpg-to-png"],
+    intro: [
+      "WebP images are usually smaller than equivalent JPGs and PNGs, which makes them the go-to format for fast-loading websites — but plenty of desktop apps, editors and upload forms still don't accept them. This converter works in both directions: JPG or PNG to WebP for the web, and WebP back to JPG or PNG when you need compatibility.",
+      "Transparency is preserved between PNG and WebP, and you can choose a quality level for lossy output. Conversion uses your browser's built-in image engine, so even a batch of images is converted without uploading anything.",
+    ],
+    formatsNote: "Accepts JPG, PNG and WebP images up to 25MB each, 20 per batch. Output is WebP, JPG or PNG. Creating WebP requires Chrome, Edge or Firefox.",
+    seo: {
+      title: "WebP Converter – JPG/PNG to WebP and WebP to JPG | Toolkit4Me",
+      metaDescription:
+        "Convert JPG and PNG to WebP for faster websites, or WebP back to JPG or PNG. Keeps transparency, batch-converts up to 20 images, and runs in your browser.",
+      h1: "WebP Converter",
+      keywords: ["webp converter", "jpg to webp", "png to webp", "webp to jpg", "webp to png"],
+    },
+  },
 ];

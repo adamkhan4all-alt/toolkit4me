@@ -10,6 +10,8 @@
 import { buildPdfFromImages, type PdfPageSize } from "./pdfProcessing";
 import { convertImage, extensionForFormat, ImageProcessingError, replaceExtension, type ImageFormat } from "./imageProcessing";
 import { splitPdf } from "./pdfSplit";
+import { UserFacingError } from "./errors";
+import type { NumberFormat, NumberPosition } from "./pdfPageNumbers";
 
 export interface ClientProcessOutput {
   fileName: string;
@@ -158,6 +160,38 @@ const splitPdfProcessor: ClientProcessor = async (files, options) => {
   }));
 };
 
+const POSITIONS: NumberPosition[] = ["bottom-center", "bottom-right", "bottom-left", "top-center", "top-right", "top-left"];
+const FORMATS: NumberFormat[] = ["n", "page-n", "page-n-of-t", "n-of-t"];
+
+const pdfPageNumbers: ClientProcessor = async (files, options) => {
+  const v = options.values ?? {};
+  const start = (v.startAt ?? "1").trim() || "1";
+  if (!/^\d{1,5}$/.test(start)) throw new UserFacingError("“Start numbering at” must be a whole number between 0 and 99,999.");
+  const file = files[0];
+  const { addPageNumbers } = await import("./pdfPageNumbers");
+  const { pdf } = await addPageNumbers(await file.arrayBuffer(), {
+    position: POSITIONS.includes(v.position as NumberPosition) ? (v.position as NumberPosition) : "bottom-center",
+    format: FORMATS.includes(v.format as NumberFormat) ? (v.format as NumberFormat) : "n",
+    startAt: Number(start),
+    fontSize: [9, 11, 14].includes(Number(v.fontSize)) ? Number(v.fontSize) : 11,
+    skipFirst: v.skipFirst === "yes",
+  });
+  const blob = new Blob([pdf as BlobPart], { type: "application/pdf" });
+  return [{ fileName: replaceExtension(file.name, "pdf").replace(/\.pdf$/, "-numbered.pdf"), blob, originalSizeBytes: file.size, outputSizeBytes: blob.size }];
+};
+
+const convertWebp: ClientProcessor = async (files, options) => {
+  const v = options.values ?? {};
+  const format: ImageFormat = v.to === "jpeg" || v.to === "png" ? v.to : "webp";
+  const quality = [0.7, 0.8, 0.9].includes(Number(v.quality)) ? Number(v.quality) : 0.8;
+  const results: ClientProcessOutput[] = [];
+  for (const file of files) {
+    const { blob, width, height } = await convertImage(file, { format, quality });
+    results.push({ fileName: replaceExtension(file.name, extensionForFormat(format)), blob, originalSizeBytes: file.size, outputSizeBytes: blob.size, width, height });
+  }
+  return results;
+};
+
 export const CLIENT_PROCESSORS: Record<string, ClientProcessor> = {
   "compress-image": compressImage,
   "jpg-to-png": jpgToPng,
@@ -165,6 +199,8 @@ export const CLIENT_PROCESSORS: Record<string, ClientProcessor> = {
   "jpg-to-pdf": jpgToPdf,
   "split-pdf": splitPdfProcessor,
   "image-resizer": resizeImage,
+  "pdf-page-numbers": pdfPageNumbers,
+  "webp-converter": convertWebp,
 };
 
 export function getClientProcessor(toolId: string): ClientProcessor | undefined {

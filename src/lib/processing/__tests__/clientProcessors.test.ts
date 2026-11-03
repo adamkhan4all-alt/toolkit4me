@@ -34,7 +34,7 @@ describe("getClientProcessor", () => {
 
   it("registry exposes exactly the expected keys", () => {
     expect(Object.keys(CLIENT_PROCESSORS).sort()).toEqual(
-      ["compress-image", "jpg-to-pdf", "jpg-to-png", "png-to-jpg", "split-pdf", "image-resizer"].sort()
+      ["compress-image", "jpg-to-pdf", "jpg-to-png", "png-to-jpg", "split-pdf", "image-resizer", "pdf-page-numbers", "webp-converter"].sort()
     );
   });
 });
