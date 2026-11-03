@@ -435,8 +435,10 @@ writePage(
   }),
   renderLegalBody("Editorial Policy", [
     "Toolkit4Me publishes a page for each tool — what it does, how to use it and what its limits are — and guides that explain the file formats and tasks behind those tools. We only write about tasks our tools actually support.",
-    "Tool descriptions are written from how each tool actually works and checked by running real files through it. We don't promise results we can't guarantee; where we quote a figure, it comes from a test we ran. Pages may be drafted with the help of AI writing tools, but each is checked against the tool's real behaviour before publishing.",
-    "Guides show the date they were last updated, and pages are revised when a tool changes. Advertisers have no influence over content, we don't publish sponsored content, and every ad is labelled. To report an error, email toolkit4me@gmail.com.",
+    "Tool descriptions are written from how each tool actually works and checked by running real files through it. We don't promise results we can't guarantee; where we quote a figure, it comes from a test we ran.",
+    "Use of Artificial Intelligence: Toolkit4Me may use artificial intelligence tools to assist with research, content structuring, drafting and improving the clarity of its articles and guides. AI-assisted content is reviewed and edited before publication to ensure accuracy, usefulness, originality and relevance to readers. We do not intend to publish automatically generated or unreviewed content simply to increase the volume of website articles, and we remain responsible for the content published on Toolkit4Me.",
+    "Guides show the date they were last updated, and pages are revised when a tool changes. Advertisers have no influence over content, we don't publish sponsored content, and every ad is labelled.",
+    "Editorial responsibility: Toolkit4Me Editorial Team. Website: https://www.toolkit4me.com. Contact: toolkit4me@gmail.com.",
   ])
 );
 

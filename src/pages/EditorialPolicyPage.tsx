@@ -53,12 +53,30 @@ export function EditorialPolicyPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 text-lg font-semibold text-neutral-900">How content is produced</h2>
-          <p>
-            Pages may be drafted with the help of AI writing tools. Nothing is published on that basis alone: each
-            page is checked against the tool's real behaviour and the facts it states, and edited so that it's
-            useful, specific and accurate. We don't publish pages written only to target search keywords.
-          </p>
+          <h2 className="mb-2 text-lg font-semibold text-neutral-900">Use of Artificial Intelligence</h2>
+          <div className="flex flex-col gap-3">
+            <p>
+              Toolkit4Me may use artificial intelligence tools to assist with research, content structuring, drafting
+              and improving the clarity of its articles and guides.
+            </p>
+            <p>
+              AI-assisted content is reviewed and edited before publication to ensure accuracy, usefulness, originality
+              and relevance to readers.
+            </p>
+            <p>
+              Our editorial approach prioritizes factual accuracy, practical guidance and genuine user value. We do not
+              intend to publish automatically generated or unreviewed content simply to increase the volume of website
+              articles.
+            </p>
+            <p>
+              For technical guides and tool-related information, we aim to verify instructions against the actual
+              functionality of Toolkit4Me and update content when features or processes change.
+            </p>
+            <p>
+              We remain responsible for the content published on Toolkit4Me and welcome feedback and corrections from
+              our readers.
+            </p>
+          </div>
         </section>
 
         <section>
@@ -80,6 +98,23 @@ export function EditorialPolicyPage() {
             <Link to="/disclaimer" className={linkClass}>Disclaimer</Link> and{" "}
             <Link to="/privacy" className={linkClass}>Privacy Policy</Link> for more.
           </p>
+        </section>
+
+        <section>
+          <h2 className="mb-2 text-lg font-semibold text-neutral-900">Editorial responsibility</h2>
+          <ul className="flex flex-col gap-1">
+            <li>
+              <strong>Editorial responsibility:</strong> Toolkit4Me Editorial Team
+            </li>
+            <li>
+              <strong>Website:</strong>{" "}
+              <a href="https://www.toolkit4me.com" className={linkClass}>https://www.toolkit4me.com</a>
+            </li>
+            <li>
+              <strong>Contact:</strong>{" "}
+              <a href="mailto:toolkit4me@gmail.com" className={linkClass}>toolkit4me@gmail.com</a>
+            </li>
+          </ul>
         </section>
       </div>
     </div>
