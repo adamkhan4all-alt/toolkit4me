@@ -19,6 +19,7 @@ const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "word-counter": lazy(() => import("./WordCounterWorkspace")),
   "text-compare": lazy(() => import("./TextCompareWorkspace")),
   "base64-encoder-decoder": lazy(() => import("./Base64Workspace")),
+  "meta-tag-generator": lazy(() => import("./MetaTagWorkspace")),
 };
 
 /** The tool's custom workspace, ready to render, or null if it uses one of the standard workspaces. */

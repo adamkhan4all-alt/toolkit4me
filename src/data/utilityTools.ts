@@ -730,4 +730,82 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
       keywords: ["webp converter", "jpg to webp", "png to webp", "webp to jpg", "webp to png"],
     },
   },
+  {
+    id: "meta-tag-generator",
+    slug: "meta-tag-generator",
+    lastModified: ADDED,
+    name: "Meta Tag Generator",
+    shortName: "Meta Tag Generator",
+    category: "web",
+    categoryLabel: "Web & Developer",
+    description: "Generate the title, description, canonical, Open Graph and Twitter Card tags for a web page, with length checks and a search preview.",
+    acceptedFormats: ["Form fields"],
+    acceptedMime: [],
+    maxFileSize: 1,
+    inputKind: "text",
+    inputLimitLabel: "Title, description, URLs and names",
+    multiple: false,
+    processingMode: "CLIENT",
+    endpoint: null,
+    actionLabel: "Copy tags",
+    icon: "<meta>",
+    outputExtension: "html",
+    howItWorks: [
+      "Enter the page's title, description and URL, plus a share image if you have one.",
+      "Watch the length guidance and the search-result preview as you type.",
+      "Choose the page type and whether search engines may index it.",
+      "Copy the generated tags and paste them into your page's <head>.",
+    ],
+    features: [
+      "Standard, Open Graph and X (Twitter) Card tags in one block",
+      "Title and description length guidance with a search preview",
+      "URL, image and username validation",
+      "All values safely HTML-escaped",
+    ],
+    useCases: [
+      "Making a new page show a proper title, description and image when shared on social media",
+      "Adding a canonical URL so a page reachable at several addresses is indexed once",
+      "Writing a title and description that fit in search results before publishing",
+    ],
+    limitations: [
+      "Tags only help if they're added to your page's <head> — this tool doesn't edit your site",
+      "Character guidance is approximate: Google truncates by pixel width, and may rewrite titles and descriptions",
+      "Social sites cache previews, so changes can take time to appear (Facebook and LinkedIn have tools to refresh them)",
+      "Structured data (JSON-LD), hreflang and favicons aren't generated",
+    ],
+    faq: [
+      {
+        question: "How long should a title and description be?",
+        answer:
+          "Google typically shows around 50–60 characters of a title and roughly 150–160 characters of a description before cutting it off — it actually measures pixel width, so wide letters use up the space faster. Put the most important words first.",
+      },
+      {
+        question: "What are Open Graph and Twitter Card tags?",
+        answer:
+          "They tell social platforms what title, description and image to show when someone shares your link. Open Graph is read by Facebook, LinkedIn, WhatsApp and many others; X (Twitter) reads its own twitter: tags but falls back to Open Graph.",
+      },
+      {
+        question: "What size should the share image be?",
+        answer:
+          "1200 × 630 pixels (about 1.91:1) is the widely recommended size for large link previews, and the image URL must be a full https:// address that's publicly reachable. You can use Image Resizer to get the dimensions right.",
+      },
+      {
+        question: "Do meta keywords help SEO?",
+        answer: "No. Google has ignored the keywords meta tag for ranking for many years, so this generator leaves it out. A clear title and description matter far more.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "image-resizer", "word-counter", "json-formatter"],
+    intro: [
+      "The few lines in a page's <head> decide how it appears in search results and social feeds: the headline, the summary, the preview image. Missing or overly long tags lead to truncated titles, random snippets and link previews with no image. This generator builds the full set from a simple form.",
+      "As you type you'll see character guidance, warnings for problems like relative image URLs, and an approximate preview of the search result. The output includes standard tags, a canonical link, Open Graph tags for Facebook, LinkedIn and WhatsApp, and X (Twitter) Card tags — ready to paste.",
+    ],
+    formatsNote: "Enter text and full URLs into the form. Output is an HTML snippet of <title>, <meta> and <link> tags to paste into the <head> of your page.",
+    seo: {
+      title: "Meta Tag Generator – SEO, Open Graph & Twitter Cards | Toolkit4Me",
+      metaDescription:
+        "Generate title, description, canonical, Open Graph and Twitter Card meta tags for any page, with length guidance, URL checks and a search result preview.",
+      h1: "Meta Tag Generator",
+      keywords: ["meta tag generator", "open graph generator", "twitter card generator", "seo meta tags"],
+    },
+  },
 ];
