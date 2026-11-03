@@ -12,7 +12,7 @@ licence, `npm audit`).
 | [`qrcode`](https://github.com/soldair/node-qrcode) | 1.5.4 | MIT | QR Code Generator | Yes — only on `/tools/qr-code-generator` (8.8 KB gzipped, dynamically imported) | Most widely used JS QR encoder; browser build excludes its Node-only CLI dependencies (`yargs`, `pngjs`). |
 | [`diff`](https://github.com/kpdecker/jsdiff) (jsdiff) | 9.0.0 | BSD-3-Clause | Text Compare | Yes — only on `/tools/text-compare` (bundled into its 6.7 KB gzipped chunk) | Actively maintained (2026 release); used with its documented `timeout` + async `callback` options so large diffs never block the page. |
 | [`jsqr`](https://github.com/cozmo/jsQR) | 1.4.0 | Apache-2.0 | Tests only | No (devDependency) | Independent QR decoder used to verify generated codes round-trip to the exact input. |
-| `@types/qrcode` | latest | MIT | Type checking | No (devDependency) | |
+| `@types/qrcode` | 1.5.6 | MIT | Type checking | No (devDependency) | |
 
 ## Reused (already in the project)
 
