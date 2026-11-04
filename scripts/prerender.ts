@@ -31,7 +31,8 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { TOOL_DEFINITIONS } from "../src/data/tools";
 import { toolRegistry } from "../src/lib/toolRegistry";
-import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE, HOME_DESCRIPTION } from "../src/config/site";
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE, HOME_DESCRIPTION, TOOLS_PAGE_DESCRIPTION, TOOLS_PAGE_TITLE, toolsPageIntro } from "../src/config/site";
+import { CATEGORIES, CATEGORY_LABELS } from "../src/types/tool";
 import type { ToolDefinition } from "../src/types/tool";
 import { GUIDES, guidesForTool, relatedGuidesFor, type GuideDefinition } from "../src/data/guides";
 import { formatLongDate } from "../src/lib/format";
@@ -192,13 +193,21 @@ function renderToolBody(tool: ToolDefinition): string {
 }
 
 function renderHomeBody(): string {
-  const links = TOOL_DEFINITIONS.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a></li>`).join("\n");
+  // Tools grouped under their category, each with its one-line description, so the static page
+  // describes the whole catalogue the way a reader (or a search summary) should understand it.
+  const groups = CATEGORIES.map((category) => {
+    const tools = toolRegistry.getByCategory(category);
+    if (tools.length === 0) return "";
+    const items = tools.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`).join("\n");
+    return `<h3>${escapeHtml(CATEGORY_LABELS[category])}</h3>\n    <ul>${items}</ul>`;
+  }).join("\n    ");
   const guideLinks = GUIDES.map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a> — ${escapeHtml(g.summary)}</li>`).join("\n");
   return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
-    <h1>Free Online PDF &amp; Image Tools</h1>
-    <p>Convert, compress and process your documents and images quickly and securely.</p>
-    <h2>Popular tools</h2>
-    <ul>${links}</ul>
+    <h1>Toolkit4Me — Free Tools for Everyday Digital Tasks</h1>
+    <p>${escapeHtml(HOME_DESCRIPTION)}</p>
+    <p>${TOOL_DEFINITIONS.length} free tools, no account or software required. Many run entirely in your browser; files that need server processing are deleted automatically within an hour.</p>
+    <h2>Tools by category</h2>
+    ${groups}
     <h2>Guides &amp; tips</h2>
     <ul>${guideLinks}</ul>
   </div>`;
@@ -272,7 +281,7 @@ function renderDirectoryBody(): string {
       { name: "All Tools", path: "/tools" },
     ])}
     <h1>All Tools</h1>
-    <p>Browse every conversion, compression, merge, and OCR tool on the platform.</p>
+    <p>${escapeHtml(toolsPageIntro(TOOL_DEFINITIONS.length))}</p>
     <ul>${links}</ul>
   </div>`;
 }
@@ -316,8 +325,8 @@ writePage(
   "/tools",
   renderHead({
     route: "/tools",
-    title: "All Tools — Free PDF & Image Tools | Toolkit4Me",
-    description: "Browse every PDF and image tool on Toolkit4Me: convert, compress, merge, and extract text, all free and no account required.",
+    title: TOOLS_PAGE_TITLE,
+    description: TOOLS_PAGE_DESCRIPTION,
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "All Tools", path: "/tools" },
@@ -336,7 +345,7 @@ writePage(
   renderHead({
     route: "/privacy",
     title: "Privacy Policy — Toolkit4Me",
-    description: "How Toolkit4Me handles the files you process and the data collected while you use our free PDF and image tools.",
+    description: "How Toolkit4Me handles the files you process and the data collected while you use our free online tools.",
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "Privacy Policy", path: "/privacy" },
@@ -354,7 +363,7 @@ writePage(
   renderHead({
     route: "/terms",
     title: "Terms of Service — Toolkit4Me",
-    description: "The terms that apply when you use Toolkit4Me's free online PDF and image tools.",
+    description: "The terms that apply when you use Toolkit4Me's free online tools.",
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "Terms of Service", path: "/terms" },
@@ -376,14 +385,15 @@ writePage(
   renderHead({
     route: "/about",
     title: "About Toolkit4Me",
-    description: "What Toolkit4Me is, how it processes your files, and the principles behind it — free PDF and image tools with no account required.",
+    description: "What Toolkit4Me is, how it handles your files, and the principles behind it — free PDF, image, text and developer tools with no account required.",
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "About", path: "/about" },
     ],
   }),
   renderLegalBody("About Toolkit4Me", [
-    "Toolkit4Me is a collection of free, browser-based tools for everyday document and image tasks -- converting a PDF to Word, merging PDFs, compressing a photo, pulling text out of a scan. No account, subscription, or email address required.",
+    "Toolkit4Me is a collection of free online tools for everyday digital tasks -- converting a PDF to Word, merging PDFs, compressing or resizing a photo, pulling text out of a scan, counting words, comparing text, formatting JSON and making QR codes. No account, subscription, or email address required.",
+    "The tools are organized into eight areas: Convert, Compress, Merge, OCR, Edit, Security, Text, and Web & Developer. The full, current list is on the All Tools page.",
     "Some tools run entirely in your browser and never upload your file anywhere. Tools that need server-side processing upload your file over an encrypted connection; the upload is deleted as soon as it's processed, and the result within one hour, whether or not you downloaded it.",
     "The site is supported by advertising rather than paywalls, so every tool stays free and fully usable.",
   ])
@@ -411,7 +421,7 @@ writePage(
   renderHead({
     route: "/disclaimer",
     title: "Disclaimer — Toolkit4Me",
-    description: "What you can and can't rely on when using Toolkit4Me's free PDF and image tools and guides.",
+    description: "What you can and can't rely on when using Toolkit4Me's free online tools and guides.",
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "Disclaimer", path: "/disclaimer" },

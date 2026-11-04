@@ -12,7 +12,7 @@ export function DisclaimerPage() {
     <div className="mx-auto max-w-[720px] px-4 py-16 sm:px-6">
       <SeoHead
         title="Disclaimer — Toolkit4Me"
-        description="What you can and can't rely on when using Toolkit4Me's free PDF and image tools and guides."
+        description="What you can and can't rely on when using Toolkit4Me's free online tools and guides."
         path="/disclaimer"
         breadcrumbs={[
           { name: "Home", path: "/" },

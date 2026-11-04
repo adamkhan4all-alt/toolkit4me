@@ -6,7 +6,7 @@ export function AboutPage() {
     <div className="mx-auto max-w-[720px] px-4 py-16 sm:px-6">
       <SeoHead
         title="About Toolkit4Me"
-        description="What Toolkit4Me is, how it processes your files, and the principles behind it — free PDF and image tools with no account required."
+        description="What Toolkit4Me is, how it handles your files, and the principles behind it — free PDF, image, text and developer tools with no account required."
         path="/about"
         breadcrumbs={[
           { name: "Home", path: "/" },
@@ -64,7 +64,7 @@ export function AboutPage() {
         <section>
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">What's here</h2>
           <p>
-            The tools are organized into six areas —{" "}
+            The tools are organized into eight areas —{" "}
             <Link to="/tools?category=convert" className="text-brand-600 underline hover:text-brand-700">
               Convert
             </Link>
@@ -84,12 +84,22 @@ export function AboutPage() {
             <Link to="/tools?category=edit" className="text-brand-600 underline hover:text-brand-700">
               Edit
             </Link>
-            , and{" "}
+            ,{" "}
             <Link to="/tools?category=security" className="text-brand-600 underline hover:text-brand-700">
               Security
+            </Link>
+            ,{" "}
+            <Link to="/tools?category=text" className="text-brand-600 underline hover:text-brand-700">
+              Text
+            </Link>
+            , and{" "}
+            <Link to="/tools?category=web" className="text-brand-600 underline hover:text-brand-700">
+              Web &amp; Developer
             </Link>{" "}
-            — covering PDF and image conversion, compression, merging and splitting PDFs, extracting text from
-            scans and photos, a direct PDF editor, and password-protecting or unlocking PDFs. The full, current list
+            — covering PDF and image conversion, compression and resizing, merging, splitting and numbering PDFs,
+            extracting text from scans and photos, a direct PDF editor, password-protecting or unlocking PDFs, word
+            counting and text comparison, and developer utilities for JSON, Base64, meta tags and QR codes. The full,
+            current list
             is always on the{" "}
             <Link to="/tools" className="text-brand-600 underline hover:text-brand-700">
               All Tools

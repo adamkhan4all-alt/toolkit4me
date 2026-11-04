@@ -29,7 +29,14 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 export const TWITTER_HANDLE = "@toolkit4me";
 /** Homepage meta description — shared by HomePage and scripts/prerender.ts so the static and client-rendered <head> match. */
 export const HOME_DESCRIPTION =
-  "Toolkit4Me provides free online tools for everyday digital tasks, including PDF conversion, image conversion, compression and OCR.";
+  "Free online tools for PDFs, images, text and web work: convert and compress files, edit PDFs, count words, compare text, format JSON and make QR codes.";
+/** All Tools page copy — shared by ToolsDirectoryPage and scripts/prerender.ts. The intro takes the live tool count so it never goes stale. */
+export const TOOLS_PAGE_TITLE = "All Tools – PDF, Image, Text & Developer Tools | Toolkit4Me";
+export const TOOLS_PAGE_DESCRIPTION =
+  "Browse every free tool on Toolkit4Me: convert, compress, merge and edit PDFs and images, extract text with OCR, and use text and developer utilities.";
+export function toolsPageIntro(count: number): string {
+  return `Browse all ${count} free tools — PDF and document conversion, image editing and compression, OCR, PDF security, text utilities like word counting and text comparison, and developer tools for JSON, Base64, meta tags and QR codes. Filter by category or search for the tool you need.`;
+}
 /** Public support inbox — used in Organization structured data. */
 export const CONTACT_EMAIL = "toolkit4me@gmail.com";
 

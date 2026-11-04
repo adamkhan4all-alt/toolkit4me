@@ -16,7 +16,7 @@ export function PrivacyPolicyPage() {
     <div className="mx-auto max-w-[720px] px-4 py-16 sm:px-6">
       <SeoHead
         title="Privacy Policy — Toolkit4Me"
-        description="How Toolkit4Me handles the files you process and the data collected while you use our free PDF and image tools."
+        description="How Toolkit4Me handles the files you process and the data collected while you use our free online tools."
         path="/privacy"
         breadcrumbs={[
           { name: "Home", path: "/" },

@@ -10,7 +10,7 @@ export function TermsOfServicePage() {
     <div className="mx-auto max-w-[720px] px-4 py-16 sm:px-6">
       <SeoHead
         title="Terms of Service — Toolkit4Me"
-        description="The terms that apply when you use Toolkit4Me's free online PDF and image tools."
+        description="The terms that apply when you use Toolkit4Me's free online tools."
         path="/terms"
         breadcrumbs={[
           { name: "Home", path: "/" },

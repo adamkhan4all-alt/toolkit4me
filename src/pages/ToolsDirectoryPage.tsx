@@ -6,6 +6,7 @@ import { AdInContent } from "../components/ads";
 import { SeoHead } from "../components/seo/SeoHead";
 import { CATEGORIES, CATEGORY_LABELS, type ToolCategory } from "../types/tool";
 import { toolRegistry } from "../lib/toolRegistry";
+import { TOOLS_PAGE_DESCRIPTION, TOOLS_PAGE_TITLE, toolsPageIntro } from "../config/site";
 
 export function ToolsDirectoryPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,8 +30,8 @@ export function ToolsDirectoryPage() {
   return (
     <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-4 py-8 sm:px-6">
       <SeoHead
-        title="All Tools — Free PDF & Image Tools | Toolkit4Me"
-        description="Browse every PDF and image tool on Toolkit4Me: convert, compress, merge, and extract text, all free and no account required."
+        title={TOOLS_PAGE_TITLE}
+        description={TOOLS_PAGE_DESCRIPTION}
         path="/tools"
         breadcrumbs={[
           { name: "Home", path: "/" },
@@ -42,8 +43,7 @@ export function ToolsDirectoryPage() {
       <div className="flex flex-col gap-3">
         <h1 className="text-2xl font-bold text-neutral-900 sm:text-[32px]">All Tools</h1>
         <p className="max-w-2xl text-sm text-neutral-600">
-          Browse every conversion, compression, merge, and OCR tool on the platform. Filter by category or search
-          for the tool you need.
+          {toolsPageIntro(toolRegistry.count())}
         </p>
       </div>
 

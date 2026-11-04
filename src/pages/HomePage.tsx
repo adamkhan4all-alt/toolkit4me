@@ -58,7 +58,8 @@ export function HomePage() {
           </h1>
           <p className="text-lg font-medium text-neutral-700 sm:text-xl">Free tools for everyday digital tasks.</p>
           <p className="max-w-[560px] text-base text-neutral-600">
-            Toolkit4Me provides free online tools for converting, compressing and working with documents and images.
+            Toolkit4Me provides free online tools for PDFs, documents and images, plus text and developer utilities —
+            from PDF to Word and image compression to word counting, JSON formatting and QR codes.
           </p>
           <div className="w-full max-w-[640px]">
             <SearchBar large onSelect={(slug) => navigate(`/tools/${slug}`)} />
@@ -154,15 +155,27 @@ export function HomePage() {
           <a href="/tools/pdf-to-word" className="text-brand-600 underline hover:text-brand-700">PDF to Word</a> and{" "}
           <a href="/tools/word-to-pdf" className="text-brand-600 underline hover:text-brand-700">Word to PDF</a> conversion to{" "}
           <a href="/tools/compress-pdf" className="text-brand-600 underline hover:text-brand-700">PDF compression</a> and{" "}
-          <a href="/tools/merge-pdf" className="text-brand-600 underline hover:text-brand-700">merging</a>. Everything runs directly
-          in your browser — no software to install and no account required.
+          <a href="/tools/merge-pdf" className="text-brand-600 underline hover:text-brand-700">merging</a>, plus{" "}
+          <a href="/tools/pdf-page-numbers" className="text-brand-600 underline hover:text-brand-700">page numbering</a> and
+          password protection. There's no software to install and no account required.
         </p>
         <p className="text-sm leading-6 text-neutral-600">
           Working with images? Convert between{" "}
           <a href="/tools/jpg-to-png" className="text-brand-600 underline hover:text-brand-700">JPG and PNG</a>, turn scans into
           searchable text with our <a href="/tools/image-to-text" className="text-brand-600 underline hover:text-brand-700">OCR tool</a>,
           or shrink large photos with <a href="/tools/compress-image" className="text-brand-600 underline hover:text-brand-700">Compress
-          Image</a>. Every file you upload is processed securely and removed from our servers automatically.
+          Image</a>. Resize photos or convert them to and from{" "}
+          <a href="/tools/webp-converter" className="text-brand-600 underline hover:text-brand-700">WebP</a> right in your browser.
+        </p>
+        <p className="text-sm leading-6 text-neutral-600">
+          For writing and web work, use the{" "}
+          <a href="/tools/word-counter" className="text-brand-600 underline hover:text-brand-700">Word Counter</a>,{" "}
+          <a href="/tools/text-compare" className="text-brand-600 underline hover:text-brand-700">Text Compare</a>,{" "}
+          <a href="/tools/json-formatter" className="text-brand-600 underline hover:text-brand-700">JSON Formatter</a>,{" "}
+          <a href="/tools/base64-encoder-decoder" className="text-brand-600 underline hover:text-brand-700">Base64 encoder</a>,{" "}
+          <a href="/tools/meta-tag-generator" className="text-brand-600 underline hover:text-brand-700">Meta Tag Generator</a> and{" "}
+          <a href="/tools/qr-code-generator" className="text-brand-600 underline hover:text-brand-700">QR Code Generator</a>. Many
+          tools run entirely in your browser; files that need server processing are deleted automatically within an hour.
         </p>
       </section>
 
