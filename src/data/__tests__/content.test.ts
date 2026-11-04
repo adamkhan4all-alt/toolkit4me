@@ -49,3 +49,11 @@ describe("guides", () => {
     expect(related[0].path).toBe("/guides/how-to-compress-images");
   });
 });
+
+describe("About page areas", () => {
+  it("describes every tool category exactly once", async () => {
+    const { TOOL_AREAS } = await import("../toolAreas");
+    const { CATEGORIES } = await import("../../types/tool");
+    expect(TOOL_AREAS.map((a) => a.category).sort()).toEqual([...CATEGORIES].sort());
+  });
+});

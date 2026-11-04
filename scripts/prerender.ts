@@ -33,6 +33,7 @@ import { TOOL_DEFINITIONS } from "../src/data/tools";
 import { toolRegistry } from "../src/lib/toolRegistry";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE, HOME_DESCRIPTION, TOOLS_PAGE_DESCRIPTION, TOOLS_PAGE_TITLE, toolsPageIntro } from "../src/config/site";
 import { CATEGORIES, CATEGORY_LABELS } from "../src/types/tool";
+import { TOOL_AREAS } from "../src/data/toolAreas";
 import type { ToolDefinition } from "../src/types/tool";
 import { GUIDES, guidesForTool, relatedGuidesFor, type GuideDefinition } from "../src/data/guides";
 import { formatLongDate } from "../src/lib/format";
@@ -391,12 +392,15 @@ writePage(
       { name: "About", path: "/about" },
     ],
   }),
-  renderLegalBody("About Toolkit4Me", [
-    "Toolkit4Me is a collection of free online tools for everyday digital tasks -- converting a PDF to Word, merging PDFs, compressing or resizing a photo, pulling text out of a scan, counting words, comparing text, formatting JSON and making QR codes. No account, subscription, or email address required.",
-    "The tools are organized into eight areas: Convert, Compress, Merge, OCR, Edit, Security, Text, and Web & Developer. The full, current list is on the All Tools page.",
-    "Some tools run entirely in your browser and never upload your file anywhere. Tools that need server-side processing upload your file over an encrypted connection; the upload is deleted as soon as it's processed, and the result within one hour, whether or not you downloaded it.",
-    "The site is supported by advertising rather than paywalls, so every tool stays free and fully usable.",
-  ])
+  `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
+    <h1>About Toolkit4Me</h1>
+    <p>Toolkit4Me is a collection of ${TOOL_DEFINITIONS.length} free online tools for everyday digital tasks: converting a PDF to Word, merging PDFs, resizing or compressing a photo, pulling text out of a scan, and, for writing and web work, counting words, comparing drafts, formatting JSON and making QR codes. No account, subscription, or email address required.</p>
+    <h2>What's here</h2>
+    <ul>${TOOL_AREAS.map(({ category, summary }) => `<li><a href="/tools?category=${category}">${escapeHtml(CATEGORY_LABELS[category])}</a> — ${escapeHtml(summary)}</li>`).join("\n")}</ul>
+    <h2>How it works</h2>
+    <p>Most tools — image compression, resizing and conversion, building and editing PDFs, page numbering, and every text and developer tool — run entirely in your browser, so nothing is uploaded. Tools that need server-side processing (Word/PDF conversion, OCR, PowerPoint and Excel conversion, PDF passwords) upload your file over an encrypted connection; the upload is deleted as soon as it's processed, and the result within one hour.</p>
+    <p>The site is supported by advertising rather than paywalls, so every tool stays free and fully usable.</p>
+  </div>`
 );
 
 writePage(

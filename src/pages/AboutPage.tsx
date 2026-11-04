@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { SeoHead } from "../components/seo/SeoHead";
+import { toolRegistry } from "../lib/toolRegistry";
+import { CATEGORY_LABELS } from "../types/tool";
+import { TOOL_AREAS } from "../data/toolAreas";
 
 export function AboutPage() {
   return (
@@ -19,10 +22,11 @@ export function AboutPage() {
       <div className="flex flex-col gap-8 text-sm leading-6 text-neutral-700">
         <section>
           <p>
-            Toolkit4Me is a collection of free, browser-based tools for the document and image tasks people run into
-            constantly: converting a PDF to Word, merging a few PDFs into one, shrinking a photo before uploading it
-            somewhere, pulling text out of a scanned page. Nothing here requires an account, a subscription, or your
-            email address — you open the tool you need, use it, and you're done.
+            Toolkit4Me is a collection of {toolRegistry.count()} free online tools for the everyday digital tasks
+            people run into constantly: converting a PDF to Word, merging a few PDFs into one, resizing or shrinking a
+            photo before uploading it, pulling text out of a scanned page — and, for writing and web work, counting
+            words, comparing two drafts, formatting JSON or making a QR code. Nothing here requires an account, a
+            subscription, or your email address — you open the tool you need, use it, and you're done.
           </p>
         </section>
 
@@ -43,9 +47,10 @@ export function AboutPage() {
           </p>
           <ul className="list-disc pl-5">
             <li>
-              <strong>Entirely in your browser.</strong> Several tools — compressing an image, converting between
-              JPG and PNG, splitting or editing a PDF — process the file on your own device using JavaScript. The
-              file is never uploaded anywhere.
+              <strong>Entirely in your browser.</strong> Most tools — compressing, resizing and converting images
+              (JPG, PNG and WebP), building a PDF from images, splitting, editing or numbering a PDF, and every text and
+              developer tool — process your file or text on your own device using JavaScript. Nothing is uploaded
+              anywhere.
             </li>
             <li>
               <strong>Processed on our server.</strong> Tools that need heavier processing (Word/PDF conversion,
@@ -63,44 +68,19 @@ export function AboutPage() {
 
         <section>
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">What's here</h2>
-          <p>
-            The tools are organized into eight areas —{" "}
-            <Link to="/tools?category=convert" className="text-brand-600 underline hover:text-brand-700">
-              Convert
-            </Link>
-            ,{" "}
-            <Link to="/tools?category=compress" className="text-brand-600 underline hover:text-brand-700">
-              Compress
-            </Link>
-            ,{" "}
-            <Link to="/tools?category=merge" className="text-brand-600 underline hover:text-brand-700">
-              Merge
-            </Link>
-            ,{" "}
-            <Link to="/tools?category=ocr" className="text-brand-600 underline hover:text-brand-700">
-              OCR
-            </Link>
-            ,{" "}
-            <Link to="/tools?category=edit" className="text-brand-600 underline hover:text-brand-700">
-              Edit
-            </Link>
-            ,{" "}
-            <Link to="/tools?category=security" className="text-brand-600 underline hover:text-brand-700">
-              Security
-            </Link>
-            ,{" "}
-            <Link to="/tools?category=text" className="text-brand-600 underline hover:text-brand-700">
-              Text
-            </Link>
-            , and{" "}
-            <Link to="/tools?category=web" className="text-brand-600 underline hover:text-brand-700">
-              Web &amp; Developer
-            </Link>{" "}
-            — covering PDF and image conversion, compression and resizing, merging, splitting and numbering PDFs,
-            extracting text from scans and photos, a direct PDF editor, password-protecting or unlocking PDFs, word
-            counting and text comparison, and developer utilities for JSON, Base64, meta tags and QR codes. The full,
-            current list
-            is always on the{" "}
+          <p className="mb-3">The tools are organized into eight areas:</p>
+          <ul className="flex list-disc flex-col gap-1.5 pl-5">
+            {TOOL_AREAS.map(({ category, summary }) => (
+              <li key={category}>
+                <Link to={`/tools?category=${category}`} className="font-semibold text-brand-600 underline hover:text-brand-700">
+                  {CATEGORY_LABELS[category]}
+                </Link>{" "}
+                — {summary}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3">
+            The full, current list is always on the{" "}
             <Link to="/tools" className="text-brand-600 underline hover:text-brand-700">
               All Tools
             </Link>{" "}
