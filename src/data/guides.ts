@@ -2223,6 +2223,508 @@ export const GUIDES: GuideDefinition[] = [
     ],
     relatedTools: ["pdf-to-word", "image-to-text", "pdf-to-jpg", "compress-pdf"],
   },
+  {
+    path: "/guides/how-to-resize-an-image-to-exact-pixels",
+    category: "images",
+    keywords: { primary: "resize image to exact pixels", secondary: ["resize image to 600x600", "change image dimensions", "resize photo for upload form"] },
+    title: "How to Resize an Image to Exact Pixel Dimensions",
+    seoTitle: `How to Resize an Image to Exact Pixels (e.g. 600×600) | ${SITE_NAME}`,
+    metaDescription: "Resize photos to exact pixel sizes for profile pictures, ID uploads and online stores — without stretching them — plus how pixels, aspect ratio and file size relate.",
+    summary: "Upload forms love exact sizes: a 600 × 600 profile photo, a 1200 × 628 banner, a passport-style image of specific dimensions. Here's how to hit those numbers precisely without squashing or stretching your picture.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Pixels, aspect ratio and why images get stretched",
+        paragraphs: [
+          "An image's dimensions are its width and height in pixels, and its aspect ratio is the relationship between them. A typical phone photo is 4:3 — for example 4000 × 3000 pixels. Resizing it to 600 × 600 means changing the shape to a square, and there are only two ways to do that: stretch it (which distorts faces and objects) or crop it (which removes part of the picture).",
+          "So the reliable approach is: crop to the right shape first, then resize. Resizing alone, with the aspect ratio kept, can only make the image bigger or smaller, never a different shape.",
+        ],
+      },
+      {
+        heading: "Step by step with Image Resizer",
+        list: [
+          "Open Image Resizer and add your JPG, PNG or WebP images — up to 20 at a time, 25MB each.",
+          "Enter the width and height you need.",
+          "Choose how to handle the shape: “Keep aspect ratio (fit inside the box)” scales the image to fit within those dimensions without distortion; “Use exact size (may stretch)” forces the exact numbers.",
+          "Pick an output format if the form requires one, then select Resize images. The new size is added to each file name, such as photo-600x600.jpg.",
+        ],
+      },
+      {
+        heading: "Which option to choose",
+        table: {
+          caption: "Fit vs exact size",
+          headers: ["Your image's shape", "Required size", "Use"],
+          rows: [
+            ["Already square", "600 × 600", "Either — the result is identical"],
+            ["Rectangular photo", "600 × 600", "Crop to a square first, then resize; or accept “fit” giving e.g. 600 × 450"],
+            ["Any shape", "Width only, e.g. 1600 wide", "Enter just the width — the height is calculated"],
+            ["Form insists on exact numbers and the shape is close", "Exact size", "“Use exact size” — the slight stretch won't be visible"],
+          ],
+        },
+      },
+      {
+        heading: "Making an image smaller vs larger",
+        paragraphs: [
+          "Scaling down always works well — you're discarding pixels you didn't need. Scaling up is different: the tool can make an image larger, but it can't invent detail, so an enlarged small image looks soft. If a form needs a large image, start from the largest original you have.",
+        ],
+      },
+      {
+        heading: "Common sizes you might be asked for",
+        list: [
+          "Profile pictures: square images, often 400 × 400 to 1000 × 1000.",
+          "Social sharing images: around 1200 × 630 (about 1.91:1).",
+          "Website content images: 1200–2000 pixels wide, depending on the layout.",
+          "Always check the platform's current requirements — they change and vary by site.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The result looks squashed: you used “exact size” on an image of a different shape. Crop it first, or use “keep aspect ratio”.",
+          "The image is smaller than I entered: with “keep aspect ratio”, the image fits inside the box, so one side may be shorter.",
+          "Output too large error: results are limited to about 16.7 megapixels so they work on phones. Choose smaller dimensions.",
+          "WebP output fails in Safari: older Safari can't create WebP. Choose JPG or PNG, or use Chrome, Edge or Firefox.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Get the shape right first and the size follows. Crop to the aspect ratio the form expects, resize with the aspect ratio kept, and only force exact dimensions when the image is already almost the right shape.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does resizing reduce the file size?",
+        answer: "Making an image smaller reduces its file size, often dramatically. For a smaller file still, save as JPG or run it through Compress Image.",
+      },
+      {
+        question: "Can I resize several images to the same size?",
+        answer: "Yes — add up to 20 images and they're all resized with the same settings.",
+      },
+      {
+        question: "Are my images uploaded?",
+        answer: "No. Image Resizer works entirely in your browser.",
+      },
+    ],
+    relatedTools: ["image-resizer", "compress-image", "webp-converter", "png-to-jpg"],
+  },
+  {
+    path: "/guides/how-to-convert-jpg-to-png",
+    category: "images",
+    keywords: { primary: "JPG to PNG", secondary: ["convert JPG to PNG online", "JPG to PNG transparent background", "does JPG to PNG improve quality"] },
+    title: "How to Convert JPG to PNG (and When It Actually Helps)",
+    seoTitle: `How to Convert JPG to PNG — and What It Can't Do | ${SITE_NAME}`,
+    metaDescription: "Convert JPG images to PNG for free in your browser, and understand what conversion does and doesn't do: no quality gain, no automatic transparency, but no further loss when editing.",
+    summary: "Converting a JPG to PNG is easy — but it's often done for the wrong reasons. It won't make a photo sharper and it won't remove the background. Here's when converting genuinely helps, and how to do it.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What converting actually does",
+        paragraphs: [
+          "Converting re-saves the same pixels in PNG's lossless format. From that point on, the image won't lose any more detail when you edit and save it again. But any detail the JPG had already discarded is gone: converting doesn't sharpen the picture, remove compression artefacts or add resolution.",
+        ],
+        table: {
+          caption: "Myths and facts",
+          headers: ["Common belief", "What really happens"],
+          rows: [
+            ["PNG will make my photo sharper", "No — the pixels are the same; existing artefacts remain"],
+            ["PNG will give it a transparent background", "No — the background stays; transparency must be added in an editor"],
+            ["PNG is always higher quality", "Only in the sense that it adds no further loss"],
+            ["PNG files are smaller", "Usually the opposite for photos — often several times larger"],
+          ],
+        },
+      },
+      {
+        heading: "When converting genuinely helps",
+        list: [
+          "A website, app or print service requires PNG.",
+          "You're about to edit an image several times — working in PNG avoids adding new JPG artefacts with every save.",
+          "You'll add transparency or graphics in an editor and need a format that keeps them.",
+          "A screenshot was saved as JPG and you want to stop it degrading further.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open JPG to PNG and add one or more JPG images (up to 25MB each).",
+          "Select Convert to PNG.",
+          "Download each PNG — the results show the size before and after, so you can see how much larger the PNG is.",
+        ],
+      },
+      {
+        heading: "Why the PNG is bigger",
+        paragraphs: [
+          "JPG achieves small sizes by discarding detail in a way tuned for photographs. PNG keeps every pixel exactly, which is very efficient for flat-coloured graphics but expensive for photos, where neighbouring pixels all differ slightly. A photo that is 500KB as a JPG can easily become several megabytes as a PNG. If you only need a smaller file, keep the JPG — or use WebP for websites.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The file is much bigger: expected for photos. Keep the JPG unless something requires PNG.",
+          "The background isn't transparent: conversion doesn't remove backgrounds. That needs an image editor's background-removal or selection tools.",
+          "The image still looks blocky: the artefacts came from the original JPG compression and can't be removed by converting.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Convert JPG to PNG when something requires PNG or when you're about to edit an image repeatedly. Don't convert expecting better quality or a transparent background — and for simply shrinking or sharing photos, JPG remains the better format.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does converting JPG to PNG lose quality?",
+        answer: "No — PNG is lossless, so nothing more is lost. It doesn't recover quality the JPG already lost, either.",
+      },
+      {
+        question: "Can I convert several JPGs at once?",
+        answer: "Yes. Add several images and they're all converted in one go.",
+      },
+      {
+        question: "Are my images uploaded?",
+        answer: "No. JPG to PNG runs entirely in your browser.",
+      },
+    ],
+    relatedTools: ["jpg-to-png", "png-to-jpg", "webp-converter", "compress-image"],
+  },
+  {
+    path: "/guides/what-size-should-website-images-be",
+    category: "images",
+    keywords: { primary: "image size for website", secondary: ["best image dimensions for website", "website image file size", "hero image size"] },
+    title: "What Size Should Website Images Be?",
+    seoTitle: `What Size Should Website Images Be? Dimensions & File Sizes | ${SITE_NAME}`,
+    metaDescription: "Practical pixel dimensions and file-size targets for hero images, content images and thumbnails, why high-density screens need extra pixels, and how to prepare images quickly.",
+    summary: "Images are usually the heaviest part of a web page, and the most common reason a site feels slow on a phone. Most of that weight comes from images far larger than they're ever displayed. Here's how big website images should actually be.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Dimensions vs file size",
+        paragraphs: [
+          "Two numbers matter. Dimensions — the width and height in pixels — decide how sharp an image can look. File size — in kilobytes — decides how long it takes to download. A photo straight from a phone might be 4000 pixels wide and 4MB; displayed in a 800-pixel-wide column, most of those pixels are wasted, and the visitor still downloads all of them.",
+        ],
+      },
+      {
+        heading: "Account for high-density screens",
+        paragraphs: [
+          "Phones and many laptops have high-density (“retina”) screens that use two or more physical pixels for each pixel of layout. An image displayed 800 pixels wide looks sharpest on those screens at around 1600 pixels wide. A practical rule of thumb: export images at roughly twice the width they'll be displayed at, then compress them well.",
+        ],
+      },
+      {
+        heading: "Starting points by use",
+        table: {
+          caption: "Rule-of-thumb sizes — check your own layout's displayed widths",
+          headers: ["Image type", "Typical width to export", "Rough file-size aim"],
+          rows: [
+            ["Full-width hero or banner", "1920–2560 px", "A few hundred KB at most"],
+            ["Content image in an article column", "1200–1600 px", "Under ~200 KB"],
+            ["Product photo", "1000–2000 px (more if zoom is offered)", "Under ~200 KB"],
+            ["Thumbnail or card image", "400–800 px", "Under ~60 KB"],
+            ["Logo", "Use SVG if possible; otherwise 2× displayed size as PNG", "As small as possible"],
+          ],
+        },
+      },
+      {
+        heading: "Format makes a big difference",
+        list: [
+          "Photos: JPG at around 75–80% quality, or WebP, which is usually smaller still.",
+          "Logos, icons and graphics with sharp edges: SVG where possible, otherwise PNG or lossless WebP.",
+          "Screenshots: PNG or WebP — JPG blurs text.",
+        ],
+      },
+      {
+        heading: "A quick preparation workflow",
+        list: [
+          "Find the width your layout displays the image at (your browser's developer tools show it).",
+          "Resize to about twice that width with Image Resizer.",
+          "Convert photos to WebP with the WebP Converter — or compress as JPG with Compress Image if WebP isn't an option.",
+          "Check the result at full size before uploading.",
+        ],
+      },
+      {
+        heading: "Beyond the file itself",
+        list: [
+          "Serve different sizes to different screens with the srcset attribute, if your site platform supports it, so phones don't download desktop-sized images.",
+          "Set width and height attributes (or CSS aspect-ratio) so the page doesn't jump as images load.",
+          "Lazy-load images below the first screenful (loading=\"lazy\"), so they download only when needed.",
+          "Write meaningful alt text — it helps accessibility and image search.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Size images for how they're displayed, roughly doubled for high-density screens, then choose an efficient format. That combination usually cuts image weight by a large margin without anyone noticing a difference — except that the page loads faster.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Is bigger always better for quality?",
+        answer: "No. Beyond about twice the displayed width there's no visible gain on most screens — only a larger download.",
+      },
+      {
+        question: "Should all my website images be WebP?",
+        answer: "WebP is supported by every current major browser and is usually smaller, so it's a good default for photos and graphics you serve yourself. Keep JPG or PNG copies for email and other uses.",
+      },
+      {
+        question: "What about images in emails?",
+        answer: "Email apps vary widely and many don't support WebP. Use JPG for photos and PNG for graphics, sized for the width they'll actually appear at.",
+      },
+    ],
+    relatedTools: ["image-resizer", "webp-converter", "compress-image", "meta-tag-generator"],
+  },
+  {
+    path: "/guides/what-is-exif-data-and-how-to-remove-it",
+    category: "images",
+    keywords: { primary: "remove EXIF data", secondary: ["what is EXIF data", "remove location from photo", "photo metadata privacy"] },
+    title: "What Is EXIF Data — and How to Remove Location from Photos",
+    seoTitle: `What Is EXIF Data? How to Remove Location from Photos | ${SITE_NAME}`,
+    metaDescription: "What EXIF metadata hides inside your photos — camera, date and often GPS location — why it matters before sharing, and simple ways to remove it.",
+    summary: "Every photo from your phone carries hidden details: when it was taken, on which device and, often, exactly where. Most social networks remove it, but email attachments, file transfers and many websites don't. Here's what's in there and how to strip it.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What EXIF data is",
+        paragraphs: [
+          "EXIF (Exchangeable Image File Format) is metadata that cameras and phones write into JPG files. It's invisible when you look at the photo, but any image viewer's “properties” or “info” panel can show it.",
+        ],
+        table: {
+          caption: "Information commonly stored in a photo's EXIF data",
+          headers: ["Field", "Example", "Why it matters"],
+          rows: [
+            ["GPS location", "Latitude and longitude", "Can reveal your home, school or workplace"],
+            ["Date and time", "When the photo was taken", "Reveals routines and timelines"],
+            ["Device", "Phone or camera make and model", "Usually harmless, sometimes identifying"],
+            ["Camera settings", "Exposure, focal length, ISO", "Harmless; useful to photographers"],
+            ["Orientation", "Which way up the photo was taken", "Tells apps how to display it"],
+          ],
+        },
+      },
+      {
+        heading: "When to remove it",
+        list: [
+          "Selling something online with photos taken at home.",
+          "Emailing or sending photos as files rather than through a social app.",
+          "Publishing photos on your own website or blog.",
+          "Sharing pictures of children, or anything taken at a private address.",
+        ],
+      },
+      {
+        heading: "How to remove it with Toolkit4Me",
+        paragraphs: [
+          "Several image tools here re-encode the picture in your browser, and re-encoding writes a fresh image without the original metadata. Compress Image, Image Resizer, the WebP Converter, PNG to JPG and JPG to PNG all produce files without the camera details and location. Because they run in your browser, the original photo isn't uploaded anywhere.",
+          "For the least change to the picture, use Compress Image with the quality set high (90% or more) and no maximum width. The photo looks the same, and the metadata is gone. Current browsers apply the photo's orientation before saving, so it should stay the right way up — check the result before you share it.",
+        ],
+      },
+      {
+        heading: "One exception: JPG to PDF",
+        paragraphs: [
+          "JPG to PDF places your JPG into the PDF exactly as it is, byte for byte, so its EXIF data — including any location — goes into the PDF too. If you're turning sensitive photos into a PDF, run them through Compress Image first, then convert the cleaned copies.",
+        ],
+      },
+      {
+        heading: "Other ways to avoid sharing location",
+        list: [
+          "Turn off location tagging in your phone's camera settings, so new photos don't record it.",
+          "Many phones let you remove location when sharing — look for “Options” or “Location” in the share sheet.",
+          "On Windows, File Explorer's Properties → Details → “Remove Properties and Personal Information” can strip metadata from a copy.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Before sending photos as files or publishing them on your own site, assume they contain a timestamp and possibly your location. Re-saving them through an image tool in your browser removes that metadata in seconds — just remember that tools which embed files unchanged, like JPG to PDF, keep it.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Do social networks remove EXIF data?",
+        answer: "Most major platforms strip location data from uploaded photos, but practices vary and change. Files sent by email, cloud links or messaging apps' “send as file” options usually keep it.",
+      },
+      {
+        question: "Do PNG images have EXIF data?",
+        answer: "PNG files can carry metadata, but phone cameras save photos as JPG or HEIC, which is where location data usually lives.",
+      },
+      {
+        question: "Will removing EXIF reduce image quality?",
+        answer: "Re-saving a JPG re-compresses it, but at a high quality setting (90% or more) the difference isn't visible.",
+      },
+    ],
+    relatedTools: ["compress-image", "image-resizer", "jpg-to-pdf", "webp-converter"],
+  },
+  {
+    path: "/guides/how-to-copy-text-from-a-screenshot",
+    category: "ocr",
+    keywords: { primary: "copy text from screenshot", secondary: ["screenshot to text", "extract text from screenshot", "copy text from image on Windows or Mac"] },
+    title: "How to Copy Text from a Screenshot",
+    seoTitle: `How to Copy Text from a Screenshot (Any Device) | ${SITE_NAME}`,
+    metaDescription: "Turn the text in a screenshot into text you can copy and paste — using Toolkit4Me's Image to Text, or the tools already built into Windows, Mac, iPhone and Android.",
+    summary: "An error message you need to search for, a quote from a slide, a list someone sent as a picture — screenshots are full of text you can't copy. Here are the quickest ways to turn that text into something you can paste.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why screenshots are ideal for OCR",
+        paragraphs: [
+          "Optical character recognition struggles with blurry photos, curved pages and shadows. Screenshots have none of those problems: the text is perfectly sharp, straight and evenly lit. That's why OCR on a screenshot is usually close to perfect — making it far quicker to recognise the text than to retype it.",
+        ],
+      },
+      {
+        heading: "Using Image to Text",
+        list: [
+          "Take the screenshot and save it as a PNG or JPG — most devices do this by default.",
+          "Open Image to Text and add the screenshot (up to 25MB).",
+          "Choose the language of the text: English, Spanish, French or German.",
+          "Select Extract Text, then copy the result or download it as a .txt file.",
+        ],
+      },
+      {
+        heading: "Tools already built into your device",
+        paragraphs: [
+          "Many devices now recognise text in images themselves, which is handy for a quick copy. Image to Text is useful when you're on a device without these features, want the text as a downloadable file, or are working with text in Spanish, French or German on a device that doesn't recognise it.",
+        ],
+        table: {
+          caption: "Built-in text recognition (features vary by version)",
+          headers: ["Device", "Built-in option"],
+          rows: [
+            ["Windows 11", "Snipping Tool's Text actions — capture an area, then copy the recognised text"],
+            ["Mac", "Live Text — open the image in Preview or Photos and select the text"],
+            ["iPhone and iPad", "Live Text — touch and hold the text in a photo or screenshot"],
+            ["Android", "Google Lens — open the screenshot and choose Text"],
+          ],
+        },
+      },
+      {
+        heading: "Tips for the best result",
+        list: [
+          "Capture just the area you need — fewer surrounding elements means cleaner output.",
+          "Don't shrink the screenshot before uploading; full size is sharpest.",
+          "Zoom in on small text before taking the screenshot.",
+          "For text in columns or tables, capture one column at a time.",
+        ],
+      },
+      {
+        heading: "What to check afterwards",
+        list: [
+          "Look for confusions between similar characters: 0 and O, 1, l and I, rn and m.",
+          "Check punctuation and symbols in code or error messages — a missing quote changes meaning.",
+          "Remember OCR returns plain text: bold, colours and layout aren't kept.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Screenshots are the easiest images there are for OCR. Use your device's built-in text recognition for a quick copy, or Image to Text when you want a text file or need another language — and give the result a quick proofread before you rely on it.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I extract text from a screenshot of a PDF?",
+        answer: "Yes, but if you have the PDF itself and its text is selectable, copying directly is more accurate. For a scanned PDF, PDF to Word or Image to Text are the better routes.",
+      },
+      {
+        question: "Does it work with handwriting in a screenshot?",
+        answer: "Results on handwriting are often poor. OCR is designed mainly for printed and on-screen text.",
+      },
+      {
+        question: "What happens to my screenshot?",
+        answer: "Image to Text runs on our server: your image is deleted as soon as it's processed, and the extracted text within one hour.",
+      },
+    ],
+    relatedTools: ["image-to-text", "text-compare", "word-counter", "pdf-to-word"],
+  },
+  {
+    path: "/guides/how-to-digitise-receipts",
+    category: "ocr",
+    keywords: { primary: "scan receipts to PDF", secondary: ["digitise receipts for expenses", "receipts to PDF", "copy receipt details to spreadsheet"] },
+    title: "How to Digitise Receipts for Expense Claims",
+    seoTitle: `How to Scan Receipts to PDF for Expense Claims | ${SITE_NAME}`,
+    metaDescription: "Photograph receipts so they stay readable, combine them into one tidy PDF for an expense claim, copy totals with OCR, and keep the file small enough to submit.",
+    summary: "Paper receipts fade, crumple and get lost — usually right before an expense claim is due. Turning them into a single, readable PDF takes a few minutes with your phone. Here's a simple routine that works.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Capture receipts early",
+        paragraphs: [
+          "Many receipts are printed on thermal paper, which fades with heat, light and time, sometimes within months. The best time to photograph a receipt is the day you get it. A photo taken immediately will stay readable long after the paper has gone blank.",
+        ],
+      },
+      {
+        heading: "Photographing receipts so they're readable",
+        list: [
+          "Place the receipt flat on a dark, plain surface — the contrast makes the edges and text stand out.",
+          "Use daylight or bright, even light, and keep your shadow off the paper.",
+          "Hold the phone directly above the receipt, filling the frame.",
+          "For long receipts, take two overlapping photos rather than one tiny one.",
+          "Check that the total, date and merchant name are sharp before moving on.",
+        ],
+      },
+      {
+        heading: "Combine them into one PDF",
+        list: [
+          "Open JPG to PDF and add the receipt photos.",
+          "Use the arrows to put them in date order, matching your claim.",
+          "Choose A4 or Letter if the claim may be printed, or Fit to image for on-screen review.",
+          "Select Convert to PDF. The photos are placed in the PDF unchanged and never leave your device.",
+        ],
+      },
+      {
+        heading: "Copy totals and details with OCR",
+        paragraphs: [
+          "If you need to type amounts into a spreadsheet or expense system, run a receipt photo through Image to Text to get its text, then copy the lines you need. Always check every number against the photo: OCR can confuse 5 and S, 0 and O, or misread a faded decimal point, and an expense total is exactly where a small error matters.",
+        ],
+      },
+      {
+        heading: "Keep the file small",
+        table: {
+          caption: "Getting a receipts PDF under an upload limit",
+          headers: ["Problem", "Fix"],
+          rows: [
+            ["Phone photos are 3–5MB each", "Resize to about 1,600 pixels wide with Image Resizer or Compress Image before converting"],
+            ["The finished PDF is still too large", "Run it through Compress PDF at the Recommended level"],
+            ["The claim has dozens of receipts", "Split it into one PDF per month or per trip"],
+          ],
+        },
+      },
+      {
+        heading: "Name and store files sensibly",
+        list: [
+          "Use a consistent name such as 2026-11_Expenses_Lastname.pdf.",
+          "Keep the original photos until the claim has been paid.",
+          "Check how long your employer or tax authority requires you to keep receipts, and in what form, before throwing the paper away.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Photograph receipts on the day, on a dark background, in good light. Combine them into one ordered PDF, shrink large photos first if there's an upload limit, and use OCR to save typing — while checking every figure by eye.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I add receipts to an existing expenses PDF?",
+        answer: "Yes. Convert the new photos with JPG to PDF, then combine the two files with Merge PDF.",
+      },
+      {
+        question: "My receipt photos are PNG screenshots — can I use them?",
+        answer: "JPG to PDF takes JPG files, so convert PNGs first with PNG to JPG.",
+      },
+      {
+        question: "Are digital copies accepted instead of paper receipts?",
+        answer: "That depends on your employer's policy and local tax rules. Check before discarding the originals.",
+      },
+    ],
+    relatedTools: ["jpg-to-pdf", "image-to-text", "compress-pdf", "image-resizer"],
+  },
 ];
 
 /** Words in a guide's visible text (summary, sections, tables, FAQs). */
