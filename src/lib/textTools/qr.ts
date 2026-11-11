@@ -45,3 +45,40 @@ export function validateQrText(text: string, level: QrErrorLevel): string | null
   }
   return null;
 }
+
+export interface LinkHint {
+  message: string;
+  /** The corrected text to offer with a one-click fix, if there is one. */
+  fix?: string;
+  fixLabel?: string;
+}
+
+const BARE_DOMAIN = /^(?:www\.)?(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}(?::\d+)?(?:[/?#]\S*)?$/i;
+const WEB_LINK = /^https?:\/\//i;
+
+/**
+ * Checks text that looks like a web link for mistakes that make phones treat
+ * it as plain text or open the wrong page. Plain text that isn't a link gets
+ * no hint — the generator encodes any text.
+ */
+export function linkHint(text: string): LinkHint | null {
+  const trimmed = text.trim();
+  if (!trimmed) return null;
+  if (WEB_LINK.test(trimmed)) {
+    if (/\s/.test(trimmed)) {
+      return { message: "This link contains a space or line break, so a phone may open only part of it. Check that you've copied the whole link, without extra text." };
+    }
+    if (trimmed !== text) {
+      return { message: "There are spaces or line breaks around the link. They'd be stored in the code too.", fix: trimmed, fixLabel: "Remove them" };
+    }
+    return null;
+  }
+  if (BARE_DOMAIN.test(trimmed)) {
+    return {
+      message: "This looks like a web address without https://. Some scanner apps show it as plain text instead of a link you can tap.",
+      fix: `https://${trimmed}`,
+      fixLabel: "Add https://",
+    };
+  }
+  return null;
+}

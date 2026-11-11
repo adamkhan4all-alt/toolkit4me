@@ -1,9 +1,9 @@
 /** "How it works" numbered step list, unique copy per tool (SEO requirement — no shared boilerplate text). */
-export function ToolInstructions({ steps }: { steps: string[] }) {
+export function ToolInstructions({ steps, heading = "How it works" }: { steps: string[]; heading?: string }) {
   return (
     <section aria-labelledby="how-it-works-heading" className="flex flex-col gap-4">
       <h2 id="how-it-works-heading" className="text-2xl font-semibold text-neutral-900">
-        How it works
+        {heading}
       </h2>
       <ol className="flex flex-col gap-3">
         {steps.map((step, i) => (
