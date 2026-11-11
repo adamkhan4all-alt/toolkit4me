@@ -11,7 +11,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "pdf-to-word",
     slug: "pdf-to-word",
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "PDF to Word Converter",
     shortName: "PDF to Word",
     category: "convert",
@@ -55,7 +55,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Can I convert scanned PDFs?", answer: "Yes, up to 15 pages. When a PDF has no selectable text, each page is read with OCR in English. Accuracy depends on scan quality, so check names and numbers carefully. For a longer scan, split it into parts with Split PDF first." },
     ],
     outputExtension: "docx",
-    relatedTools: ["word-to-pdf", "compress-pdf", "merge-pdf", "pdf-to-jpg"],
+    relatedTools: ["word-to-pdf", "compress-pdf", "merge-pdf", "word-counter"],
     intro: [
       "If you've ever needed to pull a paragraph out of a PDF and actually edit it, you already know the frustration — most PDFs simply aren't built to be typed into. This tool bridges that gap: upload a PDF and get back a genuine .docx file you can open in Word, Google Docs, or LibreOffice and edit like any other document.",
       "It works best on text-heavy PDFs such as letters, contracts, résumés and reports. Be clear about what it does: it extracts the text in reading order and rebuilds it as plain paragraphs in a .docx. Fonts, colours, columns, tables and images are not reproduced, so expect to reapply formatting in Word. If you need the page to look identical rather than be editable, keep the PDF — or use PDF to JPG for an image of each page.",
@@ -268,7 +268,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "compress-pdf",
     slug: "compress-pdf",
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "Compress PDF",
     shortName: "Compress PDF",
     category: "compress",
@@ -321,7 +321,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Is my file kept private?", answer: "Files are deleted automatically after 1 hour." },
     ],
     outputExtension: "pdf",
-    relatedTools: ["merge-pdf", "pdf-to-word", "compress-image", "pdf-to-jpg"],
+    relatedTools: ["merge-pdf", "split-pdf", "pdf-page-numbers", "compress-image"],
     intro: [
       "A PDF full of high-resolution scans or images can easily balloon past what an email attachment or upload form will accept. This tool shrinks the file by re-encoding embedded images and stripping unnecessary bloat, while leaving the actual text and layout untouched.",
       "Pick a compression level that fits your priority: keep quality as close to original as possible, take the balanced default, or squeeze the file down as far as it'll go for the smallest possible size.",
@@ -338,7 +338,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     id: "merge-pdf",
     slug: "merge-pdf",
     maxFiles: 20,
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "Merge PDF",
     shortName: "Merge PDF",
     category: "merge",
@@ -377,7 +377,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Is my file kept private?", answer: "Files are deleted automatically from our servers after 1 hour." },
     ],
     outputExtension: "pdf",
-    relatedTools: ["compress-pdf", "pdf-to-word", "jpg-to-pdf", "pdf-to-jpg"],
+    relatedTools: ["compress-pdf", "pdf-page-numbers", "split-pdf", "pdf-editor"],
     intro: [
       "Whether you're assembling a single report from several chapters, combining scanned pages into one file, or putting together a client packet from separate documents, this tool merges up to 20 PDFs into a single, ordered file in a few clicks.",
       "You control the order — arrange your files before merging so the final document reads exactly the way you intend, with nothing to reassemble by hand afterward.",
@@ -393,7 +393,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "compress-image",
     slug: "compress-image",
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "Compress Image",
     shortName: "Compress Image",
     category: "compress",
@@ -445,7 +445,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Does my image get uploaded anywhere?", answer: "No — compression runs locally in your browser, so the file never leaves your device." },
     ],
     outputExtension: "jpg",
-    relatedTools: ["compress-pdf", "jpg-to-png", "png-to-jpg", "jpg-to-pdf"],
+    relatedTools: ["image-resizer", "webp-converter", "png-to-jpg", "jpg-to-png"],
     intro: [
       "Large photos slow down websites, blow past email attachment limits, and eat into storage quotas — often for no visible benefit, since most images can shrink significantly before the difference is noticeable. This tool compresses your JPGs and PNGs right in your browser, with a slider between top quality and maximum savings.",
       "Because nothing leaves your device, it's a fast way to batch-shrink a folder of photos before uploading them to a website, CMS, or online store, without waiting on an upload-process-download round trip.",
@@ -461,7 +461,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "image-to-text",
     slug: "image-to-text",
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "Image to Text (OCR)",
     shortName: "Image to Text",
     category: "ocr",
@@ -519,7 +519,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Is my file kept private?", answer: "Files are deleted automatically from our servers after 1 hour." },
     ],
     outputExtension: "txt",
-    relatedTools: ["pdf-to-jpg", "compress-image", "jpg-to-png", "png-to-jpg"],
+    relatedTools: ["pdf-to-jpg", "compress-image", "word-counter", "text-compare"],
     intro: [
       "Retyping text out of a photo, screenshot, or scanned document is slow and error-prone. This tool uses optical character recognition to read the text straight out of your image and hand it back to you as real, selectable text — ready to copy into an email, document, or spreadsheet.",
       "It works on printed text in JPG and PNG images, in English, Spanish, French or German. Your image is deleted as soon as it's processed, and the extracted text is kept only long enough for you to download it (at most one hour). Have a scanned PDF instead? PDF to Word reads scanned PDFs with OCR, or PDF to JPG turns each page into an image you can use here.",
@@ -535,7 +535,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "jpg-to-png",
     slug: "jpg-to-png",
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "JPG to PNG Converter",
     shortName: "JPG to PNG",
     category: "convert",
@@ -574,7 +574,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Does my image get uploaded anywhere?", answer: "No — conversion runs locally in your browser." },
     ],
     outputExtension: "png",
-    relatedTools: ["png-to-jpg", "compress-image", "jpg-to-pdf", "image-to-text"],
+    relatedTools: ["png-to-jpg", "webp-converter", "image-resizer", "compress-image"],
     intro: [
       "PNG is the format of choice when you need a transparent background or want to avoid the soft artifacts JPG compression can introduce — think logos, icons, screenshots, and graphics that get placed over other content. This tool converts your JPGs to PNG instantly, entirely in your browser.",
       "It won't add back detail a JPG has already lost, but it does give you a lossless file going forward, so any further edits won't introduce new compression artifacts.",
@@ -590,7 +590,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "png-to-jpg",
     slug: "png-to-jpg",
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "PNG to JPG Converter",
     shortName: "PNG to JPG",
     category: "convert",
@@ -629,7 +629,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Does my image get uploaded anywhere?", answer: "No — conversion runs locally in your browser." },
     ],
     outputExtension: "jpg",
-    relatedTools: ["jpg-to-png", "compress-image", "pdf-to-jpg", "image-to-text"],
+    relatedTools: ["jpg-to-png", "webp-converter", "image-resizer", "compress-image"],
     intro: [
       "PNG files are great for crisp graphics, but their lossless compression makes them far larger than a photo needs to be — and not every website, form, or app accepts them. Converting to JPG gives you a smaller file with broader compatibility, which is usually what you want for photographs and general-purpose images.",
       "The conversion happens locally in your browser, so batches of images convert quickly without an upload step, and nothing is sent to a server in the process.",
@@ -645,7 +645,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "pdf-editor",
     slug: "pdf-editor",
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "PDF Editor",
     shortName: "PDF Editor",
     category: "edit",
@@ -696,7 +696,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Does my PDF get uploaded anywhere?", answer: "No — editing happens entirely in your browser using open-source libraries." },
     ],
     outputExtension: "pdf",
-    relatedTools: ["split-pdf", "merge-pdf", "compress-pdf", "protect-pdf"],
+    relatedTools: ["split-pdf", "merge-pdf", "pdf-page-numbers", "protect-pdf"],
     intro: [
       "Sometimes you don't need a full document editor — you just need to drop a page, fix the order, rotate a sideways scan, or add a quick label before sending a PDF on. This tool gives you a page-by-page view of your document with the essential page-management tools, plus the ability to add text directly onto a page, all without installing anything.",
       "Everything happens locally using PDF.js (for rendering page previews) and pdf-lib (for applying your edits) — your file is never uploaded to a server, so it's a good fit for documents you'd rather keep off the internet entirely.",
@@ -712,7 +712,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "split-pdf",
     slug: "split-pdf",
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-11",
     name: "Split PDF",
     shortName: "Split PDF",
     category: "edit",
@@ -783,7 +783,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       { question: "Does my file get uploaded anywhere?", answer: "No — splitting happens entirely in your browser using pdf-lib." },
     ],
     outputExtension: "pdf",
-    relatedTools: ["merge-pdf", "pdf-editor", "compress-pdf", "pdf-to-jpg"],
+    relatedTools: ["merge-pdf", "pdf-editor", "pdf-page-numbers", "compress-pdf"],
     intro: [
       "A single large PDF isn't always what you want to share — sometimes you need just one chapter, one invoice out of a batch, or a document broken into evenly sized chunks. This tool lets you pull out exactly the pages you need, by number or range, or split a PDF automatically every fixed number of pages.",
       "Every output file downloads immediately from your browser, either one at a time or all together, without ever uploading your original document to a server.",

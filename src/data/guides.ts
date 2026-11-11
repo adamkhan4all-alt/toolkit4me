@@ -97,9 +97,9 @@ export const GUIDES: GuideDefinition[] = [
     title: "JPG vs PNG: Which Image Format Should You Use?",
     seoTitle: `JPG vs PNG — Differences and When to Use Each | ${SITE_NAME}`,
     metaDescription: "A plain-English comparison of JPG and PNG: compression, transparency, file size and the best format for photos, screenshots, logos and the web.",
-    summary: "JPG and PNG are the two most common image formats, and picking the wrong one can mean blurry screenshots or photos that are ten times larger than they need to be. Here is how they differ and when to use each.",
+    summary: "JPG and PNG are the two most common image formats, and picking the wrong one can mean blurry screenshots or photos that are ten times larger than they need to be. Here is how they differ, when to use each, and where WebP fits in.",
     published: GUIDES_PUBLISHED,
-    updated: GUIDES_UPDATED,
+    updated: "2026-11-11",
     sections: [
       {
         heading: "The key difference: lossy vs lossless",
@@ -132,8 +132,15 @@ export const GUIDES: GuideDefinition[] = [
           "Both conversions on this site run entirely in your browser, so your images are never uploaded.",
         ],
       },
+      {
+        heading: "What about WebP?",
+        paragraphs: [
+          "WebP is a newer format that can do both jobs: lossy compression for photos and lossless compression with transparency for graphics, usually in a smaller file than the JPG or PNG equivalent. Every current major browser displays it, which makes it a good choice for images on your own website.",
+          "The catch is compatibility outside the browser — some desktop apps, editors and upload forms still don't accept WebP. Use WebP for the web, and keep JPG or PNG for files you'll email, print or upload elsewhere. The WebP Converter turns JPG and PNG into WebP and back.",
+        ],
+      },
     ],
-    relatedTools: ["png-to-jpg", "jpg-to-png", "compress-image", "jpg-to-pdf"],
+    relatedTools: ["png-to-jpg", "jpg-to-png", "webp-converter", "compress-image"],
   },
   {
     path: "/guides/how-to-convert-pdf-to-word",
@@ -282,7 +289,7 @@ export const GUIDES: GuideDefinition[] = [
     metaDescription: "Combine several PDFs into one, pull out just the pages you need, and reorder or rotate pages before sending a document.",
     summary: "Job applications, visa forms, expense claims and insurance requests often ask for a single PDF that contains several documents in a set order. Here is how to put one together cleanly.",
     published: GUIDES_PUBLISHED,
-    updated: "2026-11-03",
+    updated: "2026-11-11",
     sections: [
       {
         heading: "Plan the final document first",
@@ -315,12 +322,13 @@ export const GUIDES: GuideDefinition[] = [
         heading: "Finishing touches",
         list: [
           "Compress the merged file if it is over the upload limit.",
+          "Add page numbers with PDF Page Numbers, so you and the recipient can refer to “page 7” — you can leave a cover page unnumbered.",
           "Add a password with Protect PDF if the document contains personal information.",
           "Give the file a clear name, such as \"Surname_Firstname_Application.pdf\", so the recipient can find it easily.",
         ],
       },
     ],
-    relatedTools: ["merge-pdf", "split-pdf", "pdf-editor", "compress-pdf"],
+    relatedTools: ["merge-pdf", "split-pdf", "pdf-editor", "pdf-page-numbers"],
   },
   {
     path: "/guides/how-to-compress-images",
@@ -329,7 +337,7 @@ export const GUIDES: GuideDefinition[] = [
     metaDescription: "Why photos are so large, how quality, resolution and format each affect file size, and the settings that work for websites, email and upload forms.",
     summary: "A single phone photo is often 3–6MB — far more than a website, email or upload form needs. Three settings decide how small an image gets: its pixel dimensions, its format, and (for JPG) its quality. Here's how to use each one.",
     published: "2026-11-03",
-    updated: "2026-11-03",
+    updated: "2026-11-11",
     sections: [
       {
         heading: "Why photos are so large",
@@ -340,8 +348,8 @@ export const GUIDES: GuideDefinition[] = [
       {
         heading: "The three settings that matter",
         list: [
-          "Dimensions: halving the width and height leaves a quarter of the pixels, and the file shrinks dramatically. In Compress Image, set a maximum width — the height scales to match.",
-          "Format: JPG is built for photographs and is usually far smaller than PNG for the same photo. PNG is lossless and suits screenshots, logos and anything with transparency.",
+          "Dimensions: halving the width and height leaves a quarter of the pixels, and the file shrinks dramatically. In Compress Image, set a maximum width — the height scales to match. For an exact size, such as 600 × 600 for a profile photo, use Image Resizer.",
+          "Format: JPG is built for photographs and is usually far smaller than PNG for the same photo. PNG is lossless and suits screenshots, logos and anything with transparency. For images on your own website, WebP is often smaller still — the WebP Converter creates it from JPG or PNG.",
           "Quality (JPG only): a quality around 70–80 typically looks the same as the original at normal viewing size. Below about 50, blocky artefacts start to appear around edges and in smooth areas like skies.",
         ],
       },
@@ -369,7 +377,7 @@ export const GUIDES: GuideDefinition[] = [
         ],
       },
     ],
-    relatedTools: ["compress-image", "png-to-jpg", "jpg-to-png", "jpg-to-pdf"],
+    relatedTools: ["compress-image", "image-resizer", "webp-converter", "png-to-jpg"],
   },
   {
     path: "/guides/convert-office-documents-to-pdf",
