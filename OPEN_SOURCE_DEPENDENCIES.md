@@ -31,16 +31,18 @@ licence, `npm audit`).
 
 ## Evaluated and not adopted
 
-**HEIC to JPG** is not implemented pending an owner decision:
+**HEIC to JPG** — the site owner decided on 2026-11-11 not to offer this
+tool, for the licensing and cost reasons below. Revisit only if a
+permissively licensed HEIC decoder becomes available.
 
-| Option | Licence | Why not (yet) |
+| Option | Licence | Why not |
 |---|---|---|
 | `heic2any` 0.0.4 | MIT wrapper, but bundles **libheif (LGPL-3.0)** | Unmaintained since 2023; bundles an old libheif without later security fixes; ~2.7 MB. |
 | `heic-to` 1.6.7 / `libheif-js` 1.23.5 | **LGPL-3.0** | Maintained, but LGPL obligations apply to distributing it in a web bundle, and the decoder adds several MB. |
 | Server-side (libheif / ImageMagick on the existing EC2 backend) | LGPL-3.0 / Apache-2.0 | Adds backend CPU load and upload traffic (contrary to the browser-first, low-AWS-cost goal). |
 
 All options also decode **HEVC**, which is covered by patent pools in some
-jurisdictions. Choosing one is a licensing/legal decision for the site owner.
+jurisdictions.
 
 ## Security
 
