@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [{ "source": "/blog", "destination": "/guides", "permanent": true }],
   "headers": [
     {
       "source": "/assets/(.*)",

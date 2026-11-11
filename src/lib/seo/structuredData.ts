@@ -9,7 +9,7 @@
 
 import { CONTACT_EMAIL, SITE_NAME, SITE_URL, absoluteUrl } from "../../config/site";
 import type { ToolDefinition } from "../../types/tool";
-import type { GuideDefinition } from "../../data/guides";
+import { guideCategoryLabel, guideWordCount, type GuideDefinition } from "../../data/guides";
 
 export type JsonLd = Record<string, unknown>;
 
@@ -79,15 +79,19 @@ export function webApplicationSchema(tool: ToolDefinition): JsonLd {
 
 export function articleSchema(guide: GuideDefinition): JsonLd {
   const url = absoluteUrl(guide.path);
+  const images = guide.sections.flatMap((s) => (s.image ? [absoluteUrl(s.image.src)] : []));
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: guide.title,
     description: guide.metaDescription,
     url,
     mainEntityOfPage: url,
     datePublished: guide.published,
     dateModified: guide.updated,
+    articleSection: guideCategoryLabel(guide.category),
+    wordCount: guideWordCount(guide),
+    ...(images.length ? { image: images } : {}),
     author: organizationRef,
     publisher: organizationRef,
   };

@@ -57,3 +57,39 @@ describe("About page areas", () => {
     expect(TOOL_AREAS.map((a) => a.category).sort()).toEqual([...CATEGORIES].sort());
   });
 });
+
+describe("blog structure", () => {
+  it("gives every guide a category, a primary keyword and no keyword overlap with another guide", async () => {
+    const { GUIDE_CATEGORIES } = await import("../guides");
+    const ids = new Set(GUIDE_CATEGORIES.map((c) => c.id));
+    for (const g of GUIDES) {
+      expect(ids.has(g.category)).toBe(true);
+      expect(g.keywords.primary.trim()).not.toBe("");
+    }
+    const primaries = GUIDES.map((g) => g.keywords.primary.toLowerCase());
+    expect(new Set(primaries).size).toBe(primaries.length); // no two guides chase the same query
+  });
+
+  it("only lists categories that have guides, so no empty category is ever shown", async () => {
+    const { GUIDE_CATEGORIES } = await import("../guides");
+    for (const c of GUIDE_CATEGORIES) expect(GUIDES.some((g) => g.category === c.id)).toBe(true);
+  });
+
+  it("has well-formed tables and images that exist with alt text", async () => {
+    const { existsSync } = await import("node:fs");
+    const path = await import("node:path");
+    for (const g of GUIDES) {
+      for (const s of g.sections) {
+        if (s.table) for (const row of s.table.rows) expect(row).toHaveLength(s.table.headers.length);
+        if (s.image) {
+          expect(s.image.alt.length).toBeGreaterThan(15);
+          expect(existsSync(path.join(process.cwd(), "public", s.image.src))).toBe(true);
+        }
+      }
+    }
+  });
+
+  it("features at least three guides for the blog and homepage", () => {
+    expect(GUIDES.filter((g) => g.featured).length).toBeGreaterThanOrEqual(3);
+  });
+});

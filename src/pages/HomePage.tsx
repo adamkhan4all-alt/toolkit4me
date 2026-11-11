@@ -187,7 +187,7 @@ export function HomePage() {
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {GUIDES.slice(0, 3).map((guide) => (
+          {GUIDES.filter((g) => g.featured).slice(0, 3).map((guide) => (
             <Link
               key={guide.path}
               to={guide.path}

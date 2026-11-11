@@ -7,11 +7,49 @@
 
 import { SITE_NAME } from "../config/site";
 
+export interface GuideTable {
+  caption: string;
+  headers: string[];
+  rows: string[][];
+}
+
+export interface GuideImage {
+  /** Path under /public, e.g. "/images/guides/compress-pdf-levels.webp". */
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+}
+
 export interface GuideSection {
   heading?: string;
   paragraphs?: string[];
   list?: string[];
+  table?: GuideTable;
+  image?: GuideImage;
 }
+
+export type GuideCategory = "pdf" | "images" | "ocr" | "web" | "writing";
+
+/** Display names for guide categories, in the order the blog lists them. */
+export const GUIDE_CATEGORIES: { id: GuideCategory; label: string; description: string }[] = [
+  { id: "pdf", label: "PDF & documents", description: "Compressing, converting, merging and protecting PDFs and Office files." },
+  { id: "images", label: "Images", description: "Image formats, compression, resizing and conversion." },
+  { id: "ocr", label: "OCR", description: "Turning photos and scans into editable text." },
+  { id: "web", label: "QR codes & web", description: "QR codes, JSON, Base64 and meta tags." },
+  { id: "writing", label: "Writing & text", description: "Word counts, character limits and comparing text." },
+];
+
+/** Title/description of the /guides index — shared by GuidesIndexPage and scripts/prerender.ts. */
+export const GUIDES_INDEX_META = {
+  title: "Guides — PDF, Image, QR Code & Text How-Tos | Toolkit4Me",
+  description:
+    "Practical, plain-English guides to everyday file and text tasks: shrinking PDFs, choosing image formats, OCR, QR codes, JSON, meta tags and word limits.",
+};
+
+/** Shown as the byline on every guide; see the Editorial Policy page for how guides are written and reviewed. */
+export const GUIDE_AUTHOR = "Toolkit4Me Editorial Team";
 
 export interface GuideDefinition {
   /** Route path, e.g. "/guides/how-to-reduce-pdf-file-size". */
@@ -26,8 +64,15 @@ export interface GuideDefinition {
   published: string;
   /** ISO date (YYYY-MM-DD) of the last meaningful content change — shown as "Last updated", and used for the sitemap <lastmod> and Article dateModified. */
   updated: string;
+  category: GuideCategory;
+  /** Search intent this guide targets — used for editorial planning and the SEO tracker, never emitted as a meta keywords tag. */
+  keywords: { primary: string; secondary: string[] };
+  /** Shown in the "Featured" row of the blog index. */
+  featured?: boolean;
   sections: GuideSection[];
-  /** Tool slugs linked at the end of the guide. */
+  /** Reader questions answered at the end of the guide (visible content; no FAQPage markup for guides). */
+  faq?: { question: string; answer: string }[];
+  /** Tool slugs linked at the end of the guide; the first is the guide's main call to action. */
   relatedTools?: string[];
 }
 
@@ -37,6 +82,9 @@ const GUIDES_UPDATED = "2026-10-26";
 export const GUIDES: GuideDefinition[] = [
   {
     path: "/guides/how-to-reduce-pdf-file-size",
+    category: "pdf",
+    keywords: { primary: "how to reduce PDF file size without losing quality", secondary: ["compress PDF online", "reduce PDF size", "free PDF compressor", "compress PDF without losing quality"] },
+    featured: true,
     title: "How to Reduce PDF File Size Without Ruining Quality",
     seoTitle: `How to Reduce PDF File Size (Without Losing Quality) | ${SITE_NAME}`,
     metaDescription: "Why PDFs get so large, which compression level to pick, and practical tricks for getting a PDF under an email or upload limit.",
@@ -94,6 +142,9 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/jpg-vs-png",
+    category: "images",
+    keywords: { primary: "what is a JPG vs PNG", secondary: ["JPG vs PNG", "JPEG vs PNG", "difference between JPG and PNG", "best image format"] },
+    featured: true,
     title: "JPG vs PNG: Which Image Format Should You Use?",
     seoTitle: `JPG vs PNG — Differences and When to Use Each | ${SITE_NAME}`,
     metaDescription: "A plain-English comparison of JPG and PNG: compression, transparency, file size and the best format for photos, screenshots, logos and the web.",
@@ -144,6 +195,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/how-to-convert-pdf-to-word",
+    category: "pdf",
+    keywords: { primary: "PDF to Word online", secondary: ["convert PDF to Word free", "PDF to DOCX", "edit a PDF in Word"] },
     title: "How to Convert a PDF to Word — and What Happens to the Formatting",
     seoTitle: `How to Convert PDF to Word: Text, Formatting and Scans Explained | ${SITE_NAME}`,
     metaDescription: "Convert a PDF into an editable Word file, understand what carries over and what doesn't, and how to keep formatting when it matters.",
@@ -193,6 +246,9 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/how-to-extract-text-from-images-ocr",
+    category: "ocr",
+    keywords: { primary: "OCR extraction", secondary: ["image to text", "OCR online free", "extract text from image", "convert image to text"] },
+    featured: true,
     title: "How to Extract Text from an Image or Scan (OCR Tips)",
     seoTitle: `Extract Text from Images with OCR — Tips for Accurate Results | ${SITE_NAME}`,
     metaDescription: "Learn how OCR turns photos and scans into editable text, and simple capture tips that dramatically improve accuracy.",
@@ -241,6 +297,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/how-to-password-protect-a-pdf",
+    category: "pdf",
+    keywords: { primary: "password protect PDF", secondary: ["add password to PDF", "encrypt PDF", "PDF open password"] },
     title: "How to Password Protect a PDF (and When You Should)",
     seoTitle: `How to Password Protect a PDF — A Practical Guide | ${SITE_NAME}`,
     metaDescription: "Add a password to a PDF, choose a strong one, understand open vs permissions passwords, and share protected files safely.",
@@ -284,6 +342,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/how-to-merge-and-organize-pdfs",
+    category: "pdf",
+    keywords: { primary: "merge PDF online", secondary: ["combine PDF files", "merge multiple PDFs into one", "reorder PDF pages"] },
     title: "How to Merge, Split and Organise PDF Pages",
     seoTitle: `How to Merge, Split and Reorder PDF Pages | ${SITE_NAME}`,
     metaDescription: "Combine several PDFs into one, pull out just the pages you need, and reorder or rotate pages before sending a document.",
@@ -332,6 +392,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/how-to-compress-images",
+    category: "images",
+    keywords: { primary: "compress images online", secondary: ["reduce image size", "compress images without losing quality", "compress JPG", "optimize images for website"] },
     title: "How to Compress Images for Websites, Email and Upload Forms",
     seoTitle: `How to Compress Images (JPG & PNG) Without Wrecking Quality | ${SITE_NAME}`,
     metaDescription: "Why photos are so large, how quality, resolution and format each affect file size, and the settings that work for websites, email and upload forms.",
@@ -381,6 +443,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/convert-office-documents-to-pdf",
+    category: "pdf",
+    keywords: { primary: "convert Word to PDF without losing formatting", secondary: ["Excel to PDF fit to page", "PowerPoint to PDF", "keep formatting when converting to PDF"] },
     title: "How to Keep Formatting When Converting Word, Excel and PowerPoint to PDF",
     seoTitle: `Convert Word, Excel & PowerPoint to PDF Without Layout Surprises | ${SITE_NAME}`,
     metaDescription: "Why fonts, page breaks and spreadsheet layouts sometimes shift when converting Office files to PDF, and how to prepare your file so the PDF looks right.",
@@ -431,6 +495,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/how-to-make-a-qr-code-that-scans",
+    category: "web",
+    keywords: { primary: "QR code not scanning", secondary: ["QR code size for printing", "QR code quiet zone", "QR code colours"] },
     title: "How to Make a QR Code That Actually Scans",
     seoTitle: `How to Make a QR Code That Scans Reliably: Size, Colour & Testing | ${SITE_NAME}`,
     metaDescription: "Why some QR codes won't scan, and how to fix it: keep the content short, print at the right size, leave the quiet zone, choose safe colours and test before printing.",
@@ -482,6 +548,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/json-formatting-and-validation",
+    category: "web",
+    keywords: { primary: "JSON validation errors", secondary: ["fix invalid JSON", "JSON formatter", "trailing comma JSON"] },
     title: "JSON Formatting and Validation: How to Fix Common Errors",
     seoTitle: `JSON Validation Errors Explained — and How to Fix Them | ${SITE_NAME}`,
     metaDescription: "The mistakes that make JSON invalid — trailing commas, single quotes, comments, unescaped characters — how to read the error message, and how to format and minify JSON.",
@@ -539,6 +607,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/what-is-base64-encoding",
+    category: "web",
+    keywords: { primary: "what is Base64 encoding", secondary: ["Base64 encode", "Base64 decode", "is Base64 encryption"] },
     title: "What Is Base64 Encoding — and When Should You Use It?",
     seoTitle: `What Is Base64? How It Works, Where It's Used and Its Pitfalls | ${SITE_NAME}`,
     metaDescription: "A plain-English explanation of Base64: how it turns data into text, why the output is a third larger, where you'll meet it, and why it is not encryption.",
@@ -587,6 +657,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/meta-tags-for-seo-and-social-sharing",
+    category: "web",
+    keywords: { primary: "meta tags for SEO", secondary: ["Open Graph tags", "Twitter card tags", "meta description length"] },
     title: "Meta Tags for SEO and Social Sharing: What Each One Does",
     seoTitle: `Meta Tags Explained: Title, Description, Canonical, Open Graph & More | ${SITE_NAME}`,
     metaDescription: "What the title tag, meta description, canonical link, robots tag, Open Graph and Twitter Card tags each do, how long to make them, and the mistakes to avoid.",
@@ -638,6 +710,8 @@ export const GUIDES: GuideDefinition[] = [
   },
   {
     path: "/guides/word-and-character-limits",
+    category: "writing",
+    keywords: { primary: "word and character limits", secondary: ["character count with spaces", "SMS character limit", "how to reduce word count"] },
     title: "Word and Character Limits: How They're Counted and How to Hit Them",
     seoTitle: `Word & Character Limits Explained — How They're Counted and How to Trim | ${SITE_NAME}`,
     metaDescription: "How word and character counts are calculated, why different tools disagree, common limits for essays, text messages and search snippets, and practical ways to trim.",
@@ -687,6 +761,33 @@ export const GUIDES: GuideDefinition[] = [
     relatedTools: ["word-counter", "text-compare", "meta-tag-generator", "image-to-text"],
   },
 ];
+
+/** Words in a guide's visible text (summary, sections, tables, FAQs). */
+export function guideWordCount(guide: GuideDefinition): number {
+  const text = [
+    guide.summary,
+    ...guide.sections.flatMap((s) => [s.heading ?? "", ...(s.paragraphs ?? []), ...(s.list ?? []), ...(s.table ? [...s.table.headers, ...s.table.rows.flat()] : [])]),
+    ...(guide.faq ?? []).flatMap((f) => [f.question, f.answer]),
+  ].join(" ");
+  return text.split(/\s+/).filter(Boolean).length;
+}
+
+/** Estimated reading time in whole minutes, at 238 words per minute (average adult non-fiction reading speed). */
+export function readingMinutes(guide: GuideDefinition): number {
+  return Math.max(1, Math.round(guideWordCount(guide) / 238));
+}
+
+/** Stable anchor id for a section heading, used by the table of contents. */
+export function sectionId(heading: string): string {
+  return heading
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export function guideCategoryLabel(id: GuideCategory): string {
+  return GUIDE_CATEGORIES.find((c) => c.id === id)?.label ?? id;
+}
 
 /** Other guides ranked by how many tools they share with `guide` — the most closely related first. */
 export function relatedGuidesFor(guide: GuideDefinition, limit = 3): GuideDefinition[] {

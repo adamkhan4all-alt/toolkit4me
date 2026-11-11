@@ -35,7 +35,7 @@ import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_ALT, TWITTER_HA
 import { CATEGORIES, CATEGORY_LABELS } from "../src/types/tool";
 import { TOOL_AREAS } from "../src/data/toolAreas";
 import type { ToolDefinition } from "../src/types/tool";
-import { GUIDES, guidesForTool, relatedGuidesFor, type GuideDefinition } from "../src/data/guides";
+import { GUIDE_AUTHOR, GUIDE_CATEGORIES, GUIDES, GUIDES_INDEX_META, guideCategoryLabel, guidesForTool, readingMinutes, relatedGuidesFor, sectionId, type GuideDefinition } from "../src/data/guides";
 import { formatLongDate } from "../src/lib/format";
 import {
   articleSchema,
@@ -219,16 +219,38 @@ function renderHomeBody(): string {
 }
 
 function renderGuidesIndexBody(): string {
-  const links = GUIDES.map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a> — ${escapeHtml(g.summary)}</li>`).join("\n");
+  const groups = GUIDE_CATEGORIES.map((c) => {
+    const guides = GUIDES.filter((g) => g.category === c.id);
+    if (!guides.length) return "";
+    const items = guides
+      .map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a> — ${escapeHtml(g.summary)} <small>(${readingMinutes(g)} min read)</small></li>`)
+      .join("\n");
+    return `<h2 id="${c.id}">${escapeHtml(c.label)}</h2>\n    <p>${escapeHtml(c.description)}</p>\n    <ul>${items}</ul>`;
+  }).join("\n    ");
   return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
     ${renderBreadcrumbNav([
       { name: "Home", path: "/" },
       { name: "Guides", path: "/guides" },
     ])}
     <h1>Guides</h1>
-    <p>Practical explanations of the file formats and tasks behind our tools — why files get large, which format to pick, and how to get the cleanest result.</p>
-    <ul>${links}</ul>
+    <p>Practical explanations of the file formats and everyday tasks behind our tools — why files get large, which format to pick, how to get clean results, and the mistakes to avoid. ${GUIDES.length} guides, written and checked by the Toolkit4Me editorial team.</p>
+    ${groups}
   </div>`;
+}
+
+function renderGuideSection(s: GuideDefinition["sections"][number]): string {
+  const heading = s.heading ? `<h2 id="${sectionId(s.heading)}">${escapeHtml(s.heading)}</h2>` : "";
+  const paragraphs = (s.paragraphs ?? []).map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
+  const list = s.list ? `<ul>${s.list.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n")}</ul>` : "";
+  const table = s.table
+    ? `<table><caption>${escapeHtml(s.table.caption)}</caption><thead><tr>${s.table.headers.map((h) => `<th scope="col">${escapeHtml(h)}</th>`).join("")}</tr></thead><tbody>${s.table.rows
+        .map((r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row">${escapeHtml(c)}</th>` : `<td>${escapeHtml(c)}</td>`)).join("")}</tr>`)
+        .join("")}</tbody></table>`
+    : "";
+  const image = s.image
+    ? `<figure><img src="${s.image.src}" alt="${escapeHtml(s.image.alt)}" width="${s.image.width}" height="${s.image.height}" loading="lazy" decoding="async" style="max-width:100%;height:auto" />${s.image.caption ? `<figcaption>${escapeHtml(s.image.caption)}</figcaption>` : ""}</figure>`
+    : "";
+  return `${heading}\n${paragraphs}\n${list}\n${table}\n${image}`;
 }
 
 function guideBreadcrumbs(guide: GuideDefinition) {
@@ -240,14 +262,13 @@ function guideBreadcrumbs(guide: GuideDefinition) {
 }
 
 function renderGuideBody(guide: GuideDefinition): string {
-  const sections = guide.sections
-    .map((s) => {
-      const heading = s.heading ? `<h2>${escapeHtml(s.heading)}</h2>` : "";
-      const paragraphs = (s.paragraphs ?? []).map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
-      const list = s.list ? `<ul>${s.list.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n")}</ul>` : "";
-      return `${heading}\n${paragraphs}\n${list}`;
-    })
-    .join("\n");
+  const sections = guide.sections.map(renderGuideSection).join("\n");
+  const mainTool = guide.relatedTools?.[0] ? toolRegistry.getBySlug(guide.relatedTools[0]) : undefined;
+  const cta = mainTool ? `<p><strong>Try <a href="/tools/${mainTool.slug}">${escapeHtml(mainTool.name)}</a></strong> — ${escapeHtml(mainTool.description)}</p>` : "";
+  const faq = guide.faq?.length
+    ? `<h2 id="guide-faq">Frequently asked questions</h2>\n${guide.faq.map((f) => `<h3>${escapeHtml(f.question)}</h3><p>${escapeHtml(f.answer)}</p>`).join("\n")}`
+    : "";
+  const updated = guide.updated !== guide.published ? ` · Updated ${escapeHtml(formatLongDate(guide.updated))}` : "";
   const related = (guide.relatedTools ?? [])
     .map((slug) => toolRegistry.getBySlug(slug))
     .filter((t) => t !== undefined)
@@ -256,12 +277,15 @@ function renderGuideBody(guide: GuideDefinition): string {
 
   return `<div style="max-width:760px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
     ${renderBreadcrumbNav(guideBreadcrumbs(guide))}
+    <p><a href="/guides#${guide.category}">${escapeHtml(guideCategoryLabel(guide.category))}</a></p>
     <h1>${escapeHtml(guide.title)}</h1>
-    <p><small>Last updated: ${escapeHtml(formatLongDate(guide.updated))}</small></p>
+    <p><small>By ${escapeHtml(GUIDE_AUTHOR)} · Published ${escapeHtml(formatLongDate(guide.published))}${updated} · ${readingMinutes(guide)} min read</small></p>
     <p>${escapeHtml(guide.summary)}</p>
     ${sections}
+    ${cta}
+    ${faq}
     ${related ? `<h2>Related tools</h2>\n<ul>${related}</ul>` : ""}
-    <h2>More guides</h2>
+    <h2>Related guides</h2>
     <ul>${relatedGuidesFor(guide)
       .map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a></li>`)
       .join("\n")}</ul>
@@ -488,8 +512,8 @@ writePage(
   "/guides",
   renderHead({
     route: "/guides",
-    title: "Guides — PDF & Image How-Tos | Toolkit4Me",
-    description: "Practical, plain-English guides to working with PDFs and images: shrinking files, choosing formats, OCR, merging and password protection.",
+    title: GUIDES_INDEX_META.title,
+    description: GUIDES_INDEX_META.description,
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "Guides", path: "/guides" },
