@@ -1528,6 +1528,1720 @@ export const GUIDES: GuideDefinition[] = [
     ],
     relatedTools: ["png-to-jpg", "compress-image", "jpg-to-png", "webp-converter"],
   },
+  {
+    path: "/guides/how-to-split-a-pdf",
+    category: "pdf",
+    keywords: { primary: "split PDF", secondary: ["extract pages from PDF", "split PDF into separate files", "split PDF every N pages"] },
+    title: "How to Split a PDF into Separate Pages or Files",
+    seoTitle: `How to Split a PDF into Separate Pages or Files (Free) | ${SITE_NAME}`,
+    metaDescription: "Extract specific pages from a PDF, split it into several files by page range, or break it into equal parts every few pages — free, in your browser, step by step.",
+    summary: "Sometimes you only need part of a PDF: one invoice from a monthly batch, the two pages a form actually asks for, or a long scan broken into chunks small enough to upload. Here's how to split a PDF exactly the way you need.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Two ways to split a PDF",
+        paragraphs: [
+          "Split PDF works in one of two modes. Custom page ranges lets you list exactly which pages go into each new file — useful when you know what you need. Split every N pages chops the document into equal parts automatically — useful for very long files or upload limits.",
+        ],
+        table: {
+          caption: "Choosing a split mode",
+          headers: ["Mode", "What you enter", "What you get", "Good for"],
+          rows: [
+            ["Custom page ranges", "e.g. 1-3, 5, 8-10", "One PDF per range, in the order you typed them", "Pulling out specific pages or sections"],
+            ["Split every N pages", "e.g. 10", "Files of 10 pages each (the last may be shorter)", "Long documents and upload limits"],
+          ],
+        },
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open Split PDF and add your PDF (up to 50MB). It's processed in your browser, so the file isn't uploaded.",
+          "Choose Custom page ranges or Split every N pages.",
+          "Enter your ranges, separated by commas — for example 1-3, 4, 7-9 makes three files — or the number of pages per file.",
+          "Select Split PDF, then download each file, or use Download all to save them in one go.",
+        ],
+      },
+      {
+        heading: "Writing page ranges",
+        list: [
+          "A single page: 5",
+          "A run of pages: 2-6 (pages 2, 3, 4, 5 and 6)",
+          "Several files at once: 1-2, 3-10, 11 — each comma-separated group becomes its own PDF",
+          "Page numbers are the PDF's physical pages counted from 1, not the numbers printed on the pages, which often differ in documents with a cover or contents pages.",
+        ],
+      },
+      {
+        heading: "Splitting vs deleting pages",
+        paragraphs: [
+          "If you want one file with a few pages removed, it's often quicker to delete them instead. The PDF Editor shows a thumbnail of every page and lets you delete, reorder and rotate pages, then download a single edited PDF. Splitting is better when you want several separate files, or when you only want to keep a small part of a long document.",
+        ],
+      },
+      {
+        heading: "Common uses",
+        list: [
+          "Sending only the relevant pages of a bank statement or contract, so you don't share more than needed.",
+          "Separating a scanned batch of receipts or invoices into one file each.",
+          "Breaking a 200-page scan into parts that fit a 10MB upload limit.",
+          "Extracting a single chapter of a report to review or print.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“Page 12 doesn't exist”: the PDF has fewer pages than your range — the message tells you how many it has. Adjust the range to match.",
+          "“Couldn't be read as a PDF”: the file is damaged or password-protected. Remove the password with Unlock PDF first.",
+          "Bookmarks or form fields are missing in the parts: splitting copies pages, and bookmarks and fillable fields may not carry over.",
+          "The parts are still too big: compress each one with Compress PDF.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Use custom ranges when you know which pages you need, and split every N pages when the goal is simply smaller files. Because Split PDF runs in your browser, it's also a sensible choice for statements and other personal documents you'd rather not upload anywhere.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does splitting a PDF reduce quality?",
+        answer: "No. Pages are copied into the new files exactly as they are; nothing is re-compressed.",
+      },
+      {
+        question: "Can I put pages from different parts of the PDF into one file?",
+        answer: "Each comma-separated range becomes its own file. To combine non-adjacent pages into one file, split them out and then join the parts with Merge PDF — or delete the pages you don't want in the PDF Editor.",
+      },
+      {
+        question: "Is my PDF uploaded?",
+        answer: "No. Split PDF runs entirely in your browser using the open-source pdf-lib library.",
+      },
+    ],
+    relatedTools: ["split-pdf", "pdf-editor", "merge-pdf", "compress-pdf"],
+  },
+  {
+    path: "/guides/how-to-unlock-a-pdf",
+    category: "pdf",
+    keywords: { primary: "unlock PDF", secondary: ["remove password from PDF", "unlock PDF with password", "PDF password remover"] },
+    title: "How to Unlock a PDF When You Know the Password",
+    seoTitle: `How to Remove a Password from a PDF You Own | ${SITE_NAME}`,
+    metaDescription: "Remove the open password from a PDF you're entitled to use — such as bank or utility statements — so it opens without a prompt. What it does, what it can't do, and how to do it safely.",
+    summary: "Banks, utilities and employers often send PDFs that ask for a password every time you open them. If you know the password and the document is yours, you can save an unlocked copy that opens straight away. Here's how — and what to keep in mind.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What “unlocking” a PDF means",
+        paragraphs: [
+          "A PDF with an open password is encrypted: without the password, its contents can't be read at all. Unlocking means opening it once with the correct password and saving a copy without encryption, so it opens normally from then on. Removing the encryption also removes any printing or copying restrictions the PDF had.",
+          "Unlocking is not cracking. Toolkit4Me's Unlock PDF only works when you supply the correct password — it never guesses, brute-forces or bypasses protection. If you've forgotten a password, the right step is to ask the sender for a new copy.",
+        ],
+      },
+      {
+        heading: "When it's useful",
+        list: [
+          "Statements you need to open often, or keep in a folder you already protect.",
+          "Documents you want to merge, split, compress or edit — those tools can't open an encrypted PDF.",
+          "Files you need to archive for years, when you might not remember the password later.",
+          "Documents you need to upload to a system that rejects password-protected files.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open Unlock PDF and add the protected PDF (up to 100MB).",
+          "Type the PDF's password.",
+          "Select Unlock PDF. If the password is wrong you'll see a clear “incorrect password” message and no file is produced.",
+          "Download the unlocked copy and check that it opens without a prompt.",
+        ],
+      },
+      {
+        heading: "Keep unlocked copies safe",
+        paragraphs: [
+          "Once the password is removed, anyone who gets the file can read it. Store unlocked statements somewhere that's already protected — an encrypted laptop, a password-protected account — and avoid emailing them. If you need to send one later, add a fresh password with Protect PDF and share the password separately.",
+          "Unlock PDF runs on our server: your file and the unlocked copy are deleted automatically within an hour, and your password is used only for that one operation — it's never logged or stored.",
+        ],
+      },
+      {
+        heading: "Open password vs restrictions",
+        table: {
+          caption: "Which tool do you need?",
+          headers: ["Your PDF…", "Tool", "Password needed?"],
+          rows: [
+            ["Asks for a password to open", "Unlock PDF", "Yes — the open password"],
+            ["Opens freely but won't let you print or copy", "UnProtect PDF", "Usually not"],
+            ["Opens freely, no restrictions", "Nothing to remove", "—"],
+          ],
+        },
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“Incorrect password”: check capital letters, and look for the format the sender described (for example, date of birth as DDMMYYYY). Copy-pasting from an email can add an invisible space.",
+          "The PDF opens without a password already: there's no open password to remove. If printing is blocked, use UnProtect PDF instead.",
+          "Forgotten password: there's no legitimate way to recover it. Ask the sender to reissue the document.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "If a document is yours and you know its password, saving an unlocked copy removes a daily annoyance and lets you merge, split or compress it. Just treat the unlocked copy as sensitive and store it somewhere already protected.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can Unlock PDF remove a password I don't know?",
+        answer: "No. It only works with the correct password and never attempts to guess or crack one.",
+      },
+      {
+        question: "Does unlocking change the content of the PDF?",
+        answer: "No. Only the encryption is removed; pages, text and images stay the same.",
+      },
+      {
+        question: "Is my password stored?",
+        answer: "No. It's used once to decrypt the file and is never logged or stored. The files are deleted automatically within an hour.",
+      },
+    ],
+    relatedTools: ["unlock-pdf", "unprotect-pdf", "protect-pdf", "merge-pdf"],
+  },
+  {
+    path: "/guides/how-to-remove-pdf-restrictions",
+    category: "pdf",
+    keywords: { primary: "remove PDF restrictions", secondary: ["PDF printing disabled", "can't copy text from PDF", "remove PDF permissions password"] },
+    title: "How to Remove Printing and Copying Restrictions from Your Own PDF",
+    seoTitle: `PDF Won't Print or Copy? How to Remove Restrictions | ${SITE_NAME}`,
+    metaDescription: "Why some PDFs open but won't let you print, copy or edit, the difference between permissions and open passwords, and how to remove restrictions from a PDF you're entitled to use.",
+    summary: "Some PDFs open normally but grey out Print, refuse to let you copy a sentence, or block filling in forms. That's a permissions setting, separate from a password to open the file. Here's how it works and how to remove it from documents you own.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why a PDF can open but not print",
+        paragraphs: [
+          "PDFs can carry two different protections. An open password (sometimes called a user password) stops the file opening at all. A permissions password (owner password) lets anyone open it but tells PDF readers to block certain actions — printing, copying text, editing, adding comments or filling forms.",
+          "Permissions are enforced by the reader software rather than by strong secrecy: a PDF with restrictions but no open password can be read by anyone. That's why removing those restrictions is possible without knowing a password — and why it should only be done on documents you have the right to use that way.",
+        ],
+      },
+      {
+        heading: "How to tell which protection you have",
+        table: {
+          caption: "Symptoms and the matching tool",
+          headers: ["What you see", "Protection", "Tool"],
+          rows: [
+            ["A password prompt before the PDF opens", "Open password", "Unlock PDF (needs the password)"],
+            ["Opens, but Print or Copy is greyed out", "Permissions restrictions", "UnProtect PDF"],
+            ["Opens, but form fields won't take input", "Permissions restrictions (form filling disabled)", "UnProtect PDF"],
+          ],
+        },
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open UnProtect PDF and add the restricted PDF (up to 100MB).",
+          "Leave the password blank if the PDF opens without one. If it also needs a password to open, enter it.",
+          "Select Remove Restrictions and download the result.",
+          "Open the new copy and check that printing and copying now work.",
+        ],
+      },
+      {
+        heading: "What the tool won't do",
+        paragraphs: [
+          "UnProtect PDF never guesses or cracks passwords, and it doesn't bypass DRM systems. If a PDF needs a password to open and you don't have it, you'll get a clear error rather than a workaround. It's intended for your own documents — a contract you've signed, a statement addressed to you, a form you need to complete — not for removing the protection someone has placed on their copyrighted work.",
+        ],
+      },
+      {
+        heading: "Alternatives worth knowing",
+        list: [
+          "If you only need to print once, ask the sender for an unrestricted copy — they may simply not have realised.",
+          "If you only need the words, PDF to Word extracts the text into an editable document.",
+          "If you need an image of a page, PDF to JPG renders it as a picture.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“A password is required”: the PDF also has an open password. Enter it, or ask the sender for it.",
+          "Restrictions still apply: some readers cache permissions — close the PDF fully and open the new copy.",
+          "The file opens in a viewer that still blocks printing: make sure you're opening the downloaded copy, not the original.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "If a PDF opens but won't print or copy, it has permissions restrictions rather than real encryption. For documents you're entitled to use, removing them takes seconds; for anything that needs a password to open, use Unlock PDF with the correct password instead.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Is removing PDF restrictions legal?",
+        answer: "That depends on the document and where you are. Use it for documents you own or are authorised to print, copy or edit — not to get around the protection on someone else's copyrighted material.",
+      },
+      {
+        question: "What's the difference between UnProtect PDF and Unlock PDF?",
+        answer: "Unlock PDF removes a password needed to open a file, using that password. UnProtect PDF removes printing, copying and editing restrictions from a PDF that already opens.",
+      },
+      {
+        question: "Is my file stored?",
+        answer: "No. UnProtect PDF runs on our server, and both your file and the result are deleted automatically within an hour.",
+      },
+    ],
+    relatedTools: ["unprotect-pdf", "unlock-pdf", "pdf-to-word", "protect-pdf"],
+  },
+  {
+    path: "/guides/how-to-convert-pdf-to-jpg",
+    category: "pdf",
+    keywords: { primary: "PDF to JPG", secondary: ["convert PDF pages to images", "PDF to image", "save PDF page as JPG"] },
+    title: "How to Convert PDF Pages to JPG Images",
+    seoTitle: `How to Convert PDF Pages to JPG Images (Free) | ${SITE_NAME}`,
+    metaDescription: "Turn PDF pages into JPG images for slides, social posts, chat apps and previews: how the conversion works, what resolution you get, and when to choose another tool.",
+    summary: "Sometimes a PDF page needs to be a picture: a slide in a presentation, a post on social media, a preview in a chat app that won't show PDFs. Here's how to turn PDF pages into JPG images, and what to expect from the result.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "When an image beats a PDF",
+        list: [
+          "Adding a page — a chart, a certificate, a poster — to a presentation or document.",
+          "Sharing a page in a chat app or social network that previews images but not PDFs.",
+          "Creating a thumbnail preview of a document for a website.",
+          "Sending a single page to someone who only needs to look at it.",
+        ],
+      },
+      {
+        heading: "How the conversion works",
+        paragraphs: [
+          "PDF to JPG renders each page the way a PDF viewer would, then saves the result as a JPG image. Pages are rendered at 150 DPI, which makes an A4 page roughly 1240 × 1754 pixels — sharp on any screen and fine for everyday printing. A one-page PDF downloads as a single JPG; a longer PDF downloads as a ZIP file with one numbered image per page.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open PDF to JPG and add your PDF (up to 50MB).",
+          "Select Convert to JPG and wait while the pages are rendered on our server.",
+          "Download the JPG, or the ZIP of pages — they're named page-001.jpg, page-002.jpg and so on.",
+          "Open the image to check it; for a single page you need from a long PDF, you can extract that page first with Split PDF to get just one image.",
+        ],
+      },
+      {
+        heading: "What changes when a page becomes an image",
+        table: {
+          caption: "PDF page vs JPG image",
+          headers: ["", "PDF page", "JPG image"],
+          rows: [
+            ["Text", "Selectable and searchable", "Part of the picture — not selectable"],
+            ["Zooming in", "Text and lines stay sharp", "Becomes soft beyond its resolution"],
+            ["Opens in", "PDF readers and browsers", "Almost anything"],
+            ["Best for", "Reading, printing, forms", "Slides, posts, previews"],
+          ],
+        },
+      },
+      {
+        heading: "Choosing the right tool",
+        list: [
+          "Need the words, not a picture? Use PDF to Word or Image to Text instead — text in a JPG can't be copied.",
+          "Need to change the page? Edit it first with the PDF Editor, then convert.",
+          "Need images back as a PDF later? JPG to PDF combines them again.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The PDF won't convert: it may be password-protected or damaged. Unlock it first with Unlock PDF.",
+          "Small text looks soft when zoomed in: JPG is a lossy format with a fixed resolution. For a crisper result in a document, keep the original PDF.",
+          "The ZIP has too many pages: extract the pages you need with Split PDF before converting.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Converting PDF pages to JPG makes them easy to drop into slides, posts and chats. The 150 DPI images look sharp on screen, but they're pictures, so keep the original PDF for anything that needs selectable text or crisp printing.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I convert just one page?",
+        answer: "The tool converts every page. To get a single page, extract it first with Split PDF, then convert that one-page PDF.",
+      },
+      {
+        question: "Why is my download a ZIP file?",
+        answer: "A multi-page PDF produces one image per page, so they're bundled into a ZIP. Most computers open ZIP files with a double-click.",
+      },
+      {
+        question: "What happens to my PDF?",
+        answer: "PDF to JPG runs on our server. Your upload is deleted as soon as it's processed, and the images are deleted automatically within one hour.",
+      },
+    ],
+    relatedTools: ["pdf-to-jpg", "split-pdf", "jpg-to-pdf", "pdf-to-word"],
+  },
+  {
+    path: "/guides/how-to-add-page-numbers-to-a-pdf",
+    category: "pdf",
+    keywords: { primary: "add page numbers to PDF", secondary: ["number PDF pages", "PDF page numbers online", "page X of Y PDF"] },
+    title: "How to Add Page Numbers to a PDF",
+    seoTitle: `How to Add Page Numbers to a PDF (Free, No Upload) | ${SITE_NAME}`,
+    metaDescription: "Add page numbers to any PDF: choosing a position and style, skipping a cover page, starting from a custom number, and handling landscape and rotated pages.",
+    summary: "Page numbers make long PDFs far easier to discuss, review and print — “see page 14” only works if there is a page 14. Here's how to add them to a finished PDF without going back to the original document.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why number a PDF after the fact",
+        paragraphs: [
+          "Ideally, page numbers are added in Word or whatever program created the document. But often you're working with a finished PDF: several files merged into one, a scanned document, or a report someone else made. Adding numbers to the PDF itself avoids recreating anything — the existing pages stay exactly as they are, with a small number stamped in the position you choose.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open PDF Page Numbers and add your PDF (up to 50MB). It's processed in your browser, so the file isn't uploaded.",
+          "Choose a position: top or bottom, left, centre or right.",
+          "Choose a style: 1, Page 1, Page 1 of 10, or 1 / 10.",
+          "Optionally set the starting number and choose whether the first page should be left unnumbered.",
+          "Select Add page numbers and download the numbered PDF.",
+        ],
+      },
+      {
+        heading: "Choosing a style and position",
+        table: {
+          caption: "Common choices",
+          headers: ["Document", "Position", "Style"],
+          rows: [
+            ["Reports and theses", "Bottom centre", "1 or Page 1"],
+            ["Contracts and legal documents", "Bottom right", "Page 1 of 10 — shows nothing is missing"],
+            ["Slides exported to PDF", "Bottom right", "1 / 10"],
+            ["Documents with busy footers", "Top right", "1"],
+          ],
+        },
+      },
+      {
+        heading: "Cover pages and custom starting numbers",
+        paragraphs: [
+          "Choosing “Leave the first page (cover) unnumbered” skips page one; numbering then starts on page two with your starting number, and an “of N” total counts only the numbered pages. A custom starting number helps when a PDF is one part of something larger — if chapter 3 begins on page 41, start at 41 and the numbers match the whole document.",
+        ],
+      },
+      {
+        heading: "Landscape and rotated pages",
+        paragraphs: [
+          "Mixed documents often contain landscape pages, or pages that were scanned sideways and rotated. The tool reads each page's rotation and visible area, so the number appears upright in the position you chose as the reader sees it — not sideways, and not outside the visible part of a cropped page.",
+        ],
+      },
+      {
+        heading: "A good order of operations",
+        list: [
+          "Merge all the parts first with Merge PDF — numbering a single combined file keeps numbers continuous.",
+          "Remove or reorder pages in the PDF Editor before numbering, so the numbers match the final order.",
+          "Add page numbers.",
+          "Compress or password-protect the final file last.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "A number overlaps existing text: the page already has content there. Choose a different position, such as the top instead of the bottom.",
+          "“Password-protected”: remove the password with Unlock PDF, number the pages, then protect the file again if needed.",
+          "The numbers restart or skip: you numbered the parts before merging. Merge first, then number the combined file.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Numbering a finished PDF takes seconds and changes nothing else about the pages. Merge and arrange first, pick a position that doesn't clash with existing footers, and use “Page 1 of N” where it matters that nothing is missing.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I use Roman numerals for the introduction?",
+        answer: "Not with this tool — it uses ordinary numbers (1, 2, 3) in Helvetica. If you need Roman numerals, add numbering in the original document before exporting it to PDF.",
+      },
+      {
+        question: "Will page numbers change my existing content?",
+        answer: "No. The number is added on top of each page; nothing else is moved, re-compressed or removed.",
+      },
+      {
+        question: "Is my PDF uploaded?",
+        answer: "No. Page numbers are added in your browser with the open-source pdf-lib library.",
+      },
+    ],
+    relatedTools: ["pdf-page-numbers", "merge-pdf", "pdf-editor", "compress-pdf"],
+  },
+  {
+    path: "/guides/how-to-rotate-pdf-pages",
+    category: "pdf",
+    keywords: { primary: "rotate PDF pages", secondary: ["rotate PDF and save", "fix sideways PDF", "rotate one page in a PDF"] },
+    title: "How to Rotate PDF Pages and Save Them That Way",
+    seoTitle: `How to Rotate PDF Pages Permanently (Free) | ${SITE_NAME}`,
+    metaDescription: "Fix sideways or upside-down pages in a PDF and save the rotation permanently — including rotating just one page — in your browser, without uploading the file.",
+    summary: "Scanned documents often come out with a page or two sideways or upside down. Rotating them in a PDF viewer only changes your view; the next person still sees them wrong. Here's how to fix the pages in the file itself.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why rotating in a viewer isn't enough",
+        paragraphs: [
+          "Most PDF readers have a rotate button, but in many of them it only changes how the page is displayed to you, right now. Close the file, send it to someone, or open it in a different app, and the page is sideways again. To fix it for everyone, the rotation has to be saved into the PDF itself.",
+        ],
+      },
+      {
+        heading: "Step by step with the PDF Editor",
+        list: [
+          "Open the PDF Editor and add your PDF (up to 50MB). It runs in your browser, so the file isn't uploaded.",
+          "Find the sideways page in the thumbnails.",
+          "Use the rotate button on that page — each press turns it 90° clockwise. Press twice for upside-down pages.",
+          "Rotate any other pages that need it; pages you don't touch stay as they are.",
+          "Select Apply edits & download to save a new PDF with the rotation fixed.",
+        ],
+      },
+      {
+        heading: "How many presses?",
+        table: {
+          caption: "Rotate presses for each problem (90° clockwise per press)",
+          headers: ["The page is…", "Presses", "Total rotation"],
+          rows: [
+            ["Turned left (top of the page faces left)", "1", "90°"],
+            ["Upside down", "2", "180°"],
+            ["Turned right (top of the page faces right)", "3", "270°"],
+          ],
+        },
+      },
+      {
+        heading: "While you're in the editor",
+        list: [
+          "Delete blank pages that scanners often add.",
+          "Move pages earlier or later to fix the order.",
+          "Add a short line of text to a page, such as a date or reference number.",
+        ],
+      },
+      {
+        heading: "Preventing sideways scans",
+        list: [
+          "Place every page the same way on the scanner glass or feeder.",
+          "When photographing pages with a phone, hold it in the same orientation for each shot.",
+          "Check the first few pages before scanning a whole stack.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The PDF won't open in the editor: it may be password-protected. Remove the password with Unlock PDF first.",
+          "A page still looks sideways in another app: make sure you're opening the newly downloaded file, not the original.",
+          "Page numbers ended up sideways: add page numbers after rotating — PDF Page Numbers places them upright on every page.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "A rotation only counts if it's saved in the file. Rotate the affected pages in the PDF Editor, tidy up any blank or out-of-order pages while you're there, and download a corrected copy that looks right for everyone.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I rotate just one page?",
+        answer: "Yes. Each page has its own rotate button, so you can turn one page and leave the rest unchanged.",
+      },
+      {
+        question: "Does rotating a page reduce quality?",
+        answer: "No. The page's rotation setting is changed; its content isn't re-rendered or re-compressed.",
+      },
+      {
+        question: "Is my PDF uploaded?",
+        answer: "No. The PDF Editor works entirely in your browser.",
+      },
+    ],
+    relatedTools: ["pdf-editor", "split-pdf", "pdf-page-numbers", "merge-pdf"],
+  },
+  {
+    path: "/guides/how-to-fit-excel-sheet-on-one-page-pdf",
+    category: "pdf",
+    keywords: { primary: "Excel to PDF one page", secondary: ["fit Excel sheet to one page PDF", "Excel PDF cut off columns", "Excel to PDF too many pages"] },
+    title: "How to Fit an Excel Sheet on One Page When Saving as PDF",
+    seoTitle: `Excel to PDF on One Page: Fix Cut-Off Columns | ${SITE_NAME}`,
+    metaDescription: "Why Excel sheets split across several PDF pages or lose columns, and the page-setup changes — scaling, orientation, print area and margins — that fit them on one page.",
+    summary: "You convert a spreadsheet to PDF and get eight pages, with the last two columns stranded on pages of their own. The fix isn't in the converter — it's in the workbook's page setup. Here's how to get a clean, one-page PDF.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why sheets spread over several pages",
+        paragraphs: [
+          "Spreadsheets have no fixed page size: a sheet can be hundreds of columns wide. When it's converted to PDF, it has to be cut into printable pages, and the cuts follow the workbook's page setup — paper size, orientation, margins and scaling. Excel to PDF converters, including ours, respect that setup, so the way to control the PDF is to set the page layout in Excel before converting.",
+        ],
+      },
+      {
+        heading: "The fix: scale to fit",
+        list: [
+          "In Excel, open the Page Layout tab.",
+          "In the Scale to Fit group, set Width to 1 page and Height to Automatic. This shrinks columns to fit across one page while letting long sheets continue onto further pages.",
+          "For a genuinely one-page result, set Height to 1 page as well — but check the text is still readable.",
+          "Save the workbook, then convert it with Excel to PDF.",
+        ],
+      },
+      {
+        heading: "Other settings that help",
+        table: {
+          caption: "Page Layout settings and their effect",
+          headers: ["Setting", "Where in Excel", "Effect"],
+          rows: [
+            ["Orientation: Landscape", "Page Layout → Orientation", "Fits more columns per page"],
+            ["Narrow margins", "Page Layout → Margins", "Gains a little space on every edge"],
+            ["Print area", "Page Layout → Print Area → Set Print Area", "Includes only the cells you select"],
+            ["Print titles", "Page Layout → Print Titles", "Repeats header rows on every page"],
+            ["Hide helper columns", "Right-click column → Hide", "Leaves working columns out of the PDF"],
+          ],
+        },
+      },
+      {
+        heading: "Step by step with Excel to PDF",
+        list: [
+          "Set the page layout in Excel as above and save the workbook.",
+          "Open Excel to PDF and add the .xlsx or .xls file (up to 50MB).",
+          "Select Convert to PDF. Every sheet in the workbook is included, each following its own page setup.",
+          "Download the PDF and check the page count and that no columns are cut off.",
+        ],
+      },
+      {
+        heading: "When one page is too small",
+        paragraphs: [
+          "Scaling a very wide sheet onto one page can shrink the text below a readable size. If that happens, use landscape with Width set to 1 page and let the rows flow onto more pages, with Print Titles repeating the header row. Or split the data into two sheets that each fit comfortably — a PDF is for reading, and a few readable pages beat one illegible one.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "Blank pages in the PDF: a stray formatted cell far from your data extends the print area. Set a print area around the real data.",
+          "Only some sheets should be in the PDF: the converter includes every sheet, so save a copy of the workbook with just the sheets you need and convert that.",
+          "Fonts look different: fonts not installed on our server are replaced with a similar one, which can change column widths slightly. Use common fonts such as Arial for documents you'll convert.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "A spreadsheet's PDF is only as tidy as its page setup. Set Width to 1 page, switch to landscape for wide data, define a print area, and the conversion produces exactly the pages you expect.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can the converter fit my sheet on one page automatically?",
+        answer: "No — Excel to PDF follows the page setup saved in your workbook, so the page layout has to be set in Excel first.",
+      },
+      {
+        question: "Do formulas still work in the PDF?",
+        answer: "No. A PDF shows the calculated values as they were when you converted; it isn't interactive.",
+      },
+      {
+        question: "What happens to my spreadsheet?",
+        answer: "Excel to PDF runs on our server. Your upload is deleted as soon as it's converted, and the PDF is deleted automatically within one hour.",
+      },
+    ],
+    relatedTools: ["excel-to-pdf", "word-to-pdf", "compress-pdf", "merge-pdf"],
+  },
+  {
+    path: "/guides/scanned-pdf-vs-text-pdf",
+    category: "pdf",
+    keywords: { primary: "scanned PDF vs text PDF", secondary: ["can't select text in PDF", "PDF text not searchable", "how to tell if a PDF is scanned"] },
+    title: "Scanned PDF vs Text PDF: Why You Can't Select the Text",
+    seoTitle: `Scanned vs Text PDF: Why You Can't Select or Search Text | ${SITE_NAME}`,
+    metaDescription: "Why some PDFs let you select, search and copy text and others don't, how to tell which kind you have in seconds, and how to get editable text out of a scanned PDF.",
+    summary: "You try to copy a sentence from a PDF and end up selecting the whole page as a picture — or search finds nothing even though the word is right there. That PDF is a scan. Here's the difference, how to tell, and what to do about it.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Two very different kinds of PDF",
+        paragraphs: [
+          "A text PDF is created by software — exported from Word, saved from a website, generated by an accounting system. It contains real text: characters with a font and a position, which you can select, search, copy and have read aloud.",
+          "A scanned PDF is a set of photographs of pages wrapped in a PDF. It looks identical on screen, but to the computer each page is just an image. There are no letters to select or search — until someone runs optical character recognition (OCR) on it.",
+        ],
+        table: {
+          caption: "Text PDF vs scanned PDF",
+          headers: ["", "Text PDF", "Scanned PDF"],
+          rows: [
+            ["Comes from", "Software (Word, browsers, apps)", "Scanners and phone scanning apps"],
+            ["Select and copy text", "Yes", "No — selects the whole page image"],
+            ["Search with Ctrl+F", "Finds words", "Finds nothing"],
+            ["Zoom in", "Text stays sharp", "Text gets blurry or pixelated"],
+            ["Typical size per page", "Small", "Larger (it's an image)"],
+          ],
+        },
+      },
+      {
+        heading: "How to tell in five seconds",
+        list: [
+          "Try to select a single word. If you can highlight just that word, it's a text PDF.",
+          "Press Ctrl+F (Cmd+F on a Mac) and search for a word you can see. No result means it's probably a scan.",
+          "Zoom in to 400%. Crisp letters suggest text; soft or pixelated letters suggest an image.",
+        ],
+      },
+      {
+        heading: "The in-between case: scanned PDFs with OCR",
+        paragraphs: [
+          "Some scanners and apps run OCR automatically and add an invisible layer of recognised text behind each page image. These PDFs look like scans but let you search and copy — although the copied text can contain OCR mistakes. If selecting text gives you odd spellings or jumbled words, that's usually what's happening.",
+        ],
+      },
+      {
+        heading: "Getting text out of a scanned PDF",
+        list: [
+          "For editable text from a scan of up to 15 pages, use PDF to Word: when a PDF has no selectable text, it reads each page with English OCR and puts the result in a .docx file.",
+          "For one page, or text in Spanish, French or German, convert the page to an image with PDF to JPG, then run it through Image to Text and choose the language.",
+          "For long scans, split the PDF into parts with Split PDF first.",
+          "Always proofread names, numbers and dates — no OCR is perfect.",
+        ],
+      },
+      {
+        heading: "Making better scans next time",
+        list: [
+          "Scan at 300 DPI — a good balance of OCR accuracy and file size.",
+          "Use greyscale for text documents; colour adds size without helping recognition.",
+          "If your scanner app offers “searchable PDF” or OCR, turn it on.",
+          "Better still, ask for the original digital document instead of a scan of a printout.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "If you can't select a word, the PDF is a picture of text, not text. OCR bridges the gap — PDF to Word for short scans, Image to Text for single pages and other languages — but the cleanest option is always the original digital file.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why is my scanned PDF so large?",
+        answer: "Each page is stored as an image, often at high resolution and in colour. Compress PDF can downsample those images to shrink the file considerably.",
+      },
+      {
+        question: "Can I make a scanned PDF searchable here?",
+        answer: "Not directly — the tools here extract the text into a Word file or plain text, rather than adding a hidden text layer to the PDF.",
+      },
+      {
+        question: "Why does copied text from my PDF come out garbled?",
+        answer: "The PDF probably has an OCR text layer with recognition mistakes, or unusual font encoding. Re-running OCR on a clean page image with Image to Text often gives better results.",
+      },
+    ],
+    relatedTools: ["pdf-to-word", "image-to-text", "pdf-to-jpg", "compress-pdf"],
+  },
+  {
+    path: "/guides/how-to-resize-an-image-to-exact-pixels",
+    category: "images",
+    keywords: { primary: "resize image to exact pixels", secondary: ["resize image to 600x600", "change image dimensions", "resize photo for upload form"] },
+    title: "How to Resize an Image to Exact Pixel Dimensions",
+    seoTitle: `How to Resize an Image to Exact Pixels (e.g. 600×600) | ${SITE_NAME}`,
+    metaDescription: "Resize photos to exact pixel sizes for profile pictures, ID uploads and online stores — without stretching them — plus how pixels, aspect ratio and file size relate.",
+    summary: "Upload forms love exact sizes: a 600 × 600 profile photo, a 1200 × 628 banner, a passport-style image of specific dimensions. Here's how to hit those numbers precisely without squashing or stretching your picture.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Pixels, aspect ratio and why images get stretched",
+        paragraphs: [
+          "An image's dimensions are its width and height in pixels, and its aspect ratio is the relationship between them. A typical phone photo is 4:3 — for example 4000 × 3000 pixels. Resizing it to 600 × 600 means changing the shape to a square, and there are only two ways to do that: stretch it (which distorts faces and objects) or crop it (which removes part of the picture).",
+          "So the reliable approach is: crop to the right shape first, then resize. Resizing alone, with the aspect ratio kept, can only make the image bigger or smaller, never a different shape.",
+        ],
+      },
+      {
+        heading: "Step by step with Image Resizer",
+        list: [
+          "Open Image Resizer and add your JPG, PNG or WebP images — up to 20 at a time, 25MB each.",
+          "Enter the width and height you need.",
+          "Choose how to handle the shape: “Keep aspect ratio (fit inside the box)” scales the image to fit within those dimensions without distortion; “Use exact size (may stretch)” forces the exact numbers.",
+          "Pick an output format if the form requires one, then select Resize images. The new size is added to each file name, such as photo-600x600.jpg.",
+        ],
+      },
+      {
+        heading: "Which option to choose",
+        table: {
+          caption: "Fit vs exact size",
+          headers: ["Your image's shape", "Required size", "Use"],
+          rows: [
+            ["Already square", "600 × 600", "Either — the result is identical"],
+            ["Rectangular photo", "600 × 600", "Crop to a square first, then resize; or accept “fit” giving e.g. 600 × 450"],
+            ["Any shape", "Width only, e.g. 1600 wide", "Enter just the width — the height is calculated"],
+            ["Form insists on exact numbers and the shape is close", "Exact size", "“Use exact size” — the slight stretch won't be visible"],
+          ],
+        },
+      },
+      {
+        heading: "Making an image smaller vs larger",
+        paragraphs: [
+          "Scaling down always works well — you're discarding pixels you didn't need. Scaling up is different: the tool can make an image larger, but it can't invent detail, so an enlarged small image looks soft. If a form needs a large image, start from the largest original you have.",
+        ],
+      },
+      {
+        heading: "Common sizes you might be asked for",
+        list: [
+          "Profile pictures: square images, often 400 × 400 to 1000 × 1000.",
+          "Social sharing images: around 1200 × 630 (about 1.91:1).",
+          "Website content images: 1200–2000 pixels wide, depending on the layout.",
+          "Always check the platform's current requirements — they change and vary by site.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The result looks squashed: you used “exact size” on an image of a different shape. Crop it first, or use “keep aspect ratio”.",
+          "The image is smaller than I entered: with “keep aspect ratio”, the image fits inside the box, so one side may be shorter.",
+          "Output too large error: results are limited to about 16.7 megapixels so they work on phones. Choose smaller dimensions.",
+          "WebP output fails in Safari: older Safari can't create WebP. Choose JPG or PNG, or use Chrome, Edge or Firefox.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Get the shape right first and the size follows. Crop to the aspect ratio the form expects, resize with the aspect ratio kept, and only force exact dimensions when the image is already almost the right shape.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does resizing reduce the file size?",
+        answer: "Making an image smaller reduces its file size, often dramatically. For a smaller file still, save as JPG or run it through Compress Image.",
+      },
+      {
+        question: "Can I resize several images to the same size?",
+        answer: "Yes — add up to 20 images and they're all resized with the same settings.",
+      },
+      {
+        question: "Are my images uploaded?",
+        answer: "No. Image Resizer works entirely in your browser.",
+      },
+    ],
+    relatedTools: ["image-resizer", "compress-image", "webp-converter", "png-to-jpg"],
+  },
+  {
+    path: "/guides/how-to-convert-jpg-to-png",
+    category: "images",
+    keywords: { primary: "JPG to PNG", secondary: ["convert JPG to PNG online", "JPG to PNG transparent background", "does JPG to PNG improve quality"] },
+    title: "How to Convert JPG to PNG (and When It Actually Helps)",
+    seoTitle: `How to Convert JPG to PNG — and What It Can't Do | ${SITE_NAME}`,
+    metaDescription: "Convert JPG images to PNG for free in your browser, and understand what conversion does and doesn't do: no quality gain, no automatic transparency, but no further loss when editing.",
+    summary: "Converting a JPG to PNG is easy — but it's often done for the wrong reasons. It won't make a photo sharper and it won't remove the background. Here's when converting genuinely helps, and how to do it.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What converting actually does",
+        paragraphs: [
+          "Converting re-saves the same pixels in PNG's lossless format. From that point on, the image won't lose any more detail when you edit and save it again. But any detail the JPG had already discarded is gone: converting doesn't sharpen the picture, remove compression artefacts or add resolution.",
+        ],
+        table: {
+          caption: "Myths and facts",
+          headers: ["Common belief", "What really happens"],
+          rows: [
+            ["PNG will make my photo sharper", "No — the pixels are the same; existing artefacts remain"],
+            ["PNG will give it a transparent background", "No — the background stays; transparency must be added in an editor"],
+            ["PNG is always higher quality", "Only in the sense that it adds no further loss"],
+            ["PNG files are smaller", "Usually the opposite for photos — often several times larger"],
+          ],
+        },
+      },
+      {
+        heading: "When converting genuinely helps",
+        list: [
+          "A website, app or print service requires PNG.",
+          "You're about to edit an image several times — working in PNG avoids adding new JPG artefacts with every save.",
+          "You'll add transparency or graphics in an editor and need a format that keeps them.",
+          "A screenshot was saved as JPG and you want to stop it degrading further.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open JPG to PNG and add one or more JPG images (up to 25MB each).",
+          "Select Convert to PNG.",
+          "Download each PNG — the results show the size before and after, so you can see how much larger the PNG is.",
+        ],
+      },
+      {
+        heading: "Why the PNG is bigger",
+        paragraphs: [
+          "JPG achieves small sizes by discarding detail in a way tuned for photographs. PNG keeps every pixel exactly, which is very efficient for flat-coloured graphics but expensive for photos, where neighbouring pixels all differ slightly. A photo that is 500KB as a JPG can easily become several megabytes as a PNG. If you only need a smaller file, keep the JPG — or use WebP for websites.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The file is much bigger: expected for photos. Keep the JPG unless something requires PNG.",
+          "The background isn't transparent: conversion doesn't remove backgrounds. That needs an image editor's background-removal or selection tools.",
+          "The image still looks blocky: the artefacts came from the original JPG compression and can't be removed by converting.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Convert JPG to PNG when something requires PNG or when you're about to edit an image repeatedly. Don't convert expecting better quality or a transparent background — and for simply shrinking or sharing photos, JPG remains the better format.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does converting JPG to PNG lose quality?",
+        answer: "No — PNG is lossless, so nothing more is lost. It doesn't recover quality the JPG already lost, either.",
+      },
+      {
+        question: "Can I convert several JPGs at once?",
+        answer: "Yes. Add several images and they're all converted in one go.",
+      },
+      {
+        question: "Are my images uploaded?",
+        answer: "No. JPG to PNG runs entirely in your browser.",
+      },
+    ],
+    relatedTools: ["jpg-to-png", "png-to-jpg", "webp-converter", "compress-image"],
+  },
+  {
+    path: "/guides/what-size-should-website-images-be",
+    category: "images",
+    keywords: { primary: "image size for website", secondary: ["best image dimensions for website", "website image file size", "hero image size"] },
+    title: "What Size Should Website Images Be?",
+    seoTitle: `What Size Should Website Images Be? Dimensions & File Sizes | ${SITE_NAME}`,
+    metaDescription: "Practical pixel dimensions and file-size targets for hero images, content images and thumbnails, why high-density screens need extra pixels, and how to prepare images quickly.",
+    summary: "Images are usually the heaviest part of a web page, and the most common reason a site feels slow on a phone. Most of that weight comes from images far larger than they're ever displayed. Here's how big website images should actually be.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Dimensions vs file size",
+        paragraphs: [
+          "Two numbers matter. Dimensions — the width and height in pixels — decide how sharp an image can look. File size — in kilobytes — decides how long it takes to download. A photo straight from a phone might be 4000 pixels wide and 4MB; displayed in a 800-pixel-wide column, most of those pixels are wasted, and the visitor still downloads all of them.",
+        ],
+      },
+      {
+        heading: "Account for high-density screens",
+        paragraphs: [
+          "Phones and many laptops have high-density (“retina”) screens that use two or more physical pixels for each pixel of layout. An image displayed 800 pixels wide looks sharpest on those screens at around 1600 pixels wide. A practical rule of thumb: export images at roughly twice the width they'll be displayed at, then compress them well.",
+        ],
+      },
+      {
+        heading: "Starting points by use",
+        table: {
+          caption: "Rule-of-thumb sizes — check your own layout's displayed widths",
+          headers: ["Image type", "Typical width to export", "Rough file-size aim"],
+          rows: [
+            ["Full-width hero or banner", "1920–2560 px", "A few hundred KB at most"],
+            ["Content image in an article column", "1200–1600 px", "Under ~200 KB"],
+            ["Product photo", "1000–2000 px (more if zoom is offered)", "Under ~200 KB"],
+            ["Thumbnail or card image", "400–800 px", "Under ~60 KB"],
+            ["Logo", "Use SVG if possible; otherwise 2× displayed size as PNG", "As small as possible"],
+          ],
+        },
+      },
+      {
+        heading: "Format makes a big difference",
+        list: [
+          "Photos: JPG at around 75–80% quality, or WebP, which is usually smaller still.",
+          "Logos, icons and graphics with sharp edges: SVG where possible, otherwise PNG or lossless WebP.",
+          "Screenshots: PNG or WebP — JPG blurs text.",
+        ],
+      },
+      {
+        heading: "A quick preparation workflow",
+        list: [
+          "Find the width your layout displays the image at (your browser's developer tools show it).",
+          "Resize to about twice that width with Image Resizer.",
+          "Convert photos to WebP with the WebP Converter — or compress as JPG with Compress Image if WebP isn't an option.",
+          "Check the result at full size before uploading.",
+        ],
+      },
+      {
+        heading: "Beyond the file itself",
+        list: [
+          "Serve different sizes to different screens with the srcset attribute, if your site platform supports it, so phones don't download desktop-sized images.",
+          "Set width and height attributes (or CSS aspect-ratio) so the page doesn't jump as images load.",
+          "Lazy-load images below the first screenful (loading=\"lazy\"), so they download only when needed.",
+          "Write meaningful alt text — it helps accessibility and image search.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Size images for how they're displayed, roughly doubled for high-density screens, then choose an efficient format. That combination usually cuts image weight by a large margin without anyone noticing a difference — except that the page loads faster.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Is bigger always better for quality?",
+        answer: "No. Beyond about twice the displayed width there's no visible gain on most screens — only a larger download.",
+      },
+      {
+        question: "Should all my website images be WebP?",
+        answer: "WebP is supported by every current major browser and is usually smaller, so it's a good default for photos and graphics you serve yourself. Keep JPG or PNG copies for email and other uses.",
+      },
+      {
+        question: "What about images in emails?",
+        answer: "Email apps vary widely and many don't support WebP. Use JPG for photos and PNG for graphics, sized for the width they'll actually appear at.",
+      },
+    ],
+    relatedTools: ["image-resizer", "webp-converter", "compress-image", "meta-tag-generator"],
+  },
+  {
+    path: "/guides/what-is-exif-data-and-how-to-remove-it",
+    category: "images",
+    keywords: { primary: "remove EXIF data", secondary: ["what is EXIF data", "remove location from photo", "photo metadata privacy"] },
+    title: "What Is EXIF Data — and How to Remove Location from Photos",
+    seoTitle: `What Is EXIF Data? How to Remove Location from Photos | ${SITE_NAME}`,
+    metaDescription: "What EXIF metadata hides inside your photos — camera, date and often GPS location — why it matters before sharing, and simple ways to remove it.",
+    summary: "Every photo from your phone carries hidden details: when it was taken, on which device and, often, exactly where. Most social networks remove it, but email attachments, file transfers and many websites don't. Here's what's in there and how to strip it.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What EXIF data is",
+        paragraphs: [
+          "EXIF (Exchangeable Image File Format) is metadata that cameras and phones write into JPG files. It's invisible when you look at the photo, but any image viewer's “properties” or “info” panel can show it.",
+        ],
+        table: {
+          caption: "Information commonly stored in a photo's EXIF data",
+          headers: ["Field", "Example", "Why it matters"],
+          rows: [
+            ["GPS location", "Latitude and longitude", "Can reveal your home, school or workplace"],
+            ["Date and time", "When the photo was taken", "Reveals routines and timelines"],
+            ["Device", "Phone or camera make and model", "Usually harmless, sometimes identifying"],
+            ["Camera settings", "Exposure, focal length, ISO", "Harmless; useful to photographers"],
+            ["Orientation", "Which way up the photo was taken", "Tells apps how to display it"],
+          ],
+        },
+      },
+      {
+        heading: "When to remove it",
+        list: [
+          "Selling something online with photos taken at home.",
+          "Emailing or sending photos as files rather than through a social app.",
+          "Publishing photos on your own website or blog.",
+          "Sharing pictures of children, or anything taken at a private address.",
+        ],
+      },
+      {
+        heading: "How to remove it with Toolkit4Me",
+        paragraphs: [
+          "Several image tools here re-encode the picture in your browser, and re-encoding writes a fresh image without the original metadata. Compress Image, Image Resizer, the WebP Converter, PNG to JPG and JPG to PNG all produce files without the camera details and location. Because they run in your browser, the original photo isn't uploaded anywhere.",
+          "For the least change to the picture, use Compress Image with the quality set high (90% or more) and no maximum width. The photo looks the same, and the metadata is gone. Current browsers apply the photo's orientation before saving, so it should stay the right way up — check the result before you share it.",
+        ],
+      },
+      {
+        heading: "One exception: JPG to PDF",
+        paragraphs: [
+          "JPG to PDF places your JPG into the PDF exactly as it is, byte for byte, so its EXIF data — including any location — goes into the PDF too. If you're turning sensitive photos into a PDF, run them through Compress Image first, then convert the cleaned copies.",
+        ],
+      },
+      {
+        heading: "Other ways to avoid sharing location",
+        list: [
+          "Turn off location tagging in your phone's camera settings, so new photos don't record it.",
+          "Many phones let you remove location when sharing — look for “Options” or “Location” in the share sheet.",
+          "On Windows, File Explorer's Properties → Details → “Remove Properties and Personal Information” can strip metadata from a copy.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Before sending photos as files or publishing them on your own site, assume they contain a timestamp and possibly your location. Re-saving them through an image tool in your browser removes that metadata in seconds — just remember that tools which embed files unchanged, like JPG to PDF, keep it.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Do social networks remove EXIF data?",
+        answer: "Most major platforms strip location data from uploaded photos, but practices vary and change. Files sent by email, cloud links or messaging apps' “send as file” options usually keep it.",
+      },
+      {
+        question: "Do PNG images have EXIF data?",
+        answer: "PNG files can carry metadata, but phone cameras save photos as JPG or HEIC, which is where location data usually lives.",
+      },
+      {
+        question: "Will removing EXIF reduce image quality?",
+        answer: "Re-saving a JPG re-compresses it, but at a high quality setting (90% or more) the difference isn't visible.",
+      },
+    ],
+    relatedTools: ["compress-image", "image-resizer", "jpg-to-pdf", "webp-converter"],
+  },
+  {
+    path: "/guides/how-to-copy-text-from-a-screenshot",
+    category: "ocr",
+    keywords: { primary: "copy text from screenshot", secondary: ["screenshot to text", "extract text from screenshot", "copy text from image on Windows or Mac"] },
+    title: "How to Copy Text from a Screenshot",
+    seoTitle: `How to Copy Text from a Screenshot (Any Device) | ${SITE_NAME}`,
+    metaDescription: "Turn the text in a screenshot into text you can copy and paste — using Toolkit4Me's Image to Text, or the tools already built into Windows, Mac, iPhone and Android.",
+    summary: "An error message you need to search for, a quote from a slide, a list someone sent as a picture — screenshots are full of text you can't copy. Here are the quickest ways to turn that text into something you can paste.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why screenshots are ideal for OCR",
+        paragraphs: [
+          "Optical character recognition struggles with blurry photos, curved pages and shadows. Screenshots have none of those problems: the text is perfectly sharp, straight and evenly lit. That's why OCR on a screenshot is usually close to perfect — making it far quicker to recognise the text than to retype it.",
+        ],
+      },
+      {
+        heading: "Using Image to Text",
+        list: [
+          "Take the screenshot and save it as a PNG or JPG — most devices do this by default.",
+          "Open Image to Text and add the screenshot (up to 25MB).",
+          "Choose the language of the text: English, Spanish, French or German.",
+          "Select Extract Text, then copy the result or download it as a .txt file.",
+        ],
+      },
+      {
+        heading: "Tools already built into your device",
+        paragraphs: [
+          "Many devices now recognise text in images themselves, which is handy for a quick copy. Image to Text is useful when you're on a device without these features, want the text as a downloadable file, or are working with text in Spanish, French or German on a device that doesn't recognise it.",
+        ],
+        table: {
+          caption: "Built-in text recognition (features vary by version)",
+          headers: ["Device", "Built-in option"],
+          rows: [
+            ["Windows 11", "Snipping Tool's Text actions — capture an area, then copy the recognised text"],
+            ["Mac", "Live Text — open the image in Preview or Photos and select the text"],
+            ["iPhone and iPad", "Live Text — touch and hold the text in a photo or screenshot"],
+            ["Android", "Google Lens — open the screenshot and choose Text"],
+          ],
+        },
+      },
+      {
+        heading: "Tips for the best result",
+        list: [
+          "Capture just the area you need — fewer surrounding elements means cleaner output.",
+          "Don't shrink the screenshot before uploading; full size is sharpest.",
+          "Zoom in on small text before taking the screenshot.",
+          "For text in columns or tables, capture one column at a time.",
+        ],
+      },
+      {
+        heading: "What to check afterwards",
+        list: [
+          "Look for confusions between similar characters: 0 and O, 1, l and I, rn and m.",
+          "Check punctuation and symbols in code or error messages — a missing quote changes meaning.",
+          "Remember OCR returns plain text: bold, colours and layout aren't kept.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Screenshots are the easiest images there are for OCR. Use your device's built-in text recognition for a quick copy, or Image to Text when you want a text file or need another language — and give the result a quick proofread before you rely on it.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I extract text from a screenshot of a PDF?",
+        answer: "Yes, but if you have the PDF itself and its text is selectable, copying directly is more accurate. For a scanned PDF, PDF to Word or Image to Text are the better routes.",
+      },
+      {
+        question: "Does it work with handwriting in a screenshot?",
+        answer: "Results on handwriting are often poor. OCR is designed mainly for printed and on-screen text.",
+      },
+      {
+        question: "What happens to my screenshot?",
+        answer: "Image to Text runs on our server: your image is deleted as soon as it's processed, and the extracted text within one hour.",
+      },
+    ],
+    relatedTools: ["image-to-text", "text-compare", "word-counter", "pdf-to-word"],
+  },
+  {
+    path: "/guides/how-to-digitise-receipts",
+    category: "ocr",
+    keywords: { primary: "scan receipts to PDF", secondary: ["digitise receipts for expenses", "receipts to PDF", "copy receipt details to spreadsheet"] },
+    title: "How to Digitise Receipts for Expense Claims",
+    seoTitle: `How to Scan Receipts to PDF for Expense Claims | ${SITE_NAME}`,
+    metaDescription: "Photograph receipts so they stay readable, combine them into one tidy PDF for an expense claim, copy totals with OCR, and keep the file small enough to submit.",
+    summary: "Paper receipts fade, crumple and get lost — usually right before an expense claim is due. Turning them into a single, readable PDF takes a few minutes with your phone. Here's a simple routine that works.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Capture receipts early",
+        paragraphs: [
+          "Many receipts are printed on thermal paper, which fades with heat, light and time, sometimes within months. The best time to photograph a receipt is the day you get it. A photo taken immediately will stay readable long after the paper has gone blank.",
+        ],
+      },
+      {
+        heading: "Photographing receipts so they're readable",
+        list: [
+          "Place the receipt flat on a dark, plain surface — the contrast makes the edges and text stand out.",
+          "Use daylight or bright, even light, and keep your shadow off the paper.",
+          "Hold the phone directly above the receipt, filling the frame.",
+          "For long receipts, take two overlapping photos rather than one tiny one.",
+          "Check that the total, date and merchant name are sharp before moving on.",
+        ],
+      },
+      {
+        heading: "Combine them into one PDF",
+        list: [
+          "Open JPG to PDF and add the receipt photos.",
+          "Use the arrows to put them in date order, matching your claim.",
+          "Choose A4 or Letter if the claim may be printed, or Fit to image for on-screen review.",
+          "Select Convert to PDF. The photos are placed in the PDF unchanged and never leave your device.",
+        ],
+      },
+      {
+        heading: "Copy totals and details with OCR",
+        paragraphs: [
+          "If you need to type amounts into a spreadsheet or expense system, run a receipt photo through Image to Text to get its text, then copy the lines you need. Always check every number against the photo: OCR can confuse 5 and S, 0 and O, or misread a faded decimal point, and an expense total is exactly where a small error matters.",
+        ],
+      },
+      {
+        heading: "Keep the file small",
+        table: {
+          caption: "Getting a receipts PDF under an upload limit",
+          headers: ["Problem", "Fix"],
+          rows: [
+            ["Phone photos are 3–5MB each", "Resize to about 1,600 pixels wide with Image Resizer or Compress Image before converting"],
+            ["The finished PDF is still too large", "Run it through Compress PDF at the Recommended level"],
+            ["The claim has dozens of receipts", "Split it into one PDF per month or per trip"],
+          ],
+        },
+      },
+      {
+        heading: "Name and store files sensibly",
+        list: [
+          "Use a consistent name such as 2026-11_Expenses_Lastname.pdf.",
+          "Keep the original photos until the claim has been paid.",
+          "Check how long your employer or tax authority requires you to keep receipts, and in what form, before throwing the paper away.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Photograph receipts on the day, on a dark background, in good light. Combine them into one ordered PDF, shrink large photos first if there's an upload limit, and use OCR to save typing — while checking every figure by eye.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I add receipts to an existing expenses PDF?",
+        answer: "Yes. Convert the new photos with JPG to PDF, then combine the two files with Merge PDF.",
+      },
+      {
+        question: "My receipt photos are PNG screenshots — can I use them?",
+        answer: "JPG to PDF takes JPG files, so convert PNGs first with PNG to JPG.",
+      },
+      {
+        question: "Are digital copies accepted instead of paper receipts?",
+        answer: "That depends on your employer's policy and local tax rules. Check before discarding the originals.",
+      },
+    ],
+    relatedTools: ["jpg-to-pdf", "image-to-text", "compress-pdf", "image-resizer"],
+  },
+  {
+    path: "/guides/how-do-qr-codes-work",
+    category: "web",
+    keywords: { primary: "how do QR codes work", secondary: ["QR code error correction", "QR code versions", "parts of a QR code"] },
+    title: "How Do QR Codes Work?",
+    seoTitle: `How Do QR Codes Work? Patterns, Versions & Error Correction | ${SITE_NAME}`,
+    metaDescription: "What the squares in a QR code actually do: finder patterns, versions 1–40, error correction that survives damage, and why longer links make denser codes.",
+    summary: "A QR code looks like random noise, but every part of it has a job. Knowing what those parts do explains why some codes scan instantly and others don't — and why a scuffed code often still works.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "A short history",
+        paragraphs: [
+          "QR (“Quick Response”) codes were invented in 1994 by Denso Wave, a Toyota group company, to track car parts on production lines. Unlike a barcode, which stores data in one direction, a QR code stores it in two dimensions, so it holds far more and can be read from any angle. Denso Wave chose not to enforce its patent, and the format became an international standard (ISO/IEC 18004).",
+        ],
+      },
+      {
+        heading: "The parts of a QR code",
+        table: {
+          caption: "What each part of the pattern does",
+          headers: ["Part", "What it does"],
+          rows: [
+            ["Finder patterns", "The three large squares in the corners let a scanner find the code and work out its angle"],
+            ["Alignment patterns", "Smaller squares (from version 2 upwards) that correct for codes seen at a slant or on a curved surface"],
+            ["Timing patterns", "Alternating dark and light lines between the finders that mark out the grid"],
+            ["Format information", "Records the error-correction level and the mask used, stored twice for safety"],
+            ["Quiet zone", "The blank margin around the code — four modules wide in the standard — that separates it from its surroundings"],
+            ["Data and error-correction modules", "Everything else: your content plus the extra information used to repair damage"],
+          ],
+        },
+      },
+      {
+        heading: "Versions: why longer content makes denser codes",
+        paragraphs: [
+          "QR codes come in 40 sizes, called versions. Version 1 is a grid of 21 × 21 squares (“modules”); each version adds four modules per side, up to 177 × 177 at version 40. A generator picks the smallest version that fits your content, so a short link produces a coarse, easy-to-scan grid, while a long link produces a dense one with tiny modules that need a bigger print size or a closer camera.",
+        ],
+      },
+      {
+        heading: "Error correction: how damaged codes still scan",
+        paragraphs: [
+          "QR codes use Reed-Solomon error correction, the same family of maths used on CDs. Extra data is added so a scanner can rebuild missing parts. There are four levels, and each one trades capacity for durability.",
+        ],
+        table: {
+          caption: "Error-correction levels (approximate damage that can be recovered)",
+          headers: ["Level", "Recoverable", "Maximum bytes at version 40"],
+          rows: [
+            ["Low (L)", "About 7%", "2,953"],
+            ["Medium (M)", "About 15%", "2,331"],
+            ["Quartile (Q)", "About 25%", "1,663"],
+            ["High (H)", "About 30%", "1,273"],
+          ],
+        },
+      },
+      {
+        heading: "Masking: keeping the pattern readable",
+        paragraphs: [
+          "Raw data can produce awkward patterns — large solid blocks, or shapes that look like a finder pattern. To avoid this, the encoder tries eight “mask” patterns that flip modules in a regular way, scores each result and keeps the one that's easiest to read. The chosen mask is recorded in the format information, so the scanner can undo it.",
+        ],
+      },
+      {
+        heading: "What happens when you scan",
+        list: [
+          "The camera finds the three finder patterns and works out the code's position and angle.",
+          "It reads the format information to learn the error-correction level and mask.",
+          "It samples each module as dark or light, removes the mask and repairs any errors.",
+          "The decoded content — a link, text or Wi-Fi details — is shown to you to open or act on.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "A QR code is a self-locating, self-repairing grid. Shorter content means a smaller version with bigger modules, and higher error correction means more resilience at the cost of density. For turning this into codes that scan reliably in the real world, see the practical guides below.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does a QR code store the website itself?",
+        answer: "No — it stores only the link (or text) you encode. The website is fetched when the code is scanned, which is why a code stops being useful if the page it points to is taken down.",
+      },
+      {
+        question: "Why can a QR code with a logo still scan?",
+        answer: "Error correction lets the scanner rebuild the covered part. That only works if the logo is small and the error-correction level is high, so always test such codes.",
+      },
+      {
+        question: "Can a QR code be read upside down?",
+        answer: "Yes. The three finder patterns tell the scanner which way round the code is, so it can be read at any rotation.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "meta-tag-generator", "base64-encoder-decoder", "image-resizer"],
+  },
+  {
+    path: "/guides/qr-codes-for-restaurant-menus-and-small-businesses",
+    category: "web",
+    keywords: { primary: "QR code for menu", secondary: ["restaurant menu QR code", "QR code for small business", "Wi-Fi QR code"] },
+    title: "QR Codes for Restaurant Menus and Small Businesses",
+    seoTitle: `QR Code for Menu: A Practical Guide for Small Businesses | ${SITE_NAME}`,
+    metaDescription: "Set up a QR code for your menu, Wi-Fi, reviews or booking page — what to link to, how to update the menu without reprinting, and where to place codes so customers use them.",
+    summary: "A QR code on the table can save reprinting menus every time a price changes — if it's set up the right way. Here's how cafés, restaurants and other small businesses can use free, static QR codes well.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "The key idea: link to a page you control",
+        paragraphs: [
+          "A static QR code stores a link, and the link can't change after printing. The page behind it can. So point the code at a stable address on your own website — for example yoursite.com/menu — and update that page whenever the menu changes. The printed code keeps working, and you never pay for a “dynamic” code service.",
+        ],
+      },
+      {
+        heading: "Web page or PDF menu?",
+        table: {
+          caption: "Choosing what the code opens",
+          headers: ["Option", "Good for", "Watch out for"],
+          rows: [
+            ["A menu web page", "Easy reading on phones, quick updates, accessible to screen readers", "Needs a website you can edit"],
+            ["A PDF menu", "Reusing the menu you already print", "Small text on phones; keep the file small and the address unchanged when you replace it"],
+          ],
+        },
+        paragraphs: [
+          "Either can work. If you use a PDF, compress it so it opens quickly on mobile data, and upload new versions under the same file address so the code keeps pointing at the latest menu.",
+        ],
+      },
+      {
+        heading: "Creating the code",
+        list: [
+          "Open the QR Code Generator and paste the menu link.",
+          "Choose Medium error correction for table cards; High if the code may get worn or wiped often.",
+          "Keep dark-on-light colours — the tool warns you if your colours are too low in contrast.",
+          "Download SVG for printing, so the code stays sharp at any size.",
+          "Scan the printed proof with an iPhone and an Android phone before printing in bulk.",
+        ],
+      },
+      {
+        heading: "Other useful codes for small businesses",
+        list: [
+          "Review page: link straight to your Google or other review page to make leaving a review easier.",
+          "Booking or ordering page: on windows, flyers and receipts.",
+          "Wi-Fi: phone cameras recognise text in the form WIFI:T:WPA;S:NetworkName;P:Password;; and offer to join the network. Change the code if you change the password.",
+          "Social profiles or a contact page: on business cards and packaging.",
+        ],
+      },
+      {
+        heading: "Placement and printing",
+        list: [
+          "Put a short call to action next to the code, such as “Scan for today's menu”.",
+          "Place codes where phones can reach them easily — table tents and counter cards work better than high wall posters.",
+          "Leave a blank margin around the code and avoid glossy laminates that reflect overhead lights.",
+          "Print larger for anything scanned from a distance; the guide on making QR codes that scan covers sizing.",
+        ],
+      },
+      {
+        heading: "Measuring scans without a paid service",
+        paragraphs: [
+          "Static codes can't count scans themselves, but your website analytics can. Add tracking parameters to the link — for example ?utm_source=qr&utm_medium=table — and visits from the code will show up separately in your analytics reports.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Point a free static code at a page you control, update the page rather than the code, and test before printing. Keep printed menus available for customers who prefer them or don't have a phone with them.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Will my menu QR code stop working?",
+        answer: "A static code works for as long as the page it points to exists. If you rebuild your website, keep the menu address the same or redirect it to the new one.",
+      },
+      {
+        question: "Can I put my logo in the middle?",
+        answer: "The generator doesn't add logos. If you add one yourself, keep it small, use High error correction and test the result on several phones.",
+      },
+      {
+        question: "Is a Wi-Fi QR code secure?",
+        answer: "It contains your password in plain text, so anyone who can scan it can read it. Use it for a guest network, not the one your business systems use.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "compress-pdf", "jpg-to-pdf", "meta-tag-generator"],
+  },
+  {
+    path: "/guides/how-to-decode-a-jwt",
+    category: "web",
+    keywords: { primary: "decode JWT", secondary: ["JWT decoder", "read JWT payload", "JWT exp claim"] },
+    title: "How to Decode a JWT and Read What's Inside",
+    seoTitle: `How to Decode a JWT and Read Its Payload | ${SITE_NAME}`,
+    metaDescription: "A JSON Web Token is three Base64URL parts separated by dots. Learn how to decode the header and payload in your browser, what the standard claims mean, and why decoding isn't verifying.",
+    summary: "JSON Web Tokens look like long strings of gibberish, but two of their three parts are just Base64-encoded JSON. When you're debugging a login or an API call, reading them takes seconds — as long as you remember what decoding does and doesn't tell you.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "The three parts of a JWT",
+        paragraphs: [
+          "A JWT looks like xxxxx.yyyyy.zzzzz — three parts separated by dots, each encoded with URL-safe Base64 and no padding.",
+        ],
+        table: {
+          caption: "What each part contains",
+          headers: ["Part", "Contains", "Readable?"],
+          rows: [
+            ["Header", "The token type and signing algorithm, e.g. {\"alg\":\"HS256\",\"typ\":\"JWT\"}", "Yes — JSON"],
+            ["Payload", "The claims: who the token is for, when it expires, and any app-specific data", "Yes — JSON"],
+            ["Signature", "A cryptographic signature over the header and payload", "No — binary data"],
+          ],
+        },
+      },
+      {
+        heading: "Decoding step by step",
+        list: [
+          "Copy the token (without any “Bearer ” prefix).",
+          "Copy only the part before the first dot, paste it into the Base64 Encoder / Decoder and select Decode. You'll see the header JSON.",
+          "Do the same with the part between the two dots to read the payload.",
+          "To make a long payload easier to read, paste it into the JSON Formatter and select Format JSON.",
+        ],
+      },
+      {
+        heading: "If you see an error or a file",
+        paragraphs: [
+          "Decode one part at a time: pasting the whole token gives an error at the first dot, because a dot isn't a Base64 character. The signature decodes to binary data rather than text, which is expected — it isn't meant to be read.",
+        ],
+      },
+      {
+        heading: "Standard claims you'll see",
+        table: {
+          caption: "Registered claims from RFC 7519",
+          headers: ["Claim", "Meaning"],
+          rows: [
+            ["iss", "Issuer — who created the token"],
+            ["sub", "Subject — usually the user's ID"],
+            ["aud", "Audience — which service the token is meant for"],
+            ["exp", "Expiry time"],
+            ["nbf", "Not valid before this time"],
+            ["iat", "When the token was issued"],
+            ["jti", "A unique ID for the token"],
+          ],
+        },
+        paragraphs: [
+          "Times are in seconds since 1 January 1970 (UTC). A value like 1767225600 is a date; most programming languages and spreadsheets can convert it, and if exp is in the past, an expired token explains a sudden “401 Unauthorized”.",
+        ],
+      },
+      {
+        heading: "Decoding is not verifying",
+        paragraphs: [
+          "Anyone can decode a JWT — no key is needed. That's why decoding tells you what a token claims, not whether it's genuine. Only the server, using the secret or public key, can check the signature. Never trust a decoded payload in your own code without verifying it with a proper JWT library.",
+          "It also means a JWT's payload is not private. Don't put passwords or sensitive personal data in one unless the token is encrypted (a JWE, which has five parts and can't be read this way).",
+        ],
+      },
+      {
+        heading: "Keep real tokens private",
+        paragraphs: [
+          "A valid token often works like a temporary password: anyone holding it can act as that user until it expires. Avoid pasting live production tokens into tools that send them to a server. The Base64 Encoder / Decoder and JSON Formatter run entirely in your browser, so the token isn't uploaded.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Split the token at the dots, decode the first two parts as Base64, and format the JSON to read it. Check exp, aud and iss when debugging authentication — and remember that only signature verification on the server proves a token is real.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why does decoding the signature show a file instead of text?",
+        answer: "The signature is raw binary bytes, not text, so the decoder offers it as a file. You don't need to read it; it's only useful to a server verifying the token.",
+      },
+      {
+        question: "Can I edit a JWT payload and re-encode it?",
+        answer: "You can change the text, but the signature will no longer match, so any correctly built server will reject the token.",
+      },
+      {
+        question: "Is a JWT encrypted?",
+        answer: "A normal signed JWT (a JWS) is only encoded, so anyone can read it. Encrypted tokens (JWE) exist but are less common.",
+      },
+    ],
+    relatedTools: ["base64-encoder-decoder", "json-formatter", "text-compare", "meta-tag-generator"],
+  },
+  {
+    path: "/guides/how-to-write-a-meta-description",
+    category: "web",
+    keywords: { primary: "how to write a meta description", secondary: ["meta description examples", "meta description best practices", "why Google rewrites meta descriptions"] },
+    title: "How to Write a Meta Description That Gets Clicks",
+    seoTitle: `How to Write a Meta Description (With Examples) | ${SITE_NAME}`,
+    metaDescription: "A practical method for writing meta descriptions people want to click: match the searcher's goal, lead with specifics, stay around 150–160 characters, and avoid what makes Google rewrite them.",
+    summary: "The meta description is your page's sales pitch in search results. It doesn't directly change rankings, but it can decide whether someone clicks your result or the one beneath it. Here's a simple way to write good ones.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What a meta description does — and doesn't",
+        paragraphs: [
+          "Google has said the meta description isn't a ranking factor. What it does is shape the snippet under your title in search results, which affects how many people choose your page. Google may show your description, or replace it with text from the page if it thinks that answers the search better — so a description that clearly matches the page's purpose is more likely to be used.",
+        ],
+      },
+      {
+        heading: "A four-part formula",
+        list: [
+          "Start with what the page lets the reader do or learn, using the words they'd search for.",
+          "Add a specific detail that sets it apart: a number, a format, a time, a price or a limitation.",
+          "Mention a reason to choose it, such as free, no sign-up or step by step — only if it's true.",
+          "Keep it to one or two sentences, around 150–160 characters, with the important words first.",
+        ],
+      },
+      {
+        heading: "Before and after",
+        table: {
+          caption: "Example rewrites",
+          headers: ["Weak", "Stronger"],
+          rows: [
+            ["Welcome to our blog. Read our latest post about PDFs.", "Shrink a PDF for email in under a minute: which compression level to choose, what it does to images, and how to check the result."],
+            ["Best pizza in town! Great food, great service, come visit!", "Wood-fired pizza in Leeds city centre, open until 11pm. See the full menu with prices and book a table online."],
+            ["Product page for blue running shoes size 6–12.", "Lightweight blue running shoes with a cushioned sole, sizes 6–12. Free returns within 30 days."],
+          ],
+        },
+      },
+      {
+        heading: "Common mistakes",
+        list: [
+          "Using the same description on many pages — each page should describe itself.",
+          "Stuffing keywords — it reads badly and doesn't help.",
+          "Promising what the page doesn't deliver, which leads to quick exits.",
+          "Leaving it empty, so Google picks a random sentence from the page.",
+          "Writing far beyond the limit, so the key point is cut off.",
+        ],
+      },
+      {
+        heading: "Checking length and preview",
+        paragraphs: [
+          "Google cuts snippets by pixel width rather than a fixed character count, and the limit differs between desktop and mobile. Around 150–160 characters is a safe target. The Meta Tag Generator warns you when a description goes over 160 characters and shows an approximate search preview, then gives you the finished tag to paste into your page.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Write each description for a person scanning results: say what the page does in their words, add one specific detail, and keep it within about 160 characters. For the other tags in a page's head, see the meta tags guide.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why does Google show different text from my meta description?",
+        answer: "Google may choose text from the page that better matches the particular search. Clear descriptions that accurately summarise the page tend to be used more often.",
+      },
+      {
+        question: "Should I include my keyword?",
+        answer: "Yes, naturally. Words matching the search are often shown in bold, which helps your result stand out — but once is enough.",
+      },
+      {
+        question: "Do I need a meta description for every page?",
+        answer: "Important pages should have one. For very large sites, Google suggests prioritising key pages and using descriptions generated from page content for the rest.",
+      },
+    ],
+    relatedTools: ["meta-tag-generator", "word-counter", "qr-code-generator", "text-compare"],
+  },
+  {
+    path: "/guides/how-to-compare-two-documents",
+    category: "writing",
+    keywords: { primary: "compare two documents", secondary: ["compare two versions of a document", "find differences between two texts", "compare Word documents"] },
+    title: "How to Compare Two Versions of a Document",
+    seoTitle: `How to Compare Two Documents and See What Changed | ${SITE_NAME}`,
+    metaDescription: "Find every change between two versions of a contract, essay or policy: compare text in your browser, use Word's or Google Docs' compare features, and handle PDFs.",
+    summary: "Someone sends back “a few small edits” to a document you wrote. Reading both versions side by side won't reliably show you what changed. A comparison tool will — here are the options and when to use each.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Choose the right method",
+        table: {
+          caption: "Which comparison to use",
+          headers: ["You have", "Best option"],
+          rows: [
+            ["Two Word documents", "Word's built-in compare (Review → Compare → Compare)"],
+            ["Two Google Docs", "Google Docs' Tools → Compare documents"],
+            ["Plain text, emails, code or text copied from anywhere", "Text Compare in your browser"],
+            ["Two PDFs", "Copy the text out (or convert with PDF to Word), then compare"],
+          ],
+        },
+      },
+      {
+        heading: "Comparing text with Text Compare",
+        list: [
+          "Paste the original version on the left and the new version on the right (up to 300,000 characters each).",
+          "Choose Word comparison for prose, so changes inside sentences are highlighted; choose Line for lists, code or clauses on separate lines.",
+          "Tick Ignore upper/lower case if capitalisation doesn't matter; in Line mode you can also ignore extra spaces.",
+          "Select Compare text. Additions are shown in green and removals in red, with a count of each.",
+        ],
+        paragraphs: [
+          "Text Compare runs in your browser, so confidential drafts aren't uploaded.",
+        ],
+      },
+      {
+        heading: "Comparing Word documents in Word",
+        paragraphs: [
+          "Word's compare feature creates a third document showing the differences as tracked changes, including formatting changes. Open Word, go to Review → Compare → Compare, choose the original and revised files, and Word produces a marked-up version you can accept or reject change by change. This is often called a “blackline” or “redline” in legal work.",
+        ],
+      },
+      {
+        heading: "Comparing PDFs",
+        paragraphs: [
+          "If the PDFs contain selectable text, copy all the text from each and paste them into Text Compare. For a more faithful layout, convert both with PDF to Word and use Word's compare. Scanned PDFs need OCR first — see the guide on scanned and text PDFs.",
+        ],
+      },
+      {
+        heading: "Reading the results",
+        list: [
+          "A moved paragraph appears as a removal in one place and an addition in another — check that nothing was changed during the move.",
+          "Watch numbers, dates, names and words like “not”, “may” and “shall”, where one small change matters most.",
+          "Line-break and spacing differences can create noise; Word comparison, or ignoring extra spaces in Line mode, reduces it.",
+          "Formatting changes (bold, fonts) aren't visible in a plain-text comparison — use Word's compare if they matter.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Use the editor's own compare feature when both files are Word or Google Docs, and Text Compare for everything else. Either way, let the tool find the changes and spend your attention on judging them.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I save the comparison?",
+        answer: "Text Compare can download a standard .diff file, which developers can open in code editors. For a shareable marked-up document, Word's compare is better.",
+      },
+      {
+        question: "Can I compare more than two versions?",
+        answer: "Compare them in pairs — usually each version against the one before it.",
+      },
+      {
+        question: "Why does every line show as changed?",
+        answer: "Often the line breaks differ, for example text copied from a PDF. Switch to Word comparison, or in Line mode tick the option to ignore extra spaces.",
+      },
+    ],
+    relatedTools: ["text-compare", "pdf-to-word", "word-counter", "image-to-text"],
+  },
+  {
+    path: "/guides/how-many-words-is-a-5-minute-speech",
+    category: "writing",
+    keywords: { primary: "how many words is a 5 minute speech", secondary: ["words per minute speaking", "speech length calculator", "how long is a 1000 word speech"] },
+    title: "How Many Words Is a 5-Minute Speech?",
+    seoTitle: `How Many Words Is a 5-Minute Speech? (Words-per-Minute Table) | ${SITE_NAME}`,
+    metaDescription: "A 5-minute speech is about 700 words at a typical speaking pace of 140 words per minute. See a table for other lengths, what changes your pace, and how to time a script.",
+    summary: "Whether it's a wedding toast, a class presentation or a conference talk, the time limit is usually set in minutes but you write in words. Here's how to convert one into the other.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "The short answer",
+        paragraphs: [
+          "At a comfortable presentation pace of about 140 words per minute, a 5-minute speech is around 700 words. Most people speak somewhere between 120 and 160 words per minute when presenting, so a 5-minute script will usually land between 600 and 800 words.",
+        ],
+      },
+      {
+        heading: "Words for common speech lengths",
+        table: {
+          caption: "Approximate word counts at three speaking speeds",
+          headers: ["Length", "Slow (120 wpm)", "Typical (140 wpm)", "Fast (160 wpm)"],
+          rows: [
+            ["1 minute", "120", "140", "160"],
+            ["2 minutes", "240", "280", "320"],
+            ["3 minutes", "360", "420", "480"],
+            ["5 minutes", "600", "700", "800"],
+            ["10 minutes", "1,200", "1,400", "1,600"],
+            ["15 minutes", "1,800", "2,100", "2,400"],
+            ["20 minutes", "2,400", "2,800", "3,200"],
+          ],
+        },
+      },
+      {
+        heading: "What changes your pace",
+        list: [
+          "Nerves usually speed people up — plan for a slower pace than feels natural.",
+          "Pauses for laughter, applause or questions take time without using words.",
+          "Slides, demonstrations and technical terms slow you down.",
+          "Reading a script aloud is faster than speaking from notes.",
+          "Speaking to a large room or through an interpreter calls for a slower pace.",
+        ],
+      },
+      {
+        heading: "How to fit your script to the time",
+        list: [
+          "Paste your draft into the Word Counter: it shows the word count and an estimated speaking time at 140 words per minute.",
+          "Aim for slightly under the limit — around 650 words for a strict 5-minute slot — to leave room for pauses.",
+          "Read it aloud at your real pace with a timer, and note the difference from the estimate.",
+          "Cut or expand, then time it again. Your own measured pace is more reliable than any average.",
+        ],
+      },
+      {
+        heading: "Trimming a speech that runs long",
+        list: [
+          "Keep one main message and remove side points that don't support it.",
+          "Replace several examples with your single best one.",
+          "Shorten introductions and thank-yous to a sentence or two.",
+          "Cut repeated phrases — the Word Counter's most-used words list helps spot them.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Plan on about 700 words for 5 minutes, or roughly 140 per minute for other lengths, then check by rehearsing aloud. For how words and characters are counted in other situations, see the guide on word and character limits.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How long is a 1,000-word speech?",
+        answer: "About 7 minutes at 140 words per minute — between roughly 6 and 8 minutes depending on your pace.",
+      },
+      {
+        question: "How many pages is a 5-minute speech?",
+        answer: "Around 700 words is roughly one and a half pages of single-spaced text at a normal font size, or about three pages double-spaced. Words are a more reliable measure than pages.",
+      },
+      {
+        question: "Is reading time the same as speaking time?",
+        answer: "No. People read silently much faster — the Word Counter uses 238 words per minute for reading and 140 for speaking.",
+      },
+    ],
+    relatedTools: ["word-counter", "text-compare", "image-to-text", "meta-tag-generator"],
+  },
 ];
 
 /** Words in a guide's visible text (summary, sections, tables, FAQs). */
