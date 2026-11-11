@@ -74,3 +74,46 @@ blog listing and tool-page links are all generated from it.
 - Pages targeting competitor brand names (e.g. other QR code sites).
 - Guides for tools that don't exist (PDF to Excel, PDF to PowerPoint, HEIC).
 - Multiple near-identical "convert X to Y" articles where the tool page already answers the query.
+
+## QR code cluster — status and next opportunities (2026-11-11)
+
+All 20 guides above are published. The QR Code Generator page was re-targeted at transactional searches ("free QR code generator", "link to QR code", "QR code from link", "URL to QR code generator", "QR code generator no expiration") and these informational guides now support it, each with one distinct primary keyword:
+
+| Guide | Primary keyword |
+|---|---|
+| /guides/how-to-create-a-qr-code-from-a-link | create QR code from link |
+| /guides/how-to-create-a-free-qr-code-that-never-expires | free QR code generator no expiration |
+| /guides/how-to-download-a-qr-code-as-png | QR code generator PNG |
+| /guides/static-vs-dynamic-qr-codes | static vs dynamic QR code |
+| /guides/how-to-create-a-qr-code-for-your-website | QR code for website |
+| /guides/how-to-make-a-qr-code-that-scans | QR code not scanning |
+| /guides/how-do-qr-codes-work | how do QR codes work |
+| /guides/qr-codes-for-restaurant-menus-and-small-businesses | QR code for menu |
+
+Cannibalisation guard: the static vs dynamic comparison table and "when dynamic is worth it" section were moved out of the never-expires guide into the dedicated static vs dynamic guide; the never-expires guide now targets permanence/no-subscription only.
+
+No Search Console data was available when this was written, so none of the opportunities below has measured volume, position or CTR. Re-prioritise them with `npm run seo:tracker -- Pages.csv` once the pages have impressions: look for QR queries at positions 5–20 and queries with high impressions but low CTR.
+
+### Next QR keyword opportunities
+
+"Content only" means the current generator already supports the use (it encodes any text or link). "Needs feature" means a guide would be thin without a small helper form in the tool, so build the feature first or skip the topic.
+
+| # | Keyword | Intent | Fit |
+|---|---|---|---|
+| 1 | QR code for Google review link | How-to | Content only |
+| 2 | QR code for Google Form | How-to | Content only |
+| 3 | QR code for YouTube video | How-to | Content only |
+| 4 | QR code for a PDF | How-to (host the PDF, encode its link) | Content only |
+| 5 | QR code for Instagram profile | How-to | Content only |
+| 6 | WhatsApp QR code (wa.me link) | How-to | Content only |
+| 7 | how to scan a QR code on iPhone / Android | Informational | Content only |
+| 8 | how to scan a QR code from a screenshot or image | Informational | Content only |
+| 9 | QR code scams (quishing) and how to check a code | Informational | Content only |
+| 10 | QR code in PowerPoint / Word | How-to | Content only — overlaps the PNG guide; extend that guide first |
+| 11 | QR code for event registration or tickets | Use case | Content only |
+| 12 | Wi-Fi QR code generator | Transactional | Needs feature (network/password form that builds the WIFI: string) |
+| 13 | vCard QR code / QR code for business card contact | Transactional | Needs feature (contact form that builds a vCard) |
+| 14 | QR code for email address (mailto:) | Transactional | Needs feature or a short guide on mailto: links |
+| 15 | QR code for phone number (tel:) | Transactional | Needs feature or a short guide on tel: links |
+| 16 | coloured / custom colour QR code | Informational | Content only — check against the "scans" guide's colour section before writing |
+| 17 | QR code minimum size for printing | Informational | Already covered by the "scans" guide — improve that page rather than adding a new one |
