@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { DEFAULT_OG_IMAGE, SITE_NAME, TWITTER_HANDLE, absoluteUrl } from "../../config/site";
+import { DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_ALT, SITE_NAME, TWITTER_HANDLE, absoluteUrl } from "../../config/site";
 import { breadcrumbSchema, faqSchema, type JsonLd } from "../../lib/seo/structuredData";
 
 export interface BreadcrumbLink {
@@ -58,6 +58,9 @@ export function SeoHead({ title, description, path, noindex, breadcrumbs, faq, o
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={image} />
+      {!ogImage && <meta property="og:image:width" content="1200" />}
+      {!ogImage && <meta property="og:image:height" content="630" />}
+      <meta property="og:image:alt" content={ogImage ? title : DEFAULT_OG_IMAGE_ALT} />
 
       {/* Twitter / X */}
       <meta name="twitter:card" content="summary_large_image" />

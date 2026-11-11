@@ -31,7 +31,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { TOOL_DEFINITIONS } from "../src/data/tools";
 import { toolRegistry } from "../src/lib/toolRegistry";
-import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE, HOME_DESCRIPTION, TOOLS_PAGE_DESCRIPTION, TOOLS_PAGE_TITLE, toolsPageIntro } from "../src/config/site";
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_ALT, TWITTER_HANDLE, HOME_DESCRIPTION, TOOLS_PAGE_DESCRIPTION, TOOLS_PAGE_TITLE, toolsPageIntro } from "../src/config/site";
 import { CATEGORIES, CATEGORY_LABELS } from "../src/types/tool";
 import { TOOL_AREAS } from "../src/data/toolAreas";
 import type { ToolDefinition } from "../src/types/tool";
@@ -76,6 +76,8 @@ interface PageMeta {
   /** Extra page-specific JSON-LD, built with the same helpers <SeoHead> uses. */
   jsonLd?: JsonLd[];
   noindex?: boolean;
+  /** Absolute URL of a page-specific share image; defaults to the site-wide one. */
+  ogImage?: string;
 }
 
 /** JSON for an inline <script>: escape "<" so a "</script>" inside text content can't end the tag early. */
@@ -89,6 +91,7 @@ function inlineJson(data: JsonLd): string {
 // canonical / description / JSON-LD block once the app is running.
 function renderHead(meta: PageMeta): string {
   const url = meta.route === "/" ? `${SITE_URL}/` : `${SITE_URL}${meta.route}`;
+  const image = meta.ogImage ?? DEFAULT_OG_IMAGE;
   const structuredData: JsonLd[] = [
     ...(meta.breadcrumbs.length ? [breadcrumbSchema(meta.breadcrumbs)] : []),
     ...(meta.faq?.length ? [faqSchema(meta.faq)] : []),
@@ -104,12 +107,13 @@ function renderHead(meta: PageMeta): string {
     <meta data-prerender="true" property="og:title" content="${escapeHtml(meta.title)}" />
     <meta data-prerender="true" property="og:description" content="${escapeHtml(meta.description)}" />
     <meta data-prerender="true" property="og:url" content="${url}" />
-    <meta data-prerender="true" property="og:image" content="${DEFAULT_OG_IMAGE}" />
+    <meta data-prerender="true" property="og:image" content="${image}" />
+    ${meta.ogImage ? "" : `<meta data-prerender="true" property="og:image:width" content="1200" />\n    <meta data-prerender="true" property="og:image:height" content="630" />\n    `}<meta data-prerender="true" property="og:image:alt" content="${escapeHtml(meta.ogImage ? meta.title : DEFAULT_OG_IMAGE_ALT)}" />
     <meta data-prerender="true" name="twitter:card" content="summary_large_image" />
     <meta data-prerender="true" name="twitter:site" content="${TWITTER_HANDLE}" />
     <meta data-prerender="true" name="twitter:title" content="${escapeHtml(meta.title)}" />
     <meta data-prerender="true" name="twitter:description" content="${escapeHtml(meta.description)}" />
-    <meta data-prerender="true" name="twitter:image" content="${DEFAULT_OG_IMAGE}" />
+    <meta data-prerender="true" name="twitter:image" content="${image}" />
     ${scripts.join("\n    ")}`;
 }
 

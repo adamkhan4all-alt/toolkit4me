@@ -26,6 +26,7 @@ export const SITE_URL = (import.meta.env?.VITE_SITE_URL ?? "https://www.toolkit4
 export const SITE_NAME = "Toolkit4Me";
 export const TAGLINE = "Free tools for everyday digital tasks.";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
+export const DEFAULT_OG_IMAGE_ALT = "Toolkit4Me — free tools for everyday digital tasks: PDF, image, OCR, text, JSON and QR code tools";
 export const TWITTER_HANDLE = "@toolkit4me";
 /** Homepage meta description — shared by HomePage and scripts/prerender.ts so the static and client-rendered <head> match. */
 export const HOME_DESCRIPTION =

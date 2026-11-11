@@ -529,7 +529,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
       title: "Image to Text (OCR) – Extract Text Online | Toolkit4Me",
       metaDescription: "Extract text from JPG and PNG images with free online OCR in English, Spanish, French or German. Upload an image and copy the recognised text in seconds.",
       h1: "Image to Text (OCR)",
-      keywords: ["image to text", "ocr online", "extract text from image free"],
+      keywords: ["image to text", "ocr extraction", "ocr online", "extract text from image free"],
     },
   },
   {

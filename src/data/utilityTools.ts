@@ -164,7 +164,7 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
       metaDescription:
         "Create a QR code for any link or text and download it as PNG or SVG. Static codes that never expire, custom colours with a scan-safety check, and no sign-up.",
       h1: "QR Code Generator",
-      keywords: ["qr code generator", "free qr code", "qr code svg", "create qr code for link"],
+      keywords: ["qr code generator", "free qr code generator no expiration", "qr code generator png", "qrcode free", "qr code svg", "create qr code for link"],
     },
   },
   {
@@ -727,7 +727,7 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
       metaDescription:
         "Convert JPG and PNG to WebP for faster websites, or WebP back to JPG or PNG. Keeps transparency, batch-converts up to 20 images, and runs in your browser.",
       h1: "WebP Converter",
-      keywords: ["webp converter", "jpg to webp", "png to webp", "webp to jpg", "webp to png"],
+      keywords: ["webp converter", "webp convert", "webp to jpg", "jpg to webp", "png to webp", "webp to png"],
     },
   },
   {
