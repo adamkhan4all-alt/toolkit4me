@@ -316,12 +316,12 @@ export const GUIDES: GuideDefinition[] = [
     path: "/guides/how-to-convert-pdf-to-word",
     category: "pdf",
     keywords: { primary: "PDF to Word online", secondary: ["convert PDF to Word free", "PDF to DOCX", "edit a PDF in Word"] },
-    title: "How to Convert a PDF to Word — and What Happens to the Formatting",
-    seoTitle: `How to Convert PDF to Word: Text, Formatting and Scans Explained | ${SITE_NAME}`,
-    metaDescription: "Convert a PDF into an editable Word file, understand what carries over and what doesn't, and how to keep formatting when it matters.",
-    summary: "PDFs are designed to look the same everywhere, not to be edited. Converting one to Word gives you editable text — but the layout is a different matter. Here's what to expect, and what to do when the formatting is what you actually need.",
+    title: "How to Convert PDF to Word Online for Free",
+    seoTitle: `How to Convert PDF to Word Online Free (and Keep It Editable) | ${SITE_NAME}`,
+    metaDescription: "Convert a PDF into an editable Word file for free: what carries over and what doesn't, how scanned PDFs are handled, and what to do when you need the original formatting.",
+    summary: "PDFs are designed to look the same everywhere, not to be edited. Converting one to Word gives you editable text — but the layout is a different matter. Here's how to convert for free, what to expect, and what to do when the formatting is what you actually need.",
     published: GUIDES_PUBLISHED,
-    updated: "2026-11-03",
+    updated: "2026-11-11",
     sections: [
       {
         heading: "Why PDFs are hard to edit",
@@ -348,10 +348,36 @@ export const GUIDES: GuideDefinition[] = [
         ],
       },
       {
+        heading: "Is PDF to Word the right tool for your job?",
+        paragraphs: [
+          "Converting is the right move when you need to rewrite or reuse the words. When you need to keep the page looking exactly as it is, a different tool usually does the job better.",
+        ],
+        table: {
+          caption: "Choosing the right tool for a PDF task",
+          headers: ["What you want to do", "Best tool", "Why"],
+          rows: [
+            ["Rewrite or reuse the text", "PDF to Word", "Gives you clean, editable paragraphs"],
+            ["Add a note, date or label", "PDF Editor", "Adds text on the page without touching the layout"],
+            ["Remove, reorder or rotate pages", "PDF Editor or Split PDF", "Works on whole pages; layout untouched"],
+            ["Use one page as a picture", "PDF to JPG", "Keeps the page looking exactly the same"],
+            ["Read the text of a scan", "Image to Text or PDF to Word", "Runs OCR on the scanned page"],
+          ],
+        },
+      },
+      {
         heading: "When you need the formatting, not just the text",
         paragraphs: [
           "Ask first whether you really need to edit the document. If the goal is to fill in a few blanks, add a note or remove a page, editing the PDF directly keeps the layout untouched: the PDF Editor can add text to a page, reorder, rotate and delete pages.",
           "If you need an image of a page exactly as it looks — for a slide or a report — PDF to JPG renders each page as a picture. And if you created the original in Word, the most reliable route is to go back to that .docx rather than converting the PDF.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“This PDF couldn't be parsed”: the file may be damaged or password-protected. Open and re-save it, or remove the password with Unlock PDF.",
+          "The Word file is empty or garbled: the PDF is probably a scan with poor image quality. Try a clearer scan, or extract a single page with Image to Text.",
+          "“OCR fallback is limited to 15 pages”: split a long scanned PDF into parts with Split PDF and convert each part.",
+          "The text runs together across columns: the converter reads in reading order, but complex layouts can interleave. Fix it in Word, or copy the columns one at a time.",
         ],
       },
       {
@@ -360,14 +386,37 @@ export const GUIDES: GuideDefinition[] = [
           "Once you've made your edits, use Word to PDF to turn the document back into a PDF that looks the same for everyone you send it to. That way the version you share can't be accidentally changed.",
         ],
       },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "PDF to Word is the fastest way to get the words out of a PDF and into something you can edit. Expect clean text rather than a copy of the layout, use the PDF Editor when you only need small changes to the page itself, and convert back to PDF when you're done.",
+        ],
+      },
     ],
-    relatedTools: ["pdf-to-word", "word-to-pdf", "image-to-text", "pdf-editor"],
+    faq: [
+      {
+        question: "Is converting PDF to Word free?",
+        answer: "Yes. There's no account, no watermark and no limit on how many PDFs you convert, one file at a time, up to 50MB each.",
+      },
+      {
+        question: "Will my tables and images come across?",
+        answer: "No — only the text is converted. Table cells come through as separate lines and images are left out, so tables and pictures need to be recreated in Word.",
+      },
+      {
+        question: "Can I convert a scanned PDF?",
+        answer: "Yes, up to 15 pages. When a PDF has no selectable text, each page is read with English OCR; accuracy depends on scan quality.",
+      },
+      {
+        question: "What happens to my file?",
+        answer: "PDF to Word runs on our server. Your upload is deleted as soon as it's processed, and the Word file is deleted automatically within one hour.",
+      },
+    ],
+    relatedTools: ["pdf-to-word", "word-to-pdf", "pdf-editor", "image-to-text"],
   },
   {
     path: "/guides/how-to-extract-text-from-images-ocr",
     category: "ocr",
     keywords: { primary: "OCR extraction", secondary: ["image to text", "OCR online free", "extract text from image", "convert image to text"] },
-    featured: true,
     title: "How to Extract Text from Images Using OCR",
     seoTitle: `How to Extract Text from Images Using OCR (Free) | ${SITE_NAME}`,
     metaDescription: "How OCR turns photos, screenshots and scans into editable text, step-by-step extraction for free, capture tips that improve accuracy, and how to fix common OCR problems.",
@@ -534,10 +583,10 @@ export const GUIDES: GuideDefinition[] = [
     path: "/guides/how-to-merge-and-organize-pdfs",
     category: "pdf",
     keywords: { primary: "merge PDF online", secondary: ["combine PDF files", "merge multiple PDFs into one", "reorder PDF pages"] },
-    title: "How to Merge, Split and Organise PDF Pages",
-    seoTitle: `How to Merge, Split and Reorder PDF Pages | ${SITE_NAME}`,
-    metaDescription: "Combine several PDFs into one, pull out just the pages you need, and reorder or rotate pages before sending a document.",
-    summary: "Job applications, visa forms, expense claims and insurance requests often ask for a single PDF that contains several documents in a set order. Here is how to put one together cleanly.",
+    title: "How to Merge Multiple PDF Files into One Document",
+    seoTitle: `How to Merge PDF Files into One (and Organise the Pages) | ${SITE_NAME}`,
+    metaDescription: "Combine several PDFs into one document in the right order, take out pages you don't need, reorder or rotate pages, and finish the file for sending — free and step by step.",
+    summary: "Job applications, visa forms, expense claims and insurance requests often ask for a single PDF that contains several documents in a set order. Here's how to merge them cleanly, organise the pages, and keep the final file small enough to send.",
     published: GUIDES_PUBLISHED,
     updated: "2026-11-11",
     sections: [
@@ -554,6 +603,21 @@ export const GUIDES: GuideDefinition[] = [
           "Use the up and down arrows next to each file to put them in the right order.",
           "Download the combined PDF and flip through it to confirm nothing is missing or upside-down.",
         ],
+      },
+      {
+        heading: "Which tool for which job",
+        paragraphs: [
+          "Merging is only one part of putting a document together. Three tools cover almost everything, and they work well in sequence: trim with Split PDF, combine with Merge PDF, then tidy individual pages with the PDF Editor.",
+        ],
+        table: {
+          caption: "Merge, split and edit at a glance",
+          headers: ["Tool", "What it does", "Limits"],
+          rows: [
+            ["Merge PDF", "Combines whole PDFs into one, in the order you set", "Up to 20 files, 50MB each"],
+            ["Split PDF", "Extracts pages or ranges, or splits every N pages", "One PDF up to 50MB; runs in your browser"],
+            ["PDF Editor", "Reorders, rotates and deletes individual pages; adds text", "One PDF up to 50MB; runs in your browser"],
+          ],
+        },
       },
       {
         heading: "Taking pages out",
@@ -576,6 +640,39 @@ export const GUIDES: GuideDefinition[] = [
           "Add a password with Protect PDF if the document contains personal information.",
           "Give the file a clear name, such as \"Surname_Firstname_Application.pdf\", so the recipient can find it easily.",
         ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“Accepts up to 20 files”: merge the first 20, then merge that result with the rest.",
+          "A file won't merge: it's probably password-protected or damaged. Unlock it with Unlock PDF, or open and re-save it.",
+          "Bookmarks or form fields are missing: merging copies the pages, but bookmarks and fillable form fields may not carry over. Fill in forms before merging.",
+          "The merged file is too large: compress it with Compress PDF, or remove unneeded pages with Split PDF first.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "A clean combined PDF comes from a little planning: decide the order, trim what the recipient doesn't need, merge, then finish with page numbers, compression and, if needed, a password. Each step takes seconds, and the result is a single document that's easy to send and easy to read.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How many PDFs can I merge at once?",
+        answer: "Up to 20 files per merge, each up to 50MB. To combine more, merge in batches and then merge the batch results together.",
+      },
+      {
+        question: "Does merging reduce quality?",
+        answer: "No. Pages are copied into the new PDF as they are; text, images and layout are unchanged.",
+      },
+      {
+        question: "Can I merge PDFs with other file types?",
+        answer: "Merge PDF combines PDFs. Convert other files first — JPG to PDF for photos, Word to PDF, Excel to PDF or PowerPoint to PDF for Office files — then merge.",
+      },
+      {
+        question: "What happens to my files?",
+        answer: "Merge PDF runs on our server. Your uploads are deleted as soon as they're processed, and the merged PDF is deleted automatically within one hour.",
       },
     ],
     relatedTools: ["merge-pdf", "split-pdf", "pdf-editor", "pdf-page-numbers"],
@@ -1058,6 +1155,220 @@ export const GUIDES: GuideDefinition[] = [
       },
     ],
     relatedTools: ["webp-converter", "png-to-jpg", "image-resizer", "compress-image"],
+  },
+  {
+    path: "/guides/how-to-create-a-free-qr-code-that-never-expires",
+    category: "web",
+    keywords: { primary: "free QR code generator no expiration", secondary: ["static QR code generator", "QR code generator PNG", "create QR code online", "static vs dynamic QR code"] },
+    featured: true,
+    title: "How to Create a Free QR Code That Never Expires",
+    seoTitle: `Free QR Code That Never Expires: Static vs Dynamic Codes | ${SITE_NAME}`,
+    metaDescription: "Why some “free” QR codes stop working, the difference between static and dynamic QR codes, and how to create a free static QR code (PNG or SVG) that keeps working.",
+    summary: "Plenty of people have printed a “free” QR code on menus or flyers, only to find months later that it leads to an expired-trial page. Here's why that happens, how static and dynamic codes differ, and how to make a free QR code that keeps working for as long as your link does.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why some free QR codes stop working",
+        paragraphs: [
+          "Many QR code services generate dynamic codes by default. Instead of your link, the code contains a short web address belonging to the service, which then redirects visitors to your real link. That redirect is what lets the service count scans and let you change the destination later — but it also means your code only works while the service keeps that redirect running.",
+          "When a free trial ends, a plan lapses or the service shuts down, the redirect can stop or be replaced with a sign-up page. The code printed on your packaging still scans perfectly; it just no longer goes where you meant it to. Nothing about the QR code itself “expired” — the middleman did.",
+        ],
+      },
+      {
+        heading: "Static vs dynamic QR codes",
+        paragraphs: [
+          "A static QR code stores your link or text directly in its pattern. There's no service in between, nothing to renew and nothing that can be switched off, so it works for as long as the destination exists. The trade-offs are that you can't change where it points after printing, and there's no built-in scan counting.",
+        ],
+        table: {
+          caption: "Static and dynamic QR codes compared",
+          headers: ["", "Static QR code", "Dynamic QR code"],
+          rows: [
+            ["What the code contains", "Your link or text itself", "A short link owned by the QR service"],
+            ["Can it expire?", "No — it works as long as your link works", "Yes, if the service's redirect stops"],
+            ["Change the destination after printing", "No", "Yes, in the service's dashboard"],
+            ["Scan statistics", "Not built in (use your own website analytics)", "Usually included"],
+            ["Account or subscription", "Not needed", "Usually required"],
+          ],
+        },
+      },
+      {
+        heading: "How to create a free static QR code",
+        list: [
+          "Open the QR Code Generator and paste the link or text you want to encode.",
+          "Keep Medium error correction unless the code may get damaged or partly covered, in which case choose High.",
+          "Optionally pick colours — keep a dark code on a light background, and the tool will warn you if contrast is too low.",
+          "Scan the live preview with your phone to check it opens the right page.",
+          "Download a PNG (256, 512 or 1024 pixels) for screens and documents, or an SVG for print, which stays sharp at any size.",
+        ],
+        image: {
+          src: "/images/guides/qr-code-generator.webp",
+          alt: "Toolkit4Me QR Code Generator with a link entered, error correction and size options, a live QR code preview, and Download PNG and Download SVG buttons",
+          width: 712,
+          height: 781,
+          caption: "The QR Code Generator encodes your link directly, with a live preview and PNG or SVG downloads.",
+        },
+      },
+      {
+        heading: "How to check whether a QR code is static",
+        paragraphs: [
+          "Scan the code with your phone's camera and look at the address it offers to open, before tapping it. If it's your own link, the code is static. If it's a short address on a different domain that you don't recognise, the code is dynamic and depends on that service. Toolkit4Me's generator always encodes exactly what you type — there's no redirect, account or expiry date involved.",
+        ],
+      },
+      {
+        heading: "Making a static code future-proof",
+        paragraphs: [
+          "Because a static code can't be edited after printing, the smart move is to encode an address you control and keep stable — for example www.yourbusiness.com/menu rather than a long link to a document on a file-sharing site. If the menu changes, you update that page and the printed code keeps working.",
+          "If you do need scan numbers, add tracking parameters to your link before encoding it (for example ?utm_source=table-card) and read the visits in your own website analytics. You keep the statistics without depending on a third party.",
+        ],
+      },
+      {
+        heading: "When a dynamic QR code is worth it",
+        paragraphs: [
+          "Dynamic codes do have genuine uses: large print runs where the destination is likely to change, campaigns that need detailed scan reports, or businesses that want one dashboard for hundreds of codes. If you choose one, check the plan's terms for what happens to existing codes if you stop paying, and keep in mind that your printed materials will depend on that provider.",
+        ],
+      },
+      {
+        heading: "Common mistakes",
+        list: [
+          "Encoding a temporary link — a shared-document link that later changes permissions, or a link-shortener you don't control.",
+          "Printing without testing: always scan a printed proof at its real size before a full run.",
+          "Using a small PNG for a large print: download the SVG so the code stays crisp.",
+          "Low-contrast colours or a light code on a dark background, which many scanners can't read.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "A QR code doesn't need a subscription to keep working. A static code, which stores your link directly, never expires on its own; it keeps working as long as the page it points to exists. Encode a stable address you control, test it at its printed size, and download an SVG for print — and you won't have to reprint because a free trial ran out.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Do QR codes from Toolkit4Me expire?",
+        answer: "No. They're static codes: your link or text is stored in the code itself, with no redirect, account or time limit. The code works for as long as the destination link works.",
+      },
+      {
+        question: "Can I change the link after printing a static QR code?",
+        answer: "No — the link is part of the pattern. That's why it's best to encode a stable page on your own website, whose content you can update without changing the code.",
+      },
+      {
+        question: "Can I see how many people scanned my code?",
+        answer: "Static codes don't count scans themselves. Add tracking parameters to the link before encoding it and you'll see the visits in your website analytics.",
+      },
+      {
+        question: "Should I download PNG or SVG?",
+        answer: "PNG for websites, documents and slides; SVG for anything printed, because it scales to any size without blurring.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "meta-tag-generator", "image-resizer", "compress-image"],
+  },
+  {
+    path: "/guides/how-to-convert-jpg-to-pdf",
+    category: "pdf",
+    keywords: { primary: "JPG to PDF online", secondary: ["convert JPG to PDF without losing quality", "combine images into one PDF", "photo to PDF"] },
+    title: "How to Convert JPG to PDF Online Without Losing Quality",
+    seoTitle: `How to Convert JPG to PDF Without Losing Quality | ${SITE_NAME}`,
+    metaDescription: "Combine photos and scans into one PDF without losing quality: choose the right page size, order the pages, keep the file small, and avoid the common mistakes.",
+    summary: "Receipts for an expense claim, photos of a signed form, pages of ID for an application — they're usually JPGs, and the recipient usually wants one PDF. Here's how to combine them into a single, tidy PDF without degrading the images.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why turn JPGs into a PDF",
+        paragraphs: [
+          "Sending five separate photos is clumsy: they arrive in a random order, some apps compress them, and the recipient has to save each one. A single PDF keeps the pages together and in order, opens the same way on any device, and is the format most forms and offices ask for.",
+        ],
+      },
+      {
+        heading: "Does converting JPG to PDF lose quality?",
+        paragraphs: [
+          "It doesn't have to. A PDF can hold a JPG image exactly as it is, and that's what Toolkit4Me's JPG to PDF tool does: each JPG is placed into the PDF unchanged rather than being re-compressed. We checked this by converting a photo and finding the original JPG data inside the resulting PDF byte for byte. The image you see in the PDF is the same image you started with.",
+          "What can make a PDF look worse is the source photo itself — a blurry, dark or skewed picture stays blurry, dark or skewed. The tool doesn't crop, straighten or enhance images, so take good photos first.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open JPG to PDF and add your JPG images — as many as you need, up to 25MB each.",
+          "Use the up and down arrows next to each image to put the pages in the right order.",
+          "Choose a page size: A4, Letter, or Fit to image.",
+          "Select Convert to PDF and download the file. Everything happens in your browser, so your images are never uploaded.",
+        ],
+        image: {
+          src: "/images/guides/jpg-to-pdf-page-size.webp",
+          alt: "Toolkit4Me JPG to PDF tool with two photos added, up and down arrows to reorder them, the Page size option set to A4, and the Convert to PDF button",
+          width: 712,
+          height: 513,
+          caption: "Add your images, order them with the arrows, choose a page size and convert.",
+        },
+      },
+      {
+        heading: "Choosing a page size",
+        paragraphs: [
+          "A4 and Letter put each image on a standard sheet, centred and scaled to fit without cropping — the best choice if the PDF may be printed or attached to a form. Fit to image makes each page exactly the size of its photo, with no white border, which suits photo collections and documents read on screen.",
+        ],
+        table: {
+          caption: "Page size options",
+          headers: ["Option", "What you get", "Best for"],
+          rows: [
+            ["A4", "Standard A4 pages; image centred and scaled to fit", "Printing and forms outside North America"],
+            ["Letter", "US Letter pages; image centred and scaled to fit", "Printing and forms in the US and Canada"],
+            ["Fit to image", "Each page matches its photo's shape; no borders", "Photo collections and on-screen reading"],
+          ],
+        },
+      },
+      {
+        heading: "Keeping the PDF small",
+        paragraphs: [
+          "Because the images go in unchanged, the PDF is roughly the size of all your JPGs added together. Ten phone photos at 3–4MB each make a 30–40MB PDF — too big for many forms. If you need a smaller file, shrink the photos first with Compress Image or Image Resizer (1,600 pixels wide is plenty for a document photo), then convert. Alternatively, convert first and run the PDF through Compress PDF.",
+        ],
+      },
+      {
+        heading: "Tips for photographing documents",
+        list: [
+          "Lay the page flat on a dark, plain surface so the edges stand out.",
+          "Shoot straight down, in good daylight, without your shadow over the page.",
+          "Fill the frame with the page and crop away the background before converting.",
+          "Photograph each page separately — one image becomes one PDF page.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "Landscape photos look small on A4: A4 pages are portrait, so a wide photo is scaled down to fit. Use Fit to image, or rotate the photo before converting.",
+          "My PNG or screenshot isn't accepted: the tool takes JPG/JPEG files. Convert PNGs first with PNG to JPG.",
+          "The pages are in the wrong order: reorder them with the arrows before converting — the PDF follows the list from top to bottom.",
+          "The PDF is too big to upload: compress or resize the photos first, as described above.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Turning JPGs into a PDF is quick, and done right it costs nothing in quality: the images go into the PDF untouched. Order the pages, pick A4 or Letter for anything that might be printed, and shrink large phone photos first if the file needs to fit an upload limit.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How many images can I combine into one PDF?",
+        answer: "There's no fixed limit on the number of images; each one can be up to 25MB. Very large batches take longer and produce large PDFs, so resize big photos first.",
+      },
+      {
+        question: "Are my photos uploaded to a server?",
+        answer: "No. The PDF is built in your browser, so the images never leave your device — a good fit for ID documents and personal paperwork.",
+      },
+      {
+        question: "Can I add PNG images?",
+        answer: "JPG to PDF accepts JPG and JPEG files. Convert PNGs with PNG to JPG first; any transparent areas will become white.",
+      },
+      {
+        question: "Can I add a page to an existing PDF?",
+        answer: "Convert the new images to a PDF, then combine it with your existing PDF using Merge PDF.",
+      },
+    ],
+    relatedTools: ["jpg-to-pdf", "compress-image", "merge-pdf", "png-to-jpg"],
   },
 ];
 
