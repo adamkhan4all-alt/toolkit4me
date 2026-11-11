@@ -92,6 +92,21 @@ export interface ToolDefinition {
   intro: string[];
   /** Plain-language statement of accepted input formats, size limit, and output format — rendered as its own page section. */
   formatsNote: string;
+  /**
+   * Optional extra H2 sections rendered after "About this tool", for tools
+   * whose searchers need more explanation than the standard blocks give
+   * (e.g. static vs dynamic QR codes). Same shape as a guide section.
+   */
+  extraSections?: ToolContentSection[];
+  /** Optional replacements for the generic section headings, so a heading can describe the task in searchers' own words. */
+  sectionHeadings?: Partial<Record<"intro" | "useCases" | "howItWorks" | "features", string>>;
+}
+
+export interface ToolContentSection {
+  heading: string;
+  paragraphs?: string[];
+  list?: string[];
+  table?: { caption: string; headers: string[]; rows: string[][] };
 }
 
 export const CATEGORY_LABELS: Record<ToolCategory, string> = {

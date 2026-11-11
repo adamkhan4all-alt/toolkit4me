@@ -1219,11 +1219,11 @@ export const GUIDES: GuideDefinition[] = [
   {
     path: "/guides/how-to-create-a-free-qr-code-that-never-expires",
     category: "web",
-    keywords: { primary: "free QR code generator no expiration", secondary: ["static QR code generator", "QR code generator PNG", "create QR code online", "static vs dynamic QR code"] },
+    keywords: { primary: "free QR code generator no expiration", secondary: ["QR code without expiration", "permanent QR code generator", "QR code without subscription", "static QR code generator"] },
     featured: true,
     title: "How to Create a Free QR Code That Never Expires",
-    seoTitle: `Free QR Code That Never Expires: Static vs Dynamic Codes | ${SITE_NAME}`,
-    metaDescription: "Why some “free” QR codes stop working, the difference between static and dynamic QR codes, and how to create a free static QR code (PNG or SVG) that keeps working.",
+    seoTitle: `Free QR Code Generator With No Expiration — No Subscription | ${SITE_NAME}`,
+    metaDescription: "Why some “free” QR codes stop working after a trial ends, what makes a QR code permanent, and how to create a free one that keeps working without a subscription.",
     summary: "Plenty of people have printed a “free” QR code on menus or flyers, only to find months later that it leads to an expired-trial page. Here's why that happens, how static and dynamic codes differ, and how to make a free QR code that keeps working for as long as your link does.",
     published: "2026-11-11",
     updated: "2026-11-11",
@@ -1236,21 +1236,10 @@ export const GUIDES: GuideDefinition[] = [
         ],
       },
       {
-        heading: "Static vs dynamic QR codes",
+        heading: "What makes a QR code permanent",
         paragraphs: [
-          "A static QR code stores your link or text directly in its pattern. There's no service in between, nothing to renew and nothing that can be switched off, so it works for as long as the destination exists. The trade-offs are that you can't change where it points after printing, and there's no built-in scan counting.",
+          "A static QR code stores your link or text directly in its pattern. There's no service in between, nothing to renew and nothing that can be switched off, so it works for as long as the destination exists. The trade-offs are that you can't change where it points after printing, and there's no built-in scan counting — the static vs dynamic guide compares the two types in detail.",
         ],
-        table: {
-          caption: "Static and dynamic QR codes compared",
-          headers: ["", "Static QR code", "Dynamic QR code"],
-          rows: [
-            ["What the code contains", "Your link or text itself", "A short link owned by the QR service"],
-            ["Can it expire?", "No — it works as long as your link works", "Yes, if the service's redirect stops"],
-            ["Change the destination after printing", "No", "Yes, in the service's dashboard"],
-            ["Scan statistics", "Not built in (use your own website analytics)", "Usually included"],
-            ["Account or subscription", "Not needed", "Usually required"],
-          ],
-        },
       },
       {
         heading: "How to create a free static QR code",
@@ -1264,7 +1253,7 @@ export const GUIDES: GuideDefinition[] = [
         image: {
           src: "/images/guides/qr-code-generator.webp",
           alt: "Toolkit4Me QR Code Generator with a link entered, error correction and size options, a live QR code preview, and Download PNG and Download SVG buttons",
-          width: 712,
+          width: 720,
           height: 781,
           caption: "The QR Code Generator encodes your link directly, with a live preview and PNG or SVG downloads.",
         },
@@ -1280,12 +1269,6 @@ export const GUIDES: GuideDefinition[] = [
         paragraphs: [
           "Because a static code can't be edited after printing, the smart move is to encode an address you control and keep stable — for example www.yourbusiness.com/menu rather than a long link to a document on a file-sharing site. If the menu changes, you update that page and the printed code keeps working.",
           "If you do need scan numbers, add tracking parameters to your link before encoding it (for example ?utm_source=table-card) and read the visits in your own website analytics. You keep the statistics without depending on a third party.",
-        ],
-      },
-      {
-        heading: "When a dynamic QR code is worth it",
-        paragraphs: [
-          "Dynamic codes do have genuine uses: large print runs where the destination is likely to change, campaigns that need detailed scan reports, or businesses that want one dashboard for hundreds of codes. If you choose one, check the plan's terms for what happens to existing codes if you stop paying, and keep in mind that your printed materials will depend on that provider.",
         ],
       },
       {
@@ -3241,6 +3224,399 @@ export const GUIDES: GuideDefinition[] = [
       },
     ],
     relatedTools: ["word-counter", "text-compare", "image-to-text", "meta-tag-generator"],
+  },
+  {
+    path: "/guides/how-to-create-a-qr-code-from-a-link",
+    category: "web",
+    keywords: { primary: "create QR code from link", secondary: ["link to QR code", "QR code from URL", "convert link to QR code", "URL to QR code generator"] },
+    title: "How to Create a Free QR Code from a Website Link",
+    seoTitle: `How to Create a QR Code from a Link (Free, Step by Step) | ${SITE_NAME}`,
+    metaDescription: "Turn any link into a QR code: where to copy the right link for websites, videos, maps, forms and shared files, how to generate the code, and how to test it before sharing.",
+    summary: "Turning a link into a QR code takes seconds. Most problems come from the link itself: one copied incompletely, one that needs a login, or a shared file nobody else can open. This guide covers getting the right link, then generating and testing the code.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What happens when you turn a link into a QR code",
+        paragraphs: [
+          "A QR code generator writes the characters of your link into the pattern of black and white squares. When someone scans it, their phone reads those characters back and offers to open the link. Nothing is uploaded or hosted anywhere — so the code is only as good as the link you put in. Getting that link right is the most important step.",
+        ],
+      },
+      {
+        heading: "Step 1: Copy the right link",
+        paragraphs: [
+          "The best link is the one a stranger could open on their phone without logging in. Here's where to find it for common destinations.",
+        ],
+        table: {
+          caption: "Where to copy the link from",
+          headers: ["Destination", "Where to copy it", "Check"],
+          rows: [
+            ["A web page", "Your browser's address bar, after opening the exact page", "It starts with https:// and isn't a search-results page"],
+            ["A video (e.g. YouTube)", "The video's Share button → Copy", "It opens the video, not your channel or a playlist"],
+            ["A place on a map", "Google Maps or Apple Maps → Share → Copy link", "It opens the right location, not just the area"],
+            ["An online form", "The form's Send or Share option → link", "Responses are switched on and no sign-in is required"],
+            ["A shared file (Drive, OneDrive, Dropbox)", "Share → set access to anyone with the link → Copy link", "It opens in a private browser window"],
+            ["A social media profile", "Your profile → Share profile or copy the address", "It's the profile, not a single post, unless you meant a post"],
+          ],
+        },
+      },
+      {
+        heading: "Step 2: Generate the QR code",
+        list: [
+          "Open the QR Code Generator and paste the link into the box, replacing the example.",
+          "If you pasted a web address without https:// in front, the tool offers to add it — accept, so every scanner treats it as a link.",
+          "Leave error correction on Medium unless the code will be printed somewhere it may get scratched; then choose High.",
+          "Optionally change the colours — keep the code dark on a light background.",
+          "Select Download PNG (for screens and documents) or Download SVG (for print).",
+        ],
+        image: {
+          src: "/images/guides/qr-code-generator.webp",
+          alt: "Toolkit4Me QR Code Generator with a link entered, error correction and size options, a live QR code preview, and Download PNG and Download SVG buttons",
+          width: 720,
+          height: 781,
+          caption: "Paste the link and the preview updates immediately; download it as PNG or SVG.",
+        },
+      },
+      {
+        heading: "Step 3: Test before you share",
+        list: [
+          "Scan the on-screen preview with your phone's camera and open the link.",
+          "Test from a phone that isn't signed in to your accounts — or open the link in a private browser window — to catch pages that need a login or permission.",
+          "If the code will be printed, print one copy at its real size and scan that, not just the screen.",
+          "Try both an iPhone and an Android phone if you can.",
+        ],
+      },
+      {
+        heading: "Keep the link short and stable",
+        paragraphs: [
+          "Every character makes the code denser. A link with long tracking or session parameters produces small, crowded squares that need a closer, steadier scan. If a link has parameters you don't need, try removing them and check that the shorter link still opens the right page.",
+          "Avoid link shorteners for printed codes unless you control them: a shortener is a redirect, and if the service closes or the short link expires, your printed code stops working. Linking to a stable page on your own website is the safest choice for anything you'll print.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        table: {
+          caption: "Common problems after scanning",
+          headers: ["What happens", "Likely cause", "Fix"],
+          rows: [
+            ["The phone shows text instead of a link", "The link was entered without https://", "Add https:// to the start and download again"],
+            ["It opens a sign-in or “request access” page", "The file or form is private", "Change sharing to anyone with the link, then test in a private window"],
+            ["“Page not found”", "Part of the link was missed when copying", "Copy the link again from the page itself"],
+            ["The code is hard to scan", "A very long link, low contrast or small print size", "Shorten the link, use dark-on-light colours, print it larger"],
+          ],
+        },
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Copy a complete, public link, paste it into the generator, download the PNG or SVG and test it from a phone that isn't signed in. Because the link is written into the code, choosing a stable address is what keeps it working long after you've shared it.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I create a QR code for any link?",
+        answer: "Yes — any web address can be encoded, as long as it fits (up to 2,331 bytes at Medium error correction, far longer than a normal link). Whether it opens for the person scanning depends on the page being public.",
+      },
+      {
+        question: "Can I change the link after creating the QR code?",
+        answer: "No. The link is part of the pattern, so a different link needs a new code. To keep flexibility, encode a page you control and update that page instead.",
+      },
+      {
+        question: "Does creating a QR code from a link cost anything?",
+        answer: "Not with Toolkit4Me's generator: it's free, needs no account, and the code doesn't expire.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "meta-tag-generator", "image-resizer", "png-to-jpg"],
+  },
+  {
+    path: "/guides/how-to-download-a-qr-code-as-png",
+    category: "web",
+    keywords: { primary: "QR code generator PNG", secondary: ["download QR code PNG", "QR code image generator", "create QR code image", "QR code size in pixels"] },
+    title: "How to Download a QR Code as a PNG Image",
+    seoTitle: `QR Code Generator PNG: Download the Right Size Image | ${SITE_NAME}`,
+    metaDescription: "Download a QR code as a PNG at the right pixel size for slides, documents, websites or print, when to use SVG instead, and how to avoid blurry or unscannable images.",
+    summary: "A QR code image needs to be sharp: blurred edges are what make codes fail to scan. Choosing the right file format and pixel size up front avoids most problems. Here's how to download a QR code PNG that works wherever you put it.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why PNG suits QR codes",
+        paragraphs: [
+          "PNG is a lossless format: every pixel is saved exactly, so the edges between black and white squares stay crisp. JPG, by contrast, is designed for photos and softens sharp edges, adding faint blotches around them. That's why QR generators offer PNG — and why converting a QR code to JPG is best avoided unless a service requires it.",
+        ],
+        table: {
+          caption: "QR code file formats compared",
+          headers: ["Format", "Edges", "Best for"],
+          rows: [
+            ["PNG", "Sharp at its own size; blurs if enlarged", "Websites, slides, documents, messages"],
+            ["SVG", "Sharp at any size", "Print, and design apps that accept vector files"],
+            ["JPG", "Slightly soft around edges", "Only when a form or service accepts nothing else"],
+          ],
+        },
+      },
+      {
+        heading: "How to download a QR code PNG",
+        list: [
+          "Open the QR Code Generator and paste your link or text.",
+          "Choose the PNG size: 256, 512 or 1024 pixels square.",
+          "Check the preview with your phone's camera.",
+          "Select Download PNG. The file is saved with its size in the name, such as qr-code-512px.png.",
+        ],
+      },
+      {
+        heading: "Choosing the pixel size",
+        paragraphs: [
+          "On screens, pick a size at least as large as the code will be displayed — a PNG shrunk down stays sharp, but one stretched larger goes blurry. For print, the size depends on the printer's resolution. At 300 DPI (a common standard for print) each centimetre needs about 118 pixels.",
+        ],
+        table: {
+          caption: "Largest sharp print size for each PNG (at 300 DPI)",
+          headers: ["PNG size", "Prints sharply up to", "Typical use"],
+          rows: [
+            ["256 × 256 px", "About 2.2 cm (0.85 in)", "Emails, web pages, chat messages"],
+            ["512 × 512 px", "About 4.3 cm (1.7 in)", "Slides, documents, small labels"],
+            ["1024 × 1024 px", "About 8.7 cm (3.4 in)", "Flyers, table cards, large screens"],
+            ["SVG", "Any size", "Posters, banners, packaging"],
+          ],
+        },
+      },
+      {
+        heading: "Using the PNG in documents and designs",
+        list: [
+          "Word and Google Docs: Insert → Picture (Word) or Insert → Image (Docs), then resize by dragging a corner so it stays square.",
+          "PowerPoint and Google Slides: insert it as a picture; for a projector, 512 or 1024 pixels is plenty.",
+          "Design apps such as Canva: upload the PNG, or the SVG if you'll scale it up.",
+          "Websites: use the 256 or 512 pixel version and add alt text describing where the code leads, for people who can't scan it.",
+        ],
+      },
+      {
+        heading: "Mistakes that make QR images fail",
+        list: [
+          "Cropping off the white border — that margin (the quiet zone) is part of the code, and scanners need it.",
+          "Stretching the image unevenly, so the squares become rectangles.",
+          "Enlarging a small PNG for print instead of downloading a larger one or the SVG.",
+          "Saving it as a heavily compressed JPG, which smudges the edges.",
+          "Placing it on a busy photo without its own light background.",
+        ],
+      },
+      {
+        heading: "Background and transparency",
+        paragraphs: [
+          "The PNG has a solid background in the colour you choose — white by default — rather than a transparent one. That's deliberate for scanning: a solid light background guarantees contrast, wherever the image is placed. If your design is dark, keep the code on its light square rather than trying to remove the background.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Download a PNG at least as large as it will appear — 512 pixels for most screen uses, 1024 for small print — and switch to SVG for anything bigger. Keep the white border, don't stretch it, and scan the final result before sharing.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why does my QR code look blurry in Word?",
+        answer: "Word compresses pictures by default. Download a larger PNG, or in Word's options (Advanced → Image Size and Quality) tick “Do not compress images in file”.",
+      },
+      {
+        question: "Can I get a QR code as a JPG?",
+        answer: "The generator downloads PNG and SVG. If a service requires JPG, convert the PNG with PNG to JPG — it uses high quality, so the edges stay clean.",
+      },
+      {
+        question: "Is the QR code PNG free to use commercially?",
+        answer: "Yes. The image contains only your link or text, with no watermark, and you can use it anywhere.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "png-to-jpg", "image-resizer", "compress-image"],
+  },
+  {
+    path: "/guides/static-vs-dynamic-qr-codes",
+    category: "web",
+    keywords: { primary: "static vs dynamic QR code", secondary: ["static QR code", "dynamic QR code", "QR code expiration", "editable QR code"] },
+    title: "Static vs Dynamic QR Codes: What's the Difference?",
+    seoTitle: `Static vs Dynamic QR Codes: Differences, Pros & Cons | ${SITE_NAME}`,
+    metaDescription: "How static and dynamic QR codes work, how they differ on cost, editing, scan tracking, privacy and reliability, and how to decide which one your project needs.",
+    summary: "QR code services often push “dynamic” codes, while free generators make “static” ones. The difference isn't visible in the pattern, but it decides whether you can edit the code, whether scans are counted — and whether it keeps working if you stop paying.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "How a static QR code works",
+        paragraphs: [
+          "A static QR code contains your actual content — for example https://www.yourcafe.com/menu. When someone scans it, their phone reads that address and opens it directly. No other service is involved at any point, so there's no account, no fee and nothing that can be switched off. The flip side: the content is fixed once printed.",
+        ],
+      },
+      {
+        heading: "How a dynamic QR code works",
+        paragraphs: [
+          "A dynamic QR code contains a short address belonging to the QR service, such as a code on the provider's own short domain. When it's scanned, the phone visits the provider first, which records the scan and forwards the visitor to your real page. Because the code only points at the provider, you can change the final destination in their dashboard without reprinting — as long as the provider keeps forwarding.",
+        ],
+      },
+      {
+        heading: "Side-by-side comparison",
+        table: {
+          caption: "Static and dynamic QR codes compared",
+          headers: ["", "Static QR code", "Dynamic QR code"],
+          rows: [
+            ["What the code contains", "Your link or text itself", "A short link owned by the QR service"],
+            ["Change the destination after printing", "No", "Yes, in the service's dashboard"],
+            ["Can it stop working?", "Only if your own page goes away", "Also if the service's redirect stops (plan lapses, service closes)"],
+            ["Scan statistics", "Not built in; use your own website analytics", "Usually included"],
+            ["Cost and account", "Free; no account needed", "Usually a subscription after any trial"],
+            ["Who sees scan data", "Only your own analytics", "The QR provider as well"],
+            ["Pattern density", "Grows with the length of your link", "Stays small, because the short link is short"],
+            ["Works offline (e.g. Wi-Fi details, plain text)", "Yes", "No — the redirect needs an internet connection"],
+          ],
+        },
+      },
+      {
+        heading: "When static is the better choice",
+        list: [
+          "Anything printed to last: packaging, signs, business cards, books.",
+          "Links to pages you control, which you can update without changing the code.",
+          "Wi-Fi details, contact text and other content that isn't a web page.",
+          "When you don't want a third party recording when and where your code is scanned.",
+          "When there's no budget for an ongoing subscription.",
+        ],
+      },
+      {
+        heading: "When dynamic is worth paying for",
+        list: [
+          "Large print runs where the destination is likely to change and you don't control a website to redirect from.",
+          "Campaigns that need detailed scan reports per code — for example comparing hundreds of posters.",
+          "Teams that want one dashboard to manage many codes.",
+          "Before printing, check the plan's terms: what happens to existing codes if you cancel, whether you can export them, and whether codes can use your own domain.",
+        ],
+      },
+      {
+        heading: "Getting dynamic-style flexibility with a static code",
+        paragraphs: [
+          "If you have a website, you can have most of the benefits of both. Create a short, permanent address on your own site — such as yoursite.com/menu or yoursite.com/scan — and encode that in a static code. To change where it leads, edit that page or set a redirect in your website's settings. To count scans, add tracking parameters (for example ?utm_source=qr) and read the visits in your own analytics. You control the redirect, so it can't be switched off by someone else.",
+        ],
+      },
+      {
+        heading: "How to tell which type a code is",
+        paragraphs: [
+          "Scan it with your phone's camera and read the address it offers before tapping. If it's the final destination itself, the code is static. If it's a short address on a domain you don't recognise that then forwards you elsewhere, it's dynamic.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Static codes are free and permanent but fixed; dynamic codes are editable and measurable but depend on a provider. For most small businesses and personal uses, a static code pointing at a page you control gives you the flexibility without the dependency.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I convert a dynamic QR code to a static one?",
+        answer: "Not the printed code itself. Find the final destination it forwards to, create a new static code for that address (or a page you control), and replace the printed codes over time.",
+      },
+      {
+        question: "Are dynamic QR codes faster to scan?",
+        answer: "Their pattern can be less dense because the short link is short, which can help on very small prints. A static code with a short link scans just as easily.",
+      },
+      {
+        question: "Which type does Toolkit4Me make?",
+        answer: "Static codes only: what you type is what's encoded, with no redirect, account or expiry.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "meta-tag-generator", "base64-encoder-decoder", "image-resizer"],
+  },
+  {
+    path: "/guides/how-to-create-a-qr-code-for-your-website",
+    category: "web",
+    keywords: { primary: "QR code for website", secondary: ["website QR code generator", "generate QR code for website", "website link QR code", "QR code for URL"] },
+    title: "How to Create a QR Code for Your Website",
+    seoTitle: `QR Code for Your Website: Set It Up So It Lasts | ${SITE_NAME}`,
+    metaDescription: "A website owner's guide to QR codes: which page to link to, preparing that page for phone visitors, measuring scans with your own analytics, and keeping the code working through redesigns.",
+    summary: "Putting a QR code for your website on printed material is easy. Making sure it sends people somewhere useful — and still works after your next redesign — takes a little planning. This guide is for website owners setting one up.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Decide which page the code should open",
+        paragraphs: [
+          "The home page is rarely the best destination. Someone scanning a code on a flyer about an offer wants that offer, not your navigation menu. Match the page to where the code will be seen.",
+        ],
+        table: {
+          caption: "Choosing the destination",
+          headers: ["Where the code appears", "Good destination"],
+          rows: [
+            ["Business card", "An about or contact page — or your home page if it introduces you well"],
+            ["Flyer or poster for an offer", "A page about that offer, with a clear next step"],
+            ["Product packaging", "The product's support, instructions or reorder page"],
+            ["Shop window or counter", "Opening hours, booking or online shop"],
+            ["Event materials", "The event page with time, place and tickets"],
+          ],
+        },
+      },
+      {
+        heading: "Prepare the page for phone visitors",
+        list: [
+          "Everyone who scans arrives on a phone, so check the page on one: readable text, tappable buttons, no sideways scrolling.",
+          "Make it fast — compress large images, because many visitors will be on mobile data.",
+          "Use https://, so browsers don't show security warnings.",
+          "Put the thing they scanned for at the top of the page.",
+        ],
+      },
+      {
+        heading: "Use a short, permanent address",
+        paragraphs: [
+          "A printed code can't be updated, so encode an address you'll keep for years. A short path such as yoursite.com/offer or yoursite.com/scan is ideal: it keeps the code simple and it's easy to keep working. If you later redesign your site or move the page, set up a permanent (301) redirect from the old address to the new one — most website platforms and hosts have a redirects setting.",
+          "Encode the version of your address that your site actually uses — with or without www — so visitors don't go through an extra redirect.",
+        ],
+      },
+      {
+        heading: "Measure scans with your own analytics",
+        paragraphs: [
+          "Static QR codes don't count scans, but your website analytics can if you tag the link. Add UTM parameters before generating the code, for example:",
+        ],
+        list: [
+          "https://www.yoursite.com/offer?utm_source=flyer&utm_medium=qr&utm_campaign=spring",
+          "Use a different utm_source for each placement (flyer, poster, packaging) to compare them.",
+          "Visits then appear under that source and medium in Google Analytics or similar tools.",
+          "Keep tags short — every extra character makes the code denser.",
+        ],
+      },
+      {
+        heading: "Generate and test the code",
+        list: [
+          "Paste the full address (with https://) into the QR Code Generator.",
+          "Download SVG for print or a 1024-pixel PNG for small printed items; 512 pixels suits slides and screens.",
+          "Scan it from a phone, check the page opens and that the visit appears in your analytics' real-time report.",
+          "Print a proof at actual size and scan it under normal lighting before ordering a print run.",
+        ],
+      },
+      {
+        heading: "Make the code obvious and inviting",
+        list: [
+          "Add a short reason to scan beside it: “Scan to book a table” beats a bare code.",
+          "Print the web address in text too, for people who'd rather type it.",
+          "Keep a clear margin around the code and a dark-on-light colour scheme.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Point the code at the most relevant page, make that page work well on phones, encode a short address you'll keep, and tag it so your analytics show how it performs. With a redirect plan for future redesigns, a free static code can stay useful for as long as your website exists.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Should my website QR code include www?",
+        answer: "Use whichever form your website actually loads at. Both usually work, but the other form adds a redirect, which slightly slows the first visit.",
+      },
+      {
+        question: "What if I change website platform?",
+        answer: "Keep the same page addresses if you can, or redirect old addresses to the new pages. As long as the encoded address still leads somewhere, the printed codes keep working.",
+      },
+      {
+        question: "Can I put my website QR code on my email signature?",
+        answer: "You can, but people reading email on a phone can't scan their own screen — a normal link is more useful there. QR codes are best on print and on screens in shared spaces.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "meta-tag-generator", "compress-image", "image-resizer"],
   },
 ];
 

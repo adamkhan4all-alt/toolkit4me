@@ -3,7 +3,7 @@ import type { ToolDefinition } from "../../../types/tool";
 import { Alert } from "../../ui/Alert";
 import { Button } from "../../ui/Button";
 import { downloadBlob } from "../../../lib/downloadBlob";
-import { colourWarning, QR_MAX_BYTES, utf8Length, validateQrText, type QrErrorLevel } from "../../../lib/textTools/qr";
+import { colourWarning, linkHint, QR_MAX_BYTES, utf8Length, validateQrText, type QrErrorLevel } from "../../../lib/textTools/qr";
 import { PrivacyLine, inputClass, labelClass, panelClass, textareaClass } from "./shared";
 
 const SIZES = [256, 512, 1024];
@@ -20,6 +20,7 @@ export default function QrCodeWorkspace({ tool }: { tool: ToolDefinition }) {
 
   const inputError = validateQrText(text, level);
   const warning = colourWarning(foreground, background);
+  const hint = inputError ? null : linkHint(text);
 
   // Re-render the preview (debounced) whenever an input changes. The qrcode
   // library is imported here, on demand, so it never ships with other pages.
@@ -64,11 +65,11 @@ export default function QrCodeWorkspace({ tool }: { tool: ToolDefinition }) {
     <div className={panelClass}>
       <div>
         <label htmlFor="qr-text" className={labelClass}>
-          Text or link to encode
+          Link or text to encode
         </label>
-        <textarea id="qr-text" value={text} onChange={(e) => setText(e.target.value)} rows={3} className={textareaClass} />
-        <p className="mt-1 text-xs text-neutral-600">
-          {utf8Length(text).toLocaleString()} / {QR_MAX_BYTES[level].toLocaleString()} bytes at this error-correction level
+        <textarea id="qr-text" aria-describedby="qr-text-help" placeholder="https://www.example.com" value={text} onChange={(e) => setText(e.target.value)} rows={3} className={textareaClass} />
+        <p id="qr-text-help" className="mt-1 text-xs text-neutral-600">
+          Paste a full link starting with https:// — the preview updates as you type. {utf8Length(text).toLocaleString()} / {QR_MAX_BYTES[level].toLocaleString()} bytes at this error-correction level
         </p>
       </div>
 
@@ -112,6 +113,16 @@ export default function QrCodeWorkspace({ tool }: { tool: ToolDefinition }) {
 
       {inputError && <Alert variant={text.trim() ? "error" : "info"}>{inputError}</Alert>}
       {error && <Alert variant="error">{error}</Alert>}
+      {hint && (
+        <Alert variant="warning">
+          <span>{hint.message}</span>
+          {hint.fix && (
+            <button type="button" onClick={() => setText(hint.fix!)} className="ml-2 font-semibold text-brand-700 underline underline-offset-2">
+              {hint.fixLabel}
+            </button>
+          )}
+        </Alert>
+      )}
       {warning && !inputError && <Alert variant="warning">{warning}</Alert>}
 
       <div className="flex flex-col items-center gap-3">

@@ -136,6 +136,7 @@ function listItems(items: string[]): string {
 
 function renderToolBody(tool: ToolDefinition): string {
   const related = toolRegistry.getRelated(tool);
+  const headings = tool.sectionHeadings ?? {};
 
   const intro = tool.intro.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
   const steps = tool.howItWorks.map((step, i) => `<li>${i + 1}. ${escapeHtml(step)}</li>`).join("\n");
@@ -166,13 +167,14 @@ function renderToolBody(tool: ToolDefinition): string {
     <h1>${escapeHtml(tool.seo.h1)}</h1>
     <p>${escapeHtml(tool.description)}</p>
 
-    <h2>About this tool</h2>
+    <h2>${escapeHtml(headings.intro ?? "About this tool")}</h2>
     ${intro}
+    ${(tool.extraSections ?? []).map(renderGuideSection).join("\n")}
 
-    <h2>Common uses</h2>
+    <h2>${escapeHtml(headings.useCases ?? "Common uses")}</h2>
     <ul>${listItems(tool.useCases)}</ul>
 
-    <h2>How it works</h2>
+    <h2>${escapeHtml(headings.howItWorks ?? "How it works")}</h2>
     <ol>${steps}</ol>
 
     <h2>Supported formats</h2>
@@ -182,7 +184,7 @@ function renderToolBody(tool: ToolDefinition): string {
     <h2>Limitations</h2>
     <ul>${listItems(tool.limitations)}</ul>
 
-    <h2>Features</h2>
+    <h2>${escapeHtml(headings.features ?? "Features")}</h2>
     <ul>${features}</ul>
 
     <h2>Privacy &amp; security</h2>

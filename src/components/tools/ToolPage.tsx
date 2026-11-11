@@ -10,6 +10,8 @@ import { FAQ } from "./FAQ";
 import { RelatedTools } from "./RelatedTools";
 import { RelatedGuides } from "./RelatedGuides";
 import { ToolNotes } from "./ToolNotes";
+import { SectionBody } from "../content/SectionBody";
+import { sectionId } from "../../data/guides";
 import { renderCustomWorkspace } from "./workspaces/registry";
 import { webApplicationSchema } from "../../lib/seo/structuredData";
 import { AdInContent, AdMobile, AdSidebar } from "../ads";
@@ -56,6 +58,7 @@ const PdfEditorWorkspace = lazy(() => import("./PdfEditorWorkspace").then((m) =>
  * download button on a small screen.
  */
 export function ToolPage({ tool }: { tool: ToolDefinition }) {
+  const headings = tool.sectionHeadings ?? {};
   const hasClientProcessor = Boolean(getClientProcessor(tool.id));
   const customWorkspace = renderCustomWorkspace(tool);
   const workspaceRef = useRef<HTMLDivElement>(null);
@@ -126,7 +129,7 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
 
           <section aria-labelledby="intro-heading" className="flex flex-col gap-4">
             <h2 id="intro-heading" className="text-2xl font-semibold text-neutral-900">
-              About this tool
+              {headings.intro ?? "About this tool"}
             </h2>
             {tool.intro.map((paragraph) => (
               <p key={paragraph} className="text-sm leading-6 text-neutral-600">
@@ -135,9 +138,17 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
             ))}
           </section>
 
-          <ToolNotes id="use-cases-heading" heading="Common uses" items={tool.useCases} />
+          {tool.extraSections?.map((section) => (
+            <section key={section.heading} aria-labelledby={sectionId(section.heading)} className="flex flex-col gap-4">
+              <h2 id={sectionId(section.heading)} className="text-2xl font-semibold text-neutral-900">
+                {section.heading}
+              </h2>
+              <SectionBody section={section} />
+            </section>
+          ))}
+          <ToolNotes id="use-cases-heading" heading={headings.useCases ?? "Common uses"} items={tool.useCases} />
 
-          <ToolInstructions steps={tool.howItWorks} />
+          <ToolInstructions steps={tool.howItWorks} heading={headings.howItWorks} />
 
           <SupportedFormats tool={tool} />
 
@@ -150,7 +161,7 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
 
           <section aria-labelledby="features-heading" className="flex flex-col gap-4">
             <h2 id="features-heading" className="text-2xl font-semibold text-neutral-900">
-              Features
+              {headings.features ?? "Features"}
             </h2>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {tool.features.map((feature) => (

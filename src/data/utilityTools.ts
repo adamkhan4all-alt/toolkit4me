@@ -91,12 +91,12 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "qr-code-generator",
     slug: "qr-code-generator",
-    lastModified: ADDED,
+    lastModified: "2026-11-11",
     name: "QR Code Generator",
     shortName: "QR Code Generator",
     category: "web",
     categoryLabel: "Web & Developer",
-    description: "Turn a link or any text into a QR code and download it as a PNG or SVG — no sign-up, no expiry, no tracking.",
+    description: "Turn a link or any text into a QR code and download it as a PNG or SVG — free, with no sign-up, no expiry and no tracking.",
     acceptedFormats: ["Links (URLs)", "Plain text"],
     acceptedMime: [],
     maxFileSize: 1,
@@ -108,63 +108,142 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
     actionLabel: "Download PNG",
     icon: "QR",
     outputExtension: "png / .svg",
+    sectionHeadings: {
+      intro: "Create a QR code from a link online",
+      useCases: "Where can you use QR codes?",
+      howItWorks: "How to generate a QR code with Toolkit4Me",
+      features: "Why use Toolkit4Me's QR Code Generator?",
+    },
     howItWorks: [
-      "Type or paste the link or text you want to encode.",
-      "Pick an error-correction level, a PNG size and, if you like, your colours.",
-      "Check the live preview with your phone's camera.",
-      "Download the code as a PNG for screens or an SVG for print.",
+      "Paste your link into the box. Copy it from your browser's address bar or a Share button, so it starts with https://.",
+      "Watch the preview: the QR code is generated as you type, with nothing else to press.",
+      "Optionally choose an error-correction level, a PNG size (256, 512 or 1024 pixels) and the code and background colours.",
+      "Scan the preview with your phone's camera to check it opens the right page.",
+      "Select Download PNG for screens and documents, or Download SVG for print.",
     ],
     features: [
-      "Live preview as you type",
-      "PNG at 256, 512 or 1024 pixels, or scalable SVG",
-      "Four error-correction levels",
-      "Custom colours with a contrast check so codes stay scannable",
+      "Free, with no account, no watermark and no limit on how many codes you make",
+      "Static codes: your link is stored in the code itself, so there's no redirect that can expire",
+      "Live preview as you type, plus checks for links missing https:// or containing stray spaces",
+      "PNG at 256, 512 or 1024 pixels, or scalable SVG for print",
+      "Four error-correction levels and custom colours, with a contrast check so codes stay scannable",
+      "Runs in your browser — the link you encode isn't sent to our servers",
     ],
     useCases: [
-      "Putting your website or menu link on a poster, flyer or table card",
-      "Adding a scannable link to a slide or printed handout",
-      "Sharing a long URL that would be tedious to type on a phone",
+      "Websites: send people from a poster, shop window or slide straight to your site",
+      "Business cards: link to your website, portfolio or online profile",
+      "Marketing materials: flyers, posters and adverts that link to an offer or booking page",
+      "Product packaging: instructions, ingredients, warranty registration or reorder pages",
+      "Printed documents and handouts: link to the online version, a form or further reading",
+      "Education: worksheets and slides that open a video, quiz or reading list",
+      "Restaurant menus: table cards that open your online menu",
     ],
     limitations: [
       "Codes are static: the content is encoded directly, so it can't be edited after printing and scans can't be counted",
       "Longer text makes a denser code that's harder to scan — keep links short where you can",
+      "Downloads are PNG and SVG; for a JPG, convert the PNG with PNG to JPG",
       "Logos can't be added; if you overlay one yourself, use High error correction and test it",
       "Capacity ranges from 1,273 bytes (High) to 2,953 bytes (Low)",
     ],
     faq: [
       {
-        question: "Do these QR codes expire?",
+        question: "How do I create a QR code from a link?",
         answer:
-          "No. The link or text is stored in the pattern itself, not on our servers, so the code works for as long as the link it points to works. There's no account and nothing to renew.",
+          "Copy the full link (starting with https://), paste it into the box at the top of this page and the QR code appears in the preview. Scan it with your phone to check it, then select Download PNG or Download SVG.",
+      },
+      {
+        question: "Is Toolkit4Me's QR code generator free?",
+        answer:
+          "Yes. There's no account, subscription or watermark, and no limit on how many codes you create.",
+      },
+      {
+        question: "Do static QR codes expire?",
+        answer:
+          "No. A static code stores your link or text in the pattern itself, not on our servers, so there's nothing to expire or renew. It keeps working for as long as the page it points to exists — if that page is removed or moved, the code leads to a dead link.",
+      },
+      {
+        question: "Can I download a QR code as a PNG?",
+        answer:
+          "Yes. Choose 256, 512 or 1024 pixels and select Download PNG. For print, Download SVG gives a vector file that stays sharp at any size.",
+      },
+      {
+        question: "Can I generate a QR code for my website?",
+        answer:
+          "Yes. Paste your website's address — the home page or a specific page — and download the code. Linking to a stable address you control means you can update the page later without reprinting the code.",
+      },
+      {
+        question: "What is the difference between static and dynamic QR codes?",
+        answer:
+          "A static code contains your link directly. A dynamic code contains a short link owned by a QR service, which redirects to your page; that lets the service change the destination and count scans, but the code depends on the service staying active. This generator makes static codes.",
+      },
+      {
+        question: "Do I need to install software to generate a QR code?",
+        answer: "No. The generator runs in your web browser on a computer, tablet or phone.",
+      },
+      {
+        question: "Can I scan a QR code with my smartphone?",
+        answer:
+          "Yes. Current iPhones and most Android phones recognise QR codes in the built-in camera app — point the camera at the code and tap the link that appears. Some older phones need a free scanner app.",
       },
       {
         question: "Which error-correction level should I choose?",
         answer:
-          "Medium suits most uses. Choose High if the code may get scuffed or partly covered (for example by a logo); it can be read even with about 30% damage, at the cost of a denser pattern. Low packs in the most data but tolerates little damage.",
-      },
-      {
-        question: "PNG or SVG?",
-        answer:
-          "PNG is a normal image, ideal for websites, documents and slides — choose a size at least as large as it will appear. SVG is a vector format that stays perfectly sharp at any size, which makes it the better choice for print.",
+          "Medium suits most uses. Choose High if the code may get scuffed or partly covered; it can be read even with about 30% damage, at the cost of a denser pattern. Low packs in the most data but tolerates little damage.",
       },
       {
         question: "Can I track how many people scan my code?",
         answer:
-          "Not with a static code like these. Scan tracking requires a “dynamic” code that sends people through a redirect service first; if you need numbers, add tracking parameters to your link and measure visits in your own website analytics.",
+          "Not with a static code itself. Add tracking parameters to your link (for example ?utm_source=qr) and you'll see the visits in your own website analytics.",
       },
     ],
-    relatedTools: ["meta-tag-generator", "base64-encoder-decoder", "image-resizer", "json-formatter"],
+    relatedTools: ["meta-tag-generator", "png-to-jpg", "image-resizer", "base64-encoder-decoder"],
     intro: [
-      "A QR code is a quick way to get someone from paper to a web page: point a phone camera at it and the link opens. This generator encodes your link or text directly into the code, so there's no redirect in the middle, no account to keep alive and nothing that stops working next year.",
-      "The preview updates as you type. Choose an error-correction level to balance capacity against durability, pick colours that suit your design — the tool warns you if they'd make the code hard to scan — and download a PNG for screens or an SVG that stays crisp at any print size.",
+      "To turn a link into a QR code, paste the web address into the box above. The code appears straight away, and anyone who points a phone camera at it is offered your page. It works for any link: your website's home page, a product page, a menu, an online form, a video or a map location — and for plain text, too.",
+      "The code is generated in your browser and stores your link directly in its pattern. There's no account, no redirect through our servers and no expiry date, so the code keeps working for as long as the page it points to exists.",
+    ],
+    extraSections: [
+      {
+        heading: "Free QR code generator with PNG and SVG download",
+        paragraphs: [
+          "Every code can be downloaded as a PNG image or an SVG vector file. PNG files use the background colour you choose (white by default) rather than a transparent background. JPG isn't offered because its compression blurs the sharp edges scanners rely on; if a website or printer insists on JPG, convert the PNG with PNG to JPG.",
+        ],
+        table: {
+          caption: "Which download to choose",
+          headers: ["Download", "Best for"],
+          rows: [
+            ["PNG, 256 px", "Web pages, emails and other small on-screen uses"],
+            ["PNG, 512 px", "Slides, documents and social media posts"],
+            ["PNG, 1024 px", "Large screens and small printed items"],
+            ["SVG", "Anything printed — posters, packaging, business cards — because it stays sharp at any size"],
+          ],
+        },
+      },
+      {
+        heading: "Static vs dynamic QR codes",
+        paragraphs: [
+          "This generator makes static QR codes: the link you type is the content of the code. Nothing sits between the scan and your page, so there's nothing to expire, but the destination can't be changed after printing and the code doesn't count scans.",
+          "A dynamic QR code stores a short link belonging to a QR service, which forwards visitors to your page. That allows the service to change the destination and count scans, but the code only works while the service keeps forwarding — which is why some “free” codes stop working when a trial or subscription ends. To get some of that flexibility with a static code, point it at a page on your own website and update the page instead of the code.",
+        ],
+      },
     ],
     formatsNote: "Encodes links and text, including non-English characters (UTF-8). Capacity depends on the error-correction level: up to 2,953 bytes at Low and 1,273 at High. Output is a PNG (256–1024 px) or an SVG.",
     seo: {
-      title: "Free QR Code Generator – PNG & SVG, No Expiry | Toolkit4Me",
+      title: "Free QR Code Generator – Create QR Codes from Links | Toolkit4Me",
       metaDescription:
-        "Create a QR code for any link or text and download it as PNG or SVG. Static codes that never expire, custom colours with a scan-safety check, and no sign-up.",
-      h1: "QR Code Generator",
-      keywords: ["qr code generator", "free qr code generator no expiration", "qr code generator png", "qrcode free", "qr code svg", "create qr code for link"],
+        "Create a QR code from any link or text for free. Download PNG or SVG, pick colours, no sign-up — static codes that never expire, made in your browser.",
+      h1: "Free QR Code Generator – Create QR Codes from Links",
+      keywords: [
+        "free qr code generator",
+        "qr code generator online",
+        "link to qr code",
+        "qr code from link",
+        "url to qr code generator",
+        "qr code generator no expiration",
+        "static qr code generator",
+        "qr code generator png",
+        "qr code svg",
+        "qr code for website",
+      ],
     },
   },
   {
