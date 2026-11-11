@@ -46,7 +46,10 @@ describe("guides", () => {
     const jpgVsPng = GUIDES.find((g) => g.path === "/guides/jpg-vs-png")!;
     const related = relatedGuidesFor(jpgVsPng);
     expect(related).not.toContain(jpgVsPng);
-    expect(related[0].path).toBe("/guides/how-to-compress-images");
+    const shared = (g: (typeof GUIDES)[number]) => (g.relatedTools ?? []).filter((t) => jpgVsPng.relatedTools?.includes(t)).length;
+    const sharedCounts = related.map(shared);
+    expect(sharedCounts).toEqual([...sharedCounts].sort((a, b) => b - a)); // most-related first
+    expect(sharedCounts[0]).toBe(Math.max(...GUIDES.filter((g) => g !== jpgVsPng).map(shared)));
   });
 });
 

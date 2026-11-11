@@ -681,10 +681,10 @@ export const GUIDES: GuideDefinition[] = [
     path: "/guides/how-to-compress-images",
     category: "images",
     keywords: { primary: "compress images online", secondary: ["reduce image size", "compress images without losing quality", "compress JPG", "optimize images for website"] },
-    title: "How to Compress Images for Websites, Email and Upload Forms",
-    seoTitle: `How to Compress Images (JPG & PNG) Without Wrecking Quality | ${SITE_NAME}`,
-    metaDescription: "Why photos are so large, how quality, resolution and format each affect file size, and the settings that work for websites, email and upload forms.",
-    summary: "A single phone photo is often 3–6MB — far more than a website, email or upload form needs. Three settings decide how small an image gets: its pixel dimensions, its format, and (for JPG) its quality. Here's how to use each one.",
+    title: "How to Compress Images Without Losing Quality",
+    seoTitle: `How to Compress Images Without Losing Quality (JPG & PNG) | ${SITE_NAME}`,
+    metaDescription: "Why photos are so large, how dimensions, format and quality each affect file size, the settings that work for websites, email and upload forms, and how to fix common problems.",
+    summary: "A single phone photo is often 3–6MB — far more than a website, email or upload form needs. Three settings decide how small an image gets: its pixel dimensions, its format, and (for JPG) its quality. Here's how to use each one without visibly damaging your pictures.",
     published: "2026-11-03",
     updated: "2026-11-11",
     sections: [
@@ -692,6 +692,12 @@ export const GUIDES: GuideDefinition[] = [
         heading: "Why photos are so large",
         paragraphs: [
           "Modern phone cameras capture 12 megapixels or more — roughly 4000 × 3000 pixels. A website column or an email preview rarely displays an image wider than 1000–2000 pixels, so most of that data is never seen. File size grows with the number of pixels, so the biggest savings almost always come from reducing the dimensions, not from fiddling with quality.",
+        ],
+      },
+      {
+        heading: "What “without losing quality” means for images",
+        paragraphs: [
+          "Every compressed JPG loses some information — the goal is to lose only what nobody will notice. At normal viewing size, a JPG saved at around 75–80% quality is very hard to tell apart from the original, and an image scaled down to the size it will actually be shown at loses nothing a viewer could see. Quality only becomes visibly worse when you push the quality setting very low, or display a small image larger than its real size.",
         ],
       },
       {
@@ -703,13 +709,34 @@ export const GUIDES: GuideDefinition[] = [
         ],
       },
       {
-        heading: "Settings that work for common jobs",
+        heading: "Step by step with Compress Image",
         list: [
-          "Website or online store photos: maximum width around 1600–2000 pixels, JPG, quality 75–80.",
-          "Email attachments: maximum width around 1200–1600 pixels, JPG, quality around 75.",
-          "Strict upload forms (e.g. a 200KB or 1MB limit): reduce the width first, then lower the quality step by step until the file fits.",
-          "Logos, icons and screenshots: keep PNG, and reduce the width if the image is larger than it will be displayed.",
+          "Open Compress Image and add one or more JPG or PNG images (up to 25MB each).",
+          "Choose an output format — keep the original, or switch a photo saved as PNG to JPG.",
+          "Set the quality slider; around 75–80% is a good starting point for photos.",
+          "Optionally enter a maximum width in pixels; leave it blank to keep the original dimensions.",
+          "Check the estimated output size, then select Compress Image and download the results.",
         ],
+        image: {
+          src: "/images/guides/compress-image-controls.webp",
+          alt: "Toolkit4Me Compress Image tool with a photo added, showing the output format menu, a quality slider at 80%, an optional maximum width box and the estimated output size",
+          width: 712,
+          height: 639,
+          caption: "Compress Image shows an estimated output size as you adjust format, quality and width.",
+        },
+      },
+      {
+        heading: "Settings that work for common jobs",
+        table: {
+          caption: "Suggested starting points — adjust to taste",
+          headers: ["Use", "Maximum width", "Format", "Quality"],
+          rows: [
+            ["Website or online store photos", "1600–2000 px", "JPG (or WebP)", "75–80%"],
+            ["Email attachments", "1200–1600 px", "JPG", "About 75%"],
+            ["Strict upload limits (e.g. 200KB–1MB)", "Reduce until it fits", "JPG", "Lower step by step"],
+            ["Logos, icons and screenshots", "As displayed", "PNG", "Not applicable (lossless)"],
+          ],
+        },
       },
       {
         heading: "Why a PNG didn't get smaller",
@@ -724,6 +751,39 @@ export const GUIDES: GuideDefinition[] = [
           "Re-saving an image removes embedded metadata such as the camera model and the GPS location where a photo was taken — usually a privacy benefit when you're posting photos online.",
           "Compress Image runs entirely in your browser, so your photos are never uploaded.",
         ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The image looks blocky or smeared: the quality is too low. Raise it to 75–80% and reduce the width instead.",
+          "The file is still too big: reduce the maximum width — it saves far more than lowering quality.",
+          "The output is bigger than the input: the original was already heavily compressed. Keep the original, or reduce its width.",
+          "A transparent background turned white: you converted to JPG. Choose PNG (or WebP) to keep transparency.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Start with dimensions, then format, then quality. Scaling a photo to the size it will actually be shown at and saving it as a JPG around 75–80% quality usually cuts it to a fraction of its size with no difference anyone will notice — and keeping the original means you can always try again.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How much can I compress a photo without losing quality?",
+        answer: "It depends on the photo and how it will be viewed, but resizing a phone photo to the width it will be displayed at and saving at 75–80% JPG quality typically reduces it dramatically with no visible difference at normal size.",
+      },
+      {
+        question: "Can I compress several images at once?",
+        answer: "Yes. Add several JPG or PNG images to Compress Image and the same settings are applied to all of them.",
+      },
+      {
+        question: "Are my photos uploaded?",
+        answer: "No. Compression happens in your browser, so your images never leave your device.",
+      },
+      {
+        question: "Should I use WebP instead?",
+        answer: "For images on your own website, often yes — WebP is usually smaller than JPG at similar quality. For email attachments and upload forms, stick with JPG, which every system accepts.",
       },
     ],
     relatedTools: ["compress-image", "image-resizer", "webp-converter", "png-to-jpg"],
@@ -1369,6 +1429,104 @@ export const GUIDES: GuideDefinition[] = [
       },
     ],
     relatedTools: ["jpg-to-pdf", "compress-image", "merge-pdf", "png-to-jpg"],
+  },
+  {
+    path: "/guides/how-to-convert-png-to-jpg",
+    category: "images",
+    keywords: { primary: "PNG to JPG", secondary: ["convert PNG to JPG online", "PNG to JPG without losing quality", "reduce PNG file size"] },
+    title: "How to Convert PNG to JPG Online for Free",
+    seoTitle: `How to Convert PNG to JPG Online Free (and When Not To) | ${SITE_NAME}`,
+    metaDescription: "Convert PNG images to JPG for free in your browser: when it shrinks files dramatically, what happens to transparency, which images should stay PNG, and how to fix common problems.",
+    summary: "PNG is a great format for screenshots and graphics, but photos saved as PNG are often several times bigger than they need to be — and some upload forms won't accept PNG at all. Here's how to convert PNG to JPG, and how to tell when you shouldn't.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "When converting PNG to JPG makes sense",
+        list: [
+          "A photo was saved as PNG — by a screenshot tool, an editor's default setting or a download — and the file is huge.",
+          "An upload form, print service or older app accepts only JPG.",
+          "You're emailing several photos and want the attachments to be smaller.",
+          "You're adding photos to a document or presentation and want to keep the file size down.",
+        ],
+      },
+      {
+        heading: "What happens when you convert",
+        paragraphs: [
+          "PNG stores every pixel exactly; JPG uses lossy compression designed for photographs. For a photo, that usually means a much smaller file with no visible difference at normal viewing size. Toolkit4Me's PNG to JPG converter saves at a high quality setting (92%) so photos stay clean.",
+          "Two things change. First, JPG has no transparency, so any transparent areas are filled with white. Second, JPG's compression can leave faint smudges around sharp edges — invisible in photos, but sometimes noticeable around small text and thin lines.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open PNG to JPG and add one or more PNG images (up to 25MB each).",
+          "Select Convert to JPG.",
+          "Download each JPG from the results list. The results show each file's size before and after, so you can see the difference.",
+        ],
+        image: {
+          src: "/images/guides/png-to-jpg-upload.webp",
+          alt: "Toolkit4Me PNG to JPG tool with a PNG image added, an Add more files button and the Convert to JPG button",
+          width: 712,
+          height: 293,
+          caption: "Add your PNG images and select Convert to JPG — the conversion happens in your browser.",
+        },
+      },
+      {
+        heading: "Which images should stay PNG",
+        table: {
+          caption: "Convert or keep?",
+          headers: ["Image", "Convert to JPG?", "Why"],
+          rows: [
+            ["Photo saved as PNG", "Yes", "Usually much smaller with no visible loss"],
+            ["Screenshot with small text", "Usually not", "Text edges can blur slightly; PNG stays crisp"],
+            ["Logo or icon with transparency", "No", "The transparent background would turn white"],
+            ["Diagram, chart or line art", "Usually not", "Flat colours and thin lines suit PNG better"],
+            ["Image for a form that only accepts JPG", "Yes", "Compatibility matters more than tiny quality differences"],
+          ],
+        },
+      },
+      {
+        heading: "Making the file even smaller",
+        paragraphs: [
+          "Converting a photo from PNG to JPG is usually the biggest single saving. If the result is still too large — for a strict upload limit, say — run the JPG through Compress Image, where you can lower the quality and reduce the width. For images on your own website, the WebP Converter can produce an even smaller file.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The background turned white: the PNG was transparent and JPG can't store transparency. Keep it as PNG, or convert to WebP if it's for a website.",
+          "Text looks slightly fuzzy: JPG isn't ideal for screenshots and text. Keep those images as PNG.",
+          "The JPG isn't much smaller: the PNG was a simple graphic, which PNG already stores efficiently. Keep it as PNG.",
+          "A file was rejected: each image can be up to 25MB and about 16.7 megapixels. Reduce very large images with Image Resizer first.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Convert PNG to JPG for photographs and for anywhere that demands JPG; keep PNG for screenshots, graphics and anything with a transparent background. Decide by what's in the image, check the before-and-after sizes, and keep the original in case you need it again.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does converting PNG to JPG reduce quality?",
+        answer: "Slightly, because JPG is lossy, but at the 92% quality the converter uses, the difference in a photo is very hard to see. Screenshots and text can show it more, so keep those as PNG.",
+      },
+      {
+        question: "Can I convert several PNGs at once?",
+        answer: "Yes — add several images and they're all converted in one go; download each from the results list.",
+      },
+      {
+        question: "What happens to transparent areas?",
+        answer: "They become white, because JPG doesn't support transparency. If you need the transparency, keep the PNG or use WebP.",
+      },
+      {
+        question: "Are my images uploaded?",
+        answer: "No. PNG to JPG runs entirely in your browser, so your images never leave your device.",
+      },
+    ],
+    relatedTools: ["png-to-jpg", "compress-image", "jpg-to-png", "webp-converter"],
   },
 ];
 
