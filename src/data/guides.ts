@@ -85,18 +85,25 @@ export const GUIDES: GuideDefinition[] = [
     category: "pdf",
     keywords: { primary: "how to reduce PDF file size without losing quality", secondary: ["compress PDF online", "reduce PDF size", "free PDF compressor", "compress PDF without losing quality"] },
     featured: true,
-    title: "How to Reduce PDF File Size Without Ruining Quality",
-    seoTitle: `How to Reduce PDF File Size (Without Losing Quality) | ${SITE_NAME}`,
-    metaDescription: "Why PDFs get so large, which compression level to pick, and practical tricks for getting a PDF under an email or upload limit.",
-    summary: "Email attachments are often capped at 20–25MB and many job portals and government forms accept only 2–5MB. Here is why PDFs grow so large and how to shrink them without making them unreadable.",
+    title: "How to Reduce PDF File Size Without Losing Quality: A Complete Guide",
+    seoTitle: `How to Reduce PDF File Size Without Losing Quality | ${SITE_NAME}`,
+    metaDescription: "Why PDFs get so large, what “without losing quality” really means, which compression level to pick, and practical fixes when a PDF still won't fit an email or upload limit.",
+    summary: "Email attachments are often capped at 20–25MB and many job portals and government forms accept only 2–5MB. Here is why PDFs grow so large, how compression actually works, and how to shrink a PDF without making it unreadable.",
     published: GUIDES_PUBLISHED,
-    updated: "2026-11-03",
+    updated: "2026-11-11",
     sections: [
       {
         heading: "Why some PDFs are so large",
         paragraphs: [
           "A PDF that contains only text is usually tiny — a 20-page report can be under 200KB. Size balloons when the file contains images, and especially when those images are stored at a much higher resolution than they will ever be viewed at. A phone photo inserted into a Word document can easily carry 12 megapixels of data even though it is shown at the size of a postcard.",
           "Scanned documents are the other big culprit. A scanner set to 600 DPI in colour produces a full-resolution image for every page, so a 10-page scan can reach 30–50MB. Embedded fonts, duplicated resources from repeated merges, and leftover editing data add smaller amounts on top.",
+        ],
+      },
+      {
+        heading: "What “without losing quality” really means",
+        paragraphs: [
+          "Text and vector graphics — the lines, shapes and letters in a PDF that came from Word, Excel or a design program — aren't affected by compression at all. They're stored as instructions, not pixels, so they stay perfectly sharp at any zoom level. That's why a compressed contract or report usually looks identical to the original.",
+          "Images are where the trade-off happens. At 100% zoom, a PDF viewer displays roughly 100–200 pixels per inch depending on the screen, so an image stored at around 150 DPI looks sharp for normal reading, while taking a fraction of the space of a 600 DPI version. Printing is more demanding: around 300 DPI is the usual target for sharp prints. “Without losing quality” therefore means choosing a resolution that matches how the PDF will be used, rather than keeping detail nobody will ever see.",
         ],
       },
       {
@@ -112,6 +119,15 @@ export const GUIDES: GuideDefinition[] = [
           "Recommended brings images down to around 150 DPI — still clear on any screen — and is the right choice for most documents being emailed or uploaded.",
           "High brings images down to around 72 DPI. Use it when you must meet a strict limit such as 1–2MB; photos may look soft, but text stays readable.",
         ],
+        table: {
+          caption: "Compress PDF levels at a glance",
+          headers: ["Level", "Image resolution", "Best for", "Trade-off"],
+          rows: [
+            ["Low", "About 300 DPI", "Printing, detailed photos and diagrams", "Smallest reduction; may barely shrink an already-optimised PDF"],
+            ["Recommended", "About 150 DPI", "Email, upload forms, reading on screen", "Photos stay clear on screen; not ideal for large prints"],
+            ["High", "About 72 DPI", "Strict limits such as 1–2MB", "Photos look soft; text still readable"],
+          ],
+        },
       },
       {
         heading: "A real example",
@@ -122,11 +138,18 @@ export const GUIDES: GuideDefinition[] = [
       {
         heading: "Step by step",
         list: [
-          "Open the Compress PDF tool and add your file.",
-          "Start with the recommended level and download the result.",
-          "Open the compressed file and zoom to 100% to check that text and any signatures are still clear.",
-          "If it is still too large, run the original (not the already-compressed copy) again at a higher level — compressing twice degrades quality faster than a single stronger pass.",
+          "Open the Compress PDF tool and add your file (up to 100MB).",
+          "Start with the Recommended level and select Compress PDF.",
+          "Download the result and open it at 100% zoom to check that text, signatures and any small print are still clear.",
+          "If it is still too large, run the original (not the already-compressed copy) again at High — compressing twice degrades quality faster than a single stronger pass.",
         ],
+        image: {
+          src: "/images/guides/compress-pdf-levels.webp",
+          alt: "Toolkit4Me Compress PDF tool with a file added and the Low, Recommended and High compression levels shown, Recommended selected",
+          width: 712,
+          height: 429,
+          caption: "Compress PDF with a file added: pick a level, then select Compress PDF.",
+        },
       },
       {
         heading: "Tricks when compression isn't enough",
@@ -137,6 +160,42 @@ export const GUIDES: GuideDefinition[] = [
           "For photo-heavy documents, compress the images first with Compress Image, then build the PDF with JPG to PDF.",
         ],
       },
+      {
+        heading: "Common mistakes and how to fix them",
+        list: [
+          "The file got bigger: small, text-only PDFs have nothing to downsample, and re-saving can add a little overhead. Keep the original — it's already as small as it will get.",
+          "Photos look blurry: you used High on a document that will be printed or zoomed into. Go back to the original and use Recommended or Low.",
+          "“Password-protected” error: the tool can't open an encrypted PDF. Remove the password with Unlock PDF first, compress, then protect it again if needed.",
+          "Still over the limit at High: the file has too many pages for the limit. Split it into parts, or remove pages the recipient doesn't need.",
+          "Compressing a copy of a copy: every lossy pass removes more detail. Always go back to the original file.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Most oversized PDFs are oversized because of their images, not their text. Matching image resolution to how the file will be used — about 150 DPI for screens, 300 DPI for print — shrinks the file dramatically while keeping it looking the same where it matters. Start with Recommended, check the result at 100% zoom, and only reach for High when a strict upload limit leaves no other choice.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Will compressing a PDF make the text blurry?",
+        answer: "No. Text in a PDF created from a document is stored as text, not as an image, so compression doesn't touch it. Only scanned pages — which are images of text — can soften at the highest compression level.",
+      },
+      {
+        question: "How small can I make my PDF?",
+        answer:
+          "It depends entirely on what's inside. Image-heavy and scanned PDFs often shrink by half or more at the Recommended level; text-only PDFs may not shrink at all. The tool always shows the real before-and-after size, so you can decide whether to try a stronger level.",
+      },
+      {
+        question: "Can I compress several PDFs at once?",
+        answer: "Compress PDF handles one file at a time, up to 100MB. If you need one smaller file from several, compress each PDF and then combine them with Merge PDF.",
+      },
+      {
+        question: "What happens to my file after compression?",
+        answer:
+          "Compress PDF runs on our server: your upload is deleted as soon as it's processed, and the compressed result is deleted automatically within one hour. The Privacy Policy has the details.",
+      },
     ],
     relatedTools: ["compress-pdf", "split-pdf", "compress-image", "jpg-to-pdf"],
   },
@@ -145,18 +204,42 @@ export const GUIDES: GuideDefinition[] = [
     category: "images",
     keywords: { primary: "what is a JPG vs PNG", secondary: ["JPG vs PNG", "JPEG vs PNG", "difference between JPG and PNG", "best image format"] },
     featured: true,
-    title: "JPG vs PNG: Which Image Format Should You Use?",
-    seoTitle: `JPG vs PNG — Differences and When to Use Each | ${SITE_NAME}`,
-    metaDescription: "A plain-English comparison of JPG and PNG: compression, transparency, file size and the best format for photos, screenshots, logos and the web.",
+    title: "JPG vs PNG: What's the Difference and Which Format Should You Use?",
+    seoTitle: `JPG vs PNG: What's the Difference & Which to Use? | ${SITE_NAME}`,
+    metaDescription: "A plain-English comparison of JPG and PNG: lossy vs lossless compression, transparency, file size, and the right format for photos, screenshots, logos and websites.",
     summary: "JPG and PNG are the two most common image formats, and picking the wrong one can mean blurry screenshots or photos that are ten times larger than they need to be. Here is how they differ, when to use each, and where WebP fits in.",
     published: GUIDES_PUBLISHED,
     updated: "2026-11-11",
     sections: [
       {
+        heading: "The quick answer",
+        paragraphs: [
+          "Use JPG for photographs and anything that came from a camera. Use PNG for screenshots, logos, icons, diagrams and any image that needs a transparent background. If the image is going on your own website, consider WebP, which can usually do either job in a smaller file. The rest of this guide explains why.",
+        ],
+      },
+      {
         heading: "The key difference: lossy vs lossless",
         paragraphs: [
           "JPG (or JPEG) uses lossy compression. It discards fine detail that the eye is unlikely to notice in natural images, which makes photos dramatically smaller. The trade-off is that every save at a lower quality setting throws a little more information away, and sharp edges — such as text — can pick up faint smudges known as compression artefacts.",
           "PNG uses lossless compression. Every pixel is kept exactly, so text, lines and flat colours stay perfectly crisp no matter how many times the file is saved. The trade-off is size: a photograph saved as PNG can be five to ten times larger than the same photo as a good-quality JPG.",
+        ],
+        table: {
+          caption: "JPG and PNG side by side",
+          headers: ["", "JPG / JPEG", "PNG"],
+          rows: [
+            ["Compression", "Lossy — discards detail to save space", "Lossless — keeps every pixel exactly"],
+            ["Transparency", "Not supported", "Supported"],
+            ["Best for", "Photos and camera images", "Screenshots, logos, icons, diagrams"],
+            ["File size for a photo", "Small", "Often several times larger"],
+            ["Re-saving repeatedly", "Loses a little more detail each time", "No loss"],
+            ["Opens almost everywhere", "Yes", "Yes"],
+          ],
+        },
+      },
+      {
+        heading: "What the names mean",
+        paragraphs: [
+          "JPEG stands for the Joint Photographic Experts Group, the committee that created the standard. “.jpg” and “.jpeg” are the same format — the shorter extension dates from older systems that only allowed three letters. PNG stands for Portable Network Graphics; it was designed in the mid-1990s as a free, patent-unencumbered replacement for GIF, which is why it handles graphics and transparency so well.",
         ],
       },
       {
@@ -189,6 +272,42 @@ export const GUIDES: GuideDefinition[] = [
           "WebP is a newer format that can do both jobs: lossy compression for photos and lossless compression with transparency for graphics, usually in a smaller file than the JPG or PNG equivalent. Every current major browser displays it, which makes it a good choice for images on your own website.",
           "The catch is compatibility outside the browser — some desktop apps, editors and upload forms still don't accept WebP. Use WebP for the web, and keep JPG or PNG for files you'll email, print or upload elsewhere. The WebP Converter turns JPG and PNG into WebP and back.",
         ],
+      },
+      {
+        heading: "Common mistakes",
+        list: [
+          "Saving screenshots as JPG: text and interface edges pick up fuzzy artefacts. Keep screenshots as PNG.",
+          "Saving photos as PNG: the file is huge with no visible benefit. Convert photos to JPG.",
+          "Re-editing and re-saving a JPG many times: each save loses a little more detail. Edit from the original, or work in PNG and export JPG once at the end.",
+          "Expecting JPG to PNG to “fix” quality: converting can't bring back detail that's already gone.",
+          "Converting a transparent logo to JPG: the background turns white. Keep logos as PNG (or WebP for the web).",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "The choice comes down to what's in the picture. Natural, photographic images compress beautifully as JPG; sharp edges, text, flat colours and transparency belong in PNG. Pick by content rather than habit and you'll avoid both blurry screenshots and bloated photos — and for images on your own website, WebP is worth a look.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Is JPEG the same as JPG?",
+        answer: "Yes. They're the same format with two spellings of the file extension; any program that opens one opens the other.",
+      },
+      {
+        question: "Which has better quality, JPG or PNG?",
+        answer:
+          "PNG keeps every pixel exactly, so it's technically higher quality, but for photographs a good-quality JPG looks the same to the eye at a fraction of the size. For screenshots and graphics, PNG is visibly sharper.",
+      },
+      {
+        question: "Does converting PNG to JPG reduce quality?",
+        answer:
+          "Slightly, because JPG is lossy, and any transparency becomes white. At a high quality setting the difference in a photo is usually invisible; in screenshots with small text it can be noticeable, so keep those as PNG.",
+      },
+      {
+        question: "Which format should I use on my website?",
+        answer: "JPG for photos and PNG for graphics both work everywhere. WebP is usually smaller for both and is supported by every current major browser, so it's a good choice for images you serve yourself.",
       },
     ],
     relatedTools: ["png-to-jpg", "jpg-to-png", "webp-converter", "compress-image"],
@@ -249,18 +368,44 @@ export const GUIDES: GuideDefinition[] = [
     category: "ocr",
     keywords: { primary: "OCR extraction", secondary: ["image to text", "OCR online free", "extract text from image", "convert image to text"] },
     featured: true,
-    title: "How to Extract Text from an Image or Scan (OCR Tips)",
-    seoTitle: `Extract Text from Images with OCR — Tips for Accurate Results | ${SITE_NAME}`,
-    metaDescription: "Learn how OCR turns photos and scans into editable text, and simple capture tips that dramatically improve accuracy.",
-    summary: "Optical character recognition (OCR) turns the text in a photo or scan into words you can copy, search and edit. Accuracy depends heavily on the image you start with — these tips make the difference between clean text and gibberish.",
+    title: "How to Extract Text from Images Using OCR",
+    seoTitle: `How to Extract Text from Images Using OCR (Free) | ${SITE_NAME}`,
+    metaDescription: "How OCR turns photos, screenshots and scans into editable text, step-by-step extraction for free, capture tips that improve accuracy, and how to fix common OCR problems.",
+    summary: "Optical character recognition (OCR) turns the text in a photo, screenshot or scan into words you can copy, search and edit. Accuracy depends heavily on the image you start with — this guide shows how to extract text step by step and how to get clean results instead of gibberish.",
     published: GUIDES_PUBLISHED,
-    updated: "2026-11-03",
+    updated: "2026-11-11",
     sections: [
       {
         heading: "How OCR works",
         paragraphs: [
           "OCR software first cleans up the image, then finds lines of text, splits them into characters and matches each shape against what it has learned letters look like. Finally it uses language knowledge to correct likely mistakes. Anything that makes letters harder to see — blur, shadows, low contrast, skewed angles — makes every one of those steps less reliable.",
+          "Toolkit4Me's Image to Text tool uses the open-source Tesseract OCR engine, one of the most widely used OCR engines, running on our server.",
         ],
+      },
+      {
+        heading: "What you can use OCR for",
+        list: [
+          "Copying a paragraph from a printed page without retyping it.",
+          "Pulling text out of a screenshot of an error message, a slide or a chat.",
+          "Getting the details from a receipt or invoice into a spreadsheet.",
+          "Making the text of an old letter or document editable and searchable.",
+        ],
+      },
+      {
+        heading: "Step by step: extract text with Image to Text",
+        list: [
+          "Open Image to Text and add a JPG or PNG image of up to 25MB.",
+          "Choose the language of the text — English, Spanish, French or German. Picking the right one noticeably improves accuracy.",
+          "Select Extract Text and wait a few seconds.",
+          "Copy the recognised text, or download it as a .txt file, then proofread it against the original.",
+        ],
+        image: {
+          src: "/images/guides/image-to-text-language.webp",
+          alt: "Toolkit4Me Image to Text tool with a receipt image added, the Text language dropdown set to English, and the Extract Text button",
+          width: 712,
+          height: 331,
+          caption: "Image to Text with a receipt added: choose the text language, then select Extract Text.",
+        },
       },
       {
         heading: "Capturing a good image",
@@ -277,6 +422,24 @@ export const GUIDES: GuideDefinition[] = [
         paragraphs: [
           "Printed text in common fonts, receipts, book pages, letters and screenshots usually convert with very high accuracy. Handwriting, stylised display fonts, text on busy backgrounds and very small print are harder, and you should expect to correct some words.",
         ],
+        table: {
+          caption: "What to expect from different sources",
+          headers: ["Source", "What to expect", "Tip"],
+          rows: [
+            ["Screenshot", "Very good", "Capture at full size; don't shrink it first"],
+            ["Flatbed scan of a printed page", "Very good", "Scan at 300 DPI in greyscale"],
+            ["Phone photo of a page", "Good when flat and well lit", "Shoot straight on, avoid shadows"],
+            ["Receipt", "Good; faded thermal paper is harder", "Photograph it soon, on a dark background"],
+            ["Handwriting", "Often poor", "Expect to correct many words"],
+            ["Text over a photo or pattern", "Often poor", "Crop tightly around the text"],
+          ],
+        },
+      },
+      {
+        heading: "Languages and file types on Toolkit4Me",
+        paragraphs: [
+          "Image to Text reads JPG and PNG images in English, Spanish, French or German — pick the language that matches the text, because the recogniser uses it to resolve unclear letters. For a scanned PDF, either convert the pages to images with PDF to JPG and run the page you need through Image to Text, or use PDF to Word, which automatically reads scanned PDFs of up to 15 pages with English OCR.",
+        ],
       },
       {
         heading: "After extraction",
@@ -287,13 +450,40 @@ export const GUIDES: GuideDefinition[] = [
         ],
       },
       {
-        heading: "Languages and file types on Toolkit4Me",
+        heading: "Troubleshooting",
+        list: [
+          "The result is gibberish: check that the language setting matches the text, and that the image isn't rotated or upside down.",
+          "Words are missing: the image is probably blurred, too small or low in contrast. Retake the photo closer and in better light.",
+          "Columns are jumbled together: crop the image to one column at a time and extract each separately.",
+          "A PDF was rejected: Image to Text accepts JPG and PNG only. Convert the page with PDF to JPG first, or use PDF to Word for scanned PDFs.",
+        ],
+      },
+      {
+        heading: "Conclusion",
         paragraphs: [
-          "Image to Text reads JPG and PNG images in English, Spanish, French or German — pick the language that matches the text, because the recogniser uses it to resolve unclear letters. For a scanned PDF, either convert the pages to images with PDF to JPG and run the page you need through Image to Text, or use PDF to Word, which automatically reads scanned PDFs of up to 15 pages with English OCR.",
+          "Good OCR starts with a good image: sharp, straight, evenly lit and tightly cropped. Get that right, choose the correct language, and printed text comes out almost perfectly — leaving you only a quick proofread instead of a retyping job.",
         ],
       },
     ],
-    relatedTools: ["image-to-text", "pdf-to-word", "jpg-to-pdf", "compress-image"],
+    faq: [
+      {
+        question: "Is OCR 100% accurate?",
+        answer: "No OCR is. Clean printed text and screenshots come close, but always proofread names, numbers and dates against the original before relying on them.",
+      },
+      {
+        question: "Can it read handwriting?",
+        answer: "It can try, but results on handwriting are often poor. OCR engines like Tesseract are designed mainly for printed text.",
+      },
+      {
+        question: "Can I extract text from a PDF?",
+        answer: "Image to Text accepts JPG and PNG images. For a PDF, convert the page to an image with PDF to JPG first, or use PDF to Word, which runs OCR automatically on scanned PDFs of up to 15 pages.",
+      },
+      {
+        question: "What happens to my image?",
+        answer: "Image to Text runs on our server. Your image is deleted as soon as it's processed, and the extracted text is deleted automatically within one hour.",
+      },
+    ],
+    relatedTools: ["image-to-text", "pdf-to-jpg", "pdf-to-word", "word-counter"],
   },
   {
     path: "/guides/how-to-password-protect-a-pdf",
@@ -759,6 +949,115 @@ export const GUIDES: GuideDefinition[] = [
       },
     ],
     relatedTools: ["word-counter", "text-compare", "meta-tag-generator", "image-to-text"],
+  },
+  {
+    path: "/guides/how-to-convert-webp-to-jpg",
+    category: "images",
+    keywords: { primary: "WebP convert", secondary: ["WebP to JPG", "convert WebP to JPG online", "WebP image converter", "JPG to WebP"] },
+    title: "How to Convert WebP to JPG Online for Free",
+    seoTitle: `How to Convert WebP to JPG (and JPG to WebP) Free | ${SITE_NAME}`,
+    metaDescription: "What WebP files are, why some apps won't open them, and how to convert WebP to JPG or PNG — or JPG and PNG to WebP — for free in your browser.",
+    summary: "You saved an image from a website and it turned out to be a .webp file that your photo editor, upload form or messaging app won't accept. Here's what WebP is, how to convert it to JPG or PNG in a few seconds, and when it's worth converting the other way.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What is a WebP file?",
+        paragraphs: [
+          "WebP is an image format introduced by Google in 2010 to make web pages load faster. It combines the strengths of the older formats: lossy compression for photos like JPG, lossless compression and transparency like PNG, and even animation like GIF. At similar visual quality, WebP files are usually noticeably smaller, which is why so many websites now serve their images as WebP.",
+          "Every current major browser displays WebP, so you rarely notice it while browsing. The problem appears when you save an image and try to use it somewhere else.",
+        ],
+      },
+      {
+        heading: "Why convert WebP to JPG",
+        list: [
+          "Older image editors and some desktop apps can't open .webp files.",
+          "Many upload forms — job portals, government sites, print services — only accept JPG or PNG.",
+          "Some messaging and email workflows show WebP attachments as a generic file rather than an image.",
+          "You want one consistent format for an archive or photo library.",
+        ],
+      },
+      {
+        heading: "How to convert WebP to JPG with Toolkit4Me",
+        list: [
+          "Open the WebP Converter and add your .webp images — up to 20 at a time, 25MB each.",
+          "Under “Convert to”, choose JPG.",
+          "Pick a quality: High (90) for photos you might print or edit, Balanced (80) for most uses, Smaller files (70) for thumbnails.",
+          "Select Convert images, then download each JPG. The conversion runs in your browser, so the images never leave your device.",
+        ],
+        image: {
+          src: "/images/guides/webp-converter-options.webp",
+          alt: "Toolkit4Me WebP Converter with an image added, showing the Convert to and Quality options and the Convert images button",
+          width: 712,
+          height: 499,
+          caption: "WebP Converter: choose the output format and quality, then select Convert images.",
+        },
+      },
+      {
+        heading: "JPG or PNG?",
+        paragraphs: [
+          "Choose JPG for photographs: it's universally supported and keeps file sizes small. Choose PNG instead if the WebP has a transparent background — a logo or a product cut-out — or if it's a screenshot or graphic with sharp text. JPG can't store transparency, so transparent areas become white when you convert to JPG, whereas PNG keeps them.",
+        ],
+        table: {
+          caption: "Which format to convert a WebP into",
+          headers: ["Format", "Transparency", "Compression", "Best for", "Opens almost everywhere?"],
+          rows: [
+            ["JPG", "No (becomes white)", "Lossy", "Photos, upload forms", "Yes"],
+            ["PNG", "Yes", "Lossless", "Logos, screenshots, graphics", "Yes"],
+            ["WebP", "Yes", "Lossy or lossless", "Images on your own website", "In browsers; not in every app"],
+          ],
+        },
+      },
+      {
+        heading: "Going the other way: JPG and PNG to WebP",
+        paragraphs: [
+          "If you run a website, converting your own JPG and PNG images to WebP is one of the simplest ways to make pages lighter. Use the same tool with “Convert to” set to WebP. Transparency in PNGs is preserved, and the result screen shows each file's size before and after so you can judge the saving for your own images — it varies a lot from image to image.",
+          "Creating WebP files needs Chrome, Edge or Firefox; older versions of Safari can display WebP but can't create it. Converting from WebP to JPG or PNG works in all modern browsers.",
+        ],
+        image: {
+          src: "/images/guides/webp-converter-result.webp",
+          alt: "Toolkit4Me WebP Converter result screen showing a converted file, its size before and after, and a download button",
+          width: 712,
+          height: 296,
+          caption: "The result screen shows the size before and after (shown here for a simple synthetic test image — real photos will differ).",
+        },
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“This browser can't create WebP images”: you're converting to WebP in an older Safari. Use Chrome, Edge or Firefox, or convert to JPG or PNG instead.",
+          "The background turned white: you converted a transparent image to JPG. Convert to PNG to keep transparency.",
+          "Only one frame came out: animated WebP images are converted as a single still frame.",
+          "The file was rejected: each image can be up to 25MB and about 16.7 megapixels. Reduce very large images first with Image Resizer.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "WebP is excellent for websites but not yet universal everywhere else. When an app or form won't take a .webp file, converting it to JPG (for photos) or PNG (for graphics and transparency) solves the problem in seconds. And if you publish images online, converting them to WebP is an easy win for page speed.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does converting WebP to JPG lose quality?",
+        answer:
+          "JPG is lossy, so the image is re-encoded, but at the High (90) setting the difference is very hard to see. Converting can't add back detail the WebP had already discarded, so start from the best-quality file you have.",
+      },
+      {
+        question: "Why do websites use WebP?",
+        answer: "Because WebP files are usually smaller than equivalent JPGs and PNGs, pages load faster and use less mobile data, which also helps with search performance.",
+      },
+      {
+        question: "Can I convert several WebP files at once?",
+        answer: "Yes — add up to 20 images per batch and download each converted file from the results list.",
+      },
+      {
+        question: "Are my images uploaded?",
+        answer: "No. The WebP Converter uses your browser's built-in image engine, so the conversion happens entirely on your device.",
+      },
+    ],
+    relatedTools: ["webp-converter", "png-to-jpg", "image-resizer", "compress-image"],
   },
 ];
 
