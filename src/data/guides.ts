@@ -2725,6 +2725,523 @@ export const GUIDES: GuideDefinition[] = [
     ],
     relatedTools: ["jpg-to-pdf", "image-to-text", "compress-pdf", "image-resizer"],
   },
+  {
+    path: "/guides/how-do-qr-codes-work",
+    category: "web",
+    keywords: { primary: "how do QR codes work", secondary: ["QR code error correction", "QR code versions", "parts of a QR code"] },
+    title: "How Do QR Codes Work?",
+    seoTitle: `How Do QR Codes Work? Patterns, Versions & Error Correction | ${SITE_NAME}`,
+    metaDescription: "What the squares in a QR code actually do: finder patterns, versions 1–40, error correction that survives damage, and why longer links make denser codes.",
+    summary: "A QR code looks like random noise, but every part of it has a job. Knowing what those parts do explains why some codes scan instantly and others don't — and why a scuffed code often still works.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "A short history",
+        paragraphs: [
+          "QR (“Quick Response”) codes were invented in 1994 by Denso Wave, a Toyota group company, to track car parts on production lines. Unlike a barcode, which stores data in one direction, a QR code stores it in two dimensions, so it holds far more and can be read from any angle. Denso Wave chose not to enforce its patent, and the format became an international standard (ISO/IEC 18004).",
+        ],
+      },
+      {
+        heading: "The parts of a QR code",
+        table: {
+          caption: "What each part of the pattern does",
+          headers: ["Part", "What it does"],
+          rows: [
+            ["Finder patterns", "The three large squares in the corners let a scanner find the code and work out its angle"],
+            ["Alignment patterns", "Smaller squares (from version 2 upwards) that correct for codes seen at a slant or on a curved surface"],
+            ["Timing patterns", "Alternating dark and light lines between the finders that mark out the grid"],
+            ["Format information", "Records the error-correction level and the mask used, stored twice for safety"],
+            ["Quiet zone", "The blank margin around the code — four modules wide in the standard — that separates it from its surroundings"],
+            ["Data and error-correction modules", "Everything else: your content plus the extra information used to repair damage"],
+          ],
+        },
+      },
+      {
+        heading: "Versions: why longer content makes denser codes",
+        paragraphs: [
+          "QR codes come in 40 sizes, called versions. Version 1 is a grid of 21 × 21 squares (“modules”); each version adds four modules per side, up to 177 × 177 at version 40. A generator picks the smallest version that fits your content, so a short link produces a coarse, easy-to-scan grid, while a long link produces a dense one with tiny modules that need a bigger print size or a closer camera.",
+        ],
+      },
+      {
+        heading: "Error correction: how damaged codes still scan",
+        paragraphs: [
+          "QR codes use Reed-Solomon error correction, the same family of maths used on CDs. Extra data is added so a scanner can rebuild missing parts. There are four levels, and each one trades capacity for durability.",
+        ],
+        table: {
+          caption: "Error-correction levels (approximate damage that can be recovered)",
+          headers: ["Level", "Recoverable", "Maximum bytes at version 40"],
+          rows: [
+            ["Low (L)", "About 7%", "2,953"],
+            ["Medium (M)", "About 15%", "2,331"],
+            ["Quartile (Q)", "About 25%", "1,663"],
+            ["High (H)", "About 30%", "1,273"],
+          ],
+        },
+      },
+      {
+        heading: "Masking: keeping the pattern readable",
+        paragraphs: [
+          "Raw data can produce awkward patterns — large solid blocks, or shapes that look like a finder pattern. To avoid this, the encoder tries eight “mask” patterns that flip modules in a regular way, scores each result and keeps the one that's easiest to read. The chosen mask is recorded in the format information, so the scanner can undo it.",
+        ],
+      },
+      {
+        heading: "What happens when you scan",
+        list: [
+          "The camera finds the three finder patterns and works out the code's position and angle.",
+          "It reads the format information to learn the error-correction level and mask.",
+          "It samples each module as dark or light, removes the mask and repairs any errors.",
+          "The decoded content — a link, text or Wi-Fi details — is shown to you to open or act on.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "A QR code is a self-locating, self-repairing grid. Shorter content means a smaller version with bigger modules, and higher error correction means more resilience at the cost of density. For turning this into codes that scan reliably in the real world, see the practical guides below.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does a QR code store the website itself?",
+        answer: "No — it stores only the link (or text) you encode. The website is fetched when the code is scanned, which is why a code stops being useful if the page it points to is taken down.",
+      },
+      {
+        question: "Why can a QR code with a logo still scan?",
+        answer: "Error correction lets the scanner rebuild the covered part. That only works if the logo is small and the error-correction level is high, so always test such codes.",
+      },
+      {
+        question: "Can a QR code be read upside down?",
+        answer: "Yes. The three finder patterns tell the scanner which way round the code is, so it can be read at any rotation.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "meta-tag-generator", "base64-encoder-decoder", "image-resizer"],
+  },
+  {
+    path: "/guides/qr-codes-for-restaurant-menus-and-small-businesses",
+    category: "web",
+    keywords: { primary: "QR code for menu", secondary: ["restaurant menu QR code", "QR code for small business", "Wi-Fi QR code"] },
+    title: "QR Codes for Restaurant Menus and Small Businesses",
+    seoTitle: `QR Code for Menu: A Practical Guide for Small Businesses | ${SITE_NAME}`,
+    metaDescription: "Set up a QR code for your menu, Wi-Fi, reviews or booking page — what to link to, how to update the menu without reprinting, and where to place codes so customers use them.",
+    summary: "A QR code on the table can save reprinting menus every time a price changes — if it's set up the right way. Here's how cafés, restaurants and other small businesses can use free, static QR codes well.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "The key idea: link to a page you control",
+        paragraphs: [
+          "A static QR code stores a link, and the link can't change after printing. The page behind it can. So point the code at a stable address on your own website — for example yoursite.com/menu — and update that page whenever the menu changes. The printed code keeps working, and you never pay for a “dynamic” code service.",
+        ],
+      },
+      {
+        heading: "Web page or PDF menu?",
+        table: {
+          caption: "Choosing what the code opens",
+          headers: ["Option", "Good for", "Watch out for"],
+          rows: [
+            ["A menu web page", "Easy reading on phones, quick updates, accessible to screen readers", "Needs a website you can edit"],
+            ["A PDF menu", "Reusing the menu you already print", "Small text on phones; keep the file small and the address unchanged when you replace it"],
+          ],
+        },
+        paragraphs: [
+          "Either can work. If you use a PDF, compress it so it opens quickly on mobile data, and upload new versions under the same file address so the code keeps pointing at the latest menu.",
+        ],
+      },
+      {
+        heading: "Creating the code",
+        list: [
+          "Open the QR Code Generator and paste the menu link.",
+          "Choose Medium error correction for table cards; High if the code may get worn or wiped often.",
+          "Keep dark-on-light colours — the tool warns you if your colours are too low in contrast.",
+          "Download SVG for printing, so the code stays sharp at any size.",
+          "Scan the printed proof with an iPhone and an Android phone before printing in bulk.",
+        ],
+      },
+      {
+        heading: "Other useful codes for small businesses",
+        list: [
+          "Review page: link straight to your Google or other review page to make leaving a review easier.",
+          "Booking or ordering page: on windows, flyers and receipts.",
+          "Wi-Fi: phone cameras recognise text in the form WIFI:T:WPA;S:NetworkName;P:Password;; and offer to join the network. Change the code if you change the password.",
+          "Social profiles or a contact page: on business cards and packaging.",
+        ],
+      },
+      {
+        heading: "Placement and printing",
+        list: [
+          "Put a short call to action next to the code, such as “Scan for today's menu”.",
+          "Place codes where phones can reach them easily — table tents and counter cards work better than high wall posters.",
+          "Leave a blank margin around the code and avoid glossy laminates that reflect overhead lights.",
+          "Print larger for anything scanned from a distance; the guide on making QR codes that scan covers sizing.",
+        ],
+      },
+      {
+        heading: "Measuring scans without a paid service",
+        paragraphs: [
+          "Static codes can't count scans themselves, but your website analytics can. Add tracking parameters to the link — for example ?utm_source=qr&utm_medium=table — and visits from the code will show up separately in your analytics reports.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Point a free static code at a page you control, update the page rather than the code, and test before printing. Keep printed menus available for customers who prefer them or don't have a phone with them.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Will my menu QR code stop working?",
+        answer: "A static code works for as long as the page it points to exists. If you rebuild your website, keep the menu address the same or redirect it to the new one.",
+      },
+      {
+        question: "Can I put my logo in the middle?",
+        answer: "The generator doesn't add logos. If you add one yourself, keep it small, use High error correction and test the result on several phones.",
+      },
+      {
+        question: "Is a Wi-Fi QR code secure?",
+        answer: "It contains your password in plain text, so anyone who can scan it can read it. Use it for a guest network, not the one your business systems use.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "compress-pdf", "jpg-to-pdf", "meta-tag-generator"],
+  },
+  {
+    path: "/guides/how-to-decode-a-jwt",
+    category: "web",
+    keywords: { primary: "decode JWT", secondary: ["JWT decoder", "read JWT payload", "JWT exp claim"] },
+    title: "How to Decode a JWT and Read What's Inside",
+    seoTitle: `How to Decode a JWT and Read Its Payload | ${SITE_NAME}`,
+    metaDescription: "A JSON Web Token is three Base64URL parts separated by dots. Learn how to decode the header and payload in your browser, what the standard claims mean, and why decoding isn't verifying.",
+    summary: "JSON Web Tokens look like long strings of gibberish, but two of their three parts are just Base64-encoded JSON. When you're debugging a login or an API call, reading them takes seconds — as long as you remember what decoding does and doesn't tell you.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "The three parts of a JWT",
+        paragraphs: [
+          "A JWT looks like xxxxx.yyyyy.zzzzz — three parts separated by dots, each encoded with URL-safe Base64 and no padding.",
+        ],
+        table: {
+          caption: "What each part contains",
+          headers: ["Part", "Contains", "Readable?"],
+          rows: [
+            ["Header", "The token type and signing algorithm, e.g. {\"alg\":\"HS256\",\"typ\":\"JWT\"}", "Yes — JSON"],
+            ["Payload", "The claims: who the token is for, when it expires, and any app-specific data", "Yes — JSON"],
+            ["Signature", "A cryptographic signature over the header and payload", "No — binary data"],
+          ],
+        },
+      },
+      {
+        heading: "Decoding step by step",
+        list: [
+          "Copy the token (without any “Bearer ” prefix).",
+          "Copy only the part before the first dot, paste it into the Base64 Encoder / Decoder and select Decode. You'll see the header JSON.",
+          "Do the same with the part between the two dots to read the payload.",
+          "To make a long payload easier to read, paste it into the JSON Formatter and select Format JSON.",
+        ],
+      },
+      {
+        heading: "If you see an error or a file",
+        paragraphs: [
+          "Decode one part at a time: pasting the whole token gives an error at the first dot, because a dot isn't a Base64 character. The signature decodes to binary data rather than text, which is expected — it isn't meant to be read.",
+        ],
+      },
+      {
+        heading: "Standard claims you'll see",
+        table: {
+          caption: "Registered claims from RFC 7519",
+          headers: ["Claim", "Meaning"],
+          rows: [
+            ["iss", "Issuer — who created the token"],
+            ["sub", "Subject — usually the user's ID"],
+            ["aud", "Audience — which service the token is meant for"],
+            ["exp", "Expiry time"],
+            ["nbf", "Not valid before this time"],
+            ["iat", "When the token was issued"],
+            ["jti", "A unique ID for the token"],
+          ],
+        },
+        paragraphs: [
+          "Times are in seconds since 1 January 1970 (UTC). A value like 1767225600 is a date; most programming languages and spreadsheets can convert it, and if exp is in the past, an expired token explains a sudden “401 Unauthorized”.",
+        ],
+      },
+      {
+        heading: "Decoding is not verifying",
+        paragraphs: [
+          "Anyone can decode a JWT — no key is needed. That's why decoding tells you what a token claims, not whether it's genuine. Only the server, using the secret or public key, can check the signature. Never trust a decoded payload in your own code without verifying it with a proper JWT library.",
+          "It also means a JWT's payload is not private. Don't put passwords or sensitive personal data in one unless the token is encrypted (a JWE, which has five parts and can't be read this way).",
+        ],
+      },
+      {
+        heading: "Keep real tokens private",
+        paragraphs: [
+          "A valid token often works like a temporary password: anyone holding it can act as that user until it expires. Avoid pasting live production tokens into tools that send them to a server. The Base64 Encoder / Decoder and JSON Formatter run entirely in your browser, so the token isn't uploaded.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Split the token at the dots, decode the first two parts as Base64, and format the JSON to read it. Check exp, aud and iss when debugging authentication — and remember that only signature verification on the server proves a token is real.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why does decoding the signature show a file instead of text?",
+        answer: "The signature is raw binary bytes, not text, so the decoder offers it as a file. You don't need to read it; it's only useful to a server verifying the token.",
+      },
+      {
+        question: "Can I edit a JWT payload and re-encode it?",
+        answer: "You can change the text, but the signature will no longer match, so any correctly built server will reject the token.",
+      },
+      {
+        question: "Is a JWT encrypted?",
+        answer: "A normal signed JWT (a JWS) is only encoded, so anyone can read it. Encrypted tokens (JWE) exist but are less common.",
+      },
+    ],
+    relatedTools: ["base64-encoder-decoder", "json-formatter", "text-compare", "meta-tag-generator"],
+  },
+  {
+    path: "/guides/how-to-write-a-meta-description",
+    category: "web",
+    keywords: { primary: "how to write a meta description", secondary: ["meta description examples", "meta description best practices", "why Google rewrites meta descriptions"] },
+    title: "How to Write a Meta Description That Gets Clicks",
+    seoTitle: `How to Write a Meta Description (With Examples) | ${SITE_NAME}`,
+    metaDescription: "A practical method for writing meta descriptions people want to click: match the searcher's goal, lead with specifics, stay around 150–160 characters, and avoid what makes Google rewrite them.",
+    summary: "The meta description is your page's sales pitch in search results. It doesn't directly change rankings, but it can decide whether someone clicks your result or the one beneath it. Here's a simple way to write good ones.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What a meta description does — and doesn't",
+        paragraphs: [
+          "Google has said the meta description isn't a ranking factor. What it does is shape the snippet under your title in search results, which affects how many people choose your page. Google may show your description, or replace it with text from the page if it thinks that answers the search better — so a description that clearly matches the page's purpose is more likely to be used.",
+        ],
+      },
+      {
+        heading: "A four-part formula",
+        list: [
+          "Start with what the page lets the reader do or learn, using the words they'd search for.",
+          "Add a specific detail that sets it apart: a number, a format, a time, a price or a limitation.",
+          "Mention a reason to choose it, such as free, no sign-up or step by step — only if it's true.",
+          "Keep it to one or two sentences, around 150–160 characters, with the important words first.",
+        ],
+      },
+      {
+        heading: "Before and after",
+        table: {
+          caption: "Example rewrites",
+          headers: ["Weak", "Stronger"],
+          rows: [
+            ["Welcome to our blog. Read our latest post about PDFs.", "Shrink a PDF for email in under a minute: which compression level to choose, what it does to images, and how to check the result."],
+            ["Best pizza in town! Great food, great service, come visit!", "Wood-fired pizza in Leeds city centre, open until 11pm. See the full menu with prices and book a table online."],
+            ["Product page for blue running shoes size 6–12.", "Lightweight blue running shoes with a cushioned sole, sizes 6–12. Free returns within 30 days."],
+          ],
+        },
+      },
+      {
+        heading: "Common mistakes",
+        list: [
+          "Using the same description on many pages — each page should describe itself.",
+          "Stuffing keywords — it reads badly and doesn't help.",
+          "Promising what the page doesn't deliver, which leads to quick exits.",
+          "Leaving it empty, so Google picks a random sentence from the page.",
+          "Writing far beyond the limit, so the key point is cut off.",
+        ],
+      },
+      {
+        heading: "Checking length and preview",
+        paragraphs: [
+          "Google cuts snippets by pixel width rather than a fixed character count, and the limit differs between desktop and mobile. Around 150–160 characters is a safe target. The Meta Tag Generator warns you when a description goes over 160 characters and shows an approximate search preview, then gives you the finished tag to paste into your page.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Write each description for a person scanning results: say what the page does in their words, add one specific detail, and keep it within about 160 characters. For the other tags in a page's head, see the meta tags guide.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why does Google show different text from my meta description?",
+        answer: "Google may choose text from the page that better matches the particular search. Clear descriptions that accurately summarise the page tend to be used more often.",
+      },
+      {
+        question: "Should I include my keyword?",
+        answer: "Yes, naturally. Words matching the search are often shown in bold, which helps your result stand out — but once is enough.",
+      },
+      {
+        question: "Do I need a meta description for every page?",
+        answer: "Important pages should have one. For very large sites, Google suggests prioritising key pages and using descriptions generated from page content for the rest.",
+      },
+    ],
+    relatedTools: ["meta-tag-generator", "word-counter", "qr-code-generator", "text-compare"],
+  },
+  {
+    path: "/guides/how-to-compare-two-documents",
+    category: "writing",
+    keywords: { primary: "compare two documents", secondary: ["compare two versions of a document", "find differences between two texts", "compare Word documents"] },
+    title: "How to Compare Two Versions of a Document",
+    seoTitle: `How to Compare Two Documents and See What Changed | ${SITE_NAME}`,
+    metaDescription: "Find every change between two versions of a contract, essay or policy: compare text in your browser, use Word's or Google Docs' compare features, and handle PDFs.",
+    summary: "Someone sends back “a few small edits” to a document you wrote. Reading both versions side by side won't reliably show you what changed. A comparison tool will — here are the options and when to use each.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Choose the right method",
+        table: {
+          caption: "Which comparison to use",
+          headers: ["You have", "Best option"],
+          rows: [
+            ["Two Word documents", "Word's built-in compare (Review → Compare → Compare)"],
+            ["Two Google Docs", "Google Docs' Tools → Compare documents"],
+            ["Plain text, emails, code or text copied from anywhere", "Text Compare in your browser"],
+            ["Two PDFs", "Copy the text out (or convert with PDF to Word), then compare"],
+          ],
+        },
+      },
+      {
+        heading: "Comparing text with Text Compare",
+        list: [
+          "Paste the original version on the left and the new version on the right (up to 300,000 characters each).",
+          "Choose Word comparison for prose, so changes inside sentences are highlighted; choose Line for lists, code or clauses on separate lines.",
+          "Tick Ignore upper/lower case if capitalisation doesn't matter; in Line mode you can also ignore extra spaces.",
+          "Select Compare text. Additions are shown in green and removals in red, with a count of each.",
+        ],
+        paragraphs: [
+          "Text Compare runs in your browser, so confidential drafts aren't uploaded.",
+        ],
+      },
+      {
+        heading: "Comparing Word documents in Word",
+        paragraphs: [
+          "Word's compare feature creates a third document showing the differences as tracked changes, including formatting changes. Open Word, go to Review → Compare → Compare, choose the original and revised files, and Word produces a marked-up version you can accept or reject change by change. This is often called a “blackline” or “redline” in legal work.",
+        ],
+      },
+      {
+        heading: "Comparing PDFs",
+        paragraphs: [
+          "If the PDFs contain selectable text, copy all the text from each and paste them into Text Compare. For a more faithful layout, convert both with PDF to Word and use Word's compare. Scanned PDFs need OCR first — see the guide on scanned and text PDFs.",
+        ],
+      },
+      {
+        heading: "Reading the results",
+        list: [
+          "A moved paragraph appears as a removal in one place and an addition in another — check that nothing was changed during the move.",
+          "Watch numbers, dates, names and words like “not”, “may” and “shall”, where one small change matters most.",
+          "Line-break and spacing differences can create noise; Word comparison, or ignoring extra spaces in Line mode, reduces it.",
+          "Formatting changes (bold, fonts) aren't visible in a plain-text comparison — use Word's compare if they matter.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Use the editor's own compare feature when both files are Word or Google Docs, and Text Compare for everything else. Either way, let the tool find the changes and spend your attention on judging them.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I save the comparison?",
+        answer: "Text Compare can download a standard .diff file, which developers can open in code editors. For a shareable marked-up document, Word's compare is better.",
+      },
+      {
+        question: "Can I compare more than two versions?",
+        answer: "Compare them in pairs — usually each version against the one before it.",
+      },
+      {
+        question: "Why does every line show as changed?",
+        answer: "Often the line breaks differ, for example text copied from a PDF. Switch to Word comparison, or in Line mode tick the option to ignore extra spaces.",
+      },
+    ],
+    relatedTools: ["text-compare", "pdf-to-word", "word-counter", "image-to-text"],
+  },
+  {
+    path: "/guides/how-many-words-is-a-5-minute-speech",
+    category: "writing",
+    keywords: { primary: "how many words is a 5 minute speech", secondary: ["words per minute speaking", "speech length calculator", "how long is a 1000 word speech"] },
+    title: "How Many Words Is a 5-Minute Speech?",
+    seoTitle: `How Many Words Is a 5-Minute Speech? (Words-per-Minute Table) | ${SITE_NAME}`,
+    metaDescription: "A 5-minute speech is about 700 words at a typical speaking pace of 140 words per minute. See a table for other lengths, what changes your pace, and how to time a script.",
+    summary: "Whether it's a wedding toast, a class presentation or a conference talk, the time limit is usually set in minutes but you write in words. Here's how to convert one into the other.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "The short answer",
+        paragraphs: [
+          "At a comfortable presentation pace of about 140 words per minute, a 5-minute speech is around 700 words. Most people speak somewhere between 120 and 160 words per minute when presenting, so a 5-minute script will usually land between 600 and 800 words.",
+        ],
+      },
+      {
+        heading: "Words for common speech lengths",
+        table: {
+          caption: "Approximate word counts at three speaking speeds",
+          headers: ["Length", "Slow (120 wpm)", "Typical (140 wpm)", "Fast (160 wpm)"],
+          rows: [
+            ["1 minute", "120", "140", "160"],
+            ["2 minutes", "240", "280", "320"],
+            ["3 minutes", "360", "420", "480"],
+            ["5 minutes", "600", "700", "800"],
+            ["10 minutes", "1,200", "1,400", "1,600"],
+            ["15 minutes", "1,800", "2,100", "2,400"],
+            ["20 minutes", "2,400", "2,800", "3,200"],
+          ],
+        },
+      },
+      {
+        heading: "What changes your pace",
+        list: [
+          "Nerves usually speed people up — plan for a slower pace than feels natural.",
+          "Pauses for laughter, applause or questions take time without using words.",
+          "Slides, demonstrations and technical terms slow you down.",
+          "Reading a script aloud is faster than speaking from notes.",
+          "Speaking to a large room or through an interpreter calls for a slower pace.",
+        ],
+      },
+      {
+        heading: "How to fit your script to the time",
+        list: [
+          "Paste your draft into the Word Counter: it shows the word count and an estimated speaking time at 140 words per minute.",
+          "Aim for slightly under the limit — around 650 words for a strict 5-minute slot — to leave room for pauses.",
+          "Read it aloud at your real pace with a timer, and note the difference from the estimate.",
+          "Cut or expand, then time it again. Your own measured pace is more reliable than any average.",
+        ],
+      },
+      {
+        heading: "Trimming a speech that runs long",
+        list: [
+          "Keep one main message and remove side points that don't support it.",
+          "Replace several examples with your single best one.",
+          "Shorten introductions and thank-yous to a sentence or two.",
+          "Cut repeated phrases — the Word Counter's most-used words list helps spot them.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Plan on about 700 words for 5 minutes, or roughly 140 per minute for other lengths, then check by rehearsing aloud. For how words and characters are counted in other situations, see the guide on word and character limits.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How long is a 1,000-word speech?",
+        answer: "About 7 minutes at 140 words per minute — between roughly 6 and 8 minutes depending on your pace.",
+      },
+      {
+        question: "How many pages is a 5-minute speech?",
+        answer: "Around 700 words is roughly one and a half pages of single-spaced text at a normal font size, or about three pages double-spaced. Words are a more reliable measure than pages.",
+      },
+      {
+        question: "Is reading time the same as speaking time?",
+        answer: "No. People read silently much faster — the Word Counter uses 238 words per minute for reading and 140 for speaking.",
+      },
+    ],
+    relatedTools: ["word-counter", "text-compare", "image-to-text", "meta-tag-generator"],
+  },
 ];
 
 /** Words in a guide's visible text (summary, sections, tables, FAQs). */
