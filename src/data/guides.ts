@@ -1528,6 +1528,701 @@ export const GUIDES: GuideDefinition[] = [
     ],
     relatedTools: ["png-to-jpg", "compress-image", "jpg-to-png", "webp-converter"],
   },
+  {
+    path: "/guides/how-to-split-a-pdf",
+    category: "pdf",
+    keywords: { primary: "split PDF", secondary: ["extract pages from PDF", "split PDF into separate files", "split PDF every N pages"] },
+    title: "How to Split a PDF into Separate Pages or Files",
+    seoTitle: `How to Split a PDF into Separate Pages or Files (Free) | ${SITE_NAME}`,
+    metaDescription: "Extract specific pages from a PDF, split it into several files by page range, or break it into equal parts every few pages — free, in your browser, step by step.",
+    summary: "Sometimes you only need part of a PDF: one invoice from a monthly batch, the two pages a form actually asks for, or a long scan broken into chunks small enough to upload. Here's how to split a PDF exactly the way you need.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Two ways to split a PDF",
+        paragraphs: [
+          "Split PDF works in one of two modes. Custom page ranges lets you list exactly which pages go into each new file — useful when you know what you need. Split every N pages chops the document into equal parts automatically — useful for very long files or upload limits.",
+        ],
+        table: {
+          caption: "Choosing a split mode",
+          headers: ["Mode", "What you enter", "What you get", "Good for"],
+          rows: [
+            ["Custom page ranges", "e.g. 1-3, 5, 8-10", "One PDF per range, in the order you typed them", "Pulling out specific pages or sections"],
+            ["Split every N pages", "e.g. 10", "Files of 10 pages each (the last may be shorter)", "Long documents and upload limits"],
+          ],
+        },
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open Split PDF and add your PDF (up to 50MB). It's processed in your browser, so the file isn't uploaded.",
+          "Choose Custom page ranges or Split every N pages.",
+          "Enter your ranges, separated by commas — for example 1-3, 4, 7-9 makes three files — or the number of pages per file.",
+          "Select Split PDF, then download each file, or use Download all to save them in one go.",
+        ],
+      },
+      {
+        heading: "Writing page ranges",
+        list: [
+          "A single page: 5",
+          "A run of pages: 2-6 (pages 2, 3, 4, 5 and 6)",
+          "Several files at once: 1-2, 3-10, 11 — each comma-separated group becomes its own PDF",
+          "Page numbers are the PDF's physical pages counted from 1, not the numbers printed on the pages, which often differ in documents with a cover or contents pages.",
+        ],
+      },
+      {
+        heading: "Splitting vs deleting pages",
+        paragraphs: [
+          "If you want one file with a few pages removed, it's often quicker to delete them instead. The PDF Editor shows a thumbnail of every page and lets you delete, reorder and rotate pages, then download a single edited PDF. Splitting is better when you want several separate files, or when you only want to keep a small part of a long document.",
+        ],
+      },
+      {
+        heading: "Common uses",
+        list: [
+          "Sending only the relevant pages of a bank statement or contract, so you don't share more than needed.",
+          "Separating a scanned batch of receipts or invoices into one file each.",
+          "Breaking a 200-page scan into parts that fit a 10MB upload limit.",
+          "Extracting a single chapter of a report to review or print.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“Page 12 doesn't exist”: the PDF has fewer pages than your range — the message tells you how many it has. Adjust the range to match.",
+          "“Couldn't be read as a PDF”: the file is damaged or password-protected. Remove the password with Unlock PDF first.",
+          "Bookmarks or form fields are missing in the parts: splitting copies pages, and bookmarks and fillable fields may not carry over.",
+          "The parts are still too big: compress each one with Compress PDF.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Use custom ranges when you know which pages you need, and split every N pages when the goal is simply smaller files. Because Split PDF runs in your browser, it's also a sensible choice for statements and other personal documents you'd rather not upload anywhere.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Does splitting a PDF reduce quality?",
+        answer: "No. Pages are copied into the new files exactly as they are; nothing is re-compressed.",
+      },
+      {
+        question: "Can I put pages from different parts of the PDF into one file?",
+        answer: "Each comma-separated range becomes its own file. To combine non-adjacent pages into one file, split them out and then join the parts with Merge PDF — or delete the pages you don't want in the PDF Editor.",
+      },
+      {
+        question: "Is my PDF uploaded?",
+        answer: "No. Split PDF runs entirely in your browser using the open-source pdf-lib library.",
+      },
+    ],
+    relatedTools: ["split-pdf", "pdf-editor", "merge-pdf", "compress-pdf"],
+  },
+  {
+    path: "/guides/how-to-unlock-a-pdf",
+    category: "pdf",
+    keywords: { primary: "unlock PDF", secondary: ["remove password from PDF", "unlock PDF with password", "PDF password remover"] },
+    title: "How to Unlock a PDF When You Know the Password",
+    seoTitle: `How to Remove a Password from a PDF You Own | ${SITE_NAME}`,
+    metaDescription: "Remove the open password from a PDF you're entitled to use — such as bank or utility statements — so it opens without a prompt. What it does, what it can't do, and how to do it safely.",
+    summary: "Banks, utilities and employers often send PDFs that ask for a password every time you open them. If you know the password and the document is yours, you can save an unlocked copy that opens straight away. Here's how — and what to keep in mind.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "What “unlocking” a PDF means",
+        paragraphs: [
+          "A PDF with an open password is encrypted: without the password, its contents can't be read at all. Unlocking means opening it once with the correct password and saving a copy without encryption, so it opens normally from then on. Removing the encryption also removes any printing or copying restrictions the PDF had.",
+          "Unlocking is not cracking. Toolkit4Me's Unlock PDF only works when you supply the correct password — it never guesses, brute-forces or bypasses protection. If you've forgotten a password, the right step is to ask the sender for a new copy.",
+        ],
+      },
+      {
+        heading: "When it's useful",
+        list: [
+          "Statements you need to open often, or keep in a folder you already protect.",
+          "Documents you want to merge, split, compress or edit — those tools can't open an encrypted PDF.",
+          "Files you need to archive for years, when you might not remember the password later.",
+          "Documents you need to upload to a system that rejects password-protected files.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open Unlock PDF and add the protected PDF (up to 100MB).",
+          "Type the PDF's password.",
+          "Select Unlock PDF. If the password is wrong you'll see a clear “incorrect password” message and no file is produced.",
+          "Download the unlocked copy and check that it opens without a prompt.",
+        ],
+      },
+      {
+        heading: "Keep unlocked copies safe",
+        paragraphs: [
+          "Once the password is removed, anyone who gets the file can read it. Store unlocked statements somewhere that's already protected — an encrypted laptop, a password-protected account — and avoid emailing them. If you need to send one later, add a fresh password with Protect PDF and share the password separately.",
+          "Unlock PDF runs on our server: your file and the unlocked copy are deleted automatically within an hour, and your password is used only for that one operation — it's never logged or stored.",
+        ],
+      },
+      {
+        heading: "Open password vs restrictions",
+        table: {
+          caption: "Which tool do you need?",
+          headers: ["Your PDF…", "Tool", "Password needed?"],
+          rows: [
+            ["Asks for a password to open", "Unlock PDF", "Yes — the open password"],
+            ["Opens freely but won't let you print or copy", "UnProtect PDF", "Usually not"],
+            ["Opens freely, no restrictions", "Nothing to remove", "—"],
+          ],
+        },
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“Incorrect password”: check capital letters, and look for the format the sender described (for example, date of birth as DDMMYYYY). Copy-pasting from an email can add an invisible space.",
+          "The PDF opens without a password already: there's no open password to remove. If printing is blocked, use UnProtect PDF instead.",
+          "Forgotten password: there's no legitimate way to recover it. Ask the sender to reissue the document.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "If a document is yours and you know its password, saving an unlocked copy removes a daily annoyance and lets you merge, split or compress it. Just treat the unlocked copy as sensitive and store it somewhere already protected.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can Unlock PDF remove a password I don't know?",
+        answer: "No. It only works with the correct password and never attempts to guess or crack one.",
+      },
+      {
+        question: "Does unlocking change the content of the PDF?",
+        answer: "No. Only the encryption is removed; pages, text and images stay the same.",
+      },
+      {
+        question: "Is my password stored?",
+        answer: "No. It's used once to decrypt the file and is never logged or stored. The files are deleted automatically within an hour.",
+      },
+    ],
+    relatedTools: ["unlock-pdf", "unprotect-pdf", "protect-pdf", "merge-pdf"],
+  },
+  {
+    path: "/guides/how-to-remove-pdf-restrictions",
+    category: "pdf",
+    keywords: { primary: "remove PDF restrictions", secondary: ["PDF printing disabled", "can't copy text from PDF", "remove PDF permissions password"] },
+    title: "How to Remove Printing and Copying Restrictions from Your Own PDF",
+    seoTitle: `PDF Won't Print or Copy? How to Remove Restrictions | ${SITE_NAME}`,
+    metaDescription: "Why some PDFs open but won't let you print, copy or edit, the difference between permissions and open passwords, and how to remove restrictions from a PDF you're entitled to use.",
+    summary: "Some PDFs open normally but grey out Print, refuse to let you copy a sentence, or block filling in forms. That's a permissions setting, separate from a password to open the file. Here's how it works and how to remove it from documents you own.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why a PDF can open but not print",
+        paragraphs: [
+          "PDFs can carry two different protections. An open password (sometimes called a user password) stops the file opening at all. A permissions password (owner password) lets anyone open it but tells PDF readers to block certain actions — printing, copying text, editing, adding comments or filling forms.",
+          "Permissions are enforced by the reader software rather than by strong secrecy: a PDF with restrictions but no open password can be read by anyone. That's why removing those restrictions is possible without knowing a password — and why it should only be done on documents you have the right to use that way.",
+        ],
+      },
+      {
+        heading: "How to tell which protection you have",
+        table: {
+          caption: "Symptoms and the matching tool",
+          headers: ["What you see", "Protection", "Tool"],
+          rows: [
+            ["A password prompt before the PDF opens", "Open password", "Unlock PDF (needs the password)"],
+            ["Opens, but Print or Copy is greyed out", "Permissions restrictions", "UnProtect PDF"],
+            ["Opens, but form fields won't take input", "Permissions restrictions (form filling disabled)", "UnProtect PDF"],
+          ],
+        },
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open UnProtect PDF and add the restricted PDF (up to 100MB).",
+          "Leave the password blank if the PDF opens without one. If it also needs a password to open, enter it.",
+          "Select Remove Restrictions and download the result.",
+          "Open the new copy and check that printing and copying now work.",
+        ],
+      },
+      {
+        heading: "What the tool won't do",
+        paragraphs: [
+          "UnProtect PDF never guesses or cracks passwords, and it doesn't bypass DRM systems. If a PDF needs a password to open and you don't have it, you'll get a clear error rather than a workaround. It's intended for your own documents — a contract you've signed, a statement addressed to you, a form you need to complete — not for removing the protection someone has placed on their copyrighted work.",
+        ],
+      },
+      {
+        heading: "Alternatives worth knowing",
+        list: [
+          "If you only need to print once, ask the sender for an unrestricted copy — they may simply not have realised.",
+          "If you only need the words, PDF to Word extracts the text into an editable document.",
+          "If you need an image of a page, PDF to JPG renders it as a picture.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "“A password is required”: the PDF also has an open password. Enter it, or ask the sender for it.",
+          "Restrictions still apply: some readers cache permissions — close the PDF fully and open the new copy.",
+          "The file opens in a viewer that still blocks printing: make sure you're opening the downloaded copy, not the original.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "If a PDF opens but won't print or copy, it has permissions restrictions rather than real encryption. For documents you're entitled to use, removing them takes seconds; for anything that needs a password to open, use Unlock PDF with the correct password instead.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Is removing PDF restrictions legal?",
+        answer: "That depends on the document and where you are. Use it for documents you own or are authorised to print, copy or edit — not to get around the protection on someone else's copyrighted material.",
+      },
+      {
+        question: "What's the difference between UnProtect PDF and Unlock PDF?",
+        answer: "Unlock PDF removes a password needed to open a file, using that password. UnProtect PDF removes printing, copying and editing restrictions from a PDF that already opens.",
+      },
+      {
+        question: "Is my file stored?",
+        answer: "No. UnProtect PDF runs on our server, and both your file and the result are deleted automatically within an hour.",
+      },
+    ],
+    relatedTools: ["unprotect-pdf", "unlock-pdf", "pdf-to-word", "protect-pdf"],
+  },
+  {
+    path: "/guides/how-to-convert-pdf-to-jpg",
+    category: "pdf",
+    keywords: { primary: "PDF to JPG", secondary: ["convert PDF pages to images", "PDF to image", "save PDF page as JPG"] },
+    title: "How to Convert PDF Pages to JPG Images",
+    seoTitle: `How to Convert PDF Pages to JPG Images (Free) | ${SITE_NAME}`,
+    metaDescription: "Turn PDF pages into JPG images for slides, social posts, chat apps and previews: how the conversion works, what resolution you get, and when to choose another tool.",
+    summary: "Sometimes a PDF page needs to be a picture: a slide in a presentation, a post on social media, a preview in a chat app that won't show PDFs. Here's how to turn PDF pages into JPG images, and what to expect from the result.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "When an image beats a PDF",
+        list: [
+          "Adding a page — a chart, a certificate, a poster — to a presentation or document.",
+          "Sharing a page in a chat app or social network that previews images but not PDFs.",
+          "Creating a thumbnail preview of a document for a website.",
+          "Sending a single page to someone who only needs to look at it.",
+        ],
+      },
+      {
+        heading: "How the conversion works",
+        paragraphs: [
+          "PDF to JPG renders each page the way a PDF viewer would, then saves the result as a JPG image. Pages are rendered at 150 DPI, which makes an A4 page roughly 1240 × 1754 pixels — sharp on any screen and fine for everyday printing. A one-page PDF downloads as a single JPG; a longer PDF downloads as a ZIP file with one numbered image per page.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open PDF to JPG and add your PDF (up to 50MB).",
+          "Select Convert to JPG and wait while the pages are rendered on our server.",
+          "Download the JPG, or the ZIP of pages — they're named page-001.jpg, page-002.jpg and so on.",
+          "Open the image to check it; for a single page you need from a long PDF, you can extract that page first with Split PDF to get just one image.",
+        ],
+      },
+      {
+        heading: "What changes when a page becomes an image",
+        table: {
+          caption: "PDF page vs JPG image",
+          headers: ["", "PDF page", "JPG image"],
+          rows: [
+            ["Text", "Selectable and searchable", "Part of the picture — not selectable"],
+            ["Zooming in", "Text and lines stay sharp", "Becomes soft beyond its resolution"],
+            ["Opens in", "PDF readers and browsers", "Almost anything"],
+            ["Best for", "Reading, printing, forms", "Slides, posts, previews"],
+          ],
+        },
+      },
+      {
+        heading: "Choosing the right tool",
+        list: [
+          "Need the words, not a picture? Use PDF to Word or Image to Text instead — text in a JPG can't be copied.",
+          "Need to change the page? Edit it first with the PDF Editor, then convert.",
+          "Need images back as a PDF later? JPG to PDF combines them again.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The PDF won't convert: it may be password-protected or damaged. Unlock it first with Unlock PDF.",
+          "Small text looks soft when zoomed in: JPG is a lossy format with a fixed resolution. For a crisper result in a document, keep the original PDF.",
+          "The ZIP has too many pages: extract the pages you need with Split PDF before converting.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Converting PDF pages to JPG makes them easy to drop into slides, posts and chats. The 150 DPI images look sharp on screen, but they're pictures, so keep the original PDF for anything that needs selectable text or crisp printing.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I convert just one page?",
+        answer: "The tool converts every page. To get a single page, extract it first with Split PDF, then convert that one-page PDF.",
+      },
+      {
+        question: "Why is my download a ZIP file?",
+        answer: "A multi-page PDF produces one image per page, so they're bundled into a ZIP. Most computers open ZIP files with a double-click.",
+      },
+      {
+        question: "What happens to my PDF?",
+        answer: "PDF to JPG runs on our server. Your upload is deleted as soon as it's processed, and the images are deleted automatically within one hour.",
+      },
+    ],
+    relatedTools: ["pdf-to-jpg", "split-pdf", "jpg-to-pdf", "pdf-to-word"],
+  },
+  {
+    path: "/guides/how-to-add-page-numbers-to-a-pdf",
+    category: "pdf",
+    keywords: { primary: "add page numbers to PDF", secondary: ["number PDF pages", "PDF page numbers online", "page X of Y PDF"] },
+    title: "How to Add Page Numbers to a PDF",
+    seoTitle: `How to Add Page Numbers to a PDF (Free, No Upload) | ${SITE_NAME}`,
+    metaDescription: "Add page numbers to any PDF: choosing a position and style, skipping a cover page, starting from a custom number, and handling landscape and rotated pages.",
+    summary: "Page numbers make long PDFs far easier to discuss, review and print — “see page 14” only works if there is a page 14. Here's how to add them to a finished PDF without going back to the original document.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why number a PDF after the fact",
+        paragraphs: [
+          "Ideally, page numbers are added in Word or whatever program created the document. But often you're working with a finished PDF: several files merged into one, a scanned document, or a report someone else made. Adding numbers to the PDF itself avoids recreating anything — the existing pages stay exactly as they are, with a small number stamped in the position you choose.",
+        ],
+      },
+      {
+        heading: "Step by step",
+        list: [
+          "Open PDF Page Numbers and add your PDF (up to 50MB). It's processed in your browser, so the file isn't uploaded.",
+          "Choose a position: top or bottom, left, centre or right.",
+          "Choose a style: 1, Page 1, Page 1 of 10, or 1 / 10.",
+          "Optionally set the starting number and choose whether the first page should be left unnumbered.",
+          "Select Add page numbers and download the numbered PDF.",
+        ],
+      },
+      {
+        heading: "Choosing a style and position",
+        table: {
+          caption: "Common choices",
+          headers: ["Document", "Position", "Style"],
+          rows: [
+            ["Reports and theses", "Bottom centre", "1 or Page 1"],
+            ["Contracts and legal documents", "Bottom right", "Page 1 of 10 — shows nothing is missing"],
+            ["Slides exported to PDF", "Bottom right", "1 / 10"],
+            ["Documents with busy footers", "Top right", "1"],
+          ],
+        },
+      },
+      {
+        heading: "Cover pages and custom starting numbers",
+        paragraphs: [
+          "Choosing “Leave the first page (cover) unnumbered” skips page one; numbering then starts on page two with your starting number, and an “of N” total counts only the numbered pages. A custom starting number helps when a PDF is one part of something larger — if chapter 3 begins on page 41, start at 41 and the numbers match the whole document.",
+        ],
+      },
+      {
+        heading: "Landscape and rotated pages",
+        paragraphs: [
+          "Mixed documents often contain landscape pages, or pages that were scanned sideways and rotated. The tool reads each page's rotation and visible area, so the number appears upright in the position you chose as the reader sees it — not sideways, and not outside the visible part of a cropped page.",
+        ],
+      },
+      {
+        heading: "A good order of operations",
+        list: [
+          "Merge all the parts first with Merge PDF — numbering a single combined file keeps numbers continuous.",
+          "Remove or reorder pages in the PDF Editor before numbering, so the numbers match the final order.",
+          "Add page numbers.",
+          "Compress or password-protect the final file last.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "A number overlaps existing text: the page already has content there. Choose a different position, such as the top instead of the bottom.",
+          "“Password-protected”: remove the password with Unlock PDF, number the pages, then protect the file again if needed.",
+          "The numbers restart or skip: you numbered the parts before merging. Merge first, then number the combined file.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "Numbering a finished PDF takes seconds and changes nothing else about the pages. Merge and arrange first, pick a position that doesn't clash with existing footers, and use “Page 1 of N” where it matters that nothing is missing.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I use Roman numerals for the introduction?",
+        answer: "Not with this tool — it uses ordinary numbers (1, 2, 3) in Helvetica. If you need Roman numerals, add numbering in the original document before exporting it to PDF.",
+      },
+      {
+        question: "Will page numbers change my existing content?",
+        answer: "No. The number is added on top of each page; nothing else is moved, re-compressed or removed.",
+      },
+      {
+        question: "Is my PDF uploaded?",
+        answer: "No. Page numbers are added in your browser with the open-source pdf-lib library.",
+      },
+    ],
+    relatedTools: ["pdf-page-numbers", "merge-pdf", "pdf-editor", "compress-pdf"],
+  },
+  {
+    path: "/guides/how-to-rotate-pdf-pages",
+    category: "pdf",
+    keywords: { primary: "rotate PDF pages", secondary: ["rotate PDF and save", "fix sideways PDF", "rotate one page in a PDF"] },
+    title: "How to Rotate PDF Pages and Save Them That Way",
+    seoTitle: `How to Rotate PDF Pages Permanently (Free) | ${SITE_NAME}`,
+    metaDescription: "Fix sideways or upside-down pages in a PDF and save the rotation permanently — including rotating just one page — in your browser, without uploading the file.",
+    summary: "Scanned documents often come out with a page or two sideways or upside down. Rotating them in a PDF viewer only changes your view; the next person still sees them wrong. Here's how to fix the pages in the file itself.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why rotating in a viewer isn't enough",
+        paragraphs: [
+          "Most PDF readers have a rotate button, but in many of them it only changes how the page is displayed to you, right now. Close the file, send it to someone, or open it in a different app, and the page is sideways again. To fix it for everyone, the rotation has to be saved into the PDF itself.",
+        ],
+      },
+      {
+        heading: "Step by step with the PDF Editor",
+        list: [
+          "Open the PDF Editor and add your PDF (up to 50MB). It runs in your browser, so the file isn't uploaded.",
+          "Find the sideways page in the thumbnails.",
+          "Use the rotate button on that page — each press turns it 90° clockwise. Press twice for upside-down pages.",
+          "Rotate any other pages that need it; pages you don't touch stay as they are.",
+          "Select Apply edits & download to save a new PDF with the rotation fixed.",
+        ],
+      },
+      {
+        heading: "How many presses?",
+        table: {
+          caption: "Rotate presses for each problem (90° clockwise per press)",
+          headers: ["The page is…", "Presses", "Total rotation"],
+          rows: [
+            ["Turned left (top of the page faces left)", "1", "90°"],
+            ["Upside down", "2", "180°"],
+            ["Turned right (top of the page faces right)", "3", "270°"],
+          ],
+        },
+      },
+      {
+        heading: "While you're in the editor",
+        list: [
+          "Delete blank pages that scanners often add.",
+          "Move pages earlier or later to fix the order.",
+          "Add a short line of text to a page, such as a date or reference number.",
+        ],
+      },
+      {
+        heading: "Preventing sideways scans",
+        list: [
+          "Place every page the same way on the scanner glass or feeder.",
+          "When photographing pages with a phone, hold it in the same orientation for each shot.",
+          "Check the first few pages before scanning a whole stack.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "The PDF won't open in the editor: it may be password-protected. Remove the password with Unlock PDF first.",
+          "A page still looks sideways in another app: make sure you're opening the newly downloaded file, not the original.",
+          "Page numbers ended up sideways: add page numbers after rotating — PDF Page Numbers places them upright on every page.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "A rotation only counts if it's saved in the file. Rotate the affected pages in the PDF Editor, tidy up any blank or out-of-order pages while you're there, and download a corrected copy that looks right for everyone.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I rotate just one page?",
+        answer: "Yes. Each page has its own rotate button, so you can turn one page and leave the rest unchanged.",
+      },
+      {
+        question: "Does rotating a page reduce quality?",
+        answer: "No. The page's rotation setting is changed; its content isn't re-rendered or re-compressed.",
+      },
+      {
+        question: "Is my PDF uploaded?",
+        answer: "No. The PDF Editor works entirely in your browser.",
+      },
+    ],
+    relatedTools: ["pdf-editor", "split-pdf", "pdf-page-numbers", "merge-pdf"],
+  },
+  {
+    path: "/guides/how-to-fit-excel-sheet-on-one-page-pdf",
+    category: "pdf",
+    keywords: { primary: "Excel to PDF one page", secondary: ["fit Excel sheet to one page PDF", "Excel PDF cut off columns", "Excel to PDF too many pages"] },
+    title: "How to Fit an Excel Sheet on One Page When Saving as PDF",
+    seoTitle: `Excel to PDF on One Page: Fix Cut-Off Columns | ${SITE_NAME}`,
+    metaDescription: "Why Excel sheets split across several PDF pages or lose columns, and the page-setup changes — scaling, orientation, print area and margins — that fit them on one page.",
+    summary: "You convert a spreadsheet to PDF and get eight pages, with the last two columns stranded on pages of their own. The fix isn't in the converter — it's in the workbook's page setup. Here's how to get a clean, one-page PDF.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Why sheets spread over several pages",
+        paragraphs: [
+          "Spreadsheets have no fixed page size: a sheet can be hundreds of columns wide. When it's converted to PDF, it has to be cut into printable pages, and the cuts follow the workbook's page setup — paper size, orientation, margins and scaling. Excel to PDF converters, including ours, respect that setup, so the way to control the PDF is to set the page layout in Excel before converting.",
+        ],
+      },
+      {
+        heading: "The fix: scale to fit",
+        list: [
+          "In Excel, open the Page Layout tab.",
+          "In the Scale to Fit group, set Width to 1 page and Height to Automatic. This shrinks columns to fit across one page while letting long sheets continue onto further pages.",
+          "For a genuinely one-page result, set Height to 1 page as well — but check the text is still readable.",
+          "Save the workbook, then convert it with Excel to PDF.",
+        ],
+      },
+      {
+        heading: "Other settings that help",
+        table: {
+          caption: "Page Layout settings and their effect",
+          headers: ["Setting", "Where in Excel", "Effect"],
+          rows: [
+            ["Orientation: Landscape", "Page Layout → Orientation", "Fits more columns per page"],
+            ["Narrow margins", "Page Layout → Margins", "Gains a little space on every edge"],
+            ["Print area", "Page Layout → Print Area → Set Print Area", "Includes only the cells you select"],
+            ["Print titles", "Page Layout → Print Titles", "Repeats header rows on every page"],
+            ["Hide helper columns", "Right-click column → Hide", "Leaves working columns out of the PDF"],
+          ],
+        },
+      },
+      {
+        heading: "Step by step with Excel to PDF",
+        list: [
+          "Set the page layout in Excel as above and save the workbook.",
+          "Open Excel to PDF and add the .xlsx or .xls file (up to 50MB).",
+          "Select Convert to PDF. Every sheet in the workbook is included, each following its own page setup.",
+          "Download the PDF and check the page count and that no columns are cut off.",
+        ],
+      },
+      {
+        heading: "When one page is too small",
+        paragraphs: [
+          "Scaling a very wide sheet onto one page can shrink the text below a readable size. If that happens, use landscape with Width set to 1 page and let the rows flow onto more pages, with Print Titles repeating the header row. Or split the data into two sheets that each fit comfortably — a PDF is for reading, and a few readable pages beat one illegible one.",
+        ],
+      },
+      {
+        heading: "Troubleshooting",
+        list: [
+          "Blank pages in the PDF: a stray formatted cell far from your data extends the print area. Set a print area around the real data.",
+          "Only some sheets should be in the PDF: the converter includes every sheet, so save a copy of the workbook with just the sheets you need and convert that.",
+          "Fonts look different: fonts not installed on our server are replaced with a similar one, which can change column widths slightly. Use common fonts such as Arial for documents you'll convert.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "A spreadsheet's PDF is only as tidy as its page setup. Set Width to 1 page, switch to landscape for wide data, define a print area, and the conversion produces exactly the pages you expect.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can the converter fit my sheet on one page automatically?",
+        answer: "No — Excel to PDF follows the page setup saved in your workbook, so the page layout has to be set in Excel first.",
+      },
+      {
+        question: "Do formulas still work in the PDF?",
+        answer: "No. A PDF shows the calculated values as they were when you converted; it isn't interactive.",
+      },
+      {
+        question: "What happens to my spreadsheet?",
+        answer: "Excel to PDF runs on our server. Your upload is deleted as soon as it's converted, and the PDF is deleted automatically within one hour.",
+      },
+    ],
+    relatedTools: ["excel-to-pdf", "word-to-pdf", "compress-pdf", "merge-pdf"],
+  },
+  {
+    path: "/guides/scanned-pdf-vs-text-pdf",
+    category: "pdf",
+    keywords: { primary: "scanned PDF vs text PDF", secondary: ["can't select text in PDF", "PDF text not searchable", "how to tell if a PDF is scanned"] },
+    title: "Scanned PDF vs Text PDF: Why You Can't Select the Text",
+    seoTitle: `Scanned vs Text PDF: Why You Can't Select or Search Text | ${SITE_NAME}`,
+    metaDescription: "Why some PDFs let you select, search and copy text and others don't, how to tell which kind you have in seconds, and how to get editable text out of a scanned PDF.",
+    summary: "You try to copy a sentence from a PDF and end up selecting the whole page as a picture — or search finds nothing even though the word is right there. That PDF is a scan. Here's the difference, how to tell, and what to do about it.",
+    published: "2026-11-11",
+    updated: "2026-11-11",
+    sections: [
+      {
+        heading: "Two very different kinds of PDF",
+        paragraphs: [
+          "A text PDF is created by software — exported from Word, saved from a website, generated by an accounting system. It contains real text: characters with a font and a position, which you can select, search, copy and have read aloud.",
+          "A scanned PDF is a set of photographs of pages wrapped in a PDF. It looks identical on screen, but to the computer each page is just an image. There are no letters to select or search — until someone runs optical character recognition (OCR) on it.",
+        ],
+        table: {
+          caption: "Text PDF vs scanned PDF",
+          headers: ["", "Text PDF", "Scanned PDF"],
+          rows: [
+            ["Comes from", "Software (Word, browsers, apps)", "Scanners and phone scanning apps"],
+            ["Select and copy text", "Yes", "No — selects the whole page image"],
+            ["Search with Ctrl+F", "Finds words", "Finds nothing"],
+            ["Zoom in", "Text stays sharp", "Text gets blurry or pixelated"],
+            ["Typical size per page", "Small", "Larger (it's an image)"],
+          ],
+        },
+      },
+      {
+        heading: "How to tell in five seconds",
+        list: [
+          "Try to select a single word. If you can highlight just that word, it's a text PDF.",
+          "Press Ctrl+F (Cmd+F on a Mac) and search for a word you can see. No result means it's probably a scan.",
+          "Zoom in to 400%. Crisp letters suggest text; soft or pixelated letters suggest an image.",
+        ],
+      },
+      {
+        heading: "The in-between case: scanned PDFs with OCR",
+        paragraphs: [
+          "Some scanners and apps run OCR automatically and add an invisible layer of recognised text behind each page image. These PDFs look like scans but let you search and copy — although the copied text can contain OCR mistakes. If selecting text gives you odd spellings or jumbled words, that's usually what's happening.",
+        ],
+      },
+      {
+        heading: "Getting text out of a scanned PDF",
+        list: [
+          "For editable text from a scan of up to 15 pages, use PDF to Word: when a PDF has no selectable text, it reads each page with English OCR and puts the result in a .docx file.",
+          "For one page, or text in Spanish, French or German, convert the page to an image with PDF to JPG, then run it through Image to Text and choose the language.",
+          "For long scans, split the PDF into parts with Split PDF first.",
+          "Always proofread names, numbers and dates — no OCR is perfect.",
+        ],
+      },
+      {
+        heading: "Making better scans next time",
+        list: [
+          "Scan at 300 DPI — a good balance of OCR accuracy and file size.",
+          "Use greyscale for text documents; colour adds size without helping recognition.",
+          "If your scanner app offers “searchable PDF” or OCR, turn it on.",
+          "Better still, ask for the original digital document instead of a scan of a printout.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        paragraphs: [
+          "If you can't select a word, the PDF is a picture of text, not text. OCR bridges the gap — PDF to Word for short scans, Image to Text for single pages and other languages — but the cleanest option is always the original digital file.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Why is my scanned PDF so large?",
+        answer: "Each page is stored as an image, often at high resolution and in colour. Compress PDF can downsample those images to shrink the file considerably.",
+      },
+      {
+        question: "Can I make a scanned PDF searchable here?",
+        answer: "Not directly — the tools here extract the text into a Word file or plain text, rather than adding a hidden text layer to the PDF.",
+      },
+      {
+        question: "Why does copied text from my PDF come out garbled?",
+        answer: "The PDF probably has an OCR text layer with recognition mistakes, or unusual font encoding. Re-running OCR on a clean page image with Image to Text often gives better results.",
+      },
+    ],
+    relatedTools: ["pdf-to-word", "image-to-text", "pdf-to-jpg", "compress-pdf"],
+  },
 ];
 
 /** Words in a guide's visible text (summary, sections, tables, FAQs). */
