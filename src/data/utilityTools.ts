@@ -13,6 +13,8 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "json-formatter",
     slug: "json-formatter",
+    hub: "developer",
+    addedOn: "2026-11-04",
     lastModified: ADDED,
     name: "JSON Formatter & Validator",
     shortName: "JSON Formatter",
@@ -91,6 +93,9 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "qr-code-generator",
     slug: "qr-code-generator",
+    hub: "developer",
+    featured: true,
+    addedOn: "2026-11-04",
     lastModified: "2026-11-11",
     name: "QR Code Generator",
     shortName: "QR Code Generator",
@@ -249,6 +254,8 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "image-resizer",
     slug: "image-resizer",
+    hub: "image",
+    addedOn: "2026-11-04",
     lastModified: ADDED,
     name: "Image Resizer",
     shortName: "Image Resizer",
@@ -352,6 +359,8 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "word-counter",
     slug: "word-counter",
+    hub: "developer",
+    addedOn: "2026-11-04",
     lastModified: ADDED,
     name: "Word Counter",
     shortName: "Word Counter",
@@ -430,6 +439,8 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "text-compare",
     slug: "text-compare",
+    hub: "developer",
+    addedOn: "2026-11-04",
     lastModified: ADDED,
     name: "Text Compare (Diff Checker)",
     shortName: "Text Compare",
@@ -508,6 +519,8 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "base64-encoder-decoder",
     slug: "base64-encoder-decoder",
+    hub: "developer",
+    addedOn: "2026-11-04",
     lastModified: ADDED,
     name: "Base64 Encoder / Decoder",
     shortName: "Base64 Encode / Decode",
@@ -586,6 +599,8 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "pdf-page-numbers",
     slug: "pdf-page-numbers",
+    hub: "pdf",
+    addedOn: "2026-11-04",
     lastModified: ADDED,
     name: "Add Page Numbers to PDF",
     shortName: "PDF Page Numbers",
@@ -712,6 +727,8 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "webp-converter",
     slug: "webp-converter",
+    hub: "image",
+    addedOn: "2026-11-04",
     lastModified: ADDED,
     name: "WebP Converter",
     shortName: "WebP Converter",
@@ -812,6 +829,8 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
   {
     id: "meta-tag-generator",
     slug: "meta-tag-generator",
+    hub: "developer",
+    addedOn: "2026-11-04",
     lastModified: ADDED,
     name: "Meta Tag Generator",
     shortName: "Meta Tag Generator",

@@ -22,12 +22,15 @@ describe("sitemaps", () => {
   const files = buildSitemapFiles();
   const byName = Object.fromEntries(files.map((f) => [f.fileName, renderUrlset(f.entries)]));
 
-  it("produces exactly the pages, tools and guides child sitemaps", () => {
-    expect(files.map((f) => f.fileName)).toEqual(["sitemap-pages.xml", "sitemap-tools.xml", "sitemap-guides.xml"]);
+  it("produces the pages sitemap, one sitemap per released hub, and the guides sitemap", () => {
+    expect(files.map((f) => f.fileName)).toEqual(["sitemap-pages.xml", "sitemap-pdf-tools.xml", "sitemap-image-tools.xml", "sitemap-developer-tools.xml", "sitemap-guides.xml"]);
   });
 
-  it("lists every tool in sitemap-tools.xml", () => {
-    expect(locs(byName["sitemap-tools.xml"]).sort()).toEqual(TOOL_DEFINITIONS.map((t) => `${SITE_URL}/tools/${t.slug}`).sort());
+  it("lists every tool exactly once across the hub sitemaps", () => {
+    const hubFiles = ["sitemap-pdf-tools.xml", "sitemap-image-tools.xml", "sitemap-developer-tools.xml"];
+    const toolUrls = hubFiles.flatMap((f) => locs(byName[f])).filter((u) => u.includes("/tools/"));
+    expect(toolUrls.sort()).toEqual(TOOL_DEFINITIONS.map((t) => `${SITE_URL}/tools/${t.slug}`).sort());
+    expect(hubFiles.flatMap((f) => locs(byName[f])).filter((u) => !u.includes("/tools/")).sort()).toEqual([`${SITE_URL}/developer-tools`, `${SITE_URL}/image-tools`, `${SITE_URL}/pdf-tools`]);
   });
 
   it("lists every guide in sitemap-guides.xml", () => {

@@ -21,6 +21,8 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { SITE_URL } from "../src/config/site";
 import { buildSitemapFiles, renderSitemapIndex, renderUrlset } from "../src/lib/seo/sitemap";
+import { renderGuideIndexModule } from "../src/lib/seo/guideIndex";
+import { GUIDES } from "../src/data/guides";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.resolve(__dirname, "../public");
@@ -44,6 +46,7 @@ for (const file of files) {
 }
 writeFileSync(path.join(publicDir, "sitemap.xml"), renderSitemapIndex(files));
 writeFileSync(path.join(publicDir, "robots.txt"), buildRobots());
+writeFileSync(path.resolve(__dirname, "../src/data/guideIndex.generated.ts"), renderGuideIndexModule(GUIDES));
 
 const summary = files.map((f) => `${f.fileName} (${f.entries.length})`).join(", ");
 console.log(`Generated sitemap.xml index → ${summary}, and robots.txt in ${publicDir}`);

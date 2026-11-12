@@ -34,6 +34,9 @@ import { toolRegistry } from "../src/lib/toolRegistry";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_ALT, TWITTER_HANDLE, HOME_DESCRIPTION, TOOLS_PAGE_DESCRIPTION, TOOLS_PAGE_TITLE, toolsPageIntro } from "../src/config/site";
 import { CATEGORIES, CATEGORY_LABELS } from "../src/types/tool";
 import { TOOL_AREAS } from "../src/data/toolAreas";
+import { getHub, type HubDefinition } from "../src/data/hubs";
+import { hubGroups, hubGuides } from "../src/lib/hubContent";
+import { HOME_FAQ, HOME_HEADLINE, HOME_SUBHEAD } from "../src/data/home";
 import type { ToolDefinition } from "../src/types/tool";
 import { GUIDE_AUTHOR, GUIDE_CATEGORIES, GUIDES, GUIDES_INDEX_META, guideCategoryLabel, guidesForTool, readingMinutes, relatedGuidesFor, sectionId, type GuideDefinition } from "../src/data/guides";
 import { formatLongDate } from "../src/lib/format";
@@ -161,7 +164,7 @@ function renderToolBody(tool: ToolDefinition): string {
   return `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
     ${renderBreadcrumbNav([
       { name: "Home", path: "/" },
-      { name: tool.categoryLabel, path: `/tools?category=${tool.category}` },
+      { name: getHub(tool.hub).name, path: getHub(tool.hub).path },
       { name: tool.name, path: `/tools/${tool.slug}` },
     ])}
     <h1>${escapeHtml(tool.seo.h1)}</h1>
@@ -200,23 +203,57 @@ function renderToolBody(tool: ToolDefinition): string {
 }
 
 function renderHomeBody(): string {
-  // Tools grouped under their category, each with its one-line description, so the static page
+  // Tools grouped under their hub, each with its one-line description, so the static page
   // describes the whole catalogue the way a reader (or a search summary) should understand it.
-  const groups = CATEGORIES.map((category) => {
-    const tools = toolRegistry.getByCategory(category);
-    if (tools.length === 0) return "";
-    const items = tools.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`).join("\n");
-    return `<h3>${escapeHtml(CATEGORY_LABELS[category])}</h3>\n    <ul>${items}</ul>`;
-  }).join("\n    ");
-  const guideLinks = GUIDES.map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a> — ${escapeHtml(g.summary)}</li>`).join("\n");
+  const groups = toolRegistry
+    .getHubs()
+    .map((hub) => {
+      const items = toolRegistry
+        .getByHub(hub.id)
+        .map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`)
+        .join("\n");
+      return `<h2><a href="${hub.path}">${escapeHtml(hub.name)}</a></h2>
+    <p>${escapeHtml(hub.tagline)}</p>
+    <ul>${items}</ul>`;
+    })
+    .join("\n    ");
+  const featured = toolRegistry.getFeatured().map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a></li>`).join("\n");
+  const recent = toolRegistry.getRecentlyAdded().map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a></li>`).join("\n");
+  const guideLinks = GUIDES.filter((g) => g.featured).slice(0, 3).map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a> — ${escapeHtml(g.summary)}</li>`).join("\n");
+  const faq = HOME_FAQ.map((item) => `<div><h3>${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p></div>`).join("\n");
   return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
-    <h1>Toolkit4Me — Free Tools for Everyday Digital Tasks</h1>
+    <h1>${escapeHtml(HOME_HEADLINE)}</h1>
+    <p>${escapeHtml(HOME_SUBHEAD)}</p>
     <p>${escapeHtml(HOME_DESCRIPTION)}</p>
-    <p>${TOOL_DEFINITIONS.length} free tools, no account or software required. Many run entirely in your browser; files that need server processing are deleted automatically within an hour.</p>
-    <h2>Tools by category</h2>
+    <h2>Featured tools</h2>
+    <ul>${featured}</ul>
     ${groups}
+    <h2>Recently added</h2>
+    <ul>${recent}</ul>
     <h2>Guides &amp; tips</h2>
     <ul>${guideLinks}</ul>
+    <h2>Frequently asked questions</h2>
+    ${faq}
+  </div>`;
+}
+
+function renderHubBody(hub: HubDefinition): string {
+  const groups = hubGroups(toolRegistry.getByHub(hub.id))
+    .map((g) => `<h2>${escapeHtml(g.label)}</h2>
+    <ul>${g.tools.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`).join("\n")}</ul>`)
+    .join("\n    ");
+  const guides = hubGuides(hub).map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a></li>`).join("\n");
+  return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
+    ${renderBreadcrumbNav([
+      { name: "Home", path: "/" },
+      { name: hub.name, path: hub.path },
+    ])}
+    <h1>${escapeHtml(hub.h1)}</h1>
+    <p>${escapeHtml(hub.tagline)}</p>
+    ${hub.intro.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n    ")}
+    ${groups}
+    ${guides ? `<h2>Guides for ${escapeHtml(hub.name.toLowerCase())}</h2>
+    <ul>${guides}</ul>` : ""}
   </div>`;
 }
 
@@ -488,6 +525,23 @@ writePage(
   ])
 );
 
+// --- Hub landing pages (only hubs with released tools) ---
+for (const hub of toolRegistry.getHubs()) {
+  writePage(
+    hub.path,
+    renderHead({
+      route: hub.path,
+      title: hub.seoTitle,
+      description: hub.metaDescription,
+      breadcrumbs: [
+        { name: "Home", path: "/" },
+        { name: hub.name, path: hub.path },
+      ],
+    }),
+    renderHubBody(hub)
+  );
+}
+
 // --- Every tool page ---
 for (const tool of TOOL_DEFINITIONS) {
   const route = `/tools/${tool.slug}`;
@@ -499,7 +553,7 @@ for (const tool of TOOL_DEFINITIONS) {
       description: tool.seo.metaDescription,
       breadcrumbs: [
         { name: "Home", path: "/" },
-        { name: tool.categoryLabel, path: `/tools?category=${tool.category}` },
+        { name: getHub(tool.hub).name, path: getHub(tool.hub).path },
         { name: tool.name, path: route },
       ],
       faq: tool.faq,

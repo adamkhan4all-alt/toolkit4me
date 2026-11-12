@@ -5,8 +5,16 @@
     <lastmod>2026-11-11</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://www.toolkit4me.com/sitemap-tools.xml</loc>
-    <lastmod>2026-11-11</lastmod>
+    <loc>https://www.toolkit4me.com/sitemap-pdf-tools.xml</loc>
+    <lastmod>2026-11-12</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.toolkit4me.com/sitemap-image-tools.xml</loc>
+    <lastmod>2026-11-12</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.toolkit4me.com/sitemap-developer-tools.xml</loc>
+    <lastmod>2026-11-12</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://www.toolkit4me.com/sitemap-guides.xml</loc>

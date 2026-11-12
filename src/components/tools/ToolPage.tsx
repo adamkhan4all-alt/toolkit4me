@@ -11,7 +11,8 @@ import { RelatedTools } from "./RelatedTools";
 import { RelatedGuides } from "./RelatedGuides";
 import { ToolNotes } from "./ToolNotes";
 import { SectionBody } from "../content/SectionBody";
-import { sectionId } from "../../data/guides";
+import { sectionId } from "../../data/guideMeta";
+import { getHub } from "../../data/hubs";
 import { renderCustomWorkspace } from "./workspaces/registry";
 import { webApplicationSchema } from "../../lib/seo/structuredData";
 import { AdInContent, AdMobile, AdSidebar } from "../ads";
@@ -96,7 +97,7 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
         path={`/tools/${tool.slug}`}
         breadcrumbs={[
           { name: "Home", path: "/" },
-          { name: tool.categoryLabel, path: `/tools?category=${tool.category}` },
+          { name: getHub(tool.hub).name, path: getHub(tool.hub).path },
           { name: tool.name, path: `/tools/${tool.slug}` },
         ]}
         faq={tool.faq}

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import type { ToolDefinition } from "../../types/tool";
-import { guidesForTool } from "../../data/guides";
+import { GUIDE_INDEX } from "../../data/guideIndex.generated";
 
 /** Links a tool page back to every guide that references it (the reverse of a guide's relatedTools). Renders nothing if none do. */
 export function RelatedGuides({ tool }: { tool: ToolDefinition }) {
-  const guides = guidesForTool(tool.slug);
+  const guides = GUIDE_INDEX.filter((g) => g.relatedTools.includes(tool.slug));
   if (guides.length === 0) return null;
   return (
     <section aria-labelledby="related-guides-heading" className="flex flex-col gap-3">

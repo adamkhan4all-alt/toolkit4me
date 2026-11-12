@@ -1,3 +1,4 @@
+import type { HubId } from "../data/hubs";
 // ---------------------------------------------------------------------
 // Core type contract for the reusable tool framework (Phase 4).
 //
@@ -52,6 +53,12 @@ export interface ToolDefinition {
   name: string;
   shortName: string;
   slug: string;
+  /** Top-level section of the site this tool belongs to (navigation, hub page, sitemap). */
+  hub: HubId;
+  /** Editorially featured on the homepage and hub pages. */
+  featured?: boolean;
+  /** ISO date the tool was first published — drives "Recently added". */
+  addedOn: string;
   /** Upper bound on files per run when `multiple` is true, matching the backend's limit. Omit for no limit (client-side tools). */
   maxFiles?: number;
   /** ISO date (YYYY-MM-DD) this tool's page content last changed meaningfully. Feeds the sitemap <lastmod>; bump it when editing the tool's copy. */

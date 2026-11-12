@@ -9,7 +9,7 @@
 
 import { CONTACT_EMAIL, SITE_NAME, SITE_URL, absoluteUrl } from "../../config/site";
 import type { ToolDefinition } from "../../types/tool";
-import { guideCategoryLabel, guideWordCount, type GuideDefinition } from "../../data/guides";
+import { guideCategoryLabel, guideWordCount, type GuideDefinition } from "../../data/guideMeta";
 
 export type JsonLd = Record<string, unknown>;
 

@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import { LoadingState } from "./components/ui/LoadingState";
+import { toolRegistry } from "./lib/toolRegistry";
 
 // Route-level code splitting (Core Web Vitals): the homepage's initial JS
 // payload no longer has to include the tool-page framework, the FAQ/
@@ -20,6 +21,7 @@ const ContactPage = lazy(() => import("./pages/ContactPage").then((m) => ({ defa
 const GuidesIndexPage = lazy(() => import("./pages/GuidesIndexPage").then((m) => ({ default: m.GuidesIndexPage })));
 const GuidePage = lazy(() => import("./pages/GuidePage").then((m) => ({ default: m.GuidePage })));
 const DisclaimerPage = lazy(() => import("./pages/DisclaimerPage").then((m) => ({ default: m.DisclaimerPage })));
+const HubPage = lazy(() => import("./pages/HubPage").then((m) => ({ default: m.HubPage })));
 const EditorialPolicyPage = lazy(() => import("./pages/EditorialPolicyPage").then((m) => ({ default: m.EditorialPolicyPage })));
 
 /**
@@ -37,6 +39,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/tools" element={<ToolsDirectoryPage />} />
           <Route path="/tools/:slug" element={<ToolPageRoute />} />
+          {toolRegistry.getHubs().map((hub) => (
+            <Route key={hub.id} path={hub.path} element={<HubPage hub={hub} />} />
+          ))}
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/about" element={<AboutPage />} />

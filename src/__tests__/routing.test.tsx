@@ -27,7 +27,7 @@ function renderAt(path: string) {
 describe("routing", () => {
   it("renders the homepage at /", async () => {
     renderAt("/");
-    expect(await screen.findByRole("heading", { level: 1, name: /Toolkit4Me/i })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: /Everything You Need/i })).toBeInTheDocument();
   });
 
   it("renders the tools directory at /tools", async () => {

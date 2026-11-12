@@ -1,4 +1,4 @@
-import type { GuideSection } from "../../data/guides";
+import type { GuideSection } from "../../data/guideMeta";
 import type { ToolContentSection } from "../../types/tool";
 
 /** Body of a content section (paragraphs, list, table, figure) — shared by guide articles and tool pages' extra sections. */

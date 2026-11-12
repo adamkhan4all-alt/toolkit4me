@@ -7,15 +7,15 @@ Every batch runs the same steps: inspect the code → implement → unit tests �
 ## Release 0 — Audit and baseline ✅
 Audit, tools inventory, architecture decisions, performance and SEO baselines (`docs/`).
 
-## Release 1 — Foundation and redesign 🔄
+## Release 1 — Foundation and redesign ✅ (on branch, awaiting deployment approval)
 | Batch | Scope |
 |---|---|
-| 1A | Performance fix R1 (guide text off the shared chunk); hub definitions (`src/data/hubs.ts`); registry fields `hub`, `popular`, `addedOn` |
-| 1B | Design tokens refresh (palette, accent gradient, shadows, motion, reduced-motion) applied through shared components |
-| 1C | Header navigation by hub (desktop dropdown, mobile expandable), only hubs with released tools |
-| 1D | Homepage: "Everything You Need. One Toolkit." hero, search, popular, hub sections, recently added, FAQ |
-| 1E | Hub landing pages (`/pdf-tools`, `/image-tools`, `/developer-tools`, later `/pixel-playground`, `/calculators`) with prerender + sitemap; `/tools` directory with hub filter and search |
-| 1F | Sitemap split per hub + `npm run seo:validate` (XML, status, canonical host, uniqueness, indexability) |
+| ✅ 1A | Performance fix R1 (guide text off the shared chunk); hub definitions (`src/data/hubs.ts`); registry fields `hub`, `popular`, `addedOn` |
+| ✅ 1B | Design tokens refresh (palette, accent gradient, shadows, motion, reduced-motion) applied through shared components |
+| ✅ 1C | Header navigation by hub (desktop dropdown, mobile expandable), only hubs with released tools |
+| ✅ 1D | Homepage: "Everything You Need. One Toolkit." hero, search, popular, hub sections, recently added, FAQ |
+| ✅ 1E | Hub landing pages (`/pdf-tools`, `/image-tools`, `/developer-tools`, later `/pixel-playground`, `/calculators`) with prerender + sitemap; `/tools` directory with hub filter and search |
+| ✅ 1F | Sitemap split per hub + `npm run seo:validate` (XML, status, canonical host, uniqueness, indexability) |
 
 ## Release 2 — Pixel Playground ⏳
 | Batch | Tools | Notes |
