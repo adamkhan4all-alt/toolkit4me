@@ -86,4 +86,13 @@ Edge cases covered: zero, negatives where meaningful (percentages, fractions, av
 
 ## 6. Deployment
 
-Recorded after release.
+| Item | Result |
+|---|---|
+| Commits | `a6ee2d6` (Release 3), merged to `main` as `0a9a15a` |
+| Vercel | project `project-587l0`, Production deployment `project-587l0-6g09ifx32` — Ready; Hobby plan unchanged |
+| Live URLs | `/calculators` + all 30 calculator pages → 200; `/`, `/link-studio`, `/pixel-playground`, `/tools`, `ads.txt`, `sitemap.xml` → 200 |
+| `seo:validate --live` | 134 pages, 8 child sitemaps, 132 URLs, every URL live, no problems |
+| Browser suite on production | 35 / 35 (all 30 calculators, desktop + 375 px) |
+| Link Studio after release | unchanged (`auth/session` still fails closed until sign-in is configured) |
+
+Rollback: Vercel → Deployments → promote the previous production deployment. Release 3 adds routes and data only; nothing server-side changed.
