@@ -38,6 +38,8 @@ const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "youtube-thumbnail-maker": ImageStudio,
   "whatsapp-sticker-maker": ImageStudio,
   "collage-maker": lazy(() => import("./CollageWorkspace")),
+  "passport-photo-maker": ImageStudio,
+  "video-to-gif": lazy(() => import("./VideoToGifWorkspace")),
 };
 
 /** The tool's custom workspace, ready to render, or null if it uses one of the standard workspaces. */

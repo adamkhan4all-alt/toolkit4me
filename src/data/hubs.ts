@@ -74,8 +74,8 @@ export const HUBS: HubDefinition[] = [
     metaDescription:
       "Free creative photo and social tools: filters, frames, transparent backgrounds, privacy blur, memes, stories, thumbnails, stickers and collages.",
     intro: [
-      "A creative corner for photos and social posts: give a picture a new look with filters, frame it, add a shadow, make its background transparent or turn it into a pencil sketch. Blur faces before you share, pull a colour palette from a photo, and make memes, stories, YouTube thumbnails, stickers, collages, profile-picture rings and fancy bio text.",
-      "Every tool here runs in your browser, so your photos never leave your device. They're classic image techniques — colour maths, edge detection, blending — rather than AI, which keeps them instant and predictable; each page explains exactly what it can and can't do.",
+      "A creative corner for photos and social posts: give a picture a new look with filters, frame it, add a shadow, make its background transparent or turn it into a pencil sketch. Blur faces before you share, pull a colour palette from a photo, make passport photos, and create memes, stories, YouTube thumbnails, stickers, collages, GIFs from videos, profile-picture rings and fancy bio text.",
+      "Every tool here runs in your browser, so your photos never leave your device. They're classic image and video techniques — colour maths, edge detection, blending, GIF encoding — rather than AI, which keeps them fast and predictable; each page explains exactly what it can and can't do.",
     ],
     icon: "✦",
     accent: "bg-fuchsia-50 text-fuchsia-800",
