@@ -1,3 +1,4 @@
+import { CALCULATOR_CATALOG } from "../../../data/calculators/catalog";
 import { describe, expect, it } from "vitest";
 import { toolRegistry } from "../../toolRegistry";
 import { SITE_URL } from "../../../config/site";
@@ -27,11 +28,15 @@ describe("sitemaps", () => {
     expect(files.map((f) => f.fileName)).toEqual(["sitemap-pages.xml", ...toolRegistry.getHubs().map((h) => `sitemap${h.path.replace("/", "-")}.xml`), "sitemap-guides.xml"]);
   });
 
-  it("lists every tool exactly once across the hub sitemaps", () => {
+  it("lists every tool and calculator exactly once across the hub sitemaps", () => {
     const hubFiles = toolRegistry.getHubs().map((h) => `sitemap${h.path.replace("/", "-")}.xml`);
-    const toolUrls = hubFiles.flatMap((f) => locs(byName[f])).filter((u) => u.includes("/tools/"));
-    expect(toolUrls.sort()).toEqual(TOOL_DEFINITIONS.map((t) => `${SITE_URL}/tools/${t.slug}`).sort());
-    expect(hubFiles.flatMap((f) => locs(byName[f])).filter((u) => !u.includes("/tools/")).sort()).toEqual(toolRegistry.getHubs().map((h) => `${SITE_URL}${h.path}`).sort());
+    const all = hubFiles.flatMap((f) => locs(byName[f]));
+    const hubUrls = toolRegistry.getHubs().map((h) => `${SITE_URL}${h.path}`);
+    const itemUrls = all.filter((u) => !hubUrls.includes(u));
+    expect(itemUrls.filter((u) => u.includes("/tools/")).sort()).toEqual(TOOL_DEFINITIONS.map((t) => `${SITE_URL}/tools/${t.slug}`).sort());
+    expect(itemUrls.filter((u) => u.includes("/calculators/")).sort()).toEqual(CALCULATOR_CATALOG.map((c) => `${SITE_URL}${c.path}`).sort());
+    expect(itemUrls).toHaveLength(TOOL_DEFINITIONS.length + CALCULATOR_CATALOG.length);
+    expect(all.filter((u) => hubUrls.includes(u)).sort()).toEqual([...hubUrls].sort());
   });
 
   it("lists every guide in sitemap-guides.xml", () => {

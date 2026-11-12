@@ -38,8 +38,15 @@ Audit, tools inventory, architecture decisions, performance and SEO baselines (`
 | AI Image Enhancer (upscaling) | Small ESRGAN-type ONNX models (tens of MB) can run via WebGPU/WASM, slow on phones | ⏳ evaluate |
 | AI Image Generator, Avatar, Headshots, Outpainting, Hairstyle Preview, Photo Restoration | Need diffusion models (GBs) and a GPU; not acceptable in a browser for most visitors | ⏸ deferred — would need approved paid GPU/API, which the brief forbids |
 
-## Release 3 — Calculator Hub ⏳
-Reusable engine (`src/lib/calculators/`: pure formula functions + field schema + formatter), one generic calculator page, 30 calculators from the brief with unit tests for every formula, disclaimers for finance and health. Marla/Kanal converters let the user choose the Marla standard (225 / 250 / 272.25 sq ft) and show the basis used.
+## Release 3 — Calculator Hub ✅ (details, accuracy report and tests in `CALCULATOR_HUB.md`)
+| Part | Status |
+|---|---|
+| Reusable engine (`src/lib/calculators/`: pure formulas, field schemas + validation, result model, formatting), one generic UI and page | ✅ |
+| 30 calculators: Everyday Math (8), Finance & Money (7), Education & Students (6), Developer & Technology (4), Home & Construction (5) | ✅ |
+| Formula tests against independently computed values; edge-case tests; browser tests of all 30 | ✅ |
+| Marla/Kanal: user chooses 272.25 / 250 / 225 sq ft; basis shown; all standards compared | ✅ |
+| Calculators load lazily per group; shared bundle unchanged (ADR-11) | ✅ |
+| Health & Fitness, Business & E-commerce, Travel, Social Media & Creator, Agriculture, Weird & Wonderful | ⏸ next batches — categories appear only once they have calculators |
 
 ## Release 4 — Link Studio ✅ (details, security review and tests in `LINK_STUDIO.md`)
 | Part | Status |

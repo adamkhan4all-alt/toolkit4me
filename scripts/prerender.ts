@@ -37,12 +37,16 @@ import { TOOL_AREAS } from "../src/data/toolAreas";
 import { getHub, type HubDefinition } from "../src/data/hubs";
 import { hubGroups, hubGuides } from "../src/lib/hubContent";
 import { HOME_FAQ, HOME_HEADLINE, HOME_SUBHEAD } from "../src/data/home";
-import type { ToolDefinition } from "../src/types/tool";
+import { listingPath, type ToolDefinition } from "../src/types/tool";
+import { ALL_CALCULATORS } from "../src/data/calculators/all";
+import { CALCULATOR_CATALOG } from "../src/data/calculators/catalog";
+import { DISCLAIMERS, type CalculatorDefinition } from "../src/lib/calculators/engine";
 import { GUIDE_AUTHOR, GUIDE_CATEGORIES, GUIDES, GUIDES_INDEX_META, guideCategoryLabel, guidesForTool, readingMinutes, relatedGuidesFor, sectionId, type GuideDefinition } from "../src/data/guides";
 import { formatLongDate } from "../src/lib/format";
 import {
   articleSchema,
   breadcrumbSchema,
+  calculatorSchema,
   faqSchema,
   organizationSchema,
   webApplicationSchema,
@@ -209,8 +213,8 @@ function renderHomeBody(): string {
     .getHubs()
     .map((hub) => {
       const items = toolRegistry
-        .getByHub(hub.id)
-        .map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`)
+        .getListingsByHub(hub.id)
+        .map((t) => `<li><a href="${listingPath(t)}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`)
         .join("\n");
       return `<h2><a href="${hub.path}">${escapeHtml(hub.name)}</a></h2>
     <p>${escapeHtml(hub.tagline)}</p>
@@ -218,7 +222,7 @@ function renderHomeBody(): string {
     })
     .join("\n    ");
   const featured = toolRegistry.getFeatured().map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a></li>`).join("\n");
-  const recent = toolRegistry.getRecentlyAdded().map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a></li>`).join("\n");
+  const recent = toolRegistry.getRecentlyAdded().map((t) => `<li><a href="${listingPath(t)}">${escapeHtml(t.name)}</a></li>`).join("\n");
   const guideLinks = GUIDES.filter((g) => g.featured).slice(0, 3).map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a> — ${escapeHtml(g.summary)}</li>`).join("\n");
   const faq = HOME_FAQ.map((item) => `<div><h3>${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p></div>`).join("\n");
   return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
@@ -238,9 +242,9 @@ function renderHomeBody(): string {
 }
 
 function renderHubBody(hub: HubDefinition): string {
-  const groups = hubGroups(toolRegistry.getByHub(hub.id))
+  const groups = hubGroups(toolRegistry.getListingsByHub(hub.id))
     .map((g) => `<h2>${escapeHtml(g.label)}</h2>
-    <ul>${g.tools.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`).join("\n")}</ul>`)
+    <ul>${g.tools.map((t) => `<li><a href="${listingPath(t)}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`).join("\n")}</ul>`)
     .join("\n    ");
   const guides = hubGuides(hub).map((g) => `<li><a href="${g.path}">${escapeHtml(g.title)}</a></li>`).join("\n");
   return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
@@ -359,7 +363,7 @@ function renderLegalBody(title: string, paragraphs: string[]): string {
 }
 
 function renderDirectoryBody(): string {
-  const links = TOOL_DEFINITIONS.map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> (${escapeHtml(t.categoryLabel)}) — ${escapeHtml(t.description)}</li>`).join(
+  const links = toolRegistry.getListings().map((t) => `<li><a href="${listingPath(t)}">${escapeHtml(t.name)}</a> (${escapeHtml(t.categoryLabel)}) — ${escapeHtml(t.description)}</li>`).join(
     "\n"
   );
   return `<div style="max-width:960px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
@@ -368,7 +372,7 @@ function renderDirectoryBody(): string {
       { name: "All Tools", path: "/tools" },
     ])}
     <h1>All Tools</h1>
-    <p>${escapeHtml(toolsPageIntro(TOOL_DEFINITIONS.length))}</p>
+    <p>${escapeHtml(toolsPageIntro(toolRegistry.countListings()))}</p>
     <ul>${links}</ul>
   </div>`;
 }
@@ -583,6 +587,61 @@ for (const tool of TOOL_DEFINITIONS) {
       jsonLd: [webApplicationSchema(tool)],
     }),
     renderToolBody(tool)
+  );
+}
+
+// --- Calculator Hub: every calculator page ---
+function renderCalculatorBody(def: CalculatorDefinition): string {
+  const listing = CALCULATOR_CATALOG.find((c) => c.id === def.id)!;
+  const c = def.content;
+  const p = (items: string[]) => items.map((x) => `<p>${escapeHtml(x)}</p>`).join("\n    ");
+  const related = c.related
+    .map((id) => CALCULATOR_CATALOG.find((x) => x.id === id))
+    .filter((x) => x !== undefined)
+    .map((x) => `<li><a href="${x.path}">${escapeHtml(x.name)}</a></li>`)
+    .join("\n");
+  return `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
+    ${renderBreadcrumbNav([
+      { name: "Home", path: "/" },
+      { name: getHub("calculators").name, path: getHub("calculators").path },
+      { name: listing.name, path: listing.path },
+    ])}
+    <h1>${escapeHtml(c.seo.h1)}</h1>
+    <p>${escapeHtml(listing.description)}</p>
+    ${c.disclaimer ? `<p><strong>Please note:</strong> ${escapeHtml(DISCLAIMERS[c.disclaimer])}</p>` : ""}
+    <h2>About this calculator</h2>
+    ${p(c.intro)}
+    <h2>How to use it</h2>
+    <ol>${c.howTo.map((s) => `<li>${escapeHtml(s)}</li>`).join("\n")}</ol>
+    <h2>The formula</h2>
+    ${c.formula.lines.map((l) => `<p><code>${escapeHtml(l)}</code></p>`).join("\n    ")}
+    ${p(c.formula.explanation)}
+    <h2>Worked example</h2>
+    ${p(c.workedExample)}
+    <h2>Frequently asked questions</h2>
+    ${c.faq.map((f) => `<div><h3>${escapeHtml(f.question)}</h3><p>${escapeHtml(f.answer)}</p></div>`).join("\n")}
+    <h2>Related calculators</h2>
+    <ul>${related}</ul>
+  </div>`;
+}
+
+for (const def of ALL_CALCULATORS) {
+  const listing = CALCULATOR_CATALOG.find((c) => c.id === def.id)!;
+  writePage(
+    listing.path,
+    renderHead({
+      route: listing.path,
+      title: def.content.seo.title,
+      description: def.content.seo.metaDescription,
+      breadcrumbs: [
+        { name: "Home", path: "/" },
+        { name: getHub("calculators").name, path: getHub("calculators").path },
+        { name: listing.name, path: listing.path },
+      ],
+      faq: def.content.faq,
+      jsonLd: [calculatorSchema({ name: listing.name, path: listing.path, description: def.content.seo.metaDescription })],
+    }),
+    renderCalculatorBody(def)
   );
 }
 

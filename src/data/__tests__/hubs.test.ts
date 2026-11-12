@@ -1,3 +1,4 @@
+import { listingPath } from "../../types/tool";
 import { describe, expect, it } from "vitest";
 import { HUBS, releasedHubs } from "../hubs";
 import { toolRegistry } from "../../lib/toolRegistry";
@@ -13,9 +14,9 @@ describe("hubs", () => {
   });
 
   it("only hubs with released tools are shown", () => {
-    expect(released.map((h) => h.id)).toEqual(["pdf", "image", "pixel", "developer", "link"]);
+    expect(released.map((h) => h.id)).toEqual(["pdf", "image", "pixel", "calculators", "developer", "link"]);
     expect(releasedHubs({})).toEqual([]);
-    for (const hub of released) expect(toolRegistry.getByHub(hub.id).length).toBeGreaterThan(0);
+    for (const hub of released) expect(toolRegistry.getListingsByHub(hub.id).length).toBeGreaterThan(0);
   });
 
   it("released hubs have complete, unique page content", () => {
@@ -36,14 +37,14 @@ describe("hubs", () => {
     for (const hub of released) {
       const group = groups.find((g) => g.name === hub.path.slice(1));
       expect(group, hub.id).toBeDefined();
-      expect(group!.entries.map((e) => e.path)).toEqual([hub.path, ...toolRegistry.getByHub(hub.id).map((t) => `/tools/${t.slug}`)]);
+      expect(group!.entries.map((e) => e.path)).toEqual([hub.path, ...toolRegistry.getListingsByHub(hub.id).map(listingPath)]);
     }
     for (const hub of HUBS.filter((h) => !released.includes(h))) expect(groups.some((g) => g.name === hub.path.slice(1))).toBe(false);
   });
 
   it("recently added and featured come from registry metadata", () => {
     const recent = toolRegistry.getRecentlyAdded(4);
-    const newest = toolRegistry.getAll().map((t) => t.addedOn).sort().at(-1);
+    const newest = toolRegistry.getListings().map((t) => t.addedOn).sort().at(-1);
     expect(recent[0].addedOn).toBe(newest);
     expect(recent.map((t) => t.addedOn)).toEqual([...recent.map((t) => t.addedOn)].sort().reverse());
     expect(toolRegistry.getFeatured().length).toBeGreaterThanOrEqual(4);

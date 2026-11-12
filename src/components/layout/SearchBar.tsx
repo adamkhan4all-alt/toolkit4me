@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { toolRegistry } from "../../lib/toolRegistry";
+import { listingPath } from "../../types/tool";
 
 interface SearchBarProps {
-  onSelect: (slug: string) => void;
+  /** Called with the chosen result's page path. */
+  onSelect: (path: string) => void;
   autoFocus?: boolean;
   large?: boolean;
 }
@@ -12,7 +14,7 @@ export function SearchBar({ onSelect, autoFocus, large }: SearchBarProps) {
   const [focused, setFocused] = useState(false);
 
   const matches = useMemo(() => {
-    return toolRegistry.search(query).slice(0, 6);
+    return toolRegistry.searchListings(query).slice(0, 6);
   }, [query]);
 
   return (
@@ -45,10 +47,10 @@ export function SearchBar({ onSelect, autoFocus, large }: SearchBarProps) {
       {focused && matches.length > 0 && (
         <ul className="absolute z-20 mt-2 w-full overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg">
           {matches.map((tool) => (
-            <li key={tool.slug}>
+            <li key={listingPath(tool)}>
               <button
                 type="button"
-                onMouseDown={() => onSelect(tool.slug)}
+                onMouseDown={() => onSelect(listingPath(tool))}
                 className="focus-ring flex w-full flex-col items-start gap-0.5 px-4 py-3 text-left hover:bg-neutral-100"
               >
                 <span className="text-sm font-semibold text-neutral-900">{tool.shortName}</span>

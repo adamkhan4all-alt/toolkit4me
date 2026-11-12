@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { ToolDefinition } from "../../types/tool";
+import { listingPath, type ToolListing } from "../../types/tool";
 import { getHub } from "../../data/hubs";
 
 /**
@@ -11,10 +11,10 @@ import { getHub } from "../../data/hubs";
  * page that uses ToolCard (homepage, category pages, All Tools) gets the
  * compact treatment on mobile automatically.
  */
-export function ToolCard({ tool }: { tool: ToolDefinition }) {
+export function ToolCard({ tool }: { tool: ToolListing }) {
   return (
     <Link
-      to={`/tools/${tool.slug}`}
+      to={listingPath(tool)}
       className="focus-ring card-lift group flex min-h-[44px] items-center gap-3 rounded-[var(--radius-card)] border border-neutral-200 bg-white p-3 hover:border-brand-100 sm:flex-col sm:items-stretch sm:gap-3 sm:p-5"
     >
       <span

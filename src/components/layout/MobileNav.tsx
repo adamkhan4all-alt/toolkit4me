@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toolRegistry } from "../../lib/toolRegistry";
+import { listingPath } from "../../types/tool";
 import { SearchBar } from "./SearchBar";
 
 interface MobileNavProps {
@@ -96,9 +97,9 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
 
         <div className="mb-4">
           <SearchBar
-            onSelect={(slug) => {
+            onSelect={(path) => {
               onClose();
-              navigate(`/tools/${slug}`);
+              navigate(path);
             }}
           />
         </div>
@@ -120,7 +121,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
 
         <div className="mt-2 flex flex-col divide-y divide-neutral-200 border-t border-neutral-200">
           {toolRegistry.getHubs().map((hub) => {
-            const tools = toolRegistry.getByHub(hub.id);
+            const tools = toolRegistry.getListingsByHub(hub.id);
             const isOpen = expanded === hub.id;
             return (
               <div key={hub.id}>
@@ -145,7 +146,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                     {tools.map((tool) => (
                       <Link
                         key={tool.slug}
-                        to={`/tools/${tool.slug}`}
+                        to={listingPath(tool)}
                         onClick={onClose}
                         className="focus-ring rounded-md px-2 py-2 text-sm text-neutral-600 hover:bg-neutral-100 hover:text-brand-600"
                       >

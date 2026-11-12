@@ -14,7 +14,8 @@ import { releasedHubs, type HubDefinition, type HubId } from "../data/hubs";
 // ---------------------------------------------------------------------
 
 import { TOOL_DEFINITIONS } from "../data/tools";
-import type { ToolCategory, ToolDefinition } from "../types/tool";
+import { CALCULATOR_CATALOG } from "../data/calculators/catalog";
+import type { ToolCategory, ToolDefinition, ToolListing } from "../types/tool";
 
 function buildRegistry(definitions: ToolDefinition[]) {
   const byId = new Map<string, ToolDefinition>();
@@ -38,12 +39,38 @@ class ToolRegistry {
   private byId: Map<string, ToolDefinition>;
   private bySlug: Map<string, ToolDefinition>;
   private ordered: ToolDefinition[];
+  /** Tools plus lightweight listings (Calculator Hub) — everything discovery UI shows. */
+  private listings: ToolListing[];
 
-  constructor(definitions: ToolDefinition[]) {
+  constructor(definitions: ToolDefinition[], extraListings: ToolListing[] = []) {
     const { byId, bySlug } = buildRegistry(definitions);
     this.byId = byId;
     this.bySlug = bySlug;
     this.ordered = definitions;
+    this.listings = [...definitions, ...extraListings];
+  }
+
+  /** Everything shown in discovery UI (cards, menus, search, sitemaps): tools and calculators. */
+  getListings(): ToolListing[] {
+    return this.listings;
+  }
+
+  getListingsByHub(hub: HubId): ToolListing[] {
+    return this.listings.filter((t) => t.hub === hub);
+  }
+
+  countListings(): number {
+    return this.listings.length;
+  }
+
+  /** Search across tools and calculators by name, description and keywords. */
+  searchListings(query: string): ToolListing[] {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    return this.listings.filter((t) => {
+      const keywords = t.keywords ?? ("seo" in t ? (t as ToolDefinition).seo.keywords : []);
+      return t.shortName.toLowerCase().includes(q) || t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) || keywords.some((k) => k.toLowerCase().includes(q));
+    });
   }
 
   /** All registered tools, in registration order. */
@@ -64,10 +91,10 @@ class ToolRegistry {
     return this.ordered.filter((t) => t.hub === hub);
   }
 
-  /** Hubs with at least one released tool, in display order. */
+  /** Hubs with at least one released tool or calculator, in display order. */
   getHubs(): HubDefinition[] {
     const counts: Partial<Record<HubId, number>> = {};
-    for (const t of this.ordered) counts[t.hub] = (counts[t.hub] ?? 0) + 1;
+    for (const t of this.listings) counts[t.hub] = (counts[t.hub] ?? 0) + 1;
     return releasedHubs(counts);
   }
 
@@ -76,8 +103,8 @@ class ToolRegistry {
   }
 
   /** Most recently published first; ties keep registration order. */
-  getRecentlyAdded(limit = 6): ToolDefinition[] {
-    return [...this.ordered].sort((a, b) => b.addedOn.localeCompare(a.addedOn)).slice(0, limit);
+  getRecentlyAdded(limit = 6): ToolListing[] {
+    return [...this.listings].sort((a, b) => b.addedOn.localeCompare(a.addedOn)).slice(0, limit);
   }
 
   getByCategory(category: ToolCategory): ToolDefinition[] {
@@ -111,7 +138,7 @@ class ToolRegistry {
   }
 }
 
-export const toolRegistry = new ToolRegistry(TOOL_DEFINITIONS);
+export const toolRegistry = new ToolRegistry(TOOL_DEFINITIONS, CALCULATOR_CATALOG);
 
 // Exported for tests that want to construct isolated registries from
 // custom fixtures rather than mutating the singleton above.
