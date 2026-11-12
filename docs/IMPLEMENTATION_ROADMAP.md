@@ -7,7 +7,7 @@ Every batch runs the same steps: inspect the code → implement → unit tests �
 ## Release 0 — Audit and baseline ✅
 Audit, tools inventory, architecture decisions, performance and SEO baselines (`docs/`).
 
-## Release 1 — Foundation and redesign ✅ (on branch, awaiting deployment approval)
+## Release 1 — Foundation and redesign ✅ (deployed 2026-11-12)
 | Batch | Scope |
 |---|---|
 | ✅ 1A | Performance fix R1 (guide text off the shared chunk); hub definitions (`src/data/hubs.ts`); registry fields `hub`, `popular`, `addedOn` |
@@ -17,7 +17,7 @@ Audit, tools inventory, architecture decisions, performance and SEO baselines (`
 | ✅ 1E | Hub landing pages (`/pdf-tools`, `/image-tools`, `/developer-tools`, later `/pixel-playground`, `/calculators`) with prerender + sitemap; `/tools` directory with hub filter and search |
 | ✅ 1F | Sitemap split per hub + `npm run seo:validate` (XML, status, canonical host, uniqueness, indexability) |
 
-## Release 2 — Pixel Playground ✅ (on branch, awaiting deployment approval)
+## Release 2 — Pixel Playground ✅ (deployed 2026-11-12)
 | Batch | Tools | Status |
 |---|---|---|
 | 2A | Photo Filter Studio, Border & Frame Maker, Image Shadow Generator, Colour Palette Extractor, Transparent Background Maker (colour-based), Face Blur & Privacy Editor (manual areas), Profile Picture Border Maker, Fancy Text Generator, Photo to Sketch (filter) | ✅ |
@@ -41,12 +41,16 @@ Audit, tools inventory, architecture decisions, performance and SEO baselines (`
 ## Release 3 — Calculator Hub ⏳
 Reusable engine (`src/lib/calculators/`: pure formula functions + field schema + formatter), one generic calculator page, 30 calculators from the brief with unit tests for every formula, disclaimers for finance and health. Marla/Kanal converters let the user choose the Marla standard (225 / 250 / 272.25 sq ft) and show the basis used.
 
-## Release 4 — Link Studio 🔒
+## Release 4 — Link Studio ✅ (details, security review and tests in `LINK_STUDIO.md`)
 | Part | Status |
 |---|---|
-| `LINK_STUDIO_ARCHITECTURE.md` (Cloudflare Workers + D1, limits, costs, DNS steps, security, one-time link atomicity) | ⏳ |
-| Browser-only utilities: UTM Builder, URL Parser/Cleaner, URL Encoder/Decoder, URL Validator; QR Code Generator listed here too | ⏳ |
-| Short links on `go.toolkit4me.com` (custom alias, expiry, disable, one-time, basic analytics) | 🔒 needs owner approval of a Cloudflare account, cost and a DNS record |
+| Short-link backend: existing Cloudflare Worker `toolkit4me-shortlinks` + D1 on `go.toolkit4me.com` (set up by the owner) | ✅ used as-is, not modified |
+| Public hub `/link-studio` + browser tools: UTM Builder, URL Parser & Cleaner, URL Validator, URL Encoder & Decoder; QR Code Generator listed | ✅ |
+| Secure integration: Vercel Functions `api/link-studio/*` in the same project; key server-side only | ✅ |
+| Admin console `/link-studio/admin`: create (alias, redirect type, expiry, status, QR, copy, share), manage (search, filter, sort, paginate, edit, disable, delete), analytics (summary + per link, 7/30/90/365 days) | ✅ |
+| Admin sign-in (GitHub OAuth, allow-listed ids) | ✅ code · 🔧 owner adds a GitHub OAuth App + 4 env vars (`LINK_STUDIO.md` §6) |
+| Privacy Policy disclosure | ✅ |
+| One-time links, bulk shortener | ⏸ not supported by the Worker; needs a separate approved Worker/D1 change |
 
 ## Release 5 — Browser AI (optional) ⏳
 Per-model evaluation documents (source, licence, size, RAM, speed, browsers) before any integration; models load only on their own tool page.

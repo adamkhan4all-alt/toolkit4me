@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { Breadcrumb } from "../components/layout/Breadcrumb";
 import { ToolCard } from "../components/tools/ToolCard";
 import { AdInContent } from "../components/ads";
+import { FAQ } from "../components/tools/FAQ";
+import { SectionBody } from "../components/content/SectionBody";
+import { sectionId } from "../data/guideMeta";
 import { SeoHead } from "../components/seo/SeoHead";
 import type { HubDefinition } from "../data/hubs";
 import { toolRegistry } from "../lib/toolRegistry";
@@ -12,6 +15,7 @@ export function HubPage({ hub }: { hub: HubDefinition }) {
   const groups = hubGroups(tools);
   const guides = hubGuides(hub);
   const otherHubs = toolRegistry.getHubs().filter((h) => h.id !== hub.id);
+  const related = (hub.relatedTools?.ids ?? []).map((id) => toolRegistry.getById(id)).filter((t) => t !== undefined);
 
   return (
     <div className="flex flex-col gap-12 pb-16">
@@ -19,6 +23,7 @@ export function HubPage({ hub }: { hub: HubDefinition }) {
         title={hub.seoTitle}
         description={hub.metaDescription}
         path={hub.path}
+        faq={hub.faq}
         breadcrumbs={[
           { name: "Home", path: "/" },
           { name: hub.name, path: hub.path },
@@ -32,6 +37,7 @@ export function HubPage({ hub }: { hub: HubDefinition }) {
           </span>
           <h1 className="text-[32px] leading-tight font-extrabold tracking-tight text-neutral-900 sm:text-[44px]">{hub.h1}</h1>
           <p className="text-lg font-medium text-neutral-700">{hub.tagline}</p>
+          {hub.strapline && <p className="-mt-2 text-base text-neutral-600">{hub.strapline}</p>}
           <div className="flex max-w-[760px] flex-col gap-3">
             {hub.intro.map((p) => (
               <p key={p} className="text-sm leading-6 text-neutral-600 sm:text-base sm:leading-7">
@@ -39,6 +45,16 @@ export function HubPage({ hub }: { hub: HubDefinition }) {
               </p>
             ))}
           </div>
+          {hub.callout && (
+            <div className="flex max-w-[760px] flex-col gap-1 rounded-[var(--radius-card)] border border-neutral-200 bg-white/80 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <p className="text-sm text-neutral-600">
+                <span className="font-semibold text-neutral-900">{hub.callout.title}:</span> {hub.callout.body}
+              </p>
+              <Link to={hub.callout.href} rel="nofollow" className="focus-ring shrink-0 rounded text-sm font-semibold text-brand-700 hover:underline">
+                {hub.callout.linkLabel}
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
@@ -56,7 +72,38 @@ export function HubPage({ hub }: { hub: HubDefinition }) {
           </section>
         ))}
 
+        {hub.relatedTools && related.length > 0 && (
+          <section aria-labelledby="hub-related" className="flex flex-col gap-4">
+            <h2 id="hub-related" className="text-xl font-bold text-neutral-900 sm:text-2xl">
+              {hub.relatedTools.label}
+            </h2>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+              {related.map((tool) => (
+                <ToolCard key={tool.slug} tool={tool} />
+              ))}
+            </div>
+          </section>
+        )}
+
         <AdInContent />
+
+        {hub.sections?.map((section) => (
+          <section key={section.heading} aria-labelledby={sectionId(section.heading)} className="flex max-w-[860px] flex-col gap-4">
+            <h2 id={sectionId(section.heading)} className="text-xl font-bold text-neutral-900 sm:text-2xl">
+              {section.heading}
+            </h2>
+            <SectionBody section={section} />
+          </section>
+        ))}
+
+        {hub.faq && hub.faq.length > 0 && (
+          <section aria-labelledby="hub-faq" className="flex max-w-[860px] flex-col gap-4">
+            <h2 id="hub-faq" className="text-xl font-bold text-neutral-900 sm:text-2xl">
+              Frequently asked questions
+            </h2>
+            <FAQ items={hub.faq} />
+          </section>
+        )}
 
         {guides.length > 0 && (
           <section aria-labelledby="hub-guides" className="flex flex-col gap-4">

@@ -22,6 +22,7 @@ const GuidesIndexPage = lazy(() => import("./pages/GuidesIndexPage").then((m) =>
 const GuidePage = lazy(() => import("./pages/GuidePage").then((m) => ({ default: m.GuidePage })));
 const DisclaimerPage = lazy(() => import("./pages/DisclaimerPage").then((m) => ({ default: m.DisclaimerPage })));
 const HubPage = lazy(() => import("./pages/HubPage").then((m) => ({ default: m.HubPage })));
+const LinkStudioAdminPage = lazy(() => import("./pages/LinkStudioAdminPage").then((m) => ({ default: m.LinkStudioAdminPage })));
 const EditorialPolicyPage = lazy(() => import("./pages/EditorialPolicyPage").then((m) => ({ default: m.EditorialPolicyPage })));
 
 /**
@@ -42,6 +43,7 @@ function App() {
           {toolRegistry.getHubs().map((hub) => (
             <Route key={hub.id} path={hub.path} element={<HubPage hub={hub} />} />
           ))}
+          <Route path="/link-studio/admin" element={<LinkStudioAdminPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/about" element={<AboutPage />} />

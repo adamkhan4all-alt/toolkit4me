@@ -3,6 +3,7 @@ import { toolRegistry, ToolRegistry } from "../toolRegistry";
 import type { ToolDefinition } from "../../types/tool";
 import { UTILITY_TOOLS } from "../../data/utilityTools";
 import { PIXEL_TOOLS } from "../../data/pixelTools";
+import { LINK_TOOLS } from "../../data/linkTools";
 
 const REQUIRED_SLUGS = [
   "pdf-to-word",
@@ -26,7 +27,7 @@ const REQUIRED_SLUGS = [
 
 describe("toolRegistry (singleton)", () => {
   it("contains the 17 original tools plus every utility and Pixel Playground tool, with unique slugs", () => {
-    expect(toolRegistry.count()).toBe(17 + UTILITY_TOOLS.length + PIXEL_TOOLS.length);
+    expect(toolRegistry.count()).toBe(17 + UTILITY_TOOLS.length + PIXEL_TOOLS.length + LINK_TOOLS.length);
     const slugs = toolRegistry.getAll().map((t) => t.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
     for (const slug of [...REQUIRED_SLUGS, ...UTILITY_TOOLS.map((t) => t.slug)]) {

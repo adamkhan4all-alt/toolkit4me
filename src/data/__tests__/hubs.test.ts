@@ -13,7 +13,7 @@ describe("hubs", () => {
   });
 
   it("only hubs with released tools are shown", () => {
-    expect(released.map((h) => h.id)).toEqual(["pdf", "image", "pixel", "developer"]);
+    expect(released.map((h) => h.id)).toEqual(["pdf", "image", "pixel", "developer", "link"]);
     expect(releasedHubs({})).toEqual([]);
     for (const hub of released) expect(toolRegistry.getByHub(hub.id).length).toBeGreaterThan(0);
   });
