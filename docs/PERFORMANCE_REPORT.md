@@ -20,3 +20,15 @@ What changed:
 - Guide pages are +4 KB for the new header menu.
 
 Lab LCP varies by ±100 ms between runs on this machine; the differences above that size are noise, the JavaScript reductions are not.
+
+## After Release 2 (2026-11-12)
+
+| Page | JS (KB) | LCP (ms) | CLS |
+|---|---|---|---|
+| / | 453 | 944 | 0.000 |
+| /pixel-playground | 453 | 724 | 0.000 |
+| /tools/photo-filters | 459 | 272 | 0.000 |
+| /tools/video-to-gif | 441 | 292 | 0.000 |
+| /tools/compress-pdf | 453 | 252 | 0.000 |
+
+Shared JavaScript grew by about 50 KB (≈400 → 453 KB) because the 16 new tools' page copy lives in the tool registry, which every page loads. It's still 20% below the Release 0 baseline (564 KB). Each tool's processing code (pixel engine, workspaces, gifenc worker) loads only on its own page. If the registry keeps growing (Calculator Hub), split page copy from discovery metadata so shared pages carry only names and descriptions.
