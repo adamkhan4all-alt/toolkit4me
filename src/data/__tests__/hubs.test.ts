@@ -13,7 +13,7 @@ describe("hubs", () => {
   });
 
   it("only hubs with released tools are shown", () => {
-    expect(released.map((h) => h.id)).toEqual(["pdf", "image", "developer"]);
+    expect(released.map((h) => h.id)).toEqual(["pdf", "image", "pixel", "developer"]);
     expect(releasedHubs({})).toEqual([]);
     for (const hub of released) expect(toolRegistry.getByHub(hub.id).length).toBeGreaterThan(0);
   });
@@ -27,7 +27,7 @@ describe("hubs", () => {
       expect(titles.has(hub.seoTitle)).toBe(false);
       titles.add(hub.seoTitle);
       expect(hubGroups(toolRegistry.getByHub(hub.id)).flatMap((g) => g.tools)).toHaveLength(toolRegistry.getByHub(hub.id).length);
-      expect(hubGuides(hub).length, hub.id).toBeGreaterThan(0);
+      if (hub.guideCategories.length) expect(hubGuides(hub).length, hub.id).toBeGreaterThan(0);
     }
   });
 
@@ -43,7 +43,9 @@ describe("hubs", () => {
 
   it("recently added and featured come from registry metadata", () => {
     const recent = toolRegistry.getRecentlyAdded(4);
-    expect(recent.every((t) => t.addedOn === "2026-11-04")).toBe(true);
+    const newest = toolRegistry.getAll().map((t) => t.addedOn).sort().at(-1);
+    expect(recent[0].addedOn).toBe(newest);
+    expect(recent.map((t) => t.addedOn)).toEqual([...recent.map((t) => t.addedOn)].sort().reverse());
     expect(toolRegistry.getFeatured().length).toBeGreaterThanOrEqual(4);
   });
 });

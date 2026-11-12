@@ -70,9 +70,13 @@ export const HUBS: HubDefinition[] = [
     path: "/pixel-playground",
     tagline: "Create. Edit. Transform. Have fun.",
     h1: "Pixel Playground",
-    seoTitle: "Pixel Playground — Free Creative Photo Tools | Toolkit4Me",
-    metaDescription: "Free creative photo and social media tools that run in your browser.",
-    intro: [],
+    seoTitle: "Pixel Playground — Free Creative Photo & Social Tools | Toolkit4Me",
+    metaDescription:
+      "Free creative photo tools: filters, borders, shadows, transparent backgrounds, sketch effects, privacy blur, colour palettes, profile rings and fancy text.",
+    intro: [
+      "A creative corner for photos and social posts: give a picture a new look with filters, frame it, add a shadow, make its background transparent or turn it into a pencil sketch. Blur faces before you share, pull a colour palette from a photo, ring your profile picture and style your bio text.",
+      "Every tool here runs in your browser, so your photos never leave your device. They're classic image techniques — colour maths, edge detection, blending — rather than AI, which keeps them instant and predictable; each page explains exactly what it can and can't do.",
+    ],
     icon: "✦",
     accent: "bg-fuchsia-50 text-fuchsia-800",
     guideCategories: [],

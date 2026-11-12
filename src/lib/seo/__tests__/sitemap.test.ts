@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { toolRegistry } from "../../toolRegistry";
 import { SITE_URL } from "../../../config/site";
 import { TOOL_DEFINITIONS } from "../../../data/tools";
 import { GUIDES } from "../../../data/guides";
@@ -23,14 +24,14 @@ describe("sitemaps", () => {
   const byName = Object.fromEntries(files.map((f) => [f.fileName, renderUrlset(f.entries)]));
 
   it("produces the pages sitemap, one sitemap per released hub, and the guides sitemap", () => {
-    expect(files.map((f) => f.fileName)).toEqual(["sitemap-pages.xml", "sitemap-pdf-tools.xml", "sitemap-image-tools.xml", "sitemap-developer-tools.xml", "sitemap-guides.xml"]);
+    expect(files.map((f) => f.fileName)).toEqual(["sitemap-pages.xml", ...toolRegistry.getHubs().map((h) => `sitemap${h.path.replace("/", "-")}.xml`), "sitemap-guides.xml"]);
   });
 
   it("lists every tool exactly once across the hub sitemaps", () => {
-    const hubFiles = ["sitemap-pdf-tools.xml", "sitemap-image-tools.xml", "sitemap-developer-tools.xml"];
+    const hubFiles = toolRegistry.getHubs().map((h) => `sitemap${h.path.replace("/", "-")}.xml`);
     const toolUrls = hubFiles.flatMap((f) => locs(byName[f])).filter((u) => u.includes("/tools/"));
     expect(toolUrls.sort()).toEqual(TOOL_DEFINITIONS.map((t) => `${SITE_URL}/tools/${t.slug}`).sort());
-    expect(hubFiles.flatMap((f) => locs(byName[f])).filter((u) => !u.includes("/tools/")).sort()).toEqual([`${SITE_URL}/developer-tools`, `${SITE_URL}/image-tools`, `${SITE_URL}/pdf-tools`]);
+    expect(hubFiles.flatMap((f) => locs(byName[f])).filter((u) => !u.includes("/tools/")).sort()).toEqual(toolRegistry.getHubs().map((h) => `${SITE_URL}${h.path}`).sort());
   });
 
   it("lists every guide in sitemap-guides.xml", () => {

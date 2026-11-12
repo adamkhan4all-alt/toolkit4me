@@ -9,7 +9,7 @@ import type { HubId } from "../data/hubs";
 // ToolDefinition object and registering it — nothing else.
 // ---------------------------------------------------------------------
 
-export type ToolCategory = "convert" | "compress" | "merge" | "ocr" | "edit" | "security" | "text" | "web";
+export type ToolCategory = "convert" | "compress" | "merge" | "ocr" | "edit" | "security" | "text" | "web" | "photo" | "social" | "video";
 
 /**
  * Where the actual conversion/compression work happens.
@@ -125,6 +125,9 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
   security: "Security",
   text: "Text",
   web: "Web & Developer",
+  photo: "Photo Editing Lab",
+  social: "Social Creator Studio",
+  video: "Video Playground",
 };
 
-export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr", "edit", "security", "text", "web"];
+export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr", "edit", "security", "text", "web", "photo", "social", "video"];

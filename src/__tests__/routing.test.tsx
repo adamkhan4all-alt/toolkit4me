@@ -62,7 +62,12 @@ describe("routing", () => {
       // button, so it has no single element matching tool.actionLabel.
       if (tool.id === "pdf-editor") continue;
       const { unmount } = renderAt(`/tools/${tool.slug}`);
-      expect(await screen.findByRole("button", { name: tool.actionLabel })).toBeInTheDocument();
+      if (tool.hub === "pixel" && tool.inputKind !== "text") {
+        // Pixel Playground image tools show their controls and download button only after an image is chosen.
+        expect(await screen.findByRole("button", { name: /^Upload / })).toBeInTheDocument();
+      } else {
+        expect((await screen.findAllByRole("button", { name: tool.actionLabel }))[0]).toBeInTheDocument();
+      }
       unmount();
     }
   });

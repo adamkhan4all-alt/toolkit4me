@@ -16,5 +16,8 @@ export const TOOL_AREAS: { category: ToolCategory; summary: string }[] = [
   { category: "edit", summary: "reordering, rotating and deleting PDF pages, splitting PDFs, adding page numbers, and resizing images." },
   { category: "security", summary: "adding a password to a PDF, removing one you know, or lifting printing and copying restrictions." },
   { category: "text", summary: "counting words and characters, and comparing two versions of a text." },
+  { category: "photo", summary: "photo filters, borders and frames, drop shadows, transparent backgrounds, pencil-sketch effects, colour palettes and blurring private details." },
+  { category: "social", summary: "profile picture rings and fancy text for bios and posts." },
+  { category: "video", summary: "turning short video clips into GIFs." },
   { category: "web", summary: "formatting and validating JSON, Base64 encoding and decoding, generating meta tags, and creating QR codes." },
 ];

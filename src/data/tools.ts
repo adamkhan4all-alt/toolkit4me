@@ -6,6 +6,7 @@
 
 import type { ToolDefinition } from "../types/tool";
 import { UTILITY_TOOLS } from "./utilityTools";
+import { PIXEL_TOOLS } from "./pixelTools";
 
 export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
@@ -1181,4 +1182,5 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     },
   },
   ...UTILITY_TOOLS,
+  ...PIXEL_TOOLS,
 ];
