@@ -5,6 +5,8 @@
 // sections never appear as empty pages.
 // ---------------------------------------------------------------------
 
+import type { ToolContentSection, ToolFaqEntry } from "../types/tool";
+
 export type HubId = "pdf" | "image" | "pixel" | "video" | "calculators" | "developer" | "link";
 
 export interface HubDefinition {
@@ -27,6 +29,16 @@ export interface HubDefinition {
   accent: string;
   /** Guide categories whose guides are listed on the hub page. */
   guideCategories: string[];
+  /** Optional second line under the tagline. */
+  strapline?: string;
+  /** Optional extra H2 sections after the tool groups (same shape as a tool page's extra sections). */
+  sections?: ToolContentSection[];
+  /** Optional FAQ for the hub page (also emitted as FAQPage structured data). */
+  faq?: ToolFaqEntry[];
+  /** Ids of tools from other hubs worth listing here, shown as "More link tools"-style group. */
+  relatedTools?: { label: string; ids: string[] };
+  /** Optional small call-to-action box under the intro. */
+  callout?: { title: string; body: string; linkLabel: string; href: string };
 }
 
 export const HUBS: HubDefinition[] = [
@@ -129,13 +141,81 @@ export const HUBS: HubDefinition[] = [
     name: "Link Studio",
     path: "/link-studio",
     tagline: "Shorten. Share. Track.",
+    strapline: "Your links. Your brand. Your rules.",
     h1: "Link Studio",
-    seoTitle: "Link Studio — Free Link Tools | Toolkit4Me",
-    metaDescription: "Free link tools.",
-    intro: [],
+    seoTitle: "Link Studio — Free UTM Builder, URL Cleaner & Link Tools | Toolkit4Me",
+    metaDescription:
+      "Free link tools that run in your browser: build UTM campaign links, remove tracking parameters, validate and encode URLs, and make QR codes.",
+    intro: [
+      "Link Studio is Toolkit4Me's home for working with links. Tag a link so your analytics show which campaign sent each visitor, strip the tracking codes out of a link before you share it, check that an address is complete before it goes on a poster, encode text so it's safe inside a URL, and turn any link into a QR code.",
+      "The URL tools are free for everyone and run entirely in your browser — the links you paste are never sent to our servers. Branded short links on go.toolkit4me.com, with click counts and simple analytics, are created and managed by the Toolkit4Me team; short-link creation isn't open to the public yet.",
+    ],
     icon: "↗",
     accent: "bg-emerald-50 text-emerald-800",
     guideCategories: [],
+    relatedTools: { label: "More link tools", ids: ["qr-code-generator", "base64-encoder-decoder"] },
+    callout: {
+      title: "Toolkit4Me team",
+      body: "Create and manage go.toolkit4me.com short links, and see their click analytics.",
+      linkLabel: "Team sign-in →",
+      href: "/link-studio/admin",
+    },
+    sections: [
+      {
+        heading: "Which link tool do you need?",
+        table: {
+          caption: "Link Studio tools by task",
+          headers: ["You want to…", "Use"],
+          rows: [
+            ["See which newsletter, post or ad sent each visitor", "UTM Builder"],
+            ["Remove fbclid, utm_ and other tracking codes before sharing a link", "URL Parser & Cleaner"],
+            ["Check an address is complete and well-formed before printing it", "URL Validator"],
+            ["Put a search phrase or another link inside a URL, or read a %-encoded one", "URL Encoder & Decoder"],
+            ["Let people open a link by scanning it with a phone", "QR Code Generator"],
+          ],
+        },
+      },
+      {
+        heading: "Branded short links on go.toolkit4me.com",
+        paragraphs: [
+          "A short link such as go.toolkit4me.com/summer26 redirects to a longer destination address. It's easier to type, fits on print and in social posts, and can be updated or switched off later without reprinting it.",
+          "Each Toolkit4Me short link points only to an http:// or https:// address, can be given an expiry date, and can be disabled at once — a disabled or expired link shows a notice instead of redirecting. If you find a go.toolkit4me.com link that leads somewhere harmful, email toolkit4me@gmail.com and we'll disable it.",
+        ],
+      },
+      {
+        heading: "How short-link click analytics work",
+        paragraphs: [
+          "When someone opens a go.toolkit4me.com link, the click is counted after the redirect has been sent, so counting never slows the visitor down. Click numbers are filtered estimates rather than exact counts of people: known bots, link-preview fetches and browser prefetches aren't counted, and repeat clicks from the same visitor within about a minute are usually — but not always — counted once.",
+        ],
+        list: [
+          "Stored for each counted click: the time, the short code, the referring website's domain name (not the full page address), a two-letter country code and the device type (mobile, tablet or desktop).",
+          "Not stored in the analytics: IP addresses, browser user-agent strings or any identifier that follows you across sites.",
+          "Individual click records are deleted after 365 days; only each link's running total is kept.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I create my own short links?",
+        answer:
+          "Not yet. go.toolkit4me.com short links are currently created by the Toolkit4Me team only, so the domain can't be used to disguise spam or harmful sites. All the URL tools on this page are free for everyone.",
+      },
+      {
+        question: "What happens when I click a go.toolkit4me.com link?",
+        answer:
+          "Your browser is redirected straight to the link's destination. A filtered click is recorded with the time, the referring site's domain, your country and your device type — never your IP address or browser details. See our Privacy Policy for details.",
+      },
+      {
+        question: "Do the URL tools send my links anywhere?",
+        answer:
+          "No. The UTM Builder, URL Parser & Cleaner, URL Validator, URL Encoder & Decoder and QR Code Generator all run in your browser, so the addresses you paste never leave your device.",
+      },
+      {
+        question: "What's the difference between a short link and a UTM link?",
+        answer:
+          "A UTM link is the full address with campaign labels added, which your own analytics read. A short link is a short address that redirects somewhere else. They work well together: build a UTM link, then point a short link at it so the long address never has to be typed.",
+      },
+    ],
   },
 ];
 

@@ -252,9 +252,28 @@ function renderHubBody(hub: HubDefinition): string {
     <p>${escapeHtml(hub.tagline)}</p>
     ${hub.intro.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n    ")}
     ${groups}
+    ${renderHubExtras(hub)}
     ${guides ? `<h2>Guides for ${escapeHtml(hub.name.toLowerCase())}</h2>
     <ul>${guides}</ul>` : ""}
   </div>`;
+}
+
+/** Optional hub content: related tools from other hubs, extra sections and the FAQ. */
+function renderHubExtras(hub: HubDefinition): string {
+  const related = (hub.relatedTools?.ids ?? [])
+    .map((id) => toolRegistry.getById(id))
+    .filter((t) => t !== undefined)
+    .map((t) => `<li><a href="/tools/${t.slug}">${escapeHtml(t.name)}</a> — ${escapeHtml(t.description)}</li>`)
+    .join("\n");
+  const faq = (hub.faq ?? []).map((item) => `<div><h3>${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p></div>`).join("\n");
+  return [
+    hub.strapline ? `<p>${escapeHtml(hub.strapline)}</p>` : "",
+    related ? `<h2>${escapeHtml(hub.relatedTools?.label ?? "Related tools")}</h2>\n    <ul>${related}</ul>` : "",
+    ...(hub.sections ?? []).map(renderGuideSection),
+    faq ? `<h2>Frequently asked questions</h2>\n    ${faq}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n    ");
 }
 
 function renderGuidesIndexBody(): string {
@@ -422,6 +441,7 @@ writePage(
   renderLegalBody("Privacy Policy", [
     "Toolkit4Me provides free online tools for converting, compressing, merging, and otherwise processing documents and images, without requiring an account.",
     "Tools that run entirely in your browser never send your file to our servers. Tools that require server-side processing upload your file over an encrypted connection and use it only to produce the output you requested. The upload is deleted as soon as processing finishes, and the result is deleted automatically within one hour. Processing runs on our own server; files are not sent to third-party conversion services.",
+    "When you open a go.toolkit4me.com short link, we record a filtered click with only the time, the short link, the referring site's domain name, a country code and the device type. IP addresses and browser user-agent strings are not stored in our analytics database, and click records are deleted after 365 days. Cloudflare, which runs the short-link service, processes request information to deliver the redirect under its own policies.",
     "We show ads through Google AdSense, which may use cookies to personalize ads and measure performance. See the full policy for details on your choices, third-party providers, and your rights.",
   ])
 );
@@ -539,6 +559,7 @@ for (const hub of toolRegistry.getHubs()) {
         { name: "Home", path: "/" },
         { name: hub.name, path: hub.path },
       ],
+      faq: hub.faq,
     }),
     renderHubBody(hub)
   );
@@ -593,6 +614,22 @@ for (const guide of GUIDES) {
     renderGuideBody(guide)
   );
 }
+
+// --- Link Studio team console: an app shell only, never indexed and not in any sitemap. ---
+writePage(
+  "/link-studio/admin",
+  renderHead({
+    route: "/link-studio/admin",
+    title: "Link Studio — Team console | Toolkit4Me",
+    description: "Toolkit4Me team console for go.toolkit4me.com short links.",
+    breadcrumbs: [],
+    noindex: true,
+  }),
+  `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
+    <h1>Link Studio — Team console</h1>
+    <p>This page is for the Toolkit4Me team. The free <a href="/link-studio">Link Studio tools</a> are open to everyone.</p>
+  </div>`
+);
 
 // --- 404 ---
 // Vercel serves dist/404.html, with a real 404 status, for any URL with no

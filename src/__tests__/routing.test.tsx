@@ -62,7 +62,10 @@ describe("routing", () => {
       // button, so it has no single element matching tool.actionLabel.
       if (tool.id === "pdf-editor") continue;
       const { unmount } = renderAt(`/tools/${tool.slug}`);
-      if (tool.hub === "pixel" && tool.inputKind !== "text") {
+      if (tool.id === "utm-builder" || tool.id === "url-parser-cleaner") {
+        // Live tools: the result updates as you type, so there's no process button — check the main field instead.
+        expect(await screen.findByLabelText(/^(Landing page URL|Link to parse and clean)$/)).toBeInTheDocument();
+      } else if (tool.hub === "pixel" && tool.inputKind !== "text") {
         // Pixel Playground image tools show their controls and download button only after an image is chosen.
         expect(await screen.findByRole("button", { name: /^Upload / })).toBeInTheDocument();
       } else {

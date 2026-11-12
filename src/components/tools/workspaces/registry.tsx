@@ -40,6 +40,11 @@ const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "collage-maker": lazy(() => import("./CollageWorkspace")),
   "passport-photo-maker": ImageStudio,
   "video-to-gif": lazy(() => import("./VideoToGifWorkspace")),
+  // Link Studio URL tools
+  "utm-builder": lazy(() => import("./UtmBuilderWorkspace")),
+  "url-parser-cleaner": lazy(() => import("./UrlCleanerWorkspace")),
+  "url-validator": lazy(() => import("./UrlValidatorWorkspace")),
+  "url-encoder-decoder": lazy(() => import("./UrlCodecWorkspace")),
 };
 
 /** The tool's custom workspace, ready to render, or null if it uses one of the standard workspaces. */

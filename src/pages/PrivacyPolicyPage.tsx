@@ -9,7 +9,7 @@ import { SeoHead } from "../components/seo/SeoHead";
 // relying on it for regulatory compliance (GDPR/CCPA etc.).
 // ---------------------------------------------------------------------
 
-const LAST_UPDATED = "November 3, 2026";
+const LAST_UPDATED = "November 12, 2026";
 
 export function PrivacyPolicyPage() {
   return (
@@ -40,7 +40,9 @@ export function PrivacyPolicyPage() {
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">No accounts, no sign-up</h2>
           <p>
             Every tool on Toolkit4Me can be used without creating an account, providing your name, or giving us an
-            email address. We don't have a login system, and we don't build user profiles.
+            email address, and we don't build user profiles. The only sign-in on the site is a console that the
+            Toolkit4Me team uses to manage go.toolkit4me.com short links; visitors never need it. When a team member
+            signs in (with GitHub), a strictly necessary session cookie keeps them signed in for up to 8 hours.
           </p>
         </section>
 
@@ -91,6 +93,38 @@ export function PrivacyPolicyPage() {
         </section>
 
         <section>
+          <h2 className="mb-2 text-lg font-semibold text-neutral-900">Short links (go.toolkit4me.com)</h2>
+          <p className="mb-3">
+            Link Studio's short links on go.toolkit4me.com are created by the Toolkit4Me team. When you open one, you're
+            redirected to its destination and we record a click in our short-link analytics database. For each counted
+            click we store only:
+          </p>
+          <ul className="mb-3 list-disc pl-5">
+            <li>the date and time, and which short link was opened;</li>
+            <li>the domain name of the page that linked to it (for example, www.google.com — not the full page address);</li>
+            <li>a two-letter country code, as determined by our network provider; and</li>
+            <li>the type of device (mobile, tablet or desktop).</li>
+          </ul>
+          <p className="mb-3">
+            We do not store your IP address or your browser's user-agent string in the analytics database, and we don't
+            use short links to set cookies or follow you across websites. To avoid counting the same visit twice, a
+            one-way hash derived from your IP address and browser is held in temporary memory for about a minute and
+            then discarded. Clicks from known bots and link previews aren't recorded. Individual click records are
+            deleted automatically after 365 days; each link's total click count is kept.
+          </p>
+          <p className="mb-3">
+            The short-link service runs on Cloudflare. As with any website, Cloudflare processes technical request
+            information — including your IP address — to deliver the redirect and protect the service from abuse, and
+            may keep operational logs under its own policies. That processing is separate from the analytics database
+            described above.
+          </p>
+          <p>
+            The Link Studio tools on toolkit4me.com — the UTM builder, URL cleaner, validator and encoder — run entirely
+            in your browser; the addresses you enter are not sent to us.
+          </p>
+        </section>
+
+        <section>
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">Advertising and cookies</h2>
           <p className="mb-3">
             We show ads through Google AdSense to keep every tool free to use. Google and its partners may use
@@ -124,7 +158,8 @@ export function PrivacyPolicyPage() {
           <h2 className="mb-2 text-lg font-semibold text-neutral-900">Third-party service providers</h2>
           <p>
             We rely on third-party infrastructure providers to host and deliver the Service (for example, cloud
-            hosting for file processing and a content delivery network for the website itself). These providers
+            hosting for file processing, a content delivery network for the website itself, Cloudflare for
+            go.toolkit4me.com short links, and GitHub for the team's sign-in). These providers
             process data solely on our behalf, under their own security and privacy commitments, and don't use it
             for their own purposes beyond keeping the Service running.
           </p>
