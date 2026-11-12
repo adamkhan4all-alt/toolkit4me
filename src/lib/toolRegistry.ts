@@ -1,3 +1,4 @@
+import { releasedHubs, type HubDefinition, type HubId } from "../data/hubs";
 // ---------------------------------------------------------------------
 // Centralized tool registry.
 //
@@ -57,6 +58,26 @@ class ToolRegistry {
   /** Primary lookup used by the router — resolves a `/tools/:slug` param. */
   getBySlug(slug: string): ToolDefinition | undefined {
     return this.bySlug.get(slug);
+  }
+
+  getByHub(hub: HubId): ToolDefinition[] {
+    return this.ordered.filter((t) => t.hub === hub);
+  }
+
+  /** Hubs with at least one released tool, in display order. */
+  getHubs(): HubDefinition[] {
+    const counts: Partial<Record<HubId, number>> = {};
+    for (const t of this.ordered) counts[t.hub] = (counts[t.hub] ?? 0) + 1;
+    return releasedHubs(counts);
+  }
+
+  getFeatured(): ToolDefinition[] {
+    return this.ordered.filter((t) => t.featured);
+  }
+
+  /** Most recently published first; ties keep registration order. */
+  getRecentlyAdded(limit = 6): ToolDefinition[] {
+    return [...this.ordered].sort((a, b) => b.addedOn.localeCompare(a.addedOn)).slice(0, limit);
   }
 
   getByCategory(category: ToolCategory): ToolDefinition[] {

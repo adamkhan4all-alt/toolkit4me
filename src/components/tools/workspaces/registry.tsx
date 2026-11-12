@@ -13,6 +13,9 @@ import { lazy, Suspense, type ComponentType, type ReactNode } from "react";
 import type { ToolDefinition } from "../../../types/tool";
 import { LoadingState } from "../../ui/LoadingState";
 
+/** One shared workspace for every canvas tool driven by a StudioSpec (src/lib/pixel/specs). */
+const ImageStudio = lazy(() => import("./ImageStudioWorkspace"));
+
 const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "json-formatter": lazy(() => import("./JsonFormatterWorkspace")),
   "qr-code-generator": lazy(() => import("./QrCodeWorkspace")),
@@ -20,6 +23,23 @@ const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "text-compare": lazy(() => import("./TextCompareWorkspace")),
   "base64-encoder-decoder": lazy(() => import("./Base64Workspace")),
   "meta-tag-generator": lazy(() => import("./MetaTagWorkspace")),
+  // Pixel Playground
+  "photo-filters": ImageStudio,
+  "image-border-frame": ImageStudio,
+  "image-shadow-generator": ImageStudio,
+  "transparent-background": ImageStudio,
+  "profile-picture-border": ImageStudio,
+  "photo-to-sketch": ImageStudio,
+  "color-palette-extractor": lazy(() => import("./PaletteWorkspace")),
+  "blur-image-areas": lazy(() => import("./BlurAreasWorkspace")),
+  "fancy-text-generator": lazy(() => import("./FancyTextWorkspace")),
+  "meme-generator": ImageStudio,
+  "story-maker": ImageStudio,
+  "youtube-thumbnail-maker": ImageStudio,
+  "whatsapp-sticker-maker": ImageStudio,
+  "collage-maker": lazy(() => import("./CollageWorkspace")),
+  "passport-photo-maker": ImageStudio,
+  "video-to-gif": lazy(() => import("./VideoToGifWorkspace")),
 };
 
 /** The tool's custom workspace, ready to render, or null if it uses one of the standard workspaces. */

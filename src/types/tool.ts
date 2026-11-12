@@ -1,3 +1,4 @@
+import type { HubId } from "../data/hubs";
 // ---------------------------------------------------------------------
 // Core type contract for the reusable tool framework (Phase 4).
 //
@@ -8,7 +9,7 @@
 // ToolDefinition object and registering it — nothing else.
 // ---------------------------------------------------------------------
 
-export type ToolCategory = "convert" | "compress" | "merge" | "ocr" | "edit" | "security" | "text" | "web";
+export type ToolCategory = "convert" | "compress" | "merge" | "ocr" | "edit" | "security" | "text" | "web" | "photo" | "social" | "video";
 
 /**
  * Where the actual conversion/compression work happens.
@@ -52,6 +53,12 @@ export interface ToolDefinition {
   name: string;
   shortName: string;
   slug: string;
+  /** Top-level section of the site this tool belongs to (navigation, hub page, sitemap). */
+  hub: HubId;
+  /** Editorially featured on the homepage and hub pages. */
+  featured?: boolean;
+  /** ISO date the tool was first published — drives "Recently added". */
+  addedOn: string;
   /** Upper bound on files per run when `multiple` is true, matching the backend's limit. Omit for no limit (client-side tools). */
   maxFiles?: number;
   /** ISO date (YYYY-MM-DD) this tool's page content last changed meaningfully. Feeds the sitemap <lastmod>; bump it when editing the tool's copy. */
@@ -118,6 +125,9 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
   security: "Security",
   text: "Text",
   web: "Web & Developer",
+  photo: "Photo Editing Lab",
+  social: "Social Creator Studio",
+  video: "Video Playground",
 };
 
-export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr", "edit", "security", "text", "web"];
+export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr", "edit", "security", "text", "web", "photo", "social", "video"];

@@ -1,5 +1,6 @@
 import type { ToolDefinition } from "../../types/tool";
 import { Breadcrumb } from "../layout/Breadcrumb";
+import { getHub } from "../../data/hubs";
 
 interface ToolHeaderProps {
   tool: ToolDefinition;
@@ -12,7 +13,7 @@ export function ToolHeader({ tool }: ToolHeaderProps) {
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
-          { label: tool.categoryLabel, href: `/tools?category=${tool.category}` },
+          { label: getHub(tool.hub).name, href: getHub(tool.hub).path },
           { label: tool.name },
         ]}
       />

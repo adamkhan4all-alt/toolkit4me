@@ -13,6 +13,10 @@ import { SITE_URL } from "../../config/site";
 import { TOOL_DEFINITIONS } from "../../data/tools";
 import { GUIDES } from "../../data/guides";
 import { STATIC_PAGES, latestDate } from "./pages";
+import { toolRegistry } from "../toolRegistry";
+
+/** Date the hub landing pages' own copy last changed. */
+const HUB_PAGES_UPDATED = "2026-11-12";
 
 export interface SitemapEntry {
   path: string;
@@ -46,7 +50,17 @@ export function canonicalUrl(path: string): string {
 export function sitemapGroups(): { name: string; entries: SitemapEntry[] }[] {
   return [
     { name: "pages", entries: STATIC_PAGES.map((p) => ({ path: p.path, lastModified: p.lastModified })) },
-    { name: "tools", entries: TOOL_DEFINITIONS.map((t) => ({ path: `/tools/${t.slug}`, lastModified: t.lastModified })) },
+    // One sitemap per released hub (pdf-tools, image-tools, …): its landing page plus its tools.
+    ...toolRegistry.getHubs().map((hub) => {
+      const tools = TOOL_DEFINITIONS.filter((t) => t.hub === hub.id);
+      return {
+        name: hub.path.slice(1),
+        entries: [
+          { path: hub.path, lastModified: latestDate(HUB_PAGES_UPDATED, ...tools.map((t) => t.lastModified)) },
+          ...tools.map((t) => ({ path: `/tools/${t.slug}`, lastModified: t.lastModified })),
+        ],
+      };
+    }),
     { name: "guides", entries: GUIDES.map((g) => ({ path: g.path, lastModified: g.updated })) },
   ];
 }

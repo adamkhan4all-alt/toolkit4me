@@ -4,33 +4,46 @@
    Design tokens — Phase 2 UI/UX spec, Section 2
    --------------------------------------------------------------------- */
 @theme {
-  /* Color palette */
-  --color-brand-50: #eff6ff;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
+  /* Brand: indigo, with a pink accent used only in gradients and highlights.
+     brand-600 on white = 6.3:1, brand-700 = 7.9:1 (WCAG AA for body text). */
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-900: #1e1b4b;
+  --color-accent-500: #ec4899;
+  --color-accent-600: #db2777;
 
+  /* Neutrals (cool grey). neutral-600 on white = 7.6:1. */
   --color-neutral-0: #ffffff;
-  --color-neutral-100: #f3f4f6;
-  --color-neutral-200: #e5e7eb;
-  --color-neutral-400: #9ca3af;
-  --color-neutral-600: #4b5563;
-  --color-neutral-900: #111827;
+  --color-neutral-50: #f8f9fc;
+  --color-neutral-100: #f2f4f8;
+  --color-neutral-200: #e4e7ef;
+  --color-neutral-300: #cfd4e0;
+  --color-neutral-400: #9aa1b2;
+  --color-neutral-500: #6b7286;
+  --color-neutral-600: #4a5165;
+  --color-neutral-700: #343a4c;
+  --color-neutral-900: #12142a;
 
-  --color-success-50: #f0fdf4;
-  --color-success-600: #16a34a;
-
+  /* Status colours, darkened so text versions pass 4.5:1 on white. */
+  --color-success-50: #ecfdf3;
+  --color-success-600: #15803d;
   --color-warning-50: #fffbeb;
-  --color-warning-600: #d97706;
-
+  --color-warning-600: #b45309;
   --color-error-50: #fef2f2;
   --color-error-600: #dc2626;
 
-  /* Typography */
-  --font-sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Typography: the system font stack — no web-font download. */
+  --font-sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   /* Radii */
-  --radius-card: 12px;
-  --radius-control: 8px;
+  --radius-card: 16px;
+  --radius-control: 10px;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgb(18 20 42 / 0.04), 0 4px 16px rgb(18 20 42 / 0.06);
+  --shadow-card-hover: 0 2px 4px rgb(18 20 42 / 0.06), 0 12px 28px rgb(79 70 229 / 0.14);
 }
 
 html,
@@ -60,4 +73,96 @@ body {
 }
 .animate-indeterminate {
   animation: indeterminate-stripe 1.2s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------------
+   Brand surfaces and motion (Release 1 refresh)
+   --------------------------------------------------------------------- */
+.brand-gradient-text {
+  background: linear-gradient(100deg, var(--color-brand-600) 10%, var(--color-accent-600) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.brand-gradient-bg {
+  background: linear-gradient(120deg, var(--color-brand-600), var(--color-accent-600));
+}
+
+/* Hero backdrop: soft colour blobs drawn with CSS only (no image request). */
+.hero-backdrop {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-neutral-50);
+}
+.hero-backdrop::before,
+.hero-backdrop::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 520px;
+  height: 520px;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.hero-backdrop::before {
+  top: -260px;
+  left: -160px;
+  background: #a5b4fc;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+.hero-backdrop::after {
+  bottom: -300px;
+  right: -180px;
+  background: #f9a8d4;
+  animation: drift 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(60px, 40px, 0) scale(1.08); }
+}
+
+/* Cards lift slightly on hover/focus. */
+.card-lift {
+  box-shadow: var(--shadow-card);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+.card-lift:hover,
+.card-lift:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-fade-up {
+  animation: fade-up 420ms ease-out both;
+}
+
+/* Respect the visitor's reduced-motion setting everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .card-lift:hover,
+  .card-lift:focus-visible {
+    transform: none;
+  }
+}
+
+/* Transparency checkerboard behind image previews. */
+.checkerboard {
+  background-color: #ffffff;
+  background-image: linear-gradient(45deg, #e4e7ef 25%, transparent 25%), linear-gradient(-45deg, #e4e7ef 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e4e7ef 75%), linear-gradient(-45deg, transparent 75%, #e4e7ef 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
 }

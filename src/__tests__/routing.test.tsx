@@ -27,7 +27,7 @@ function renderAt(path: string) {
 describe("routing", () => {
   it("renders the homepage at /", async () => {
     renderAt("/");
-    expect(await screen.findByRole("heading", { level: 1, name: /Toolkit4Me/i })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: /Everything You Need/i })).toBeInTheDocument();
   });
 
   it("renders the tools directory at /tools", async () => {
@@ -62,10 +62,16 @@ describe("routing", () => {
       // button, so it has no single element matching tool.actionLabel.
       if (tool.id === "pdf-editor") continue;
       const { unmount } = renderAt(`/tools/${tool.slug}`);
-      expect(await screen.findByRole("button", { name: tool.actionLabel })).toBeInTheDocument();
+      if (tool.hub === "pixel" && tool.inputKind !== "text") {
+        // Pixel Playground image tools show their controls and download button only after an image is chosen.
+        expect(await screen.findByRole("button", { name: /^Upload / })).toBeInTheDocument();
+      } else {
+        expect((await screen.findAllByRole("button", { name: tool.actionLabel }))[0]).toBeInTheDocument();
+      }
       unmount();
     }
-  });
+    // Renders every tool page in turn (42 and growing), so it needs more than the 5 s default on slower machines.
+  }, 60_000);
 
   // Every URL the sitemaps advertise must be a real, rendering route —
   // never the not-found page.

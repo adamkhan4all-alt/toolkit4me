@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toolRegistry } from "../../lib/toolRegistry";
-import { CATEGORIES, CATEGORY_LABELS } from "../../types/tool";
 import { SearchBar } from "./SearchBar";
 
 interface MobileNavProps {
@@ -120,22 +119,29 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         </Link>
 
         <div className="mt-2 flex flex-col divide-y divide-neutral-200 border-t border-neutral-200">
-          {CATEGORIES.map((category) => {
-            const tools = toolRegistry.getByCategory(category);
-            const isOpen = expanded === category;
+          {toolRegistry.getHubs().map((hub) => {
+            const tools = toolRegistry.getByHub(hub.id);
+            const isOpen = expanded === hub.id;
             return (
-              <div key={category}>
+              <div key={hub.id}>
                 <button
                   type="button"
                   className="focus-ring flex w-full items-center justify-between rounded-md px-2 py-3 text-left text-sm font-semibold text-neutral-900 hover:bg-neutral-100"
                   aria-expanded={isOpen}
-                  onClick={() => setExpanded(isOpen ? null : category)}
+                  onClick={() => setExpanded(isOpen ? null : hub.id)}
                 >
-                  {CATEGORY_LABELS[category]}
+                  {hub.name}
                   <span aria-hidden="true" className="text-neutral-600">{isOpen ? "−" : "+"}</span>
                 </button>
                 {isOpen && (
                   <div className="flex flex-col pb-2 pl-2">
+                    <Link
+                      to={hub.path}
+                      onClick={onClose}
+                      className="focus-ring rounded-md px-2 py-2 text-sm font-semibold text-brand-700 hover:bg-neutral-100"
+                    >
+                      All {hub.name} →
+                    </Link>
                     {tools.map((tool) => (
                       <Link
                         key={tool.slug}

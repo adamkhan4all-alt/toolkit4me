@@ -6,11 +6,15 @@
 
 import type { ToolDefinition } from "../types/tool";
 import { UTILITY_TOOLS } from "./utilityTools";
+import { PIXEL_TOOLS } from "./pixelTools";
 
 export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "pdf-to-word",
     slug: "pdf-to-word",
+    hub: "pdf",
+    featured: true,
+    addedOn: "2026-09-10",
     lastModified: "2026-11-11",
     name: "PDF to Word Converter",
     shortName: "PDF to Word",
@@ -71,6 +75,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "word-to-pdf",
     slug: "word-to-pdf",
+    hub: "pdf",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-03",
     name: "Word to PDF Converter",
     shortName: "Word to PDF",
@@ -134,11 +140,14 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "jpg-to-pdf",
     slug: "jpg-to-pdf",
+    hub: "pdf",
+    featured: true,
+    addedOn: "2026-09-10",
     lastModified: "2026-11-03",
     name: "JPG to PDF Converter",
     shortName: "JPG to PDF",
     category: "convert",
-    categoryLabel: "Convert Image",
+    categoryLabel: "Convert PDF",
     description:
       "Combine one or more JPG images into a single, clean PDF document — perfect for scans, receipts, and photo collections.",
     acceptedFormats: ["JPG", "JPEG"],
@@ -208,6 +217,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "pdf-to-jpg",
     slug: "pdf-to-jpg",
+    hub: "pdf",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-03",
     name: "PDF to JPG Converter",
     shortName: "PDF to JPG",
@@ -268,6 +279,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "compress-pdf",
     slug: "compress-pdf",
+    hub: "pdf",
+    featured: true,
+    addedOn: "2026-09-10",
     lastModified: "2026-11-11",
     name: "Compress PDF",
     shortName: "Compress PDF",
@@ -337,6 +351,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "merge-pdf",
     slug: "merge-pdf",
+    hub: "pdf",
+    featured: true,
+    addedOn: "2026-09-10",
     maxFiles: 20,
     lastModified: "2026-11-11",
     name: "Merge PDF",
@@ -393,6 +410,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "compress-image",
     slug: "compress-image",
+    hub: "image",
+    featured: true,
+    addedOn: "2026-09-10",
     lastModified: "2026-11-11",
     name: "Compress Image",
     shortName: "Compress Image",
@@ -461,6 +481,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "image-to-text",
     slug: "image-to-text",
+    hub: "image",
+    featured: true,
+    addedOn: "2026-09-10",
     lastModified: "2026-11-11",
     name: "Image to Text (OCR)",
     shortName: "Image to Text",
@@ -535,6 +558,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "jpg-to-png",
     slug: "jpg-to-png",
+    hub: "image",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-11",
     name: "JPG to PNG Converter",
     shortName: "JPG to PNG",
@@ -590,6 +615,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "png-to-jpg",
     slug: "png-to-jpg",
+    hub: "image",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-11",
     name: "PNG to JPG Converter",
     shortName: "PNG to JPG",
@@ -645,6 +672,9 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "pdf-editor",
     slug: "pdf-editor",
+    hub: "pdf",
+    featured: true,
+    addedOn: "2026-09-10",
     lastModified: "2026-11-11",
     name: "PDF Editor",
     shortName: "PDF Editor",
@@ -712,6 +742,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "split-pdf",
     slug: "split-pdf",
+    hub: "pdf",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-11",
     name: "Split PDF",
     shortName: "Split PDF",
@@ -799,6 +831,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "powerpoint-to-pdf",
     slug: "powerpoint-to-pdf",
+    hub: "pdf",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-03",
     name: "PowerPoint to PDF Converter",
     shortName: "PowerPoint to PDF",
@@ -859,6 +893,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "excel-to-pdf",
     slug: "excel-to-pdf",
+    hub: "pdf",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-03",
     name: "Excel to PDF Converter",
     shortName: "Excel to PDF",
@@ -919,6 +955,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "unlock-pdf",
     slug: "unlock-pdf",
+    hub: "pdf",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-03",
     name: "Unlock PDF",
     shortName: "Unlock PDF",
@@ -988,6 +1026,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "protect-pdf",
     slug: "protect-pdf",
+    hub: "pdf",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-03",
     name: "Protect PDF",
     shortName: "Protect PDF",
@@ -1065,6 +1105,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     id: "unprotect-pdf",
     slug: "unprotect-pdf",
+    hub: "pdf",
+    addedOn: "2026-09-10",
     lastModified: "2026-11-03",
     name: "UnProtect PDF",
     shortName: "UnProtect PDF",
@@ -1140,4 +1182,5 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     },
   },
   ...UTILITY_TOOLS,
+  ...PIXEL_TOOLS,
 ];
