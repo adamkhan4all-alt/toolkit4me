@@ -92,3 +92,13 @@ export function outputName(original: string, suffix: string, format: OutputForma
   const base = original.replace(/\.[^.]+$/, "") || "image";
   return `${base}-${suffix}.${format === "jpeg" ? "jpg" : format}`;
 }
+
+/**
+ * The format a blob actually contains. Browsers that can't encode a
+ * format (Safari has no WebP encoder) silently return PNG instead, so the
+ * file must be named — and described — by what it really is.
+ */
+export function actualFormat(blob: Blob, requested: OutputFormat): { format: OutputFormat; fellBack: boolean } {
+  const format = ((blob.type.replace("image/", "") || requested) as OutputFormat);
+  return { format, fellBack: format !== requested };
+}

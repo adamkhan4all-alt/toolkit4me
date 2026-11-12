@@ -6,7 +6,7 @@ import { Button } from "../../ui/Button";
 import { LoadingState } from "../../ui/LoadingState";
 import { downloadBlob } from "../../../lib/downloadBlob";
 import { formatFileSize } from "../../../lib/format";
-import { canvasToBlob, FORMAT_LABELS, ImageLoadError, loadImageFile, makeCanvas, outputName, scaledCopy, type OutputFormat } from "../../../lib/pixel/imageIO";
+import { actualFormat, canvasToBlob, FORMAT_LABELS, ImageLoadError, loadImageFile, makeCanvas, outputName, scaledCopy, type OutputFormat } from "../../../lib/pixel/imageIO";
 import { controlsFor, type StudioControl, type StudioSpec, type StudioValues } from "../../../lib/pixel/studio";
 import { rgbToHex } from "../../../lib/pixel/pixels";
 import { STUDIO_SPECS } from "../../../lib/pixel/specs";
@@ -120,8 +120,12 @@ export default function ImageStudioWorkspace({ tool }: { tool: ToolDefinition })
           out = canvas;
         }
         const blob = await canvasToBlob(out, format, quality / 100);
-        downloadBlob(blob, outputName(fileName, spec.fileSuffix, format));
-        setLastDownload(`${out.width} × ${out.height} px · ${FORMAT_LABELS[format]} · ${formatFileSize(blob.size)}`);
+        const saved = actualFormat(blob, format);
+        downloadBlob(blob, outputName(fileName, spec.fileSuffix, saved.format));
+        setLastDownload(
+          `${out.width} × ${out.height} px · ${FORMAT_LABELS[saved.format]} · ${formatFileSize(blob.size)}` +
+            (saved.fellBack ? ` — your browser can't create ${FORMAT_LABELS[format]} files, so a ${FORMAT_LABELS[saved.format]} was saved instead.` : "")
+        );
       } catch {
         setError("The image couldn't be saved. Your device may be low on memory — try a smaller photo.");
       } finally {

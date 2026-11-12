@@ -6,7 +6,7 @@ import { Button } from "../../ui/Button";
 import { LoadingState } from "../../ui/LoadingState";
 import { downloadBlob } from "../../../lib/downloadBlob";
 import { formatFileSize } from "../../../lib/format";
-import { canvasToBlob, FORMAT_LABELS, ImageLoadError, loadImageFile, makeCanvas, outputName, scaledCopy, type OutputFormat } from "../../../lib/pixel/imageIO";
+import { actualFormat, canvasToBlob, FORMAT_LABELS, ImageLoadError, loadImageFile, makeCanvas, outputName, scaledCopy, type OutputFormat } from "../../../lib/pixel/imageIO";
 import { applyRegions, type Mode, type Region } from "../../../lib/pixel/regions";
 import { PrivacyLine, inputClass, labelClass, panelClass } from "./shared";
 
@@ -84,8 +84,9 @@ export default function BlurAreasWorkspace({ tool }: { tool: ToolDefinition }) {
         ctx.drawImage(source, 0, 0);
         applyRegions(canvas, regions, mode, strength);
         const blob = await canvasToBlob(canvas, format, 0.92);
-        downloadBlob(blob, outputName(fileName, "blurred", format));
-        setDone(`${canvas.width} × ${canvas.height} px · ${FORMAT_LABELS[format]} · ${formatFileSize(blob.size)}`);
+        const saved = actualFormat(blob, format);
+        downloadBlob(blob, outputName(fileName, "blurred", saved.format));
+        setDone(`${canvas.width} × ${canvas.height} px · ${FORMAT_LABELS[saved.format]} · ${formatFileSize(blob.size)}${saved.fellBack ? " (your browser saved PNG instead of WebP)" : ""}`);
       } catch {
         setError("The image couldn't be saved. Try a smaller photo.");
       } finally {

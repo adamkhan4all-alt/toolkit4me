@@ -12,4 +12,8 @@ export const STUDIO_SPECS: Record<string, Loader> = {
   "transparent-background": () => cast(import("./transparentBackground")),
   "profile-picture-border": () => cast(import("./profileBorder")),
   "photo-to-sketch": () => cast(import("./photoToSketch")),
+  "meme-generator": () => cast(import("./meme")),
+  "story-maker": () => cast(import("./story")),
+  "youtube-thumbnail-maker": () => cast(import("./thumbnail")),
+  "whatsapp-sticker-maker": () => cast(import("./sticker")),
 };

@@ -33,6 +33,11 @@ const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "color-palette-extractor": lazy(() => import("./PaletteWorkspace")),
   "blur-image-areas": lazy(() => import("./BlurAreasWorkspace")),
   "fancy-text-generator": lazy(() => import("./FancyTextWorkspace")),
+  "meme-generator": ImageStudio,
+  "story-maker": ImageStudio,
+  "youtube-thumbnail-maker": ImageStudio,
+  "whatsapp-sticker-maker": ImageStudio,
+  "collage-maker": lazy(() => import("./CollageWorkspace")),
 };
 
 /** The tool's custom workspace, ready to render, or null if it uses one of the standard workspaces. */
