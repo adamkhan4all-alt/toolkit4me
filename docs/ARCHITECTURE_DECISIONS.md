@@ -38,3 +38,12 @@ Each decision records the context, the choice and its consequences. New decision
 
 ## ADR-09 — Ads stay out of tool workspaces
 Unchanged from earlier phases: no ad unit inside or directly beside an upload, settings or download area; the same rule applies to every new hub.
+
+## ADR-10 — Link Studio uses the owner's existing Cloudflare Worker through Vercel Functions (supersedes ADR-05)
+**Context:** The owner set up the short-link backend (`toolkit4me-shortlinks` Worker + D1 on `go.toolkit4me.com`). The site is a Vite SPA, so there are no Next.js API routes.
+**Decision:** Admin calls go browser → Vercel Functions (`api/link-studio/*`, same Vercel project) → Worker. The functions hold `ADMIN_API_KEY`, allow-list every field, and require a GitHub-OAuth admin session. Public visitors get browser-only URL tools; short-link creation is admin-only. Details: `LINK_STUDIO.md`.
+
+## ADR-11 — Calculators are lightweight listings with lazily loaded content
+**Context:** Every page loads the tool registry. Adding 30 calculators as full `ToolDefinition`s (page copy inline) would have added roughly 100 KB of JavaScript to every page.
+**Decision:** Introduce `ToolListing` — the few fields discovery UI needs (name, description, icon, hub, path, keywords). Every `ToolDefinition` already is one; calculators are listings in `src/data/calculators/catalog.ts` with path `/calculators/<slug>`. Their formulas and page copy live in five group modules loaded only on calculator pages. Cards, hub menus, search, the directory, the homepage and sitemaps read listings; tool pages are unchanged.
+**Consequences:** Shared JavaScript didn't grow (≈457 KB after Release 3 vs 466 KB after Release 4). Future large catalogues can follow the same pattern.

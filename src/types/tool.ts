@@ -131,3 +131,30 @@ export const CATEGORY_LABELS: Record<ToolCategory, string> = {
 };
 
 export const CATEGORIES: ToolCategory[] = ["convert", "compress", "merge", "ocr", "edit", "security", "text", "web", "photo", "social", "video"];
+
+/**
+ * What discovery UI needs — cards, hub menus, search, the directory and sitemaps. Every ToolDefinition is
+ * a ToolListing as-is (its page lives at /tools/<slug>); Calculator Hub entries are lightweight listings
+ * with their own `path`, so their page copy and formulas stay out of the shared bundle.
+ */
+export interface ToolListing {
+  id: string;
+  slug: string;
+  name: string;
+  shortName: string;
+  description: string;
+  icon: string;
+  hub: HubId;
+  categoryLabel: string;
+  addedOn: string;
+  lastModified: string;
+  featured?: boolean;
+  /** Page path; defaults to /tools/<slug>. */
+  path?: string;
+  /** Extra search terms (ToolDefinitions use seo.keywords). */
+  keywords?: string[];
+}
+
+export function listingPath(t: ToolListing): string {
+  return t.path ?? `/tools/${t.slug}`;
+}

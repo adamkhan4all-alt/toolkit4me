@@ -31,7 +31,7 @@ const trustPoints = [
 export function HomePage() {
   const navigate = useNavigate();
   const hubs = toolRegistry.getHubs();
-  const toolCount = toolRegistry.getAll().length;
+  const toolCount = toolRegistry.countListings();
   const featured = toolRegistry.getFeatured();
   const recent = toolRegistry.getRecentlyAdded(4);
   const guides = GUIDE_INDEX.filter((g) => g.featured).slice(0, 3);
@@ -56,7 +56,7 @@ export function HomePage() {
           </h1>
           <p className="max-w-[600px] text-base text-neutral-600 sm:text-lg">{HOME_SUBHEAD}</p>
           <div className="w-full max-w-[640px]">
-            <SearchBar large onSelect={(slug) => navigate(`/tools/${slug}`)} />
+            <SearchBar large onSelect={(path) => navigate(path)} />
           </div>
           <nav aria-label="Tool sections" className="flex flex-wrap justify-center gap-2">
             {hubs.map((hub) => (
@@ -90,7 +90,7 @@ export function HomePage() {
       </section>
 
       {hubs.map((hub, index) => {
-        const tools = toolRegistry.getByHub(hub.id);
+        const tools = toolRegistry.getListingsByHub(hub.id);
         return (
           <div key={hub.id} className="contents">
             <section aria-labelledby={`hub-${hub.id}`} className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
@@ -153,7 +153,7 @@ export function HomePage() {
               </span>
               <h3 className="text-lg font-semibold text-neutral-900 group-hover:text-brand-700">{hub.name}</h3>
               <p className="text-sm text-neutral-600">{hub.tagline}</p>
-              <span className="text-xs font-medium text-neutral-600">{toolRegistry.getByHub(hub.id).length} tools</span>
+              <span className="text-xs font-medium text-neutral-600">{toolRegistry.getListingsByHub(hub.id).length} {hub.id === "calculators" ? "calculators" : "tools"}</span>
             </Link>
           ))}
           <Link

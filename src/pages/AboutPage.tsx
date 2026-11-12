@@ -22,7 +22,7 @@ export function AboutPage() {
       <div className="flex flex-col gap-8 text-sm leading-6 text-neutral-700">
         <section>
           <p>
-            Toolkit4Me is a collection of {toolRegistry.count()} free online tools for the everyday digital tasks
+            Toolkit4Me is a collection of {toolRegistry.countListings()} free online tools for the everyday digital tasks
             people run into constantly: converting a PDF to Word, merging a few PDFs into one, resizing or shrinking a
             photo before uploading it, pulling text out of a scanned page — and, for writing and web work, counting
             words, comparing two drafts, formatting JSON or making a QR code. Nothing here requires an account, a

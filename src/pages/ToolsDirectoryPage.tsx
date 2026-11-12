@@ -4,7 +4,7 @@ import { Breadcrumb } from "../components/layout/Breadcrumb";
 import { ToolCard } from "../components/tools/ToolCard";
 import { AdInContent } from "../components/ads";
 import { SeoHead } from "../components/seo/SeoHead";
-import { CATEGORY_LABELS, type ToolCategory } from "../types/tool";
+import { CATEGORY_LABELS, listingPath, type ToolCategory, type ToolDefinition, type ToolListing } from "../types/tool";
 import type { HubId } from "../data/hubs";
 import { toolRegistry } from "../lib/toolRegistry";
 import { TOOLS_PAGE_DESCRIPTION, TOOLS_PAGE_TITLE, toolsPageIntro } from "../config/site";
@@ -29,10 +29,12 @@ export function ToolsDirectoryPage() {
 
   const activeHubId = activeHub?.id ?? null;
   // Plain derivations: the registry is small, so no memoisation is needed.
-  const inHub = activeHubId ? toolRegistry.getByHub(activeHubId) : toolRegistry.getAll();
-  const subcategories = [...new Set(inHub.map((t) => t.category))];
-  const matches = query.trim() ? new Set(toolRegistry.search(query).map((t) => t.slug)) : null;
-  const filtered = inHub.filter((t) => (!activeCategory || t.category === activeCategory) && (!matches || matches.has(t.slug)));
+  const inHub = activeHubId ? toolRegistry.getListingsByHub(activeHubId) : toolRegistry.getListings();
+  // Sub-category chips come from full tool definitions; calculators are grouped by their hub instead.
+  const categoryOf = (t: ToolListing): ToolCategory | null => ("category" in t ? (t as ToolDefinition).category : null);
+  const subcategories = [...new Set(inHub.map(categoryOf).filter((c): c is ToolCategory => c !== null))];
+  const matches = query.trim() ? new Set(toolRegistry.searchListings(query).map(listingPath)) : null;
+  const filtered = inHub.filter((t) => (!activeCategory || categoryOf(t) === activeCategory) && (!matches || matches.has(listingPath(t))));
 
   const setFilters = (hub: HubId | null, category: ToolCategory | null) => {
     const next: Record<string, string> = {};
@@ -56,7 +58,7 @@ export function ToolsDirectoryPage() {
 
       <div className="flex flex-col gap-3">
         <h1 className="text-[32px] leading-tight font-extrabold tracking-tight text-neutral-900 sm:text-[40px]">All Tools</h1>
-        <p className="max-w-2xl text-sm leading-6 text-neutral-600">{toolsPageIntro(toolRegistry.count())}</p>
+        <p className="max-w-2xl text-sm leading-6 text-neutral-600">{toolsPageIntro(toolRegistry.countListings())}</p>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -119,7 +121,7 @@ export function ToolsDirectoryPage() {
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {filtered.map((tool) => (
-            <ToolCard key={tool.slug} tool={tool} />
+            <ToolCard key={listingPath(tool)} tool={tool} />
           ))}
         </div>
       ) : (

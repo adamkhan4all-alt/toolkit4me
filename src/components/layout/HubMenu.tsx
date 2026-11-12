@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import type { HubDefinition } from "../../data/hubs";
 import { toolRegistry } from "../../lib/toolRegistry";
+import { listingPath } from "../../types/tool";
 
 /**
  * Desktop navigation: one disclosure button per released hub. The panel
@@ -42,8 +43,8 @@ export function HubMenu({ hubs }: { hubs: HubDefinition[] }) {
     <nav ref={navRef} aria-label="Primary" className="hidden items-center gap-1 md:flex" onMouseLeave={() => setOpen(null)}>
       {hubs.map((hub) => {
         const isOpen = open === hub.id;
-        const tools = toolRegistry.getByHub(hub.id);
-        const active = location.pathname === hub.path || tools.some((t) => location.pathname === `/tools/${t.slug}`);
+        const tools = toolRegistry.getListingsByHub(hub.id);
+        const active = location.pathname === hub.path || tools.some((t) => location.pathname === listingPath(t));
         return (
           <div key={hub.id} className="relative" onMouseEnter={() => setOpen(hub.id)}>
             <button
@@ -79,7 +80,7 @@ export function HubMenu({ hubs }: { hubs: HubDefinition[] }) {
                   {tools.map((tool) => (
                     <li key={tool.slug}>
                       <Link
-                        to={`/tools/${tool.slug}`}
+                        to={listingPath(tool)}
                         className="focus-ring flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-neutral-700 hover:bg-neutral-100 hover:text-brand-700"
                       >
                         <span aria-hidden="true" className={`inline-flex min-w-9 justify-center rounded px-1 text-[10px] font-bold ${hub.accent}`}>

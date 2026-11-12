@@ -13,6 +13,7 @@
 // ---------------------------------------------------------------------
 
 import { TOOL_DEFINITIONS } from "../../data/tools";
+import { CALCULATOR_CATALOG } from "../../data/calculators/catalog";
 import { GUIDES } from "../../data/guides";
 
 export interface StaticPage {
@@ -26,7 +27,7 @@ export function latestDate(...dates: string[]): string {
   return dates.reduce((a, b) => (b > a ? b : a));
 }
 
-const toolsUpdated = latestDate(...TOOL_DEFINITIONS.map((t) => t.lastModified));
+const toolsUpdated = latestDate(...TOOL_DEFINITIONS.map((t) => t.lastModified), ...CALCULATOR_CATALOG.map((c) => c.lastModified));
 const guidesUpdated = latestDate(...GUIDES.map((g) => g.updated));
 
 export const STATIC_PAGES: StaticPage[] = [

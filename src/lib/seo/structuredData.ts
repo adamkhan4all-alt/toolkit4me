@@ -96,3 +96,20 @@ export function articleSchema(guide: GuideDefinition): JsonLd {
     publisher: organizationRef,
   };
 }
+
+/** WebApplication schema for a Calculator Hub page (same shape as tools, with the calculator's own URL). */
+export function calculatorSchema(calc: { name: string; path: string; description: string }): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: calc.name,
+    url: absoluteUrl(calc.path),
+    description: calc.description,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires a modern web browser with JavaScript enabled.",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    publisher: organizationRef,
+  };
+}

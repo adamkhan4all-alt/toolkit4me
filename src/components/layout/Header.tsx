@@ -62,9 +62,9 @@ export function Header() {
         <div className="border-t border-neutral-200 bg-white px-4 py-3 sm:px-6">
           <SearchBar
             autoFocus
-            onSelect={(slug) => {
+            onSelect={(path) => {
               setSearchOpen(false);
-              navigate(`/tools/${slug}`);
+              navigate(path);
             }}
           />
         </div>

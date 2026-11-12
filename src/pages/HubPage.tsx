@@ -11,7 +11,7 @@ import { toolRegistry } from "../lib/toolRegistry";
 import { hubGroups, hubGuides } from "../lib/hubContent";
 
 export function HubPage({ hub }: { hub: HubDefinition }) {
-  const tools = toolRegistry.getByHub(hub.id);
+  const tools = toolRegistry.getListingsByHub(hub.id);
   const groups = hubGroups(tools);
   const guides = hubGuides(hub);
   const otherHubs = toolRegistry.getHubs().filter((h) => h.id !== hub.id);

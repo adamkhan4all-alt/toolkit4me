@@ -110,14 +110,51 @@ export const HUBS: HubDefinition[] = [
     id: "calculators",
     name: "Calculator Hub",
     path: "/calculators",
-    tagline: "Calculators for literally everything.",
+    tagline: "Calculators for Literally Everything.",
     h1: "Calculator Hub",
-    seoTitle: "Calculator Hub — Free Online Calculators | Toolkit4Me",
-    metaDescription: "Free online calculators for everyday maths, money, study, technology and property.",
-    intro: [],
+    seoTitle: "Calculator Hub — 30 Free Online Calculators | Toolkit4Me",
+    metaDescription:
+      "Free online calculators for percentages, dates, loans, interest, GPA, marks, download times, electricity, fuel, square feet and marla — formulas shown.",
+    intro: [
+      "Quick, accurate answers to the sums everyday life throws at you: percentages and discounts, ages and dates, loan instalments and interest, GPAs and exam marks, download times and data sizes, electricity and fuel costs, and room and plot areas — including marla and kanal, with the standard you choose.",
+      "Every calculator shows the formula it uses and the working with your numbers, has a worked example you can load with one click, and runs entirely in your browser. Each formula is checked by automated tests against independently calculated values.",
+    ],
     icon: "=",
     accent: "bg-amber-50 text-amber-800",
     guideCategories: [],
+    sections: [
+      {
+        heading: "How the calculators work",
+        list: [
+          "Type your numbers and select Calculate — after that, results update as you change any value.",
+          "Each result shows the working, so you can check it or copy the method.",
+          "Try the example loads a worked example that matches the explanation on the page.",
+          "Copy result puts the answer and its working on your clipboard.",
+          "Nothing you enter is sent to a server or stored.",
+        ],
+      },
+      {
+        heading: "Accuracy and limits",
+        paragraphs: [
+          "Results are calculated to full precision and rounded only for display. Money results are shown to two decimal places without a currency symbol, so they work in any currency; no exchange rates or prices are built in.",
+          "Finance results are estimates that exclude fees and taxes and aren't financial advice. Grade calculators use common conventions, and marla conversions use whichever marla size you choose — always check your institution's or authority's own rules when it matters.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Are the calculators free?",
+        answer: "Yes — every calculator is free, with no sign-up and no limits.",
+      },
+      {
+        question: "Is my data stored?",
+        answer: "No. Calculations run in your browser and nothing you type is sent to Toolkit4Me's servers.",
+      },
+      {
+        question: "Can I suggest a calculator?",
+        answer: "Yes — email toolkit4me@gmail.com. More categories, such as health and fitness, travel and business, are planned.",
+      },
+    ],
   },
   {
     id: "developer",
