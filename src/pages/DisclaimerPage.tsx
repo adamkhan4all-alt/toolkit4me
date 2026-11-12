@@ -3,7 +3,7 @@ import { SeoHead } from "../components/seo/SeoHead";
 
 // Written to match the tools' actual, verified behaviour (see each tool's
 // "Limitations" in src/data/tools.ts) — not legal advice.
-const LAST_UPDATED = "November 3, 2026";
+const LAST_UPDATED = "November 12, 2026";
 
 const linkClass = "text-brand-600 underline hover:text-brand-700";
 
@@ -57,6 +57,16 @@ export function DisclaimerPage() {
               Compression results depend on the content: image-heavy files shrink most, while text-only files may
               barely change.
             </li>
+            <li>
+              The <Link to="/pixel-playground" className={linkClass}>Pixel Playground</Link> tools use classic image
+              techniques, not AI. Background removal works by colour, so it suits plain backgrounds only; a light blur
+              can sometimes be partly reversed, so use pixelation or a solid box for sensitive details.
+            </li>
+            <li>
+              The <Link to="/tools/passport-photo-maker" className={linkClass}>Passport Photo Maker</Link> produces the
+              right size and head proportions, but acceptance also depends on lighting, expression and each
+              authority's current rules. We can't guarantee a photo will be accepted — check the official guidance.
+            </li>
           </ul>
         </section>
 
@@ -75,7 +85,8 @@ export function DisclaimerPage() {
           <p>
             Only process files you have the right to use. The PDF password tools work only with the correct password
             and never attempt to crack or bypass protection; use them only on documents you own or are authorised to
-            open and change.
+            open and change. When you edit photos of other people, or make memes, stickers and thumbnails from
+            pictures you didn't take, make sure you have permission and respect their privacy and copyright.
           </p>
         </section>
 

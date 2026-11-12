@@ -17,17 +17,19 @@ Audit, tools inventory, architecture decisions, performance and SEO baselines (`
 | ✅ 1E | Hub landing pages (`/pdf-tools`, `/image-tools`, `/developer-tools`, later `/pixel-playground`, `/calculators`) with prerender + sitemap; `/tools` directory with hub filter and search |
 | ✅ 1F | Sitemap split per hub + `npm run seo:validate` (XML, status, canonical host, uniqueness, indexability) |
 
-## Release 2 — Pixel Playground ⏳
-| Batch | Tools | Notes |
+## Release 2 — Pixel Playground ✅ (on branch, awaiting deployment approval)
+| Batch | Tools | Status |
 |---|---|---|
-| 2A | Photo Filter Studio, Border & Frame Maker, Image Shadow Generator, Colour Palette Extractor, Transparent PNG (colour-based), Face Blur & Privacy Editor (manual regions), Profile Picture Border Maker, Fancy Text Generator | Canvas only |
-| 2B | Meme Generator, Story Maker (1080 × 1920), YouTube Thumbnail Maker (1280 × 720), Collage Maker, WhatsApp Sticker Maker (512 × 512 WebP) | Canvas only |
-| 2C | Passport Photo Maker (manual crop to country presets), Photo to Sketch (filter, labelled as a filter), Video to GIF | Video to GIF needs a GIF encoder (e.g. gifenc, MIT) + `<video>` frame capture; limits on duration and size |
-| 2D | AI feasibility study (document) | See below |
-| ⏸ | Hashtag Generator | Without a model or live data this is a word list — thin. Deferred (ADR-08) |
-| ⏸ | Image Watermark Remover | Needs inpainting models; also high misuse risk. Deferred |
+| 2A | Photo Filter Studio, Border & Frame Maker, Image Shadow Generator, Colour Palette Extractor, Transparent Background Maker (colour-based), Face Blur & Privacy Editor (manual areas), Profile Picture Border Maker, Fancy Text Generator, Photo to Sketch (filter) | ✅ |
+| 2B | Meme Generator, Instagram Story Maker, YouTube Thumbnail Maker, WhatsApp Sticker Maker, Collage Maker | ✅ |
+| 2C | Passport Photo Maker, Video to GIF (Web Worker + gifenc) | ✅ |
+| 2D | AI feasibility study — `docs/AI_FEASIBILITY.md` | ✅ |
+| ⏸ | Hashtag Generator | Deferred: without a model or live data it's only a word list — thin (ADR-08) |
+| ⏸ | Image Watermark Remover | Deferred: needs inpainting models; high misuse risk |
 
-### AI tools — initial assessment (Release 5 decides)
+16 tools in total, all running in the browser; the only new dependency is gifenc (MIT). Legal pages (Disclaimer, Terms) updated for the creative tools.
+
+### AI tools — assessment (details in AI_FEASIBILITY.md)
 | Tool | Browser feasibility | Status |
 |---|---|---|
 | AI Background Remover | Possible with small segmentation models (e.g. MediaPipe Selfie Segmentation, Apache-2.0, for people; general-object models need licence review — the popular RMBG-1.4 weights are **non-commercial**) | ⏳ evaluate |

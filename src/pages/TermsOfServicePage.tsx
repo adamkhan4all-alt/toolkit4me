@@ -3,7 +3,7 @@ import { SeoHead } from "../components/seo/SeoHead";
 // See the note at the top of PrivacyPolicyPage.tsx — same caveat applies
 // here: written to match this app's actual behavior, not legal advice.
 
-const LAST_UPDATED = "September 23, 2026";
+const LAST_UPDATED = "November 12, 2026";
 
 export function TermsOfServicePage() {
   return (
@@ -61,6 +61,7 @@ export function TermsOfServicePage() {
             <li>Attempt to disrupt, overload, or gain unauthorized access to the Service or its infrastructure;</li>
             <li>Use automated tools to scrape or bulk-process files in a way that circumvents our rate limits or file-size limits;</li>
             <li>Use the Service to process or distribute unlawful, harmful, or infringing content;</li>
+            <li>Use the image tools to create content that harasses, impersonates or misleads people about a real person, or that uses someone's photo or likeness without the right to do so;</li>
             <li>Reverse-engineer, resell, or rebrand the Service as your own.</li>
           </ul>
           <p className="mt-3">

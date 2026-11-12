@@ -51,3 +51,11 @@ jurisdictions.
 tooling only). All were fixed with a non-breaking `npm audit fix`
 (dompurify 3.4.17, vite 8.3.5, source-map-js 1.2.2). `npm audit` now reports
 0 vulnerabilities.
+
+## Added for Pixel Playground (2026-11-12)
+
+| Package | Version | Licence | Used by | Shipped to visitors? | Notes |
+|---|---|---|---|---|---|
+| [`gifenc`](https://github.com/mattdesl/gifenc) | 1.0.3 | MIT | Video to GIF | Yes — only inside the Video to GIF Web Worker (9.6 KB chunk) | No dependencies. Per-frame 256-colour palettes; frames are encoded off the main thread. |
+
+All other Pixel Playground tools use the Canvas API and our own pixel code (`src/lib/pixel/`), with no new dependencies. Full report: `docs/DEPENDENCY_AND_LICENSE_REPORT.md`.

@@ -44,7 +44,7 @@ The backend folder is **not under git** on this machine. No backend change is pl
 
 ## 4. Existing tools
 
-26 published tools: 10 run on the server, 16 entirely in the browser. Full table in `EXISTING_TOOLS_INVENTORY.md`. From the brief's "potential" list, these **do not exist** and are not added by assumption: PDF to Excel, PDF to PowerPoint, JSON Generator, SQL Query Fixer, SQL Query Generator. HEIC was previously deferred by the owner.
+26 published tools: 11 run on the server, 15 entirely in the browser. Full table in `EXISTING_TOOLS_INVENTORY.md`. From the brief's "potential" list, these **do not exist** and are not added by assumption: PDF to Excel, PDF to PowerPoint, JSON Generator, SQL Query Fixer, SQL Query Generator. HEIC was previously deferred by the owner.
 
 ## 5. SEO and indexing state
 

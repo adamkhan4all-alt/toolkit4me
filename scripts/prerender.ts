@@ -439,6 +439,7 @@ writePage(
   }),
   renderLegalBody("Terms of Service", [
     "These Terms govern your use of Toolkit4Me's free, browser-based tools for converting, compressing, merging, and otherwise processing documents and images. No account or payment is required.",
+    "You agree not to use the image tools to create content that harasses, impersonates or misleads people about a real person, or that uses someone's photo or likeness without the right to do so.",
     "You retain ownership of any file you process through the Service and are responsible for having the rights to it. The Service is provided \"as is,\" without warranties, and our liability is limited accordingly.",
     "See the full Terms for acceptable use, advertising and third-party links, intellectual property, and how changes to the Service or these Terms are communicated.",
   ])
@@ -499,6 +500,7 @@ writePage(
     ],
   }),
   renderLegalBody("Disclaimer", [
+    "Pixel Playground tools use classic image techniques, not AI: background removal works by colour and suits plain backgrounds only, and a light blur can sometimes be partly reversed. The Passport Photo Maker produces the right size and head proportions, but we can't guarantee a photo will be accepted — check the official guidance.",
     "Toolkit4Me's tools are free and provided \"as is\". Conversion results depend on the file you start with, so always keep your original and check the result before you send, print or submit it.",
     "Known limitations: PDF to Word converts a PDF's text into editable paragraphs but does not reproduce its layout, fonts, tables or images; OCR is never 100% accurate; Word, PowerPoint and Excel conversions substitute fonts our server doesn't have; compression results depend on the content. Each tool page lists its own limitations.",
     "Our guides are general information, not legal, financial, security or other professional advice. Ads are served by Google AdSense and are not endorsements. Microsoft Word, Excel and PowerPoint are trademarks of Microsoft Corporation; Toolkit4Me is not affiliated with Microsoft, Adobe or Google.",

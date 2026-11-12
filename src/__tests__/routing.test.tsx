@@ -70,7 +70,8 @@ describe("routing", () => {
       }
       unmount();
     }
-  });
+    // Renders every tool page in turn (42 and growing), so it needs more than the 5 s default on slower machines.
+  }, 60_000);
 
   // Every URL the sitemaps advertise must be a real, rendering route —
   // never the not-found page.

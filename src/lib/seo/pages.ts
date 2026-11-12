@@ -37,7 +37,7 @@ export const STATIC_PAGES: StaticPage[] = [
   { path: "/about", lastModified: "2026-11-04" },
   { path: "/contact", lastModified: "2026-10-06" },
   { path: "/privacy", lastModified: "2026-11-03" },
-  { path: "/terms", lastModified: "2026-10-06" },
-  { path: "/disclaimer", lastModified: "2026-11-03" },
+  { path: "/terms", lastModified: "2026-11-12" },
+  { path: "/disclaimer", lastModified: "2026-11-12" },
   { path: "/editorial-policy", lastModified: "2026-11-03" },
 ];

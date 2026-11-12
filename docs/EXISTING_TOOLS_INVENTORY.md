@@ -31,7 +31,7 @@ Generated from the registry (`src/lib/toolRegistry.ts`) on 2026-11-12. "Status" 
 | Word Counter | /tools/word-counter | Text | Custom workspace | — | Working | Intl.Segmenter | 7 | — |
 | Text Compare | /tools/text-compare | Text | Custom workspace | — | Working | diff (BSD-3) | 7 | — |
 
-**Totals:** 26 tools — 16 run entirely in the browser, 10 use the AWS backend.
+**Totals:** 26 tools — 15 run entirely in the browser, 11 use the AWS backend.
 
 ## Tools named in the brief that don't exist
 
@@ -41,3 +41,28 @@ Generated from the registry (`src/lib/toolRegistry.ts`) on 2026-11-12. "Status" 
 | JSON Generator | Not implemented. Low distinct value next to JSON Formatter; reconsider later. |
 | SQL Query Fixer, SQL Query Generator | Not implemented. Without an AI model these would be thin; deferred. |
 | HEIC to JPG | Previously deferred by the owner. |
+
+## Added in Release 2 — Pixel Playground (2026-11-12)
+
+All run entirely in the browser (Canvas API; Video to GIF also uses a Web Worker and gifenc). None calls the backend.
+
+| Tool | URL | Category | Workspace |
+|---|---|---|---|
+| Photo Filter Studio | /tools/photo-filters | Photo Editing Lab | Image Studio |
+| Image Border & Frame Maker | /tools/image-border-frame | Photo Editing Lab | Image Studio |
+| Image Shadow Generator | /tools/image-shadow-generator | Photo Editing Lab | Image Studio |
+| Transparent Background Maker | /tools/transparent-background | Photo Editing Lab | Image Studio |
+| Photo to Sketch | /tools/photo-to-sketch | Photo Editing Lab | Image Studio |
+| Face Blur & Privacy Editor | /tools/blur-image-areas | Photo Editing Lab | Custom (draw areas) |
+| Image Colour Palette Extractor | /tools/color-palette-extractor | Photo Editing Lab | Custom |
+| Passport Photo Maker | /tools/passport-photo-maker | Photo Editing Lab | Image Studio |
+| Profile Picture Border Maker | /tools/profile-picture-border | Social Creator Studio | Image Studio |
+| Fancy Text Generator | /tools/fancy-text-generator | Social Creator Studio | Custom (text) |
+| Meme Generator | /tools/meme-generator | Social Creator Studio | Image Studio |
+| Instagram Story Maker | /tools/story-maker | Social Creator Studio | Image Studio |
+| YouTube Thumbnail Maker | /tools/youtube-thumbnail-maker | Social Creator Studio | Image Studio |
+| WhatsApp Sticker Maker | /tools/whatsapp-sticker-maker | Social Creator Studio | Image Studio |
+| Collage Maker | /tools/collage-maker | Social Creator Studio | Custom (multi-photo) |
+| Video to GIF Converter | /tools/video-to-gif | Video Playground | Custom (video + worker) |
+
+**Totals after Release 2:** 42 tools — 31 run in the browser, 11 on the AWS backend (unchanged).
