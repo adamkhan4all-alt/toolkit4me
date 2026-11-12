@@ -132,6 +132,15 @@ Until step 4 is done the console shows "Not set up yet" and the admin API answer
 
 ## 7. Deployment
 
-See the deployment section appended after release (commit, Vercel deployment id, live checks).
+| Item | Result |
+|---|---|
+| Commits | `ba2ec49` (Release 4), merged to `main` as `0543330` |
+| Vercel | project `project-587l0`, Production deployment `project-587l0-dwimpdb90` — Ready; Hobby plan unchanged; no new project |
+| Worker / D1 / DNS | untouched; `go.toolkit4me.com/health` ok |
+| Live pages | `/link-studio`, 4 tool pages, `/link-studio/admin`, `sitemap-link-studio.xml`, `/`, `ads.txt`, `robots.txt` → 200 |
+| Live API (sign-in not yet configured) | `auth/session` → `{configured:false}`; admin API → 503 `admin_not_configured`; `auth/login` → 303 to `/link-studio/admin?error=not_configured`; `X-Robots-Tag: noindex` + `no-store` present — fails closed as designed |
+| `seo:validate --live` | 103 pages, 7 child sitemaps, 101 URLs, every URL live, no problems |
+| Live browser checks (desktop + 375 px) | 42 / 42 — hub, 4 tools, admin lockout |
+| Pending | 🔧 owner configures GitHub sign-in (§6), then a live admin smoke test: sign in → create → redirect → analytics → delete |
 
 Rollback: Vercel → Deployments → previous production deployment → Promote. The release adds files and a hub; it doesn't change the Worker, the database or other routes, so rollback has no data impact.
