@@ -109,8 +109,8 @@ Caveat: the backend audit used the copy in `tier1-backend/` on this machine. The
 
 Until answered, the pages say "the operator of Toolkit4Me", omit a governing-law clause, and omit any retention period they can't verify.
 
-## 8. Decisions needed before Batch 2
+## 8. Owner decisions (2026-11-13)
 
-- **D1 — Blog and the existing Guides** (see options presented with this report).
-- **D2 — Images** (original SVG illustrations + real screenshots, or also licensed stock photography).
-- **D3 — First five articles** as listed in §3.
+- **D1 — Keep Blog and Guides separate.** `/blog` holds the new, broader articles (business, education, career, security, workflows); `/guides` stays as the how-to tutorial library at its current URLs. The `/blog → /guides` redirect is removed. Both appear in navigation and footer. Articles link to the relevant guides instead of duplicating them, and the blog states its scope so the two sections don't compete for the same searches.
+- **D2 — Images: original SVG illustrations/infographics + genuine screenshots and before/after results from the real tools.** No stock photography and no photos of people; illustrations are captioned as illustrations.
+- **D3 — First five articles approved** as listed in §3.
