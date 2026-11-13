@@ -9,7 +9,6 @@ import { formatFileSize } from "../../../lib/format";
 import { actualFormat, canvasToBlob, FORMAT_LABELS, ImageLoadError, loadImageFile, makeCanvas, outputName, scaledCopy, type OutputFormat } from "../../../lib/pixel/imageIO";
 import { controlsFor, type StudioControl, type StudioSpec, type StudioValues } from "../../../lib/pixel/studio";
 import { rgbToHex } from "../../../lib/pixel/pixels";
-import { STUDIO_SPECS } from "../../../lib/pixel/specs";
 import { PrivacyLine, inputClass, labelClass, panelClass } from "./shared";
 
 /** Longest side of the copy used for the live preview; downloads always use the full-size image. */
@@ -19,16 +18,16 @@ const PREVIEW_SIDE = 1200;
 const merge = (a: StudioValues, b: Partial<StudioValues> = {}): StudioValues => ({ ...a, ...b }) as StudioValues;
 
 /**
- * Shared workspace for the canvas-based Pixel Playground tools: upload →
+ * Shared workspace for the canvas-based Pixel Playground tools (the registry loads it together with the tool's spec,
+ * so it never renders without one): upload →
  * live preview while adjusting settings → download at full size. Each
  * tool supplies a StudioSpec (controls + render function).
  */
-export default function ImageStudioWorkspace({ tool }: { tool: ToolDefinition }) {
-  const [spec, setSpec] = useState<StudioSpec | null>(null);
+export default function ImageStudioWorkspace({ tool, spec }: { tool: ToolDefinition; spec: StudioSpec }) {
   const [fileName, setFileName] = useState("");
   const [source, setSource] = useState<HTMLCanvasElement | null>(null);
-  const [values, setValues] = useState<StudioValues>({});
-  const [format, setFormat] = useState<OutputFormat>("png");
+  const [values, setValues] = useState<StudioValues>(spec.defaults);
+  const [format, setFormat] = useState<OutputFormat>(spec.formats[0]);
   const [quality, setQuality] = useState(92);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -37,25 +36,11 @@ export default function ImageStudioWorkspace({ tool }: { tool: ToolDefinition })
   const resultRef = useRef<HTMLCanvasElement>(null);
   const originalRef = useRef<HTMLCanvasElement>(null);
 
-  const toolId = tool.id;
-  useEffect(() => {
-    let cancelled = false;
-    STUDIO_SPECS[toolId]?.().then((m) => {
-      if (cancelled) return;
-      setSpec(m.default);
-      setValues(m.default.defaults);
-      setFormat(m.default.formats[0]);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [toolId]);
-
   const preview = useMemo(() => (source ? scaledCopy(source, PREVIEW_SIDE) : null), [source]);
 
   // Redraw the preview (debounced to one frame) whenever settings change.
   useEffect(() => {
-    if (!spec || !preview) return;
+    if (!preview) return;
     const frame = requestAnimationFrame(() => {
       try {
         const out = spec.render(preview, values, { preview: true });
@@ -77,8 +62,6 @@ export default function ImageStudioWorkspace({ tool }: { tool: ToolDefinition })
     });
     return () => cancelAnimationFrame(frame);
   }, [spec, preview, values]);
-
-  if (!spec) return <LoadingState label="Loading tool…" />;
 
   const onFiles = async (files: File[]) => {
     const file = files[0];

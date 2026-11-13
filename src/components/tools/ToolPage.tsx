@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { lazy, useEffect, useRef } from "react";
 import type { ToolDefinition } from "../../types/tool";
 import { getClientProcessor } from "../../lib/processing/clientProcessors";
 import { ToolHeader } from "./ToolHeader";
@@ -17,7 +17,6 @@ import { renderCustomWorkspace } from "./workspaces/registry";
 import { webApplicationSchema } from "../../lib/seo/structuredData";
 import { AdInContent, AdMobile, AdSidebar } from "../ads";
 import { SeoHead } from "../seo/SeoHead";
-import { LoadingState } from "../ui/LoadingState";
 
 // Lazy, not static: both of these (and everything they import — pdf-lib,
 // pdfjs-dist, jspdf) are only needed by the small subset of tools that
@@ -116,13 +115,10 @@ export function ToolPage({ tool }: { tool: ToolDefinition }) {
             {customWorkspace ? (
               customWorkspace
             ) : tool.id === "pdf-editor" ? (
-              <Suspense fallback={<LoadingState label="Loading editor…" />}>
-                <PdfEditorWorkspace tool={tool} />
-              </Suspense>
+              // Lazy, but no local Suspense: see renderCustomWorkspace() — the page appears once the workspace is ready.
+              <PdfEditorWorkspace tool={tool} />
             ) : hasClientProcessor ? (
-              <Suspense fallback={<LoadingState label="Loading…" />}>
-                <ClientToolWorkspace tool={tool} />
-              </Suspense>
+              <ClientToolWorkspace tool={tool} />
             ) : (
               <UploadWorkspace tool={tool} />
             )}

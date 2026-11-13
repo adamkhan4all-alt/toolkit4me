@@ -9,12 +9,19 @@
 // src/lib/processing/clientProcessors.ts and reuse ClientToolWorkspace.
 // ---------------------------------------------------------------------
 
-import { lazy, Suspense, type ComponentType, type ReactNode } from "react";
+import { lazy, type ComponentType, type ReactNode } from "react";
 import type { ToolDefinition } from "../../../types/tool";
-import { LoadingState } from "../../ui/LoadingState";
+import { STUDIO_SPECS } from "../../../lib/pixel/specs";
 
-/** One shared workspace for every canvas tool driven by a StudioSpec (src/lib/pixel/specs). */
-const ImageStudio = lazy(() => import("./ImageStudioWorkspace"));
+/**
+ * One shared workspace for every canvas tool driven by a StudioSpec (src/lib/pixel/specs). Each tool gets its own
+ * lazy component that loads the workspace and that tool's spec together, so the page appears complete in one step.
+ */
+const ImageStudio = (toolId: string) =>
+  lazy(async () => {
+    const [{ default: Workspace }, { default: spec }] = await Promise.all([import("./ImageStudioWorkspace"), STUDIO_SPECS[toolId]()]);
+    return { default: ({ tool }: { tool: ToolDefinition }) => <Workspace tool={tool} spec={spec} /> };
+  });
 
 const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "json-formatter": lazy(() => import("./JsonFormatterWorkspace")),
@@ -24,23 +31,23 @@ const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "base64-encoder-decoder": lazy(() => import("./Base64Workspace")),
   "meta-tag-generator": lazy(() => import("./MetaTagWorkspace")),
   // Pixel Playground
-  "photo-filters": ImageStudio,
-  "image-border-frame": ImageStudio,
-  "image-shadow-generator": ImageStudio,
-  "transparent-background": ImageStudio,
-  "profile-picture-border": ImageStudio,
-  "photo-to-sketch": ImageStudio,
+  "photo-filters": ImageStudio("photo-filters"),
+  "image-border-frame": ImageStudio("image-border-frame"),
+  "image-shadow-generator": ImageStudio("image-shadow-generator"),
+  "transparent-background": ImageStudio("transparent-background"),
+  "profile-picture-border": ImageStudio("profile-picture-border"),
+  "photo-to-sketch": ImageStudio("photo-to-sketch"),
   "color-palette-extractor": lazy(() => import("./PaletteWorkspace")),
   "blur-image-areas": lazy(() => import("./BlurAreasWorkspace")),
   "fancy-text-generator": lazy(() => import("./FancyTextWorkspace")),
-  "meme-generator": ImageStudio,
-  "story-maker": ImageStudio,
-  "youtube-thumbnail-maker": ImageStudio,
-  "whatsapp-sticker-maker": ImageStudio,
+  "meme-generator": ImageStudio("meme-generator"),
+  "story-maker": ImageStudio("story-maker"),
+  "youtube-thumbnail-maker": ImageStudio("youtube-thumbnail-maker"),
+  "whatsapp-sticker-maker": ImageStudio("whatsapp-sticker-maker"),
   "collage-maker": lazy(() => import("./CollageWorkspace")),
-  "passport-photo-maker": ImageStudio,
-  "picture-to-anime": ImageStudio,
-  "picture-avatar": ImageStudio,
+  "passport-photo-maker": ImageStudio("passport-photo-maker"),
+  "picture-to-anime": ImageStudio("picture-to-anime"),
+  "picture-avatar": ImageStudio("picture-avatar"),
   "video-to-gif": lazy(() => import("./VideoToGifWorkspace")),
   // Link Studio URL tools
   "utm-builder": lazy(() => import("./UtmBuilderWorkspace")),
@@ -54,11 +61,12 @@ const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
 export function renderCustomWorkspace(tool: ToolDefinition): ReactNode | null {
   const Workspace = WORKSPACES[tool.id];
   if (!Workspace) return null;
-  return (
-    <Suspense fallback={<LoadingState label="Loading tool…" />}>
-      <Workspace tool={tool} />
-    </Suspense>
-  );
+  // No Suspense boundary of its own: the page waits (in the route-level boundary in App.tsx) until the workspace
+  // code has loaded, then appears in one piece. A local "Loading tool…" placeholder was ~100 px tall and the
+  // workspace 200–330 px taller, so the sections below jumped when it arrived (CLS up to 0.58 on mobile).
+  // Client-side navigation is a transition, so the previous page stays on screen meanwhile.
+  // Keyed by tool so tools sharing a component (Image Studio) start with fresh state on navigation.
+  return <Workspace key={tool.id} tool={tool} />;
 }
 
 /** Tool ids with a custom workspace — used by tests. */
