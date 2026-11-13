@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Illustration: a client-ready proposal PDF with a cover page, numbered pages, a price table, a padlock and a clear file name"><title>Illustration: a client-ready proposal PDF with a cover page, numbered pages, a price table, a padlock and a clear file name</title>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef2ff"/><stop offset="1" stop-color="#fdf2f8"/></linearGradient>
+<linearGradient id="brandg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#db2777"/></linearGradient>
+<filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#12142a" flood-opacity="0.12"/></filter>
+<marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="24" markerHeight="24" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#343a4c"/></marker>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<circle cx="96" cy="94.5" r="113.39999999999999" fill="#e0e7ff" opacity="0.55"/>
+<circle cx="1128" cy="567" r="151.2" fill="#fce7f3" opacity="0.7"/>
+<g transform="rotate(7 685 310)" filter="url(#sh)">
+<path d="M560 152 q0 -12 12 -12 h193 l45 45 v283 q0 12 -12 12 h-226 q-12 0 -12 -12 z" fill="#ffffff"/>
+<path d="M765 140 v45 h45" fill="#f2f4f8" stroke="#cfd4e0" stroke-width="1.5"/>
+<rect x="578" y="162" width="78" height="30" rx="7" fill="#b45309"/>
+<text x="617" y="184" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#fff" text-anchor="middle">PDF</text>
+<rect x="578" y="214" width="210" height="7" rx="3.5" fill="#cfd4e0"/><rect x="578" y="237" width="193.20000000000002" height="7" rx="3.5" fill="#cfd4e0"/><rect x="578" y="260" width="203.7" height="7" rx="3.5" fill="#cfd4e0"/><rect x="578" y="283" width="147" height="7" rx="3.5" fill="#cfd4e0"/><rect x="578" y="306" width="210" height="7" rx="3.5" fill="#cfd4e0"/><rect x="578" y="329" width="193.20000000000002" height="7" rx="3.5" fill="#cfd4e0"/><rect x="578" y="352" width="203.7" height="7" rx="3.5" fill="#cfd4e0"/><rect x="578" y="375" width="147" height="7" rx="3.5" fill="#cfd4e0"/><rect x="578" y="398" width="210" height="7" rx="3.5" fill="#cfd4e0"/>
+<text x="685" y="464" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#9aa1b2" text-anchor="middle">Page 3 of 3</text>
+</g>
+<g transform="rotate(2 645 290)" filter="url(#sh)">
+<path d="M520 132 q0 -12 12 -12 h193 l45 45 v283 q0 12 -12 12 h-226 q-12 0 -12 -12 z" fill="#ffffff"/>
+<path d="M725 120 v45 h45" fill="#f2f4f8" stroke="#cfd4e0" stroke-width="1.5"/>
+<rect x="538" y="142" width="78" height="30" rx="7" fill="#b45309"/>
+<text x="577" y="164" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#fff" text-anchor="middle">PDF</text>
+<rect x="538" y="194" width="210" height="7" rx="3.5" fill="#cfd4e0"/><rect x="538" y="217" width="193.20000000000002" height="7" rx="3.5" fill="#cfd4e0"/><rect x="538" y="240" width="203.7" height="7" rx="3.5" fill="#cfd4e0"/><rect x="538" y="263" width="147" height="7" rx="3.5" fill="#cfd4e0"/><rect x="538" y="286" width="210" height="7" rx="3.5" fill="#cfd4e0"/><rect x="538" y="309" width="193.20000000000002" height="7" rx="3.5" fill="#cfd4e0"/><rect x="538" y="332" width="203.7" height="7" rx="3.5" fill="#cfd4e0"/><rect x="538" y="355" width="147" height="7" rx="3.5" fill="#cfd4e0"/><rect x="538" y="378" width="210" height="7" rx="3.5" fill="#cfd4e0"/>
+<text x="645" y="444" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#9aa1b2" text-anchor="middle">Page 2 of 3</text>
+</g>
+<g transform="rotate(-4 600 290)" filter="url(#sh)"><rect x="470" y="100" width="270" height="380" rx="18" fill="#fff"/></g>
+<g transform="rotate(-4 600 290)"><rect x="470" y="100" width="270" height="130" rx="18" fill="url(#brandg)"/><rect x="470" y="200" width="270" height="30" fill="url(#brandg)"/><text x="605" y="168" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" fill="#fff" text-anchor="middle">Proposal</text><text x="605" y="205" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="500" fill="#fff" text-anchor="middle">Website redesign</text><rect x="490" y="260" width="230" height="140" rx="10" fill="#f2f4f8"/><rect x="504" y="282" width="110" height="7" rx="3.5" fill="#cfd4e0"/><rect x="650" y="278" width="56" height="14" rx="4" fill="#e0e7ff"/><rect x="504" y="316" width="110" height="7" rx="3.5" fill="#cfd4e0"/><rect x="650" y="312" width="56" height="14" rx="4" fill="#e0e7ff"/><rect x="504" y="350" width="110" height="7" rx="3.5" fill="#cfd4e0"/><rect x="650" y="346" width="56" height="14" rx="4" fill="#e0e7ff"/><rect x="490" y="370" width="230" height="30" rx="8" fill="#4f46e5"/><text x="690" y="392" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="end">Total</text><text x="605" y="458" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#9aa1b2" text-anchor="middle">Page 1 of 3</text></g>
+<g filter="url(#sh)"><path d="M880 434 v-16.8 a30 30 0 0 1 60 0 v16.8" fill="none" stroke="#0f766e" stroke-width="12" stroke-linecap="round"/>
+<rect x="864.4" y="430.4" width="91.2" height="69.6" rx="14.399999999999999" fill="#0f766e"/>
+<circle cx="910" cy="461.6" r="9.6" fill="#fff"/></g>
+<g transform="translate(150 190) rotate(-15)" filter="url(#sh)"><path d="M0 60 L200 0 L120 160 L90 100 z" fill="#fff"/><path d="M90 100 L200 0 L60 80 z" fill="#e0e7ff"/></g>
+<path d="M462 330 Q400 360 340 292" stroke="#343a4c" stroke-width="4" fill="none" stroke-dasharray="2 10" stroke-linecap="round" marker-end="url(#ah)"/>
+<g filter="url(#sh)"><rect x="860" y="160" width="250" height="160" rx="18" fill="#fff"/></g><text x="985" y="210" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#12142a" text-anchor="middle">acme-proposal</text><text x="985" y="244" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#12142a" text-anchor="middle">-2026-11.pdf</text><text x="985" y="290" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="500" fill="#343a4c" text-anchor="middle">named clearly</text>
+</svg>

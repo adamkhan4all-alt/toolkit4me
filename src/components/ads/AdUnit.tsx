@@ -55,7 +55,7 @@ export function AdUnit({ placement, boxClassName, wrapperClassName = "my-8", for
   // review flags, and twice in a row did. Still shown in local dev
   // (`import.meta.env.DEV`) so the reserved layout space stays visible
   // while building a new placement.
-  if (!ready && !import.meta.env.DEV) return null;
+  if (!ready && !import.meta.env?.DEV) return null;
 
   return (
     <div className={wrapperClassName} data-ad-placement={placement}>

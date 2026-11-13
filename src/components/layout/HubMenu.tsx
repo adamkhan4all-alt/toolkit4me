@@ -40,7 +40,7 @@ export function HubMenu({ hubs }: { hubs: HubDefinition[] }) {
   }, [open]);
 
   return (
-    <nav ref={navRef} aria-label="Primary" className="hidden items-center gap-1 md:flex" onMouseLeave={() => setOpen(null)}>
+    <nav ref={navRef} aria-label="Primary" className="hidden items-center gap-0.5 min-[1100px]:flex" onMouseLeave={() => setOpen(null)}>
       {hubs.map((hub) => {
         const isOpen = open === hub.id;
         const tools = toolRegistry.getListingsByHub(hub.id);
@@ -53,7 +53,7 @@ export function HubMenu({ hubs }: { hubs: HubDefinition[] }) {
               aria-expanded={isOpen}
               aria-controls={`hub-menu-${hub.id}`}
               onClick={() => setOpen(isOpen ? null : hub.id)}
-              className={`focus-ring flex items-center gap-1 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors lg:px-3 ${
+              className={`focus-ring flex items-center gap-1 whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium transition-colors xl:px-3 ${
                 active ? "text-brand-700" : "text-neutral-600 hover:text-neutral-900"
               } ${isOpen ? "bg-neutral-100" : ""}`}
             >
@@ -96,11 +96,18 @@ export function HubMenu({ hubs }: { hubs: HubDefinition[] }) {
           </div>
         );
       })}
-      <Link to="/tools" className="focus-ring rounded-lg px-2.5 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 lg:px-3">
+      <Link to="/tools" className="focus-ring whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 xl:px-3">
         All Tools
       </Link>
-      <Link to="/guides" className="focus-ring rounded-lg px-2.5 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 lg:px-3">
+      <Link to="/guides" className="focus-ring whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 xl:px-3">
         Guides
+      </Link>
+      <Link
+        to="/blog"
+        aria-current={location.pathname === "/blog" || location.pathname.startsWith("/blog/") ? "page" : undefined}
+        className={`focus-ring whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium hover:text-neutral-900 xl:px-3 ${location.pathname.startsWith("/blog") ? "text-brand-700" : "text-neutral-600"}`}
+      >
+        Blog
       </Link>
     </nav>
   );

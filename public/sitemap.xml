@@ -32,4 +32,8 @@
     <loc>https://www.toolkit4me.com/sitemap-guides.xml</loc>
     <lastmod>2026-11-11</lastmod>
   </sitemap>
+  <sitemap>
+    <loc>https://www.toolkit4me.com/sitemap-blog.xml</loc>
+    <lastmod>2026-11-13</lastmod>
+  </sitemap>
 </sitemapindex>

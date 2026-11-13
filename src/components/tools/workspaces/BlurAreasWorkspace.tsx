@@ -7,7 +7,7 @@ import { LoadingState } from "../../ui/LoadingState";
 import { downloadBlob } from "../../../lib/downloadBlob";
 import { formatFileSize } from "../../../lib/format";
 import { actualFormat, canvasToBlob, FORMAT_LABELS, ImageLoadError, loadImageFile, makeCanvas, outputName, scaledCopy, type OutputFormat } from "../../../lib/pixel/imageIO";
-import { applyRegions, type Mode, type Region } from "../../../lib/pixel/regions";
+import { applyRegions, pointOnContainedCanvas, type Mode, type Region } from "../../../lib/pixel/regions";
 import { PrivacyLine, inputClass, labelClass, panelClass } from "./shared";
 
 const PREVIEW_SIDE = 1200;
@@ -48,10 +48,9 @@ export default function BlurAreasWorkspace({ tool }: { tool: ToolDefinition }) {
     if (draft) outline(draft, true);
   }, [preview, regions, draft, mode, strength]);
 
-  const point = (e: React.PointerEvent<HTMLCanvasElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    return { x: Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width)), y: Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height)) };
-  };
+  // The canvas is object-contain, so tall images are letterboxed; map against the drawn image, not the element box.
+  const point = (e: React.PointerEvent<HTMLCanvasElement>) =>
+    pointOnContainedCanvas(e.clientX, e.clientY, e.currentTarget.getBoundingClientRect(), e.currentTarget.width, e.currentTarget.height);
   const toRegion = (a: { x: number; y: number }, b: { x: number; y: number }): Region => ({ x: Math.min(a.x, b.x), y: Math.min(a.y, b.y), w: Math.abs(a.x - b.x), h: Math.abs(a.y - b.y) });
 
   const onFiles = async (files: File[]) => {

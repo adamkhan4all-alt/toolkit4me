@@ -73,7 +73,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 md:hidden">
+    <div className="fixed inset-0 z-50 min-[1100px]:hidden">
       <div className="absolute inset-0 bg-[var(--color-overlay,rgba(17,24,39,0.5))]" onClick={onClose} aria-hidden="true" />
       <div
         ref={panelRef}
@@ -117,6 +117,13 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           className="focus-ring rounded-md px-2 py-3 text-base font-semibold text-neutral-900 hover:bg-neutral-100"
         >
           Guides
+        </Link>
+        <Link
+          to="/blog"
+          onClick={onClose}
+          className="focus-ring rounded-md px-2 py-3 text-base font-semibold text-neutral-900 hover:bg-neutral-100"
+        >
+          Blog
         </Link>
 
         <div className="mt-2 flex flex-col divide-y divide-neutral-200 border-t border-neutral-200">

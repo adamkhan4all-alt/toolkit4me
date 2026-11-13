@@ -10,8 +10,42 @@
 import { CONTACT_EMAIL, SITE_NAME, SITE_URL, absoluteUrl } from "../../config/site";
 import type { ToolDefinition } from "../../types/tool";
 import { guideCategoryLabel, guideWordCount, type GuideDefinition } from "../../data/guideMeta";
+import type { BlogArticle } from "../../data/blog/types";
+import { blogCategoryLabel } from "../../data/blog/categories";
+import { articlePath, articleWordCount } from "../../data/blog/meta";
+import { getBlogAuthor } from "../../data/blog/authors";
+import { tagLabel } from "../../data/blog/tags";
 
 export type JsonLd = Record<string, unknown>;
+
+/** Share image for a blog article: a PNG rendering of its hero illustration (social networks don't accept SVG). */
+export function articleShareImage(slug: string): string {
+  return absoluteUrl(`/images/blog/${slug}/share.png`);
+}
+
+/** BlogPosting for a /blog article. The byline is the editorial team (an Organization), never an invented person. */
+export function blogPostingSchema(article: BlogArticle): JsonLd {
+  const url = absoluteUrl(articlePath(article.slug));
+  const author = getBlogAuthor(article.author);
+  const figures = article.sections.flatMap((s) => (s.figure ? [absoluteUrl(s.figure.src)] : []));
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.title,
+    description: article.metaDescription,
+    url,
+    mainEntityOfPage: url,
+    datePublished: article.published,
+    dateModified: article.updated,
+    inLanguage: "en",
+    articleSection: blogCategoryLabel(article.category),
+    keywords: article.tags.map(tagLabel).join(", "),
+    wordCount: articleWordCount(article),
+    image: [articleShareImage(article.slug), absoluteUrl(article.hero.src), ...figures],
+    author: { "@type": "Organization", name: author.name, url: absoluteUrl(author.profilePath) },
+    publisher: organizationRef,
+  };
+}
 
 const organizationRef = { "@type": "Organization", name: SITE_NAME, url: `${SITE_URL}/` };
 

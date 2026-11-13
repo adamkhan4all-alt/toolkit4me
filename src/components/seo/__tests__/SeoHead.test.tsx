@@ -51,3 +51,29 @@ describe("SeoHead over a prerendered <head>", () => {
     await waitFor(() => expect(document.querySelectorAll('link[rel="canonical"]')).toHaveLength(2));
   });
 });
+
+describe("SeoHead options", () => {
+  afterEach(() => {
+    cleanup();
+    document.head.innerHTML = "";
+  });
+
+  it("gives noindex pages no canonical, matching the prerendered HTML, and can allow link-following", async () => {
+    render(
+      <HelmetProvider>
+        <SeoHead title="Thin tag page" description="d" path="/blog/tag/x" noindex followLinks />
+      </HelmetProvider>
+    );
+    await waitFor(() => expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow"));
+    expect(document.querySelectorAll('link[rel="canonical"]')).toHaveLength(0);
+  });
+
+  it("marks articles with og:type article", async () => {
+    render(
+      <HelmetProvider>
+        <SeoHead title="An article" description="d" path="/blog/a" ogType="article" />
+      </HelmetProvider>
+    );
+    await waitFor(() => expect(document.querySelector('meta[property="og:type"]')).toHaveAttribute("content", "article"));
+  });
+});

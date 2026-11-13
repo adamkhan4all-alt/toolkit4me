@@ -16,11 +16,15 @@ export interface SeoHeadProps {
   title: string;
   description: string;
   path: string;
-  /** Set true only for pages that should stay out of search results (e.g. 404). */
+  /** Set true only for pages that should stay out of search results (e.g. 404). Noindex pages get no canonical, as in the prerendered HTML. */
   noindex?: boolean;
+  /** With noindex: let crawlers follow the page's links (thin blog tag pages). Default "noindex, nofollow". */
+  followLinks?: boolean;
   breadcrumbs?: BreadcrumbLink[];
   faq?: FaqEntry[];
   ogImage?: string;
+  /** Open Graph type; "article" for blog articles. */
+  ogType?: "website" | "article";
   /** Extra page-specific JSON-LD (WebSite/Organization, WebApplication, Article) from src/lib/seo/structuredData.ts. */
   jsonLd?: JsonLd[];
 }
@@ -32,7 +36,7 @@ export interface SeoHeadProps {
  * exactly one of these so head content is always unique per URL and never
  * duplicated between pages.
  */
-export function SeoHead({ title, description, path, noindex, breadcrumbs, faq, ogImage, jsonLd = [] }: SeoHeadProps) {
+export function SeoHead({ title, description, path, noindex, followLinks, breadcrumbs, faq, ogImage, ogType = "website", jsonLd = [] }: SeoHeadProps) {
   const url = absoluteUrl(path);
   const image = ogImage ?? DEFAULT_OG_IMAGE;
 
@@ -48,11 +52,10 @@ export function SeoHead({ title, description, path, noindex, breadcrumbs, faq, o
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={url} />
-      {noindex && <meta name="robots" content="noindex, nofollow" />}
+      {noindex ? <meta name="robots" content={followLinks ? "noindex, follow" : "noindex, nofollow"} /> : <link rel="canonical" href={url} />}
 
       {/* Open Graph */}
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
