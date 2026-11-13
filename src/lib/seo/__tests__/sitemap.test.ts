@@ -24,8 +24,14 @@ describe("sitemaps", () => {
   const files = buildSitemapFiles();
   const byName = Object.fromEntries(files.map((f) => [f.fileName, renderUrlset(f.entries)]));
 
-  it("produces the pages sitemap, one sitemap per released hub, and the guides sitemap", () => {
-    expect(files.map((f) => f.fileName)).toEqual(["sitemap-pages.xml", ...toolRegistry.getHubs().map((h) => `sitemap${h.path.replace("/", "-")}.xml`), "sitemap-guides.xml"]);
+  it("produces the pages sitemap, one sitemap per released hub, the guides sitemap and the blog sitemap", () => {
+    expect(files.map((f) => f.fileName)).toEqual(["sitemap-pages.xml", ...toolRegistry.getHubs().map((h) => `sitemap${h.path.replace("/", "-")}.xml`), "sitemap-guides.xml", "sitemap-blog.xml"]);
+  });
+
+  it("lists Terms of Use at its new address only", () => {
+    const pages = locs(byName["sitemap-pages.xml"]);
+    expect(pages).toContain(`${SITE_URL}/terms-of-use`);
+    expect(pages).not.toContain(`${SITE_URL}/terms`);
   });
 
   it("lists every tool and calculator exactly once across the hub sitemaps", () => {

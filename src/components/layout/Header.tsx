@@ -45,7 +45,7 @@ export function Header() {
           </button>
           <button
             type="button"
-            className="focus-ring flex h-10 w-10 items-center justify-center rounded-md text-neutral-600 hover:bg-neutral-100 md:hidden"
+            className="focus-ring flex h-10 w-10 items-center justify-center rounded-md text-neutral-600 hover:bg-neutral-100 min-[1100px]:hidden"
             aria-label="Open menu"
             aria-expanded={mobileOpen}
             onClick={() => {

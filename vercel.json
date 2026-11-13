@@ -3,8 +3,8 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/blog",
-      "destination": "/guides",
+      "source": "/terms",
+      "destination": "/terms-of-use",
       "permanent": true
     }
   ],

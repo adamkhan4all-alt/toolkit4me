@@ -15,6 +15,7 @@
 import { TOOL_DEFINITIONS } from "../../data/tools";
 import { CALCULATOR_CATALOG } from "../../data/calculators/catalog";
 import { GUIDES } from "../../data/guides";
+import { POLICIES_UPDATED } from "../../data/policies";
 
 export interface StaticPage {
   path: string;
@@ -30,15 +31,16 @@ export function latestDate(...dates: string[]): string {
 const toolsUpdated = latestDate(...TOOL_DEFINITIONS.map((t) => t.lastModified), ...CALCULATOR_CATALOG.map((c) => c.lastModified));
 const guidesUpdated = latestDate(...GUIDES.map((g) => g.updated));
 
+
 export const STATIC_PAGES: StaticPage[] = [
   // Home and the two index pages list tools/guides, so they change whenever those do.
   { path: "/", lastModified: latestDate("2026-10-26", toolsUpdated, guidesUpdated) },
   { path: "/tools", lastModified: latestDate("2026-09-10", toolsUpdated) },
   { path: "/guides", lastModified: latestDate("2026-10-26", guidesUpdated) },
-  { path: "/about", lastModified: "2026-11-04" },
-  { path: "/contact", lastModified: "2026-10-06" },
-  { path: "/privacy", lastModified: "2026-11-12" },
-  { path: "/terms", lastModified: "2026-11-12" },
-  { path: "/disclaimer", lastModified: "2026-11-12" },
-  { path: "/editorial-policy", lastModified: "2026-11-03" },
+  { path: "/about", lastModified: POLICIES_UPDATED },
+  { path: "/contact", lastModified: POLICIES_UPDATED },
+  { path: "/privacy", lastModified: POLICIES_UPDATED },
+  { path: "/terms-of-use", lastModified: POLICIES_UPDATED },
+  { path: "/disclaimer", lastModified: POLICIES_UPDATED },
+  { path: "/editorial-policy", lastModified: POLICIES_UPDATED },
 ];

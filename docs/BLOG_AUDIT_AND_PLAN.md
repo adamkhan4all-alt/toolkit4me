@@ -1,6 +1,6 @@
 # Blog & Resource Center — Batch 1: Audit and Plan
 
-Status: audit complete; implementation waits for owner decisions (§8). Nothing in production has changed.
+Status (2026-11-13): audit complete, owner decisions D1–D6 recorded (§8), Batches 2–7 implemented on branch `release-5-blog` — see `docs/BLOG.md` for the architecture, publishing workflow and editorial calendar. Not yet deployed.
 
 ## 1. Architecture facts that shape this release
 
@@ -114,3 +114,6 @@ Until answered, the pages say "the operator of Toolkit4Me", omit a governing-law
 - **D1 — Keep Blog and Guides separate.** `/blog` holds the new, broader articles (business, education, career, security, workflows); `/guides` stays as the how-to tutorial library at its current URLs. The `/blog → /guides` redirect is removed. Both appear in navigation and footer. Articles link to the relevant guides instead of duplicating them, and the blog states its scope so the two sections don't compete for the same searches.
 - **D2 — Images: original SVG illustrations/infographics + genuine screenshots and before/after results from the real tools.** No stock photography and no photos of people; illustrations are captioned as illustrations.
 - **D3 — First five articles approved** as listed in §3.
+- **D4 — Legal pages stay generic (§7 items 1–4).** Policies refer to "the operator of Toolkit4Me"; no legal name, no governing-law/jurisdiction clause, no fixed minimum age beyond "the minimum age required by the law where you live", no server-log retention period.
+- **D5 — Google consent message is enabled** for EEA/UK visitors (§7 item 5). The Privacy Policy may state this.
+- **D6 — Author stays generic** (§7 item 6): "Toolkit4Me Editorial Team", no named person or bio.

@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import { LoadingState } from "./components/ui/LoadingState";
 import { toolRegistry } from "./lib/toolRegistry";
@@ -15,7 +15,7 @@ const ToolsDirectoryPage = lazy(() => import("./pages/ToolsDirectoryPage").then(
 const ToolPageRoute = lazy(() => import("./pages/ToolPage").then((m) => ({ default: m.ToolPageRoute })));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })));
 const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage").then((m) => ({ default: m.PrivacyPolicyPage })));
-const TermsOfServicePage = lazy(() => import("./pages/TermsOfServicePage").then((m) => ({ default: m.TermsOfServicePage })));
+const TermsOfUsePage = lazy(() => import("./pages/TermsOfUsePage").then((m) => ({ default: m.TermsOfUsePage })));
 const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
 const ContactPage = lazy(() => import("./pages/ContactPage").then((m) => ({ default: m.ContactPage })));
 const GuidesIndexPage = lazy(() => import("./pages/GuidesIndexPage").then((m) => ({ default: m.GuidesIndexPage })));
@@ -25,6 +25,10 @@ const HubPage = lazy(() => import("./pages/HubPage").then((m) => ({ default: m.H
 const CalculatorPageRoute = lazy(() => import("./pages/CalculatorPage").then((m) => ({ default: m.CalculatorPageRoute })));
 const LinkStudioAdminPage = lazy(() => import("./pages/LinkStudioAdminPage").then((m) => ({ default: m.LinkStudioAdminPage })));
 const EditorialPolicyPage = lazy(() => import("./pages/EditorialPolicyPage").then((m) => ({ default: m.EditorialPolicyPage })));
+const BlogHomePage = lazy(() => import("./pages/blog/BlogHomePage").then((m) => ({ default: m.BlogHomePage })));
+const ArticlePage = lazy(() => import("./pages/blog/ArticlePage").then((m) => ({ default: m.ArticlePage })));
+const BlogCategoryPage = lazy(() => import("./pages/blog/BlogCategoryPage").then((m) => ({ default: m.BlogCategoryPage })));
+const BlogTagPage = lazy(() => import("./pages/blog/BlogTagPage").then((m) => ({ default: m.BlogTagPage })));
 
 /**
  * Routing is intentionally minimal: a single dynamic `/tools/:slug` route
@@ -47,13 +51,19 @@ function App() {
           <Route path="/calculators/:slug" element={<CalculatorPageRoute />} />
           <Route path="/link-studio/admin" element={<LinkStudioAdminPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
-          <Route path="/terms" element={<TermsOfServicePage />} />
+          <Route path="/terms-of-use" element={<TermsOfUsePage />} />
+          {/* Old address: Vercel answers it with a permanent redirect (vercel.json); this covers in-app navigation. */}
+          <Route path="/terms" element={<Navigate to="/terms-of-use" replace />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
           <Route path="/editorial-policy" element={<EditorialPolicyPage />} />
           <Route path="/guides" element={<GuidesIndexPage />} />
           <Route path="/guides/:slug" element={<GuidePage />} />
+          <Route path="/blog" element={<BlogHomePage />} />
+          <Route path="/blog/category/:category" element={<BlogCategoryPage />} />
+          <Route path="/blog/tag/:tag" element={<BlogTagPage />} />
+          <Route path="/blog/:slug" element={<ArticlePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

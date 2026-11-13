@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-label="Diagram: browser-based processing keeps the file on your device; server processing uploads it over HTTPS, deletes the upload after processing and the result within one hour"><title>Diagram: browser-based processing keeps the file on your device; server processing uploads it over HTTPS, deletes the upload after processing and the result within one hour</title>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef2ff"/><stop offset="1" stop-color="#fdf2f8"/></linearGradient>
+<linearGradient id="brandg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#db2777"/></linearGradient>
+<filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#12142a" flood-opacity="0.12"/></filter>
+<marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="24" markerHeight="24" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#343a4c"/></marker>
+</defs>
+<rect width="1200" height="640" fill="url(#bg)"/>
+<circle cx="96" cy="96" r="115.19999999999999" fill="#e0e7ff" opacity="0.55"/>
+<circle cx="1128" cy="576" r="153.6" fill="#fce7f3" opacity="0.7"/><g filter="url(#sh)"><rect x="50" y="40" width="520" height="560" rx="26" fill="#fff"/></g><text x="310" y="100" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#15803d" text-anchor="middle">Runs in your browser</text>
+<rect x="100" y="140" width="420" height="330" rx="22" fill="#f0fdf4" stroke="#15803d" stroke-width="3" stroke-dasharray="10 8"/><text x="310" y="180" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#15803d" text-anchor="middle">Your device</text>
+<g transform="rotate(0 200 290)" filter="url(#sh)">
+<path d="M140 222 q0 -12 12 -12 h86.4 l21.599999999999998 21.599999999999998 v126.4 q0 12 -12 12 h-96 q-12 0 -12 -12 z" fill="#ffffff"/>
+<path d="M238.4 210 v21.599999999999998 h21.599999999999998" fill="#f2f4f8" stroke="#cfd4e0" stroke-width="1.5"/>
+<rect x="158" y="232" width="50.4" height="30" rx="7" fill="#0f766e"/>
+<text x="183.2" y="254" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#fff" text-anchor="middle">JPG</text>
+<rect x="158" y="284" width="80" height="7" rx="3.5" fill="#cfd4e0"/><rect x="158" y="298" width="73.60000000000001" height="7" rx="3.5" fill="#cfd4e0"/><rect x="158" y="312" width="77.6" height="7" rx="3.5" fill="#cfd4e0"/><rect x="158" y="326" width="56" height="7" rx="3.5" fill="#cfd4e0"/>
+
+</g><path d="M274 290 L340 290" stroke="#343a4c" stroke-width="5" fill="none" stroke-linecap="round" marker-end="url(#ah)"/><g filter="url(#sh)"><rect x="350" y="240" width="130" height="100" rx="18" fill="#fff"/></g><text x="415" y="300" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#12142a" text-anchor="middle">Tool</text>
+<text x="310" y="430" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#343a4c" text-anchor="middle">File never leaves</text>
+<text x="310" y="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#343a4c" text-anchor="middle">Image, PDF page and</text><text x="310" y="562" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#343a4c" text-anchor="middle">text tools, calculators</text><g filter="url(#sh)"><rect x="630" y="40" width="520" height="560" rx="26" fill="#fff"/></g><text x="890" y="100" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#4338ca" text-anchor="middle">Processed on a server</text>
+<g transform="rotate(0 725 245)" filter="url(#sh)">
+<path d="M670 182 q0 -12 12 -12 h78.2 l19.8 19.8 v118.19999999999999 q0 12 -12 12 h-86 q-12 0 -12 -12 z" fill="#ffffff"/>
+<path d="M760.2 170 v19.8 h19.8" fill="#f2f4f8" stroke="#cfd4e0" stroke-width="1.5"/>
+<rect x="688" y="192" width="46.199999999999996" height="30" rx="7" fill="#be123c"/>
+<text x="711.1" y="214" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#fff" text-anchor="middle">DOC</text>
+<rect x="688" y="244" width="70" height="7" rx="3.5" fill="#cfd4e0"/><rect x="688" y="258" width="64.4" height="7" rx="3.5" fill="#cfd4e0"/><rect x="688" y="272" width="67.89999999999999" height="7" rx="3.5" fill="#cfd4e0"/><rect x="688" y="286" width="49" height="7" rx="3.5" fill="#cfd4e0"/>
+
+</g><path d="M790 230 Q 860 160 930 230" stroke="#343a4c" stroke-width="5" fill="none" marker-end="url(#ah)"/><text x="860" y="168" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#343a4c" text-anchor="middle">HTTPS</text>
+<g filter="url(#sh)"><rect x="940" y="180" width="170" height="140" rx="18" fill="#343a4c"/></g><rect x="960" y="200" width="130" height="24" rx="6" fill="#4a5165"/><circle cx="1072" cy="212" r="5" fill="#34d399"/><rect x="960" y="236" width="130" height="24" rx="6" fill="#4a5165"/><circle cx="1072" cy="248" r="5" fill="#34d399"/><rect x="960" y="272" width="130" height="24" rx="6" fill="#4a5165"/><circle cx="1072" cy="284" r="5" fill="#34d399"/>
+<path d="M1020 330 Q 900 420 790 340" stroke="#343a4c" stroke-width="5" fill="none" marker-end="url(#ah)"/><text x="905" y="425" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#343a4c" text-anchor="middle">Result</text>
+<rect x="670" y="460" width="440" height="100" rx="18" fill="#eef2ff"/><text x="890" y="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" fill="#12142a" text-anchor="middle">Upload deleted after processing</text><text x="890" y="536" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" fill="#12142a" text-anchor="middle">Result deleted within 1 hour</text>
+</svg>

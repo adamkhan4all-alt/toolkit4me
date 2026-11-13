@@ -29,6 +29,7 @@ export function ContactPage() {
           <li>A tool isn't working, or produced an incorrect result</li>
           <li>A tool you'd like to see added</li>
           <li>Questions about how a file was processed, or a privacy request</li>
+          <li>A mistake or out-of-date information in an article or guide</li>
           <li>Anything else about the site</li>
         </ul>
 
@@ -38,8 +39,8 @@ export function ContactPage() {
             Privacy Policy
           </Link>
           . For the rules around using the site, see the{" "}
-          <Link to="/terms" className="text-brand-600 underline hover:text-brand-700">
-            Terms of Service
+          <Link to="/terms-of-use" className="text-brand-600 underline hover:text-brand-700">
+            Terms of Use
           </Link>
           .
         </p>

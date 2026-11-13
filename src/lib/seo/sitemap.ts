@@ -14,6 +14,9 @@ import { GUIDES } from "../../data/guides";
 import { STATIC_PAGES, latestDate } from "./pages";
 import { toolRegistry } from "../toolRegistry";
 import { listingPath } from "../../types/tool";
+import { ALL_ARTICLES } from "../../data/blog/articles";
+import { buildBlogIndex } from "./blogIndex";
+import { blogSitemapEntries } from "./blogPages";
 
 /** Date the hub landing pages' own copy last changed. */
 const HUB_PAGES_UPDATED = "2026-11-12";
@@ -63,6 +66,7 @@ export function sitemapGroups(): { name: string; entries: SitemapEntry[] }[] {
       };
     }),
     { name: "guides", entries: GUIDES.map((g) => ({ path: g.path, lastModified: g.updated })) },
+    { name: "blog", entries: blogSitemapEntries(buildBlogIndex(ALL_ARTICLES)) },
   ];
 }
 

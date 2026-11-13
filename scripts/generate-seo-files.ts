@@ -5,6 +5,12 @@
 //   sitemap-pages.xml    home, directories, about/contact/legal
 //   sitemap-tools.xml    every tool page in TOOL_DEFINITIONS
 //   sitemap-guides.xml   every guide in GUIDES
+//   sitemap-blog.xml     /blog, every published article, category pages
+//                        with articles, and tag pages with enough articles
+//
+// It also writes the two generated indexes the app imports instead of
+// full content: src/data/guideIndex.generated.ts and
+// src/data/blog/blogIndex.generated.ts.
 //
 // All URLs come from the same data the app routes from (see
 // src/lib/seo/sitemap.ts), so the sitemaps can't drift from the real
@@ -23,6 +29,8 @@ import { SITE_URL } from "../src/config/site";
 import { buildSitemapFiles, renderSitemapIndex, renderUrlset } from "../src/lib/seo/sitemap";
 import { renderGuideIndexModule } from "../src/lib/seo/guideIndex";
 import { GUIDES } from "../src/data/guides";
+import { renderBlogIndexModule } from "../src/lib/seo/blogIndex";
+import { ALL_ARTICLES } from "../src/data/blog/articles";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.resolve(__dirname, "../public");
@@ -47,6 +55,7 @@ for (const file of files) {
 writeFileSync(path.join(publicDir, "sitemap.xml"), renderSitemapIndex(files));
 writeFileSync(path.join(publicDir, "robots.txt"), buildRobots());
 writeFileSync(path.resolve(__dirname, "../src/data/guideIndex.generated.ts"), renderGuideIndexModule(GUIDES));
+writeFileSync(path.resolve(__dirname, "../src/data/blog/blogIndex.generated.ts"), renderBlogIndexModule(ALL_ARTICLES));
 
 const summary = files.map((f) => `${f.fileName} (${f.entries.length})`).join(", ");
 console.log(`Generated sitemap.xml index → ${summary}, and robots.txt in ${publicDir}`);

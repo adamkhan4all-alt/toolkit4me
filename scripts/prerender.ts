@@ -32,8 +32,6 @@ import path from "node:path";
 import { TOOL_DEFINITIONS } from "../src/data/tools";
 import { toolRegistry } from "../src/lib/toolRegistry";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_ALT, TWITTER_HANDLE, HOME_DESCRIPTION, TOOLS_PAGE_DESCRIPTION, TOOLS_PAGE_TITLE, toolsPageIntro } from "../src/config/site";
-import { CATEGORIES, CATEGORY_LABELS } from "../src/types/tool";
-import { TOOL_AREAS } from "../src/data/toolAreas";
 import { getHub, type HubDefinition } from "../src/data/hubs";
 import { hubGroups, hubGuides } from "../src/lib/hubContent";
 import { HOME_FAQ, HOME_HEADLINE, HOME_SUBHEAD } from "../src/data/home";
@@ -43,8 +41,17 @@ import { CALCULATOR_CATALOG } from "../src/data/calculators/catalog";
 import { DISCLAIMERS, type CalculatorDefinition } from "../src/lib/calculators/engine";
 import { GUIDE_AUTHOR, GUIDE_CATEGORIES, GUIDES, GUIDES_INDEX_META, guideCategoryLabel, guidesForTool, readingMinutes, relatedGuidesFor, sectionId, type GuideDefinition } from "../src/data/guides";
 import { formatLongDate } from "../src/lib/format";
+import { ABOUT_META, DISCLAIMER_META, EDITORIAL_META, PRIVACY_META, SUPPORT_EMAIL, TERMS_META } from "../src/data/policies";
+import { ALL_ARTICLES } from "../src/data/blog/articles";
+import { articleBreadcrumbs, articlePath, ARTICLES_PER_PAGE, BLOG_INDEX_META, BLOG_PATH } from "../src/data/blog/meta";
+import { tagLabel, tagPageMeta } from "../src/data/blog/tags";
+import { buildBlogIndex, publishedArticles } from "../src/lib/seo/blogIndex";
+import { blogCategoryPages, blogTagPages } from "../src/lib/seo/blogPages";
+import { renderArticle, renderBlogCategory, renderBlogHome, renderBlogTag, renderPolicy } from "./render-pages";
 import {
   articleSchema,
+  articleShareImage,
+  blogPostingSchema,
   breadcrumbSchema,
   calculatorSchema,
   faqSchema,
@@ -83,8 +90,11 @@ interface PageMeta {
   /** Extra page-specific JSON-LD, built with the same helpers <SeoHead> uses. */
   jsonLd?: JsonLd[];
   noindex?: boolean;
+  /** With noindex: "noindex, follow" instead of "noindex, nofollow" (thin blog listing pages). */
+  followLinks?: boolean;
   /** Absolute URL of a page-specific share image; defaults to the site-wide one. */
   ogImage?: string;
+  ogType?: "website" | "article";
 }
 
 /** JSON for an inline <script>: escape "<" so a "</script>" inside text content can't end the tag early. */
@@ -108,8 +118,8 @@ function renderHead(meta: PageMeta): string {
 
   return `<title data-prerender="true">${escapeHtml(meta.title)}</title>
     <meta data-prerender="true" name="description" content="${escapeHtml(meta.description)}" />
-    ${meta.noindex ? `<meta data-prerender="true" name="robots" content="noindex, nofollow" />` : `<link data-prerender="true" rel="canonical" href="${url}" />`}
-    <meta data-prerender="true" property="og:type" content="website" />
+    ${meta.noindex ? `<meta data-prerender="true" name="robots" content="${meta.followLinks ? "noindex, follow" : "noindex, nofollow"}" />` : `<link data-prerender="true" rel="canonical" href="${url}" />`}
+    <meta data-prerender="true" property="og:type" content="${meta.ogType ?? "website"}" />
     <meta data-prerender="true" property="og:site_name" content="${SITE_NAME}" />
     <meta data-prerender="true" property="og:title" content="${escapeHtml(meta.title)}" />
     <meta data-prerender="true" property="og:description" content="${escapeHtml(meta.description)}" />
@@ -391,12 +401,16 @@ function writePage(route: string, headHtml: string, bodyHtml: string) {
   html = html.replace(/<link\s+rel="canonical"[^>]*\/>\s*/g, "");
   html = html.replace(/<meta\s+property="og:[^"]*"[^>]*\/>\s*/g, "");
   html = html.replace(/<meta\s+name="twitter:[^"]*"[^>]*\/>\s*/g, "");
-  html = html.replace("</head>", `${headHtml}\n  </head>`);
-  html = html.replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`);
+  // Function replacements, so a "$" in page text is never read as a replacement pattern ($&, $', …).
+  html = html.replace("</head>", () => `${headHtml}\n  </head>`);
+  html = html.replace('<div id="root"></div>', () => `<div id="root">${bodyHtml}</div>`);
 
   mkdirSync(path.dirname(outputPath), { recursive: true });
   writeFileSync(outputPath, html);
+  pagesWritten++;
 }
+
+let pagesWritten = 0;
 
 // --- Home ---
 writePage(
@@ -426,75 +440,26 @@ writePage(
   renderDirectoryBody()
 );
 
-// --- Legal pages ---
-// Full text lives in the React components (src/pages/PrivacyPolicyPage.tsx
-// / TermsOfServicePage.tsx) for the JS-hydrated experience; this is just a
-// short, real (non-JS) fallback so crawlers/link-preview bots see actual
-// content and correct <head> tags rather than an empty shell.
-writePage(
-  "/privacy",
-  renderHead({
-    route: "/privacy",
-    title: "Privacy Policy — Toolkit4Me",
-    description: "How Toolkit4Me handles the files you process and the data collected while you use our free online tools.",
-    breadcrumbs: [
-      { name: "Home", path: "/" },
-      { name: "Privacy Policy", path: "/privacy" },
-    ],
-  }),
-  renderLegalBody("Privacy Policy", [
-    "Toolkit4Me provides free online tools for converting, compressing, merging, and otherwise processing documents and images, without requiring an account.",
-    "Tools that run entirely in your browser never send your file to our servers. Tools that require server-side processing upload your file over an encrypted connection and use it only to produce the output you requested. The upload is deleted as soon as processing finishes, and the result is deleted automatically within one hour. Processing runs on our own server; files are not sent to third-party conversion services.",
-    "When you open a go.toolkit4me.com short link, we record a filtered click with only the time, the short link, the referring site's domain name, a country code and the device type. IP addresses and browser user-agent strings are not stored in our analytics database, and click records are deleted after 365 days. Cloudflare, which runs the short-link service, processes request information to deliver the redirect under its own policies.",
-    "We show ads through Google AdSense, which may use cookies to personalize ads and measure performance. See the full policy for details on your choices, third-party providers, and your rights.",
-  ])
-);
+// --- About and policy pages ---
+// Rendered from the real React components (scripts/render-pages.ts), so the
+// static HTML carries the full text — not a summary that can drift.
+for (const meta of [ABOUT_META, PRIVACY_META, TERMS_META, DISCLAIMER_META, EDITORIAL_META]) {
+  writePage(
+    meta.path,
+    renderHead({
+      route: meta.path,
+      title: meta.seoTitle,
+      description: meta.description,
+      breadcrumbs: [
+        { name: "Home", path: "/" },
+        { name: meta.title, path: meta.path },
+      ],
+    }),
+    renderPolicy(meta.path)
+  );
+}
 
-writePage(
-  "/terms",
-  renderHead({
-    route: "/terms",
-    title: "Terms of Service — Toolkit4Me",
-    description: "The terms that apply when you use Toolkit4Me's free online tools.",
-    breadcrumbs: [
-      { name: "Home", path: "/" },
-      { name: "Terms of Service", path: "/terms" },
-    ],
-  }),
-  renderLegalBody("Terms of Service", [
-    "These Terms govern your use of Toolkit4Me's free, browser-based tools for converting, compressing, merging, and otherwise processing documents and images. No account or payment is required.",
-    "You agree not to use the image tools to create content that harasses, impersonates or misleads people about a real person, or that uses someone's photo or likeness without the right to do so.",
-    "You retain ownership of any file you process through the Service and are responsible for having the rights to it. The Service is provided \"as is,\" without warranties, and our liability is limited accordingly.",
-    "See the full Terms for acceptable use, advertising and third-party links, intellectual property, and how changes to the Service or these Terms are communicated.",
-  ])
-);
-
-// --- About / Contact ---
-// renderLegalBody is a generic "title + paragraphs" renderer despite the
-// name (it was only ever legal-pages-specific by usage, not by code) —
-// reused as-is rather than adding a near-identical second function.
-writePage(
-  "/about",
-  renderHead({
-    route: "/about",
-    title: "About Toolkit4Me",
-    description: "What Toolkit4Me is, how it handles your files, and the principles behind it — free PDF, image, text and developer tools with no account required.",
-    breadcrumbs: [
-      { name: "Home", path: "/" },
-      { name: "About", path: "/about" },
-    ],
-  }),
-  `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
-    <h1>About Toolkit4Me</h1>
-    <p>Toolkit4Me is a collection of ${TOOL_DEFINITIONS.length} free online tools for everyday digital tasks: converting a PDF to Word, merging PDFs, resizing or compressing a photo, pulling text out of a scan, and, for writing and web work, counting words, comparing drafts, formatting JSON and making QR codes. No account, subscription, or email address required.</p>
-    <h2>What's here</h2>
-    <ul>${TOOL_AREAS.map(({ category, summary }) => `<li><a href="/tools?category=${category}">${escapeHtml(CATEGORY_LABELS[category])}</a> — ${escapeHtml(summary)}</li>`).join("\n")}</ul>
-    <h2>How it works</h2>
-    <p>Most tools — image compression, resizing and conversion, building and editing PDFs, page numbering, and every text and developer tool — run entirely in your browser, so nothing is uploaded. Tools that need server-side processing (Word/PDF conversion, OCR, PowerPoint and Excel conversion, PDF passwords) upload your file over an encrypted connection; the upload is deleted as soon as it's processed, and the result within one hour.</p>
-    <p>The site is supported by advertising rather than paywalls, so every tool stays free and fully usable.</p>
-  </div>`
-);
-
+// --- Contact ---
 writePage(
   "/contact",
   renderHead({
@@ -507,49 +472,10 @@ writePage(
     ],
   }),
   renderLegalBody("Contact", [
-    "Reach us at toolkit4me@gmail.com for a bug report, a tool request, a privacy question, or anything else about the site.",
+    `Reach us at ${SUPPORT_EMAIL} for a bug report, a tool request, a privacy question, a correction to an article, or anything else about the site.`,
   ])
 );
 
-// --- Disclaimer / Editorial policy ---
-writePage(
-  "/disclaimer",
-  renderHead({
-    route: "/disclaimer",
-    title: "Disclaimer — Toolkit4Me",
-    description: "What you can and can't rely on when using Toolkit4Me's free online tools and guides.",
-    breadcrumbs: [
-      { name: "Home", path: "/" },
-      { name: "Disclaimer", path: "/disclaimer" },
-    ],
-  }),
-  renderLegalBody("Disclaimer", [
-    "Pixel Playground tools use classic image techniques, not AI: background removal works by colour and suits plain backgrounds only, and a light blur can sometimes be partly reversed. The Passport Photo Maker produces the right size and head proportions, but we can't guarantee a photo will be accepted — check the official guidance.",
-    "Toolkit4Me's tools are free and provided \"as is\". Conversion results depend on the file you start with, so always keep your original and check the result before you send, print or submit it.",
-    "Known limitations: PDF to Word converts a PDF's text into editable paragraphs but does not reproduce its layout, fonts, tables or images; OCR is never 100% accurate; Word, PowerPoint and Excel conversions substitute fonts our server doesn't have; compression results depend on the content. Each tool page lists its own limitations.",
-    "Our guides are general information, not legal, financial, security or other professional advice. Ads are served by Google AdSense and are not endorsements. Microsoft Word, Excel and PowerPoint are trademarks of Microsoft Corporation; Toolkit4Me is not affiliated with Microsoft, Adobe or Google.",
-  ])
-);
-
-writePage(
-  "/editorial-policy",
-  renderHead({
-    route: "/editorial-policy",
-    title: "Editorial Policy — Toolkit4Me",
-    description: "How Toolkit4Me writes, checks and updates its tool pages and guides, and how advertising is kept separate from content.",
-    breadcrumbs: [
-      { name: "Home", path: "/" },
-      { name: "Editorial Policy", path: "/editorial-policy" },
-    ],
-  }),
-  renderLegalBody("Editorial Policy", [
-    "Toolkit4Me publishes a page for each tool — what it does, how to use it and what its limits are — and guides that explain the file formats and tasks behind those tools. We only write about tasks our tools actually support.",
-    "Tool descriptions are written from how each tool actually works and checked by running real files through it. We don't promise results we can't guarantee; where we quote a figure, it comes from a test we ran.",
-    "Use of Artificial Intelligence: Toolkit4Me may use artificial intelligence tools to assist with research, content structuring, drafting and improving the clarity of its articles and guides. AI-assisted content is reviewed and edited before publication to ensure accuracy, usefulness, originality and relevance to readers. We do not intend to publish automatically generated or unreviewed content simply to increase the volume of website articles, and we remain responsible for the content published on Toolkit4Me.",
-    "Guides show the date they were last updated, and pages are revised when a tool changes. Advertisers have no influence over content, we don't publish sponsored content, and every ad is labelled.",
-    "Editorial responsibility: Toolkit4Me Editorial Team. Website: https://www.toolkit4me.com. Contact: toolkit4me@gmail.com.",
-  ])
-);
 
 // --- Hub landing pages (only hubs with released tools) ---
 for (const hub of toolRegistry.getHubs()) {
@@ -674,6 +600,95 @@ for (const guide of GUIDES) {
   );
 }
 
+// --- Blog & Resource Center ---
+// Home, every published article, every category page and every tag page,
+// all rendered from the real React components. Category pages with no
+// articles yet and tag pages with too few articles are noindex (and left
+// out of sitemap-blog.xml) — see src/lib/seo/blogPages.ts.
+const blogIndex = buildBlogIndex(ALL_ARTICLES);
+let blogPageCount = 0;
+
+// The "Load more" grid renders ARTICLES_PER_PAGE cards; past that, list every article as a plain link so crawlers reach all of them.
+const allArticleLinks =
+  blogIndex.length > ARTICLES_PER_PAGE
+    ? `<nav aria-label="All articles" style="max-width:1200px;margin:0 auto;padding:0 16px 32px"><h2>All articles</h2><ul>${blogIndex.map((a) => `<li><a href="${a.path}">${escapeHtml(a.title)}</a></li>`).join("")}</ul></nav>`
+    : "";
+
+writePage(
+  BLOG_PATH,
+  renderHead({
+    route: BLOG_PATH,
+    title: BLOG_INDEX_META.title,
+    description: BLOG_INDEX_META.description,
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Blog", path: BLOG_PATH },
+    ],
+  }),
+  renderBlogHome(BLOG_PATH) + allArticleLinks
+);
+blogPageCount++;
+
+for (const article of publishedArticles(ALL_ARTICLES)) {
+  const route = articlePath(article.slug);
+  writePage(
+    route,
+    renderHead({
+      route,
+      title: article.seoTitle,
+      description: article.metaDescription,
+      breadcrumbs: articleBreadcrumbs(article),
+      jsonLd: [blogPostingSchema(article)],
+      ogImage: articleShareImage(article.slug),
+      ogType: "article",
+    }),
+    renderArticle(route, article)
+  );
+  blogPageCount++;
+}
+
+for (const page of blogCategoryPages(blogIndex)) {
+  writePage(
+    page.path,
+    renderHead({
+      route: page.path,
+      title: page.category.seoTitle,
+      description: page.category.metaDescription,
+      breadcrumbs: [
+        { name: "Home", path: "/" },
+        { name: "Blog", path: BLOG_PATH },
+        { name: page.category.label, path: page.path },
+      ],
+      noindex: !page.indexable,
+      followLinks: true,
+    }),
+    renderBlogCategory(page.path)
+  );
+  blogPageCount++;
+}
+
+for (const page of blogTagPages(blogIndex)) {
+  const meta = tagPageMeta(page.tag, page.articles.length);
+  writePage(
+    page.path,
+    renderHead({
+      route: page.path,
+      title: meta.title,
+      description: meta.description,
+      breadcrumbs: [
+        { name: "Home", path: "/" },
+        { name: "Blog", path: BLOG_PATH },
+        { name: tagLabel(page.tag), path: page.path },
+      ],
+      noindex: !page.indexable,
+      followLinks: true,
+    }),
+    renderBlogTag(page.path)
+  );
+  blogPageCount++;
+}
+
+
 // --- Link Studio team console: an app shell only, never indexed and not in any sitemap. ---
 writePage(
   "/link-studio/admin",
@@ -706,8 +721,8 @@ writePage(
   `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
     <h1>Page not found</h1>
     <p>The page you're looking for doesn't exist or may have moved.</p>
-    <p><a href="/tools">Browse all tools</a> · <a href="/guides">Read our guides</a> · <a href="/">Go to the homepage</a></p>
+    <p><a href="/tools">Browse all tools</a> · <a href="/guides">Read our guides</a> · <a href="/blog">Visit the blog</a> · <a href="/">Go to the homepage</a></p>
   </div>`
 );
 
-console.log(`prerender: wrote ${10 + TOOL_DEFINITIONS.length + GUIDES.length} static pages (incl. 404.html) into ${distDir}`);
+console.log(`prerender: wrote ${pagesWritten} static pages (incl. 404.html and ${blogPageCount} blog pages) into ${distDir}`);

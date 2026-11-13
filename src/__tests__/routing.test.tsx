@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import App from "../App";
@@ -7,6 +7,9 @@ import { toolRegistry } from "../lib/toolRegistry";
 import { ToastProvider } from "../components/ui/ToastProvider";
 import { STATIC_PAGES } from "../lib/seo/pages";
 import { GUIDES } from "../data/guides";
+import { BLOG_INDEX } from "../data/blog/blogIndex.generated";
+import { BLOG_CATEGORIES } from "../data/blog/categories";
+import { BLOG_INDEX_META } from "../data/blog/meta";
 
 function renderAt(path: string) {
   return render(
@@ -87,5 +90,61 @@ describe("routing", () => {
   it.each(GUIDES.map((g) => [g.path, g.title] as const))("renders the guide at %s", async (path, title) => {
     renderAt(path);
     expect(await screen.findByRole("heading", { level: 1, name: title })).toBeInTheDocument();
+  });
+});
+
+describe("blog and policy routing", () => {
+  it("renders the blog home with its featured article and search", async () => {
+    renderAt("/blog");
+    expect(await screen.findByRole("heading", { level: 1, name: BLOG_INDEX_META.h1 }, { timeout: 5000 })).toBeInTheDocument();
+    expect(screen.getByRole("searchbox", { name: "Search articles" })).toBeInTheDocument();
+    expect(screen.getByText("Featured article")).toBeInTheDocument();
+  });
+
+  it("filters articles as you search", async () => {
+    renderAt("/blog");
+    const box = await screen.findByRole("searchbox", { name: "Search articles" }, { timeout: 5000 });
+    fireEvent.change(box, { target: { value: "students" } });
+    expect(await screen.findByRole("heading", { level: 2, name: "Search results" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /How Students Can Use PDF Tools/ })).toBeInTheDocument();
+  });
+
+  it.each(BLOG_INDEX.map((a) => [a.path, a.title] as const))("renders the article at %s", async (path, title) => {
+    renderAt(path);
+    expect(await screen.findByRole("heading", { level: 1, name: title }, { timeout: 5000 })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Key takeaways" })).toBeInTheDocument();
+  });
+
+  it.each(BLOG_CATEGORIES.map((c) => [c.id, c.label] as const))("renders the category page for %s", async (id, label) => {
+    renderAt(`/blog/category/${id}`);
+    expect(await screen.findByRole("heading", { level: 1, name: label }, { timeout: 5000 })).toBeInTheDocument();
+  });
+
+  it("renders a tag page", async () => {
+    renderAt("/blog/tag/pdf");
+    expect(await screen.findByRole("heading", { level: 1, name: "Articles tagged “PDF”" }, { timeout: 5000 })).toBeInTheDocument();
+  });
+
+  it("sends unknown articles, categories and tags back to the blog home", async () => {
+    for (const path of ["/blog/no-such-article", "/blog/category/no-such-category", "/blog/tag/no-such-tag"]) {
+      const { unmount } = renderAt(path);
+      expect(await screen.findByRole("heading", { level: 1, name: BLOG_INDEX_META.h1 }, { timeout: 5000 })).toBeInTheDocument();
+      unmount();
+    }
+  });
+
+  it("redirects the old /terms address to Terms of Use", async () => {
+    renderAt("/terms");
+    expect(await screen.findByRole("heading", { level: 1, name: "Terms of Use" }, { timeout: 5000 })).toBeInTheDocument();
+  });
+
+  it("links Blog and the regrouped policy pages from the footer", async () => {
+    renderAt("/about");
+    await screen.findByRole("heading", { level: 1, name: "About Toolkit4Me" }, { timeout: 5000 });
+    const footer = screen.getByRole("contentinfo");
+    for (const [name, href] of [["Blog", "/blog"], ["Terms of Use", "/terms-of-use"], ["Privacy Policy", "/privacy"], ["Disclaimer", "/disclaimer"], ["Editorial Policy", "/editorial-policy"], ["Contact Us", "/contact"]]) {
+      expect(within(footer).getByRole("link", { name })).toHaveAttribute("href", href);
+    }
+    expect(within(footer).queryByText(/Terms of Service/)).toBeNull();
   });
 });

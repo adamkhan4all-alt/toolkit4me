@@ -15,18 +15,18 @@
  * someone explicitly opts in. This is the one flag `npm run dev` needs to
  * leave untouched to keep local development ad-free.
  */
-export const ADS_ENABLED: boolean = import.meta.env.VITE_ADS_ENABLED === "true";
+export const ADS_ENABLED: boolean = import.meta.env?.VITE_ADS_ENABLED === "true";
 
 /** AdSense publisher/client ID, e.g. "ca-pub-XXXXXXXXXXXXXXXX". Never hard-coded elsewhere. */
-export const ADSENSE_CLIENT_ID: string = import.meta.env.VITE_ADSENSE_CLIENT_ID ?? "";
+export const ADSENSE_CLIENT_ID: string = import.meta.env?.VITE_ADSENSE_CLIENT_ID ?? "";
 
 /** Per-placement ad unit (slot) IDs, configured independently so each placement can be tuned/reported on separately in AdSense. */
 export const AD_SLOT_IDS = {
-  banner: import.meta.env.VITE_AD_SLOT_BANNER ?? "",
-  rectangle: import.meta.env.VITE_AD_SLOT_RECTANGLE ?? "",
-  sidebar: import.meta.env.VITE_AD_SLOT_SIDEBAR ?? "",
-  mobile: import.meta.env.VITE_AD_SLOT_MOBILE ?? "",
-  inContent: import.meta.env.VITE_AD_SLOT_IN_CONTENT ?? "",
+  banner: import.meta.env?.VITE_AD_SLOT_BANNER ?? "",
+  rectangle: import.meta.env?.VITE_AD_SLOT_RECTANGLE ?? "",
+  sidebar: import.meta.env?.VITE_AD_SLOT_SIDEBAR ?? "",
+  mobile: import.meta.env?.VITE_AD_SLOT_MOBILE ?? "",
+  inContent: import.meta.env?.VITE_AD_SLOT_IN_CONTENT ?? "",
 } as const;
 
 export type AdPlacement = keyof typeof AD_SLOT_IDS;
