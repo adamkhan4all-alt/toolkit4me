@@ -7,10 +7,14 @@ import App from './App.tsx'
 import { ToastProvider } from './components/ui/ToastProvider'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { removePrerenderedHead } from './lib/seo/prerenderedHead'
+import { initAnalytics } from './lib/analytics'
 
 // The static <head> tags from scripts/prerender.ts are for non-JS crawlers;
 // <SeoHead> re-emits them, so drop the static copies to avoid duplicates.
 removePrerenderedHead()
+
+// Google Analytics: does nothing without VITE_GA_MEASUREMENT_ID, and loads only after the consent message allows it.
+initAnalytics()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
