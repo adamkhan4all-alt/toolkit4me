@@ -174,6 +174,6 @@ requests capped, cleared cookies get the harder check and the per-address cap, a
 admin console filter, 375 px layout.
 
 **Deploy steps (need owner approval):** D1 backup → `wrangler d1 migrations apply toolkit4me-shortlinks-db --remote`
-(migration `0004_public_shortener.sql`, additive only) → `wrangler secret put ANON_SECRET` (new random 32 bytes) →
+(migration `0004_public_shortener.sql`, additive only) (no new secret: the Worker derives its public-shortener key from the existing `ADMIN_API_KEY`) →
 `wrangler deploy` (v1.2.0) → merge site branch `release-7-public-shortener` and deploy to Vercel.
 Rollback: redeploy Worker v1.1.0 (the new column and tables are ignored by it) and promote the previous Vercel deployment.
