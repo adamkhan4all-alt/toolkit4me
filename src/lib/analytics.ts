@@ -28,8 +28,12 @@
 
 const MEASUREMENT_ID = (import.meta.env?.VITE_GA_MEASUREMENT_ID ?? "").trim();
 
-/** True when a valid GA4 Measurement ID is configured for this build. */
-export const ANALYTICS_CONFIGURED = /^G-[A-Z0-9]{4,20}$/.test(MEASUREMENT_ID);
+/**
+ * True when a GA4 Measurement ID is configured for this build: "G-" + 10 letters/digits (Admin → Data streams → the
+ * stream → Measurement ID). An 11-digit Stream ID ("G-12345678901") is a common mix-up and is rejected, so the
+ * build has Analytics off rather than sending to nowhere.
+ */
+export const ANALYTICS_CONFIGURED = /^G-[A-Z0-9]{10}$/.test(MEASUREMENT_ID);
 
 /** Google's IAB TCF vendor id. */
 const GOOGLE_VENDOR_ID = 755;
@@ -110,9 +114,15 @@ function deleteGaCookies(): void {
   }
 }
 
+/** Google's documented switch that stops all measurement by an already-loaded tag (not only cookies). */
+function setDisabled(disabled: boolean): void {
+  (window as unknown as Record<string, unknown>)[`ga-disable-${MEASUREMENT_ID}`] = disabled;
+}
+
 function grant(): void {
   if (state === "granted") return;
   state = "granted";
+  setDisabled(false);
   gtag("consent", "update", { analytics_storage: "granted" });
   loadScript();
   if (current) send(current.location, current.title);
@@ -121,6 +131,8 @@ function grant(): void {
 function deny(): void {
   const wasGranted = state === "granted";
   state = "denied";
+  // Belt and braces: a loaded gtag.js would otherwise keep sending cookieless pings for its own automatic events.
+  setDisabled(true);
   if (scriptLoaded) gtag("consent", "update", { analytics_storage: "denied" });
   if (wasGranted) {
     deleteGaCookies();

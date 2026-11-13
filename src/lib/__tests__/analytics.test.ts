@@ -40,7 +40,7 @@ function region(answer: boolean | "fail") {
   return fn;
 }
 
-async function load(id = "G-TEST12345") {
+async function load(id = "G-TEST123456") {
   vi.resetModules();
   vi.stubEnv("VITE_GA_MEASUREMENT_ID", id);
   return import("../analytics");
@@ -74,6 +74,9 @@ describe("analytics: configuration", () => {
   it("rejects a malformed Measurement ID", async () => {
     expect((await load("UA-123")).ANALYTICS_CONFIGURED).toBe(false);
     expect((await load("G-<script>")).ANALYTICS_CONFIGURED).toBe(false);
+    // A Stream ID pasted with "G-" in front (11 digits) is the classic mix-up.
+    expect((await load("G-16337472788")).ANALYTICS_CONFIGURED).toBe(false);
+    expect((await load("G-AB12CD34EF")).ANALYTICS_CONFIGURED).toBe(true);
   });
 });
 
@@ -136,16 +139,18 @@ describe("analytics: consent", () => {
     cmp.emit(consent(true, true));
     a.trackPageView("https://www.toolkit4me.com/a", "A");
     document.cookie = "_ga=GA1.1.123; path=/";
-    document.cookie = "_ga_TEST12345=GS1.1.1; path=/";
+    document.cookie = "_ga_TEST123456=GS1.1.1; path=/";
     document.cookie = "other=keep; path=/";
     cmp.emit(consent(false, false));
     expect(consentCalls().at(-1)).toEqual(["consent", "update", { analytics_storage: "denied" }]);
+    expect((window as unknown as Record<string, unknown>)["ga-disable-G-TEST123456"]).toBe(true); // hard stop for the loaded tag
     expect(document.cookie).not.toMatch(/_ga/);
     expect(document.cookie).toContain("other=keep");
     a.trackPageView("https://www.toolkit4me.com/b", "B");
     expect(events("page_view").map((e) => (e[2] as { page_title: string }).page_title)).toEqual(["A"]);
     cmp.emit(consent(true, true));
     expect(events("page_view").map((e) => (e[2] as { page_title: string }).page_title)).toEqual(["A", "B"]);
+    expect((window as unknown as Record<string, unknown>)["ga-disable-G-TEST123456"]).toBe(false);
     expect(gaScripts()).toBe(1); // never a second copy of gtag.js
   });
 
