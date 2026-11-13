@@ -80,3 +80,16 @@ Business & Productivity and Technology & AI have no published article yet, so th
 **Also fixed (existing bug found while capturing the redaction example):** the Face Blur & Privacy Editor mapped pointer positions against the whole canvas element, which is letterboxed (`object-fit: contain`) for tall images, so hidden boxes landed beside where the user dragged. Mapping now uses the drawn image (`pointOnContainedCanvas`, tested).
 
 **Not testable locally:** Vercel's `/terms → /terms-of-use` 308 redirect (the in-app route redirect is tested) and live HTTP checks (`npm run seo:validate -- --live`) — run both after deployment.
+
+## Release 5 — deployment (2026-11-13)
+
+| Item | Result |
+|---|---|
+| Commits | `2c61b73` (Release 5), merged to `main` as `71d0155` |
+| Vercel | project `project-587l0`, Production deployment `project-587l0-9z55arrhq` — live; Hobby plan unchanged; no new project |
+| Live redirect | `/terms` → 308 → `/terms-of-use` ✅ |
+| Live sitemaps | `sitemap.xml` lists `sitemap-blog.xml`; all 151 sitemap URLs answer 200 directly, none with an `X-Robots-Tag: noindex` ✅ |
+| Browser suite on production | 189 page loads (157 URLs: every sitemap URL, noindex blog pages, `/terms`) at 1280 px and 375 px — 0 failures; header checked at 375–1280 px; mobile menu → Blog ✅ |
+
+Nothing was changed in the AWS backend, the Cloudflare Worker/D1, DNS or environment variables.
+Rollback: Vercel → Deployments → promote `project-587l0-f886whkql` (the previous production deployment). The release adds pages and data; rollback has no data impact. Note that rolling back also restores the old `/blog → /guides` redirect and `/terms` page.
