@@ -58,6 +58,15 @@ export function DisclaimerPage() {
             <PLink to="/tools/passport-photo-maker">Passport Photo Maker</PLink> produces the right size and proportions, but acceptance also depends on each
             authority's current rules, so check the official guidance.
           </li>
+          <li>
+            <strong>Cartoon and avatar effects.</strong> <PLink to="/tools/picture-to-anime">Picture to Anime</PLink> and{" "}
+            <PLink to="/tools/picture-avatar">Picture Avatar</PLink> are image effects, not AI: they simplify colours, draw outlines, crop and tint your own
+            photo. They don't redraw faces in an anime art style or generate new portraits, and results on busy or low-contrast photos vary.
+          </li>
+          <li>
+            <strong>QR codes and short links.</strong> Test-scan a printed QR code before making copies. A one-time short link works for whoever opens it and
+            presses Continue first, so share it only with the intended person.
+          </li>
         </ul>
       </PolicySection>
 

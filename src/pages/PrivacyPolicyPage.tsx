@@ -99,6 +99,11 @@ export function PrivacyPolicyPage() {
           </li>
           <li>we don't keep backups of uploaded or processed files.</li>
         </ul>
+        <p>
+          <strong>Creative photo tools.</strong> Picture to Anime, Picture Avatar, the WhatsApp Sticker Maker and the other Pixel Playground tools are classic image
+          effects written in JavaScript. They don't download AI models, don't send your image to us or to any other service, and don't store it: the photo and
+          the result exist only in your browser's memory until you download the result or leave the page.
+        </p>
         <p>Each tool page states which way the tool works and its file-size limits.</p>
       </PolicySection>
 
@@ -170,6 +175,11 @@ export function PrivacyPolicyPage() {
           same visit twice, a one-way hash derived from your IP address and browser is held in temporary memory for about a minute and then discarded. Clicks
           from recognised bots and link-preview services aren't recorded. Individual click records are deleted automatically after 365 days; each link's total
           click count is kept.
+        </p>
+        <p>
+          <strong>One-time links.</strong> Some short links work only once. Opening one shows a confirmation page first; nothing is recorded until someone
+          presses Continue. At that moment the link is marked as used, with the date and time, and the visit is recorded as one click with the same limited
+          fields listed above. The “used” date stays with the link until the team deletes it.
         </p>
         <p>
           Separately from that database, Cloudflare processes request information, including your IP address, to deliver the redirect and protect the service
@@ -246,6 +256,7 @@ export function PrivacyPolicyPage() {
           <li>Passwords entered in PDF tools: not stored.</li>
           <li>Short-link click records: deleted after 365 days; total counts per link are kept.</li>
           <li>Short-link duplicate-click hash: held in memory for about a minute.</li>
+          <li>When a one-time link was used: kept with the link until the link is deleted.</li>
           <li>Team console session cookie: up to 8 hours.</li>
           <li>Technical logs: kept for operating, securing and troubleshooting the Service; logs held by our providers follow their own policies.</li>
           <li>Emails you send us: kept as long as needed to deal with your message and any follow-up.</li>

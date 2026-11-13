@@ -19,6 +19,7 @@ export function CreateLinkForm({ onCreated }: { onCreated: (link: ShortLink) => 
   const [redirectType, setRedirectType] = useState<RedirectType>(302);
   const [expiry, setExpiry] = useState("");
   const [isActive, setIsActive] = useState(true);
+  const [oneTime, setOneTime] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
@@ -46,6 +47,7 @@ export function CreateLinkForm({ onCreated }: { onCreated: (link: ShortLink) => 
         ...(expiry ? { expiresAt: localInputToIso(expiry) } : {}),
         redirectType,
         isActive,
+        ...(oneTime ? { oneTime: true } : {}),
       });
       setCreated(link);
       onCreated(link);
@@ -71,6 +73,7 @@ export function CreateLinkForm({ onCreated }: { onCreated: (link: ShortLink) => 
     setExpiry("");
     setRedirectType(302);
     setIsActive(true);
+    setOneTime(false);
     setErrors({});
   };
 
@@ -128,16 +131,26 @@ export function CreateLinkForm({ onCreated }: { onCreated: (link: ShortLink) => 
       </div>
 
       <button type="button" onClick={() => setShowOptions((v) => !v)} aria-expanded={showOptions} className="focus-ring w-fit rounded text-sm font-semibold text-brand-700 hover:underline">
-        {showOptions ? "Hide options" : "More options: redirect type, expiry, status"}
+        {showOptions ? "Hide options" : "More options: one-time, redirect type, expiry, status"}
       </button>
 
       {showOptions && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="flex flex-col gap-1 rounded-[var(--radius-control)] border border-neutral-200 bg-neutral-50 p-3 sm:col-span-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-neutral-900">
+              <input type="checkbox" checked={oneTime} onChange={(e) => setOneTime(e.target.checked)} className="h-4 w-4" />
+              One-time link
+            </label>
+            <p className="text-xs leading-5 text-neutral-600">
+              Works once. Visitors see a short go.toolkit4me.com confirmation page, and the link is used up only when someone presses Continue — so chat-app
+              previews and email scanners don't spend it. This can't be changed after the link is created.
+            </p>
+          </div>
           <div className="sm:col-span-2">
             <label htmlFor={`${id}-rt`} className={labelClass}>
-              Redirect type
+              Redirect type{oneTime && <span className="font-normal text-neutral-600"> (not used by one-time links)</span>}
             </label>
-            <select id={`${id}-rt`} value={redirectType} onChange={(e) => setRedirectType(Number(e.target.value) as RedirectType)} className={inputClass}>
+            <select id={`${id}-rt`} disabled={oneTime} value={redirectType} onChange={(e) => setRedirectType(Number(e.target.value) as RedirectType)} className={inputClass}>
               {[302, 307, 301, 308].map((t) => (
                 <option key={t} value={t}>
                   {REDIRECT_LABELS[t]}

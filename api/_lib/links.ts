@@ -7,7 +7,7 @@
 // ---------------------------------------------------------------------
 
 import { requireAdmin, type Admin, type Deps } from "./auth.js";
-import { checkSameOrigin, fail, readJsonObject } from "./http.js";
+import { checkSameOrigin, fail, MAX_BULK_BODY_BYTES, readJsonObject } from "./http.js";
 import { callWorker } from "./upstream.js";
 
 type Detail = { path: string; message: string };
@@ -15,7 +15,9 @@ type Detail = { path: string; message: string };
 /** Short codes as the Worker stores them (generated 7-char base62, or a 3–64 char alias). */
 export const CODE_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
 const REDIRECT_TYPES = [301, 302, 307, 308];
-const STATUSES = ["all", "active", "inactive", "expired"];
+const STATUSES = ["all", "active", "inactive", "expired", "used"];
+/** Matches the Worker's bulk limit (LIMITS.bulkMaxItems). */
+export const BULK_MAX_ITEMS = 50;
 const SORTS = ["created_at", "clicks", "last_clicked_at", "expires_at"];
 
 const clientIdFor = (admin: Admin) => `admin-gh-${admin.id}`;
@@ -26,7 +28,8 @@ function validationError(details: Detail[]): Response {
 
 /** Validates create/update bodies; rejects unknown fields like the Worker does. */
 function pickLinkFields(body: Record<string, unknown>, mode: "create" | "update"): { ok: true; value: Record<string, unknown> } | { ok: false; details: Detail[] } {
-  const allowed = mode === "create" ? ["url", "alias", "expiresAt", "redirectType", "isActive"] : ["url", "expiresAt", "redirectType", "isActive"];
+  // oneTime is fixed at creation: the Worker doesn't accept it on update.
+  const allowed = mode === "create" ? ["url", "alias", "expiresAt", "redirectType", "isActive", "oneTime"] : ["url", "expiresAt", "redirectType", "isActive"];
   const details: Detail[] = [];
   const value: Record<string, unknown> = {};
   for (const key of Object.keys(body)) if (!allowed.includes(key)) details.push({ path: key, message: `Unknown field "${key.slice(0, 40)}".` });
@@ -52,6 +55,10 @@ function pickLinkFields(body: Record<string, unknown>, mode: "create" | "update"
   if (body.isActive !== undefined) {
     if (typeof body.isActive !== "boolean") details.push({ path: "isActive", message: "Active must be true or false." });
     else value.isActive = body.isActive;
+  }
+  if (body.oneTime !== undefined) {
+    if (typeof body.oneTime !== "boolean") details.push({ path: "oneTime", message: "One-time must be true or false." });
+    else value.oneTime = body.oneTime;
   }
   if (mode === "update" && details.length === 0 && Object.keys(value).length === 0) details.push({ path: "", message: "Change at least one field." });
   return details.length > 0 ? { ok: false, details } : { ok: true, value };
@@ -99,6 +106,47 @@ export async function handleLinks(request: Request, deps: Deps): Promise<Respons
     return callWorker(deps, { method: "POST", path: "/api/links", body: fields.value, clientId: clientIdFor(gate.admin) });
   }
   return fail(405, "method_not_allowed", "Method not allowed.", undefined, { Allow: "GET, POST" });
+}
+
+/**
+ * /api/link-studio/links/bulk — POST up to BULK_MAX_ITEMS links in ONE Worker request.
+ * Body: { items: [{ url, alias? }], expiresAt?, redirectType?, isActive?, oneTime? }. Per-item problems are
+ * reported by the Worker row by row; only the request's shape is checked here.
+ */
+export async function handleBulkLinks(request: Request, deps: Deps): Promise<Response> {
+  const gate = await requireAdmin(request, deps);
+  if (!gate.ok) return gate.response;
+  if (request.method.toUpperCase() !== "POST") return fail(405, "method_not_allowed", "Method not allowed.", undefined, { Allow: "POST" });
+  const blocked = checkSameOrigin(request, gate.config.siteOrigin);
+  if (blocked) return blocked;
+  const body = await readJsonObject(request, MAX_BULK_BODY_BYTES);
+  if (!body.ok) return body.response;
+
+  const { items, ...options } = body.value;
+  const details: Detail[] = [];
+  if (!Array.isArray(items) || items.length === 0) details.push({ path: "items", message: "Add at least one URL." });
+  else if (items.length > BULK_MAX_ITEMS) details.push({ path: "items", message: `At most ${BULK_MAX_ITEMS} URLs per batch.` });
+  const cleanItems: { url: string; alias?: string }[] = [];
+  if (Array.isArray(items) && details.length === 0) {
+    items.forEach((item: unknown, i) => {
+      const o = item as Record<string, unknown> | null;
+      if (o === null || typeof o !== "object" || Array.isArray(o) || Object.keys(o).some((k) => k !== "url" && k !== "alias")) {
+        details.push({ path: `items.${i}`, message: "Each row must have a url and an optional alias." });
+      } else if (typeof o.url !== "string" || o.url.length > 4096 || (o.alias !== undefined && (typeof o.alias !== "string" || o.alias.length > 128))) {
+        details.push({ path: `items.${i}`, message: "Row has an invalid url or alias." });
+      } else {
+        cleanItems.push({ url: o.url.trim(), ...(typeof o.alias === "string" && o.alias.trim() !== "" ? { alias: o.alias.trim() } : {}) });
+      }
+    });
+  }
+  // Shared options use the same rules as a single create (no url/alias at this level).
+  const shared = pickLinkFields({ url: "https://placeholder.invalid", ...options }, "create");
+  if (!shared.ok) details.push(...shared.details);
+  if (details.length > 0 || !shared.ok) return validationError(details);
+  const { url: _placeholder, alias: _alias, ...sharedValue } = shared.value;
+  void _placeholder;
+  void _alias;
+  return callWorker(deps, { method: "POST", path: "/api/links/bulk", body: { items: cleanItems, ...sharedValue }, clientId: clientIdFor(gate.admin) });
 }
 
 /** /api/link-studio/links/:code — GET, PUT, DELETE. */

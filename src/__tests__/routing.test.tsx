@@ -10,6 +10,31 @@ import { GUIDES } from "../data/guides";
 import { BLOG_INDEX } from "../data/blog/blogIndex.generated";
 import { BLOG_CATEGORIES } from "../data/blog/categories";
 import { BLOG_INDEX_META } from "../data/blog/meta";
+import { SHORT_PATH_REDIRECTS } from "../data/shortPaths";
+import vercelConfig from "../../vercel.json";
+
+describe("short-path redirects", () => {
+  it("match vercel.json exactly, as permanent redirects", () => {
+    const fromVercel = vercelConfig.redirects.filter((r) => r.source !== "/terms").map((r) => ({ from: r.source, to: r.destination, permanent: r.permanent }));
+    expect(fromVercel).toEqual(SHORT_PATH_REDIRECTS.map((r) => ({ ...r, permanent: true })));
+  });
+
+  it("point at real pages, never at another redirect or a duplicate page", () => {
+    const real = new Set([...STATIC_PAGES.map((p) => p.path), ...toolRegistry.getListings().map((t) => t.path ?? `/tools/${t.slug}`), ...toolRegistry.getHubs().map((h) => h.path)]);
+    for (const r of SHORT_PATH_REDIRECTS) {
+      expect(real.has(r.to), r.to).toBe(true);
+      expect(real.has(r.from), `${r.from} must not also be a page`).toBe(false);
+    }
+  });
+
+  it.each(SHORT_PATH_REDIRECTS.map((r) => [r.from, r.to] as const))("%s opens %s in the app", async (from, to) => {
+    renderAt(from);
+    const h1 = await screen.findByRole("heading", { level: 1 }, { timeout: 5000 });
+    expect(h1).not.toHaveTextContent(/Page not found/i);
+    const tool = toolRegistry.getListings().find((t) => (t.path ?? `/tools/${t.slug}`) === to);
+    if (tool && "seo" in tool) expect(h1).toHaveTextContent((tool as { seo: { h1: string } }).seo.h1);
+  });
+});
 
 function renderAt(path: string) {
   return render(

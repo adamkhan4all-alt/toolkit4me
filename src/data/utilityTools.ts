@@ -122,7 +122,7 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
     howItWorks: [
       "Paste your link into the box. Copy it from your browser's address bar or a Share button, so it starts with https://.",
       "Watch the preview: the QR code is generated as you type, with nothing else to press.",
-      "Optionally choose an error-correction level, a PNG size (256, 512 or 1024 pixels) and the code and background colours.",
+      "Optionally choose an error-correction level, a PNG size (256 to 2,048 pixels), the quiet-zone margin and the code and background colours.",
       "Scan the preview with your phone's camera to check it opens the right page.",
       "Select Download PNG for screens and documents, or Download SVG for print.",
     ],
@@ -130,7 +130,7 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
       "Free, with no account, no watermark and no limit on how many codes you make",
       "Static codes: your link is stored in the code itself, so there's no redirect that can expire",
       "Live preview as you type, plus checks for links missing https:// or containing stray spaces",
-      "PNG at 256, 512 or 1024 pixels, or scalable SVG for print",
+      "PNG at 256, 512, 1,024 or 2,048 pixels, or scalable SVG for print, with an adjustable quiet-zone margin",
       "Four error-correction levels and custom colours, with a contrast check so codes stay scannable",
       "Runs in your browser — the link you encode isn't sent to our servers",
     ],
@@ -169,7 +169,7 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
       {
         question: "Can I download a QR code as a PNG?",
         answer:
-          "Yes. Choose 256, 512 or 1024 pixels and select Download PNG. For print, Download SVG gives a vector file that stays sharp at any size.",
+          "Yes. Choose 256, 512, 1,024 or 2,048 pixels and select Download PNG. For print, Download SVG gives a vector file that stays sharp at any size.",
       },
       {
         question: "Can I generate a QR code for my website?",
@@ -231,7 +231,7 @@ export const UTILITY_TOOLS: ToolDefinition[] = [
         ],
       },
     ],
-    formatsNote: "Encodes links and text, including non-English characters (UTF-8). Capacity depends on the error-correction level: up to 2,953 bytes at Low and 1,273 at High. Output is a PNG (256–1024 px) or an SVG.",
+    formatsNote: "Encodes links and text, including non-English characters (UTF-8). Capacity depends on the error-correction level: up to 2,953 bytes at Low and 1,273 at High. Output is a PNG (256–2,048 px) or an SVG.",
     seo: {
       title: "Free QR Code Generator – Create QR Codes from Links | Toolkit4Me",
       metaDescription:

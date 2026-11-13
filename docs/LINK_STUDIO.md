@@ -12,7 +12,8 @@ Implementation, API integration, security review, testing and deployment for Lin
 | Admin console `/link-studio/admin`: create, list/search/filter/sort/paginate, edit, disable/re-activate, delete, analytics | ✅ |
 | Admin authentication: GitHub OAuth (PKCE + state), allow-list of GitHub user ids, signed HttpOnly session | ✅ code · 🔧 needs 4 env vars + a GitHub OAuth App (§6) |
 | Privacy Policy: short-link analytics disclosure, Cloudflare and GitHub as providers | ✅ |
-| One-time links, bulk shortener | ⏸ the Worker doesn't support them; would need a Worker/D1 change and separate approval |
+| One-time links, bulk shortener | ✅ Release 6 — Worker v1.1.0 (migration 0003), `api/link-studio/links/bulk.ts`, console Bulk tab; see `docs/RELEASE_6_AUDIT.md` |
+| QR for short links: PNG + SVG, size, margin; branded expired / disabled / used / missing pages | ✅ Release 6 |
 | Public (non-admin) short-link creation | ⏸ out of scope by decision — admin-only |
 
 Nothing was changed in the Cloudflare Worker, D1 database, DNS, AWS backend or Vercel plan. No new runtime dependency was added (the functions use Web Crypto and `fetch`; the UI reuses `qrcode`, already a dependency).

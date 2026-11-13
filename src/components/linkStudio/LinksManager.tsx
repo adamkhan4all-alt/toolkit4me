@@ -6,6 +6,7 @@ import { Alert } from "../ui/Alert";
 import { Button } from "../ui/Button";
 import { LoadingState } from "../ui/LoadingState";
 import { useToast } from "../ui/ToastProvider";
+import { QrDownload } from "./QrDownload";
 
 const PAGE_SIZE = 20;
 const inputClass = "focus-ring h-10 w-full rounded-[var(--radius-control)] border border-neutral-200 bg-white px-3 text-sm text-neutral-900";
@@ -14,8 +15,9 @@ const STATUS_BADGE: Record<ShortLink["status"], string> = {
   active: "bg-success-50 text-success-600",
   inactive: "bg-neutral-100 text-neutral-700",
   expired: "bg-warning-50 text-warning-600",
+  used: "bg-neutral-100 text-neutral-700",
 };
-const STATUS_LABEL: Record<ShortLink["status"], string> = { active: "Active", inactive: "Disabled", expired: "Expired" };
+const STATUS_LABEL: Record<ShortLink["status"], string> = { active: "Active", inactive: "Disabled", expired: "Expired", used: "Used (one-time)" };
 
 type Query = Required<Pick<ListParams, "page" | "status" | "sort" | "order">> & { search: string };
 
@@ -30,6 +32,7 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
   const [reload, setReload] = useState(0);
   const [editing, setEditing] = useState<ShortLink | null>(null);
   const [deleting, setDeleting] = useState<ShortLink | null>(null);
+  const [qrFor, setQrFor] = useState<string | null>(null);
 
   // Debounced search: one request after typing pauses, not one per keystroke.
   useEffect(() => {
@@ -99,6 +102,7 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
             <option value="active">Active</option>
             <option value="inactive">Disabled</option>
             <option value="expired">Expired</option>
+            <option value="used">Used one-time links</option>
           </select>
         </div>
         <div>
@@ -152,8 +156,12 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
                     → {link.url.length > 120 ? `${link.url.slice(0, 120)}…` : link.url}
                   </span>
                 </div>
-                <span className={`shrink-0 rounded px-2 py-0.5 text-xs font-semibold ${STATUS_BADGE[link.status]}`}>{STATUS_LABEL[link.status]}</span>
+                <span className="flex shrink-0 gap-1.5">
+                  {link.oneTime && link.status !== "used" && <span className="rounded bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-700">One-time</span>}
+                  <span className={`rounded px-2 py-0.5 text-xs font-semibold ${STATUS_BADGE[link.status]}`}>{STATUS_LABEL[link.status]}</span>
+                </span>
               </div>
+              {link.redeemedAt && <p className="text-xs text-neutral-600">Opened once on {formatDateTime(link.redeemedAt)} — it no longer redirects.</p>}
               <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs sm:grid-cols-5">
                 <div>
                   <dt className="text-neutral-600">Code</dt>
@@ -178,6 +186,7 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
               </dl>
               <div className="flex flex-wrap gap-1.5">
                 <SmallButton onClick={() => copy(link)}>Copy</SmallButton>
+                <SmallButton onClick={() => setQrFor(qrFor === link.code ? null : link.code)}>{qrFor === link.code ? "Hide QR" : "QR code"}</SmallButton>
                 <SmallButton onClick={() => onShowAnalytics(link.code)}>Analytics</SmallButton>
                 <SmallButton onClick={() => setEditing(link)}>Edit</SmallButton>
                 <SmallButton onClick={() => toggleActive(link)}>{link.isActive ? "Disable" : "Re-activate"}</SmallButton>
@@ -185,6 +194,11 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
                   Delete
                 </SmallButton>
               </div>
+              {qrFor === link.code && (
+                <div className="rounded-[var(--radius-control)] border border-neutral-200 bg-neutral-50 p-3">
+                  <QrDownload value={link.shortUrl} fileBase={`qr-${link.code}`} />
+                </div>
+              )}
             </li>
           ))}
         </ul>

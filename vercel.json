@@ -2,11 +2,18 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    {
-      "source": "/terms",
-      "destination": "/terms-of-use",
-      "permanent": true
-    }
+    { "source": "/terms", "destination": "/terms-of-use", "permanent": true },
+    { "source": "/url-tools", "destination": "/link-studio", "permanent": true },
+    { "source": "/url-shortener", "destination": "/link-studio", "permanent": true },
+    { "source": "/bulk-url-shortener", "destination": "/link-studio", "permanent": true },
+    { "source": "/qr-code-generator", "destination": "/tools/qr-code-generator", "permanent": true },
+    { "source": "/url-validator", "destination": "/tools/url-validator", "permanent": true },
+    { "source": "/url-encoder-decoder", "destination": "/tools/url-encoder-decoder", "permanent": true },
+    { "source": "/utm-builder", "destination": "/tools/utm-builder", "permanent": true },
+    { "source": "/url-parser-cleaner", "destination": "/tools/url-parser-cleaner", "permanent": true },
+    { "source": "/whatsapp-sticker-maker", "destination": "/tools/whatsapp-sticker-maker", "permanent": true },
+    { "source": "/picture-avatar", "destination": "/tools/picture-avatar", "permanent": true },
+    { "source": "/picture-to-anime", "destination": "/tools/picture-to-anime", "permanent": true }
   ],
   "headers": [
     {
