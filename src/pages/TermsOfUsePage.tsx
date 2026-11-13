@@ -161,7 +161,8 @@ export function TermsOfUsePage() {
       <PolicySection id="link-studio" title="12. Short links (Link Studio)">
         <p>
           Short links on go.toolkit4me.com are created by the Toolkit4Me team and redirect to the destination the team chose, which may be another website. We
-          may disable or change a short link at any time, for example if its destination becomes unsafe or unavailable. The public Link Studio tools on
+          may disable or change a short link at any time, for example if its destination becomes unsafe or unavailable. Some links expire, and one-time
+          links stop working after their first confirmed use. The public Link Studio tools on
           toolkit4me.com (UTM Builder, URL Parser &amp; Cleaner, URL Validator and URL Encoder &amp; Decoder) run in your browser and are covered by these Terms
           like any other tool.
         </p>

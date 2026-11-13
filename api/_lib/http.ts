@@ -50,9 +50,15 @@ export function checkSameOrigin(request: Request, siteOrigin: string): Response 
 }
 
 export const MAX_BODY_BYTES = 8 * 1024;
+/** Bulk creation carries up to 50 URLs; matches the Worker's bulk body limit. */
+export const MAX_BULK_BODY_BYTES = 64 * 1024;
 
 /** Reads a small JSON object body, enforcing Content-Type and size. */
-export async function readJsonObject(request: Request): Promise<{ ok: true; value: Record<string, unknown> } | { ok: false; response: Response }> {
+export async function readJsonObject(
+  request: Request,
+  maxBytes: number = MAX_BODY_BYTES
+): Promise<{ ok: true; value: Record<string, unknown> } | { ok: false; response: Response }> {
+  const MAX_BODY_BYTES = maxBytes;
   const type = request.headers.get("Content-Type") ?? "";
   if (!type.toLowerCase().startsWith("application/json")) {
     return { ok: false, response: fail(415, "unsupported_media_type", "Send the request as JSON.") };

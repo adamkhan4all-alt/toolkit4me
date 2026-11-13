@@ -3,6 +3,7 @@ import { Navigate, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import { LoadingState } from "./components/ui/LoadingState";
 import { toolRegistry } from "./lib/toolRegistry";
+import { SHORT_PATH_REDIRECTS } from "./data/shortPaths";
 
 // Route-level code splitting (Core Web Vitals): the homepage's initial JS
 // payload no longer has to include the tool-page framework, the FAQ/
@@ -54,6 +55,9 @@ function App() {
           <Route path="/terms-of-use" element={<TermsOfUsePage />} />
           {/* Old address: Vercel answers it with a permanent redirect (vercel.json); this covers in-app navigation. */}
           <Route path="/terms" element={<Navigate to="/terms-of-use" replace />} />
+          {SHORT_PATH_REDIRECTS.map((r) => (
+            <Route key={r.from} path={r.from} element={<Navigate to={r.to} replace />} />
+          ))}
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />

@@ -8,6 +8,8 @@ import type { ToolDefinition } from "../types/tool";
 // ---------------------------------------------------------------------
 
 const RELEASED = "2026-11-12";
+/** Release 6: Picture to Anime, Picture Avatar, and the Sticker Maker's crop and caption. */
+const RELEASE_6 = "2026-11-13";
 const IMAGE_FORMATS = ["JPG", "PNG", "WEBP"];
 const IMAGE_MIME = ["image/jpeg", "image/png", "image/webp"];
 const IMAGE_LIMIT = "One JPG, PNG or WebP image up to 25MB";
@@ -838,21 +840,23 @@ export const PIXEL_TOOLS: ToolDefinition[] = [
     shortName: "Sticker Maker",
     category: "social",
     categoryLabel: "Social Creator Studio",
-    description: "Turn a picture into a 512 × 512 transparent sticker with a white outline, in the WebP format WhatsApp stickers use.",
+    description: "Turn a picture into a 512 × 512 transparent sticker with a white outline and an optional caption, in the WebP format WhatsApp stickers use.",
+    lastModified: RELEASE_6,
     actionLabel: "Download sticker",
     icon: "STKR",
     outputExtension: "webp / .png",
     howItWorks: [
       "Choose a picture — something on a plain background works best.",
+      "Keep the whole picture, or switch Framing to “Crop” and zoom and move it to frame the subject.",
       "Keep “Remove a plain background” on to make that background transparent, and adjust the tolerance.",
-      "Set the outline thickness and colour for the classic sticker look.",
-      "Download the 512 × 512 WebP sticker.",
+      "Set the outline, add a short caption if you like, and download the 512 × 512 WebP sticker.",
     ],
     features: [
       "512 × 512 pixels with a 16-pixel margin, as WhatsApp's sticker guidelines specify",
+      "Crop with zoom and position, or keep the whole picture",
       "Plain-background removal and a sticker outline in any colour",
-      "Transparent WebP output (PNG as an alternative)",
-      "File size shown after download, so you can check it against the limit",
+      "Optional bold caption at the top or bottom, kept inside the margin",
+      "Transparent WebP output (PNG as an alternative), with the file size shown after download",
     ],
     useCases: [
       "Making a sticker of your pet, a friend or an inside joke",
@@ -885,7 +889,7 @@ export const PIXEL_TOOLS: ToolDefinition[] = [
     ],
     relatedTools: ["transparent-background", "meme-generator", "profile-picture-border", "webp-converter"],
     intro: [
-      "Stickers are small pictures with transparent backgrounds and, usually, a white outline. This maker turns any picture into one: it removes a plain background, adds an outline and fits the result into a 512 × 512 square with the margin WhatsApp's guidelines ask for.",
+      "Stickers are small pictures with transparent backgrounds and, usually, a white outline. This maker turns any picture into one: crop and position it, remove a plain background, add an outline and a caption, and get a 512 × 512 square with the margin WhatsApp's guidelines ask for.",
       "Download a transparent WebP ready for a sticker-pack app. The sticker is made in your browser, so your picture stays on your device.",
     ],
     formatsNote: "Open a JPG, PNG or WebP image up to 25MB. Output is a 512 × 512 transparent WebP (or PNG).",
@@ -893,7 +897,144 @@ export const PIXEL_TOOLS: ToolDefinition[] = [
       title: "WhatsApp Sticker Maker — 512×512 Transparent WebP | Toolkit4Me",
       metaDescription: "Turn a picture into a WhatsApp-ready sticker: 512 × 512 transparent WebP with a white outline and plain-background removal. Free, made in your browser.",
       h1: "WhatsApp Sticker Maker",
-      keywords: ["whatsapp sticker maker", "make sticker from photo", "512x512 webp sticker", "sticker outline"],
+      keywords: ["whatsapp sticker maker", "make sticker from photo", "512x512 webp sticker", "sticker outline", "sticker with text"],
+    },
+  },
+  {
+    ...base,
+    id: "picture-to-anime",
+    slug: "picture-to-anime",
+    addedOn: RELEASE_6,
+    lastModified: RELEASE_6,
+    name: "Picture to Anime-Style Cartoon",
+    shortName: "Picture to Anime",
+    category: "photo",
+    categoryLabel: "Photo Editing Lab",
+    description: "Give a photo an anime-style cartoon look — flat colour bands and dark ink outlines — with an image effect that runs in your browser. Not AI.",
+    actionLabel: "Download cartoon",
+    icon: "ANI",
+    outputExtension: "png / .jpg / .webp",
+    howItWorks: [
+      "Choose a photo — clear, well-lit portraits and scenes with distinct shapes work best.",
+      "Pick a look: cel-shaded, soft pastel, bold comic or black-and-white manga ink.",
+      "Adjust the colour bands, outline detail, outline thickness and smoothing while comparing with the original.",
+      "Download the result as PNG, JPG or WebP.",
+    ],
+    features: [
+      "Four looks: cel-shaded, soft pastel, bold comic and manga ink",
+      "Adjustable colour bands, outline detail, outline thickness and smoothing",
+      "Side-by-side preview with the original photo",
+      "Full-resolution download, processed entirely on your device",
+    ],
+    useCases: [
+      "Making a cartoon-style profile picture or channel banner",
+      "Turning a holiday photo into a comic-book panel for a card or post",
+      "Creating a flat-colour reference image to trace or paint from",
+    ],
+    limitations: [
+      "It's a classic image effect, not AI: it doesn't redraw faces in an anime art style (big eyes, new hair) — it simplifies the colours and inks the edges of your actual photo",
+      "Busy, low-contrast or noisy photos produce cluttered outlines; raise smoothing or lower outline detail",
+      "Very large photos take a few seconds to process on phones",
+      "Photos larger than 4,096 pixels on the longest side are scaled down to 4,096 pixels first",
+    ],
+    faq: [
+      {
+        question: "Is this an AI anime generator?",
+        answer:
+          "No. It's an image effect: it smooths texture into flat areas, reduces the colours to a few bands and draws dark outlines along strong edges. The result looks cartoon- or anime-styled, but your photo isn't redrawn by an AI model, so faces keep their real proportions. We looked for an AI anime model we could run in your browser and licensed for a site like this, and haven't found one yet.",
+      },
+      {
+        question: "Why are there too many lines on my photo?",
+        answer: "Textured backgrounds, hair and fabric create lots of small edges. Lower “Outline detail”, raise “Smoothing”, or crop to the subject first.",
+      },
+      {
+        question: "Which look should I choose?",
+        answer: "Cel-shaded suits portraits and bright scenes, soft pastel suits gentle light and skin tones, bold comic suits strong colours, and manga ink makes a black-and-white page-style image.",
+      },
+      {
+        question: "Is my photo uploaded?",
+        answer: "No. The effect runs in your browser using your device's own processor; the photo never leaves it.",
+      },
+    ],
+    relatedTools: ["picture-avatar", "photo-to-sketch", "photo-filters", "profile-picture-border"],
+    intro: [
+      "This tool gives a photo the look of an anime or comic frame: smooth, flat areas of colour, a limited palette and crisp dark outlines. Choose one of four looks and fine-tune how flat the colours are and how many lines appear.",
+      "It's an honest image effect rather than an AI model — it stylises your real photo instead of redrawing it — and it runs entirely in your browser, so the photo stays on your device.",
+    ],
+    formatsNote: "Open a JPG, PNG or WebP image up to 25MB. Output is a PNG, JPG or WebP at the photo's own size (up to 4,096 px on the longest side).",
+    seo: {
+      title: "Picture to Anime-Style Cartoon — Free Photo Effect | Toolkit4Me",
+      metaDescription: "Give a photo an anime-style cartoon look with flat colours and ink outlines. Four looks, adjustable lines and colours. Free, runs in your browser — not AI.",
+      h1: "Picture to Anime-Style Cartoon",
+      keywords: ["picture to anime", "photo to anime style", "cartoon effect photo", "anime filter", "manga effect"],
+    },
+  },
+  {
+    ...base,
+    id: "picture-avatar",
+    slug: "picture-avatar",
+    addedOn: RELEASE_6,
+    lastModified: RELEASE_6,
+    name: "Picture Avatar Maker",
+    shortName: "Picture Avatar",
+    category: "social",
+    categoryLabel: "Social Creator Studio",
+    description: "Make a profile avatar from a photo: crop to a circle or square, frame your face, add a look, a background and a ring, and download at 256–1024 px.",
+    actionLabel: "Download avatar",
+    icon: "AVTR",
+    outputExtension: "png / .webp / .jpg",
+    howItWorks: [
+      "Choose a photo of yourself, your logo or your pet.",
+      "Pick a starting style — Professional, Cartoon, Creative or Social media — or set everything yourself.",
+      "Zoom and move the photo to frame it, and choose the shape, look, background and an optional ring.",
+      "Download the avatar at 256, 512 or 1024 pixels as PNG, WebP or JPG.",
+    ],
+    features: [
+      "Circle, rounded-square and square avatars with zoom and positioning",
+      "Looks: natural, professional, cartoon effect, duotone and black & white",
+      "Transparent, solid or gradient background, with adjustable spacing",
+      "Optional gradient ring, and 256, 512 or 1024 px output",
+    ],
+    useCases: [
+      "A consistent profile picture for LinkedIn, GitHub, Slack and email",
+      "A playful cartoon or duotone avatar for social media and gaming profiles",
+      "Team-page headshots in matching shapes and backgrounds",
+    ],
+    limitations: [
+      "It crops and styles your own photo; it doesn't generate a new face or an AI portrait",
+      "The background setting fills the space around the shape — it doesn't remove the background inside your photo",
+      "JPG has no transparency, so a transparent background becomes black in JPG; use PNG or WebP",
+      "Photos larger than 4,096 pixels on the longest side are scaled down to 4,096 pixels first",
+    ],
+    faq: [
+      {
+        question: "Does this use AI to create my avatar?",
+        answer: "No. It crops and frames your photo and applies classic image treatments — colour adjustment, a cartoon effect, a two-colour duotone or black and white. Your face stays your own; nothing is generated.",
+      },
+      {
+        question: "What size should a profile picture be?",
+        answer: "Most networks show avatars small but store them larger. 512 × 512 px suits nearly every platform; choose 1024 × 1024 px for high-resolution screens or printing, and 256 × 256 px for small icons and email signatures.",
+      },
+      {
+        question: "Will a circle avatar look right on sites that crop to a circle anyway?",
+        answer: "Yes. Choose a circle with a transparent background, or a square avatar and let the site crop it. Keep your face near the centre either way.",
+      },
+      {
+        question: "Is my photo uploaded?",
+        answer: "No. The avatar is made in your browser and the photo never leaves your device.",
+      },
+    ],
+    relatedTools: ["profile-picture-border", "picture-to-anime", "passport-photo-maker", "image-resizer"],
+    intro: [
+      "A good avatar is cropped tightly, sits on a clean background and stays recognisable when it's shown at thumbnail size. This maker gives you the controls for that: the shape, the framing, a look, the background and an optional ring.",
+      "Start from a Professional, Cartoon, Creative or Social media style and adjust from there. Everything happens in your browser, and the looks are image treatments of your own photo, not AI-generated faces.",
+    ],
+    formatsNote: "Open a JPG, PNG or WebP image up to 25MB. Output is a square PNG, WebP or JPG at 256, 512 or 1024 pixels.",
+    seo: {
+      title: "Picture Avatar Maker — Circle Profile Picture, Free | Toolkit4Me",
+      metaDescription: "Make a profile avatar from your photo: circle or square crop, professional, cartoon or duotone looks, backgrounds and rings, 256–1024 px. Free, in your browser.",
+      h1: "Picture Avatar Maker",
+      keywords: ["picture avatar", "avatar maker from photo", "profile picture maker", "circle profile picture", "cartoon avatar"],
     },
   },
   {

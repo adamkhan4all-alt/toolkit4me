@@ -6,12 +6,15 @@ import { downloadBlob } from "../../../lib/downloadBlob";
 import { colourWarning, linkHint, QR_MAX_BYTES, utf8Length, validateQrText, type QrErrorLevel } from "../../../lib/textTools/qr";
 import { PrivacyLine, inputClass, labelClass, panelClass, textareaClass } from "./shared";
 
-const SIZES = [256, 512, 1024];
+const SIZES = [256, 512, 1024, 2048];
+/** Quiet zone in modules; 4 is the QR specification's recommendation. */
+const MARGINS = [0, 1, 2, 4, 6, 8];
 
 export default function QrCodeWorkspace({ tool }: { tool: ToolDefinition }) {
   const [text, setText] = useState("https://www.toolkit4me.com");
   const [level, setLevel] = useState<QrErrorLevel>("M");
   const [size, setSize] = useState(512);
+  const [margin, setMargin] = useState(4);
   const [foreground, setForeground] = useState("#000000");
   const [background, setBackground] = useState("#ffffff");
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +34,7 @@ export default function QrCodeWorkspace({ tool }: { tool: ToolDefinition }) {
     const timer = window.setTimeout(async () => {
       try {
         const QRCode = (await import("qrcode")).default;
-        const options = { errorCorrectionLevel: level, margin: 4, width: size, color: { dark: foreground, light: background } };
+        const options = { errorCorrectionLevel: level, margin, width: size, color: { dark: foreground, light: background } };
         if (canvasRef.current) {
           await QRCode.toCanvas(canvasRef.current, text, options);
           // qrcode pins inline width/height in px; drop them so the preview scales with the layout on small screens.
@@ -54,7 +57,7 @@ export default function QrCodeWorkspace({ tool }: { tool: ToolDefinition }) {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [text, level, size, foreground, background, inputError]);
+  }, [text, level, size, margin, foreground, background, inputError]);
 
   const downloadPng = () => {
     canvasRef.current?.toBlob((blob) => blob && downloadBlob(blob, `qr-code-${size}px.png`), "image/png");
@@ -96,6 +99,22 @@ export default function QrCodeWorkspace({ tool }: { tool: ToolDefinition }) {
               </option>
             ))}
           </select>
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor="qr-margin" className={labelClass}>
+            Quiet zone (margin)
+          </label>
+          <select id="qr-margin" value={margin} onChange={(e) => setMargin(Number(e.target.value))} className={inputClass} aria-describedby="qr-margin-help">
+            {MARGINS.map((m) => (
+              <option key={m} value={m}>
+                {m} module{m === 1 ? "" : "s"}
+                {m === 4 ? " — recommended" : ""}
+              </option>
+            ))}
+          </select>
+          <p id="qr-margin-help" className="mt-1 text-xs text-neutral-600">
+            The blank border scanners need to find the code. Keep 4 unless the code sits on a plain, light background of its own.
+          </p>
         </div>
         <div>
           <label htmlFor="qr-fg" className={labelClass}>

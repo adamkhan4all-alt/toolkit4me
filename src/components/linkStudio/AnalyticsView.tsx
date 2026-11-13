@@ -66,7 +66,9 @@ export function AnalyticsView({ code, onSelectLink, onClearLink }: { code: strin
 
       <p className="text-xs leading-5 text-neutral-600">
         Clicks are filtered estimates, not exact counts of people: bots, link previews, prefetches and HEAD requests aren't counted, and repeat clicks within about a minute are usually — not always — counted
-        once. Links using 301/308 redirects may be cached by browsers, so some repeat visits never reach the counter. Dates are in UTC.
+        once. These are <strong>total counted clicks, not unique visitors</strong>: no visitor identifier is stored, so the same person opening a link on
+        two days, or on two devices, counts twice. Links using 301/308 redirects may be cached by browsers, so some repeat visits never reach the counter.
+        A one-time link counts its single redemption. Dates are in UTC.
       </p>
 
       {state.kind === "loading" && <LoadingState label="Loading analytics…" />}

@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it, vi } from "vitest";
 import { handleAuth, type Deps } from "../auth";
-import { handleAnalytics, handleLink, handleLinks } from "../links";
+import { handleAnalytics, handleBulkLinks, handleLink, handleLinks } from "../links";
 import { SESSION_COOKIE, OAUTH_COOKIE, signToken, verifyToken, type OAuthStatePayload } from "../session";
 import { sha256Base64Url } from "../crypto";
 
@@ -223,6 +223,85 @@ describe("Worker calls", () => {
     const d = deps(env);
     const res = await handleLinks(await req("/api/link-studio/links", { cookie: await sessionCookie() }), d);
     expect(res.status).toBe(503);
+  });
+});
+
+describe("one-time and bulk links", () => {
+  const bulkReq = async (body: unknown, init: { cookie?: string; origin?: string | null; type?: string } = {}) =>
+    req("/api/link-studio/links/bulk", {
+      method: "POST",
+      cookie: init.cookie ?? (await sessionCookie()),
+      origin: init.origin === undefined ? ORIGIN : init.origin,
+      headers: { "Content-Type": init.type ?? "application/json" },
+      body: typeof body === "string" ? body : JSON.stringify(body),
+    });
+
+  it("forwards oneTime on create, but never on update", async () => {
+    const d = deps();
+    const cookie = await sessionCookie();
+    const create = await handleLinks(
+      await req("/api/link-studio/links", { method: "POST", cookie, origin: ORIGIN, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: "https://example.com", oneTime: true }) }),
+      d
+    );
+    expect(create.status).toBe(200);
+    expect(JSON.parse(String(d.fetch.mock.calls[0]![1]!.body))).toEqual({ url: "https://example.com", oneTime: true });
+    const update = await handleLink(
+      await req("/api/link-studio/links/abc", { method: "PUT", cookie, origin: ORIGIN, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ oneTime: false }) }),
+      d
+    );
+    expect(update.status).toBe(400);
+    const badType = await handleLinks(
+      await req("/api/link-studio/links", { method: "POST", cookie, origin: ORIGIN, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: "https://example.com", oneTime: "yes" }) }),
+      d
+    );
+    expect(badType.status).toBe(400);
+  });
+
+  it("accepts the 'used' status filter", async () => {
+    const d = deps();
+    const res = await handleLinks(await req("/api/link-studio/links?status=used", { cookie: await sessionCookie() }), d);
+    expect(res.status).toBe(200);
+    expect(String(d.fetch.mock.calls[0]![0])).toContain("status=used");
+  });
+
+  it("sends one Worker request for a whole batch, with only allow-listed fields and the key server-side", async () => {
+    const d = deps();
+    const res = await handleBulkLinks(await bulkReq({ items: [{ url: " https://a.example ", alias: " promo-1 " }, { url: "https://b.example" }], oneTime: true, redirectType: 307 }), d);
+    expect(res.status).toBe(200);
+    expect(d.fetch).toHaveBeenCalledTimes(1);
+    const [url, init] = d.fetch.mock.calls[0]!;
+    expect(String(url)).toBe("https://go.toolkit4me.com/api/links/bulk");
+    expect(new Headers(init!.headers).get("Authorization")).toBe(`Bearer ${API_KEY}`);
+    expect(JSON.parse(String(init!.body))).toEqual({ items: [{ url: "https://a.example", alias: "promo-1" }, { url: "https://b.example" }], oneTime: true, redirectType: 307 });
+    await expectNoSecrets(res);
+  });
+
+  it("rejects unauthenticated, cross-site, non-JSON, empty, oversized and malformed batches without calling the Worker", async () => {
+    const d = deps();
+    const one = { items: [{ url: "https://a.example" }] };
+    expect((await handleBulkLinks(await bulkReq(one, { cookie: "x=1" }), d)).status).toBe(401);
+    expect((await handleBulkLinks(await bulkReq(one, { origin: "https://evil.example" }), d)).status).toBe(403);
+    expect((await handleBulkLinks(await bulkReq(one, { origin: null }), d)).status).toBe(403);
+    expect((await handleBulkLinks(await bulkReq(one, { type: "text/plain" }), d)).status).toBe(415);
+    expect((await handleBulkLinks(await bulkReq({ items: [] }), d)).status).toBe(400);
+    expect((await handleBulkLinks(await bulkReq({ items: Array.from({ length: 51 }, () => ({ url: "https://a.example" })) }), d)).status).toBe(400);
+    expect((await handleBulkLinks(await bulkReq({ items: [{ url: "https://a.example", extra: 1 }] }), d)).status).toBe(400);
+    expect((await handleBulkLinks(await bulkReq({ items: [{ url: 5 }] }), d)).status).toBe(400);
+    expect((await handleBulkLinks(await bulkReq({ ...one, unknown: true }), d)).status).toBe(400);
+    expect((await handleBulkLinks(await bulkReq({ ...one, redirectType: 300 }), d)).status).toBe(400);
+    expect((await handleBulkLinks(await bulkReq("x".repeat(70 * 1024)), d)).status).toBe(413);
+    expect(d.fetch).not.toHaveBeenCalled();
+  });
+
+  it("accepts a full 50-URL batch of long URLs within the larger bulk body limit", async () => {
+    const d = deps();
+    const items = Array.from({ length: 50 }, (_, i) => ({ url: `https://example.com/${"p".repeat(900)}/${i}` }));
+    expect((await handleBulkLinks(await bulkReq({ items }), d)).status).toBe(200);
+  });
+
+  it("only allows POST", async () => {
+    const res = await handleBulkLinks(await req("/api/link-studio/links/bulk", { cookie: await sessionCookie() }), deps());
+    expect(res.status).toBe(405);
   });
 });
 

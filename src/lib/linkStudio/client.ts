@@ -6,7 +6,8 @@
 // Response shapes mirror the existing Worker (toolkit4me-shortlinks).
 // ---------------------------------------------------------------------
 
-export type LinkStatus = "active" | "inactive" | "expired";
+/** "used" = a one-time link that has already been opened. */
+export type LinkStatus = "active" | "inactive" | "expired" | "used";
 export type RedirectType = 301 | 302 | 307 | 308;
 
 export interface ShortLink {
@@ -21,6 +22,9 @@ export interface ShortLink {
   updatedAt: string | null;
   expiresAt: string | null;
   lastClickedAt: string | null;
+  /** Works once: visitors confirm on a go.toolkit4me.com page, then it's used up. */
+  oneTime: boolean;
+  redeemedAt: string | null;
 }
 
 export interface Pagination {
@@ -96,9 +100,30 @@ export interface CreateLinkInput {
   expiresAt?: string | null;
   redirectType?: RedirectType;
   isActive?: boolean;
+  oneTime?: boolean;
 }
 
-export type UpdateLinkInput = Partial<Omit<CreateLinkInput, "alias">>;
+/** oneTime is fixed when a link is created. */
+export type UpdateLinkInput = Partial<Omit<CreateLinkInput, "alias" | "oneTime">>;
+
+export interface BulkCreateInput {
+  items: { url: string; alias?: string }[];
+  expiresAt?: string | null;
+  redirectType?: RedirectType;
+  isActive?: boolean;
+  oneTime?: boolean;
+}
+
+export type BulkItemResult = { index: number; ok: true; link: ShortLink } | { index: number; ok: false; error: { code: string; message: string } };
+
+export interface BulkCreateResult {
+  results: BulkItemResult[];
+  created: number;
+  failed: number;
+}
+
+/** The Worker's per-request bulk limit. */
+export const BULK_MAX_ITEMS = 50;
 
 export class LinkStudioError extends Error {
   readonly status: number;
@@ -147,6 +172,7 @@ export const linkStudioApi = {
   logout: () => call<{ authenticated: false }>("/auth/logout", { method: "POST" }),
   list: (p: ListParams) => call<{ items: ShortLink[]; pagination: Pagination }>(`/links${query({ ...p })}`),
   create: (input: CreateLinkInput) => call<ShortLink>("/links", { method: "POST", body: JSON.stringify(input) }),
+  createBulk: (input: BulkCreateInput) => call<BulkCreateResult>("/links/bulk", { method: "POST", body: JSON.stringify(input) }),
   get: (code: string) => call<ShortLink>(`/links/${encodeURIComponent(code)}`),
   update: (code: string, input: UpdateLinkInput) => call<ShortLink>(`/links/${encodeURIComponent(code)}`, { method: "PUT", body: JSON.stringify(input) }),
   remove: (code: string) => call<{ code: string; deleted: true }>(`/links/${encodeURIComponent(code)}`, { method: "DELETE" }),

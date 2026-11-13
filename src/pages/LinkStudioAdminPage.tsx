@@ -6,6 +6,7 @@ import { Alert } from "../components/ui/Alert";
 import { Button } from "../components/ui/Button";
 import { LoadingState } from "../components/ui/LoadingState";
 import { CreateLinkForm } from "../components/linkStudio/CreateLinkForm";
+import { BulkShortener } from "../components/linkStudio/BulkShortener";
 import { LinksManager } from "../components/linkStudio/LinksManager";
 import { AnalyticsView } from "../components/linkStudio/AnalyticsView";
 import { linkStudioApi, SIGN_IN_URL, type SessionInfo } from "../lib/linkStudio/client";
@@ -18,7 +19,7 @@ const SIGN_IN_ERRORS: Record<string, string> = {
   oauth: "GitHub sign-in didn't complete. Please try again.",
 };
 
-type Tab = "create" | "links" | "analytics";
+type Tab = "create" | "bulk" | "links" | "analytics";
 
 /**
  * Link Studio admin console (/link-studio/admin). Not indexed, not in the sitemap.
@@ -116,6 +117,7 @@ export function LinkStudioAdminPage() {
             {(
               [
                 ["create", "Create"],
+                ["bulk", "Bulk"],
                 ["links", "Links"],
                 ["analytics", "Analytics"],
               ] as const
@@ -138,6 +140,12 @@ export function LinkStudioAdminPage() {
               <div className="flex max-w-[760px] flex-col gap-3">
                 <p className="text-sm text-neutral-600">Turn a long address into a branded go.toolkit4me.com link. You can change its destination, expiry or status later.</p>
                 <CreateLinkForm onCreated={() => setRefreshKey((k) => k + 1)} />
+              </div>
+            )}
+            {tab === "bulk" && (
+              <div className="flex max-w-[960px] flex-col gap-3">
+                <p className="text-sm text-neutral-600">Shorten a list of addresses at once. Each line is checked separately, so one bad entry doesn't stop the rest.</p>
+                <BulkShortener onCreated={() => setRefreshKey((k) => k + 1)} />
               </div>
             )}
             {tab === "links" && <LinksManager refreshKey={refreshKey} onShowAnalytics={showAnalytics} />}

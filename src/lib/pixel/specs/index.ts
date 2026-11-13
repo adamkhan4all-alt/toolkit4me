@@ -17,4 +17,6 @@ export const STUDIO_SPECS: Record<string, Loader> = {
   "youtube-thumbnail-maker": () => cast(import("./thumbnail")),
   "whatsapp-sticker-maker": () => cast(import("./sticker")),
   "passport-photo-maker": () => cast(import("./passport")),
+  "picture-to-anime": () => cast(import("./pictureToAnime")),
+  "picture-avatar": () => cast(import("./pictureAvatar")),
 };

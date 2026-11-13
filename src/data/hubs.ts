@@ -216,7 +216,7 @@ export const HUBS: HubDefinition[] = [
         heading: "Branded short links on go.toolkit4me.com",
         paragraphs: [
           "A short link such as go.toolkit4me.com/summer26 redirects to a longer destination address. It's easier to type, fits on print and in social posts, and can be updated or switched off later without reprinting it.",
-          "Each Toolkit4Me short link points only to an http:// or https:// address, can be given an expiry date, and can be disabled at once — a disabled or expired link shows a notice instead of redirecting. If you find a go.toolkit4me.com link that leads somewhere harmful, email toolkit4me@gmail.com and we'll disable it.",
+          "Each Toolkit4Me short link points only to an http:// or https:// address, can be given an expiry date, and can be disabled at once — a disabled or expired link shows a notice instead of redirecting. A link can also be made one-time: it opens a short confirmation page, works once when someone presses Continue, and then shows that it has been used (chat-app previews and email scanners don't use it up). If you find a go.toolkit4me.com link that leads somewhere harmful, email toolkit4me@gmail.com and we'll disable it.",
         ],
       },
       {

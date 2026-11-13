@@ -39,6 +39,8 @@ const WORKSPACES: Record<string, ComponentType<{ tool: ToolDefinition }>> = {
   "whatsapp-sticker-maker": ImageStudio,
   "collage-maker": lazy(() => import("./CollageWorkspace")),
   "passport-photo-maker": ImageStudio,
+  "picture-to-anime": ImageStudio,
+  "picture-avatar": ImageStudio,
   "video-to-gif": lazy(() => import("./VideoToGifWorkspace")),
   // Link Studio URL tools
   "utm-builder": lazy(() => import("./UtmBuilderWorkspace")),

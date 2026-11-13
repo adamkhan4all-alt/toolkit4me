@@ -4,7 +4,7 @@
 export const ALIAS_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9_-]{1,62})[A-Za-z0-9]$/;
 
 /** The Worker's reserved words (compared case-insensitively). Kept in sync with toolkit4me-shortlinks src/config.ts. */
-export const RESERVED_ALIASES = new Set(["api", "health", "healthz", "admin", "assets", "static", "login", "logout", "dashboard", "link-studio", "www", "app", "cdn-cgi", "_next"]);
+export const RESERVED_ALIASES = new Set(["api", "health", "healthz", "admin", "assets", "static", "login", "logout", "dashboard", "link-studio", "www", "app", "cdn-cgi", "_next", "bulk"]);
 
 /** Client-side alias check for instant feedback; the Worker re-validates and checks uniqueness. */
 export function aliasProblem(alias: string): string | null {
