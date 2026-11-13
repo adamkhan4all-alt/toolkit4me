@@ -107,6 +107,11 @@ export interface ToolDefinition {
   extraSections?: ToolContentSection[];
   /** Optional replacements for the generic section headings, so a heading can describe the task in searchers' own words. */
   sectionHeadings?: Partial<Record<"intro" | "useCases" | "howItWorks" | "features", string>>;
+  /**
+   * Replaces the generic "Privacy & security" text for tools that are neither browser-only nor processed on the AWS
+   * file server (e.g. the URL shortener, which stores links on go.toolkit4me.com). One paragraph per entry.
+   */
+  privacyNote?: string[];
 }
 
 export interface ToolContentSection {

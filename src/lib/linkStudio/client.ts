@@ -25,6 +25,8 @@ export interface ShortLink {
   /** Works once: visitors confirm on a go.toolkit4me.com page, then it's used up. */
   oneTime: boolean;
   redeemedAt: string | null;
+  /** "public" = created anonymously through /tools/url-shortener. */
+  source: "admin" | "public";
 }
 
 export interface Pagination {
@@ -90,6 +92,8 @@ export interface ListParams {
   limit?: number;
   search?: string;
   status?: "all" | LinkStatus;
+  /** Created by the team or through the public shortener. */
+  source?: "admin" | "public";
   sort?: "created_at" | "clicks" | "last_clicked_at" | "expires_at";
   order?: "asc" | "desc";
 }

@@ -185,7 +185,7 @@ export const HUBS: HubDefinition[] = [
       "Free link tools that run in your browser: build UTM campaign links, remove tracking parameters, validate and encode URLs, and make QR codes.",
     intro: [
       "Link Studio is Toolkit4Me's home for working with links. Tag a link so your analytics show which campaign sent each visitor, strip the tracking codes out of a link before you share it, check that an address is complete before it goes on a poster, encode text so it's safe inside a URL, and turn any link into a QR code.",
-      "The URL tools are free for everyone and run entirely in your browser — the links you paste are never sent to our servers. Branded short links on go.toolkit4me.com, with click counts and simple analytics, are created and managed by the Toolkit4Me team; short-link creation isn't open to the public yet.",
+      "Anyone can create branded go.toolkit4me.com short links with the free URL Shortener — no sign-up, 5 links a day. The other URL tools run entirely in your browser, so the links you paste into them are never sent to our servers. Custom aliases, editing and click analytics are part of the Toolkit4Me team's console.",
     ],
     icon: "↗",
     accent: "bg-emerald-50 text-emerald-800",
@@ -235,7 +235,7 @@ export const HUBS: HubDefinition[] = [
       {
         question: "Can I create my own short links?",
         answer:
-          "Not yet. go.toolkit4me.com short links are currently created by the Toolkit4Me team only, so the domain can't be used to disguise spam or harmful sites. All the URL tools on this page are free for everyone.",
+          "Yes — the free URL Shortener creates go.toolkit4me.com links without an account, up to 5 a day per browser. Public links get a random code; choosing your own custom alias is reserved for the Toolkit4Me team so the branded domain can't be used to impersonate people or brands. Links used for spam or phishing are disabled.",
       },
       {
         question: "What happens when I click a go.toolkit4me.com link?",

@@ -71,6 +71,7 @@ function listQuery(params: URLSearchParams): { ok: true; query: URLSearchParams 
     ["limit", (v) => /^\d{1,3}$/.test(v) && Number(v) >= 1 && Number(v) <= 100, "Limit must be 1 to 100."],
     ["search", (v) => v.length <= 100, "Search is limited to 100 characters."],
     ["status", (v) => STATUSES.includes(v), "Unknown status filter."],
+    ["source", (v) => v === "admin" || v === "public", "Source must be admin or public."],
     ["sort", (v) => SORTS.includes(v), "Unknown sort."],
     ["order", (v) => v === "asc" || v === "desc", "Order must be asc or desc."],
   ];

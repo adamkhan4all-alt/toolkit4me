@@ -145,3 +145,35 @@ Until step 4 is done the console shows "Not set up yet" and the admin API answer
 | Pending | 🔧 owner configures GitHub sign-in (§6), then a live admin smoke test: sign in → create → redirect → analytics → delete |
 
 Rollback: Vercel → Deployments → previous production deployment → Promote. The release adds files and a hub; it doesn't change the Worker, the database or other routes, so rollback has no data impact.
+
+---
+
+## 8. Release 7 — public, anonymous URL shortener
+
+**Page:** `/tools/url-shortener` (short path `/url-shortener` redirects there). No sign-in, no account, no GitHub.
+The page calls the existing Worker `toolkit4me-shortlinks` on `go.toolkit4me.com` directly
+(`POST /api/public/links`, `GET /api/public/status`, `credentials: "include"`); it never sees `ADMIN_API_KEY`.
+Same Worker, same D1 database (`toolkit4me-shortlinks-db`, binding `DB`) — nothing new was created.
+
+| Rule | How it's enforced (all server-side, in the Worker) |
+|---|---|
+| 5 links per visitor per day | Signed `t4m_vid` cookie (HMAC, HttpOnly, Secure, SameSite=Lax, path `/api/public`, 400 days). Forged or tampered cookies count as a new visitor. |
+| Daily boundary | UTC calendar day; resets 00:00 UTC. The page shows the reset in the visitor's local time and in UTC. |
+| Only successful creations count | Validation and destination checks run before the quota is reserved; a failed insert refunds it. |
+| Atomic under concurrency | One D1 batch with conditional `UPDATE … WHERE used < limit`; tested with 10–12 simultaneous requests. |
+| IP-based layer | 20 links per address per UTC day, keyed by a daily-rotating HMAC of the IP (no raw IP stored); `RL_PUBLIC` 10 attempts/min. |
+| Challenge | Browser proof-of-work (Web Worker, invisible): for new visitors (16 bits, ~50 ms), harder (20 bits, ~1 s) after 3 new identities from one address in a day (cookie clearing) or 10+ links from one address. |
+| Unsafe URLs | Only http/https; `javascript:`, `data:` etc. refused; private/loopback addresses and other shorteners refused. |
+| Custom aliases, editing, disabling, analytics | Admin-only, unchanged (Worker `ADMIN_API_KEY` via the Vercel admin proxy). Public requests with `alias` get `403 alias_admin_only`. |
+| Retention | Quota counters deleted after 2 days; challenges after expiry (daily cron). Public links are tagged `source = 'public'` and visible in the team console with a "Created by → Public" filter. |
+
+**Tests:** Worker 188/188 (21 new public-shortener integration tests). Site 565/565, lint at baseline,
+`seo:validate` clean. Local browser acceptance (site → Worker 1.2.0, local D1): 36/36 — first five allowed,
+sixth refused (429 with reset time), invalid URLs free, refresh and browser restart keep the count, concurrent
+requests capped, cleared cookies get the harder check and the per-address cap, aliases 403, management API 401,
+admin console filter, 375 px layout.
+
+**Deploy steps (need owner approval):** D1 backup → `wrangler d1 migrations apply toolkit4me-shortlinks-db --remote`
+(migration `0004_public_shortener.sql`, additive only) → `wrangler secret put ANON_SECRET` (new random 32 bytes) →
+`wrangler deploy` (v1.2.0) → merge site branch `release-7-public-shortener` and deploy to Vercel.
+Rollback: redeploy Worker v1.1.0 (the new column and tables are ignored by it) and promote the previous Vercel deployment.

@@ -16,6 +16,7 @@ const link = (code: string, url: string): ShortLink => ({
   lastClickedAt: null,
   oneTime: false,
   redeemedAt: null,
+  source: "admin",
 });
 
 describe("parseBulkInput", () => {

@@ -132,10 +132,16 @@ export function PrivacyPolicyPage() {
             <strong>Team console cookies.</strong> The Link Studio team console, which visitors never need, uses a strictly necessary session cookie for up to 8
             hours after a team member signs in, plus a short-lived cookie during the GitHub sign-in itself.
           </li>
+          <li>
+            <strong>URL Shortener allowance cookie.</strong> When you create your first short link, go.toolkit4me.com sets a strictly necessary cookie
+            (<code>t4m_vid</code>) holding a random identifier signed by our server. It contains nothing about you and is used only to count your free
+            daily short links. It's HttpOnly (page scripts can't read it), sent only to go.toolkit4me.com's shortener, and lasts up to 400 days unless you
+            delete it.
+          </li>
         </ul>
         <p>
-          The tools themselves don't set cookies or store your files in your browser's storage. You can block or delete cookies in your browser settings; the
-          tools keep working without them.
+          Apart from the URL Shortener, the tools don't set cookies or store your files in your browser's storage. You can block or delete cookies in your
+          browser settings; the tools keep working without them (the shortener then asks your browser to complete its automatic check again).
         </p>
       </PolicySection>
 
@@ -161,8 +167,8 @@ export function PrivacyPolicyPage() {
 
       <PolicySection id="short-links" title="8. Short links (go.toolkit4me.com) and click analytics">
         <p>
-          Short links on go.toolkit4me.com are created by the Toolkit4Me team. When you open one, you're redirected to its destination and a click is recorded in
-          our short-link analytics database. For each counted click we store only:
+          Short links on go.toolkit4me.com are created by the Toolkit4Me team, or by anyone through the free URL Shortener. When you open one, you're
+          redirected to its destination and a click is recorded in our short-link analytics database. For each counted click we store only:
         </p>
         <ul>
           <li>the short-link code and the date and time of the click;</li>
@@ -180,6 +186,15 @@ export function PrivacyPolicyPage() {
           <strong>One-time links.</strong> Some short links work only once. Opening one shows a confirmation page first; nothing is recorded until someone
           presses Continue. At that moment the link is marked as used, with the date and time, and the visit is recorded as one click with the same limited
           fields listed above. The “used” date stays with the link until the team deletes it.
+        </p>
+        <p>
+          <strong>Creating short links with the URL Shortener.</strong> When you shorten a link, we store the destination address, the short code, the time it
+          was created and the fact that it came from the public shortener, so that the link can redirect and so that abusive links can be found and
+          disabled. We don't store who created it. To enforce the daily allowance (5 links per browser, and a shared limit per network), we keep per-day
+          counters keyed by the random identifier in the allowance cookie (see section 5) and by a one-way hash of your network address that is keyed with a
+          secret and changes every day, so it can't be turned back into the address or linked across days. These counters are deleted two days after the day
+          they cover. To stop automated abuse, your browser solves a small computing puzzle before your first link; this happens on your device, involves no
+          third-party CAPTCHA service, and the used puzzle is only remembered until it expires (within about 10 minutes).
         </p>
         <p>
           Separately from that database, Cloudflare processes request information, including your IP address, to deliver the redirect and protect the service
@@ -219,7 +234,7 @@ export function PrivacyPolicyPage() {
               </tr>
               <tr>
                 <th scope="row" className={th}>Cloudflare</th>
-                <td className={td}>Runs go.toolkit4me.com short links and their analytics database</td>
+                <td className={td}>Runs go.toolkit4me.com short links, the URL Shortener and their database</td>
                 <td className={td}>Request information; the click fields listed in section 8</td>
               </tr>
               <tr>
@@ -257,6 +272,9 @@ export function PrivacyPolicyPage() {
           <li>Short-link click records: deleted after 365 days; total counts per link are kept.</li>
           <li>Short-link duplicate-click hash: held in memory for about a minute.</li>
           <li>When a one-time link was used: kept with the link until the link is deleted.</li>
+          <li>URL Shortener daily counters (visitor identifier and daily network-address hash): deleted two days after the day they cover.</li>
+          <li>URL Shortener allowance cookie: in your browser for up to 400 days, or until you delete it.</li>
+          <li>Links created with the URL Shortener: kept so they keep redirecting, unless disabled or deleted for abuse.</li>
           <li>Team console session cookie: up to 8 hours.</li>
           <li>Technical logs: kept for operating, securing and troubleshooting the Service; logs held by our providers follow their own policies.</li>
           <li>Emails you send us: kept as long as needed to deal with your message and any follow-up.</li>

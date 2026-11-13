@@ -1,12 +1,15 @@
 // ---------------------------------------------------------------------
-// Link Studio's public URL tools (Release 4). Each runs entirely in the
-// browser — the links people paste are never sent to a server. Short-link
-// creation itself is admin-only and lives at /link-studio/admin.
+// Link Studio's public URL tools. The URL utilities (Release 4) run entirely
+// in the browser. The URL Shortener (Release 7) is public and anonymous: it
+// creates links on go.toolkit4me.com through the short-link Worker, with a
+// daily allowance enforced there. Custom aliases, editing and analytics stay
+// in the team console at /link-studio/admin.
 // ---------------------------------------------------------------------
 
 import type { ToolDefinition } from "../types/tool";
 
 const ADDED = "2026-11-12";
+const RELEASE_7 = "2026-11-13";
 
 const common = {
   hub: "link",
@@ -23,6 +26,92 @@ const common = {
 } as const satisfies Partial<ToolDefinition>;
 
 export const LINK_TOOLS: ToolDefinition[] = [
+  {
+    ...common,
+    id: "url-shortener",
+    slug: "url-shortener",
+    addedOn: RELEASE_7,
+    lastModified: RELEASE_7,
+    featured: true,
+    processingMode: "SERVER",
+    // Path on the short-link Worker (SHORTLINKS_API), called by UrlShortenerWorkspace — not the AWS file API.
+    endpoint: "/api/public/links",
+    name: "Free URL Shortener",
+    shortName: "URL Shortener",
+    description: "Turn a long link into a short, branded go.toolkit4me.com link with a QR code — free, no sign-up, up to 5 links a day.",
+    acceptedFormats: ["Any http:// or https:// address"],
+    inputLimitLabel: "Up to 2,048 characters · 5 links per day",
+    actionLabel: "Shorten URL",
+    icon: "GO",
+    outputExtension: "short link",
+    sectionHeadings: {
+      intro: "Short, branded links in one step",
+      howItWorks: "How to shorten a link",
+    },
+    howItWorks: [
+      "Paste the long address, starting with https://.",
+      "Select Shorten URL. The first time, your browser completes a quick automatic check (usually under a second) — there's nothing to click or type.",
+      "Copy the go.toolkit4me.com link, open it to test, or download its QR code as PNG or SVG.",
+      "You can create 5 links a day; the allowance resets at 00:00 UTC and the page shows how many you have left.",
+    ],
+    features: [
+      "Branded short links on go.toolkit4me.com with random 7-character codes",
+      "No account or sign-up — your daily allowance follows your browser",
+      "QR code for every link, as PNG (up to 2,048 px) or SVG, with an adjustable margin",
+      "Destinations are checked: only http:// and https:// addresses, never local networks or other shorteners",
+    ],
+    useCases: [
+      "Fitting a long address into a printed flyer, poster or business card",
+      "Sharing a tidy link in a text message, chat or social media bio",
+      "Making a QR code that points to a short, readable address",
+    ],
+    limitations: [
+      "5 links per browser per day, and a shared limit per network (for example, an office or school) to stop abuse",
+      "Codes are random — choosing your own custom alias is available to the Toolkit4Me team only",
+      "Links can't be edited, deleted or tracked here; anyone who has a short link can open it",
+      "Links to harmful or abusive sites are disabled when we find them",
+    ],
+    faq: [
+      {
+        question: "Is the URL shortener really free?",
+        answer: "Yes. There's no account, payment or sign-up. Each browser can create 5 short links a day, which resets at midnight UTC.",
+      },
+      {
+        question: "How does it know how many links I've made?",
+        answer:
+          "When you create your first link, go.toolkit4me.com stores a random identifier in a cookie in your browser. It's signed so it can't be faked, contains nothing about you, and is used only to count your daily links. Clearing your cookies starts a new allowance, but a shared limit per network still applies.",
+      },
+      {
+        question: "What is the automatic check before my first link?",
+        answer:
+          "To stop bots from creating links in bulk, your browser solves a small computing puzzle in the background — usually in well under a second. It doesn't use a third-party CAPTCHA and you don't need to do anything.",
+      },
+      {
+        question: "Can I choose my own short link, like go.toolkit4me.com/my-shop?",
+        answer: "Not yet. Custom aliases are reserved for the Toolkit4Me team so the branded domain can't be used to impersonate people or brands. Public links get a random code.",
+      },
+      {
+        question: "Do short links expire?",
+        answer: "No. A short link keeps redirecting unless it's found to be used for spam, phishing or other abuse, in which case it's disabled.",
+      },
+    ],
+    relatedTools: ["qr-code-generator", "utm-builder", "url-parser-cleaner", "url-validator"],
+    intro: [
+      "Paste a long web address and get a short, branded link such as go.toolkit4me.com/aB3xK9q that redirects to it. Every link comes with a QR code you can download as PNG or SVG — ideal for print, slides and social posts.",
+      "There's no sign-up: you can create 5 links a day, and the page shows how many you have left and when the allowance resets. Custom aliases, editing and click analytics are part of the Toolkit4Me team's console.",
+    ],
+    formatsNote: "Enter one http:// or https:// address of up to 2,048 characters. Output is a short link on go.toolkit4me.com and an optional QR code (PNG or SVG).",
+    privacyNote: [
+      "Unlike the other URL tools, the shortener has to store your link: the destination address and the time it was created are saved on go.toolkit4me.com (Cloudflare) so the short link can redirect. Anyone who has the short link can open it, so don't shorten private addresses.",
+      "To count your daily allowance, go.toolkit4me.com sets a cookie containing a random, signed identifier — no name, email or account. Your network address is used for abuse limits only as a daily-changing one-way hash, which is deleted after two days. When someone opens a short link, the same limited click information as for every go.toolkit4me.com link is recorded (see the Privacy Policy).",
+    ],
+    seo: {
+      title: "Free URL Shortener — Short Branded Links + QR Code | Toolkit4Me",
+      metaDescription: "Shorten a long URL into a go.toolkit4me.com link with a QR code. Free, no sign-up, 5 links a day, with destination checks against abuse.",
+      h1: "Free URL Shortener",
+      keywords: ["url shortener", "free link shortener", "short link", "shorten url", "branded short link", "link shortener with qr code"],
+    },
+  },
   {
     ...common,
     id: "utm-builder",

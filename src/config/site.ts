@@ -44,3 +44,10 @@ export const CONTACT_EMAIL = "toolkit4me@gmail.com";
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+/**
+ * Short-link service (Cloudflare Worker) used by the public URL shortener. The browser calls it directly with
+ * credentials so the Worker's signed visitor cookie travels with the request. VITE_SHORTLINKS_API only exists to
+ * point a local test build at `wrangler dev`; production always uses go.toolkit4me.com.
+ */
+export const SHORTLINKS_API = (import.meta.env?.VITE_SHORTLINKS_API ?? "https://go.toolkit4me.com").replace(/\/$/, "");
