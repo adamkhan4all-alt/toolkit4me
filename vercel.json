@@ -4,7 +4,7 @@
   "redirects": [
     { "source": "/terms", "destination": "/terms-of-use", "permanent": true },
     { "source": "/url-tools", "destination": "/link-studio", "permanent": true },
-    { "source": "/url-shortener", "destination": "/link-studio", "permanent": true },
+    { "source": "/url-shortener", "destination": "/tools/url-shortener", "permanent": true },
     { "source": "/bulk-url-shortener", "destination": "/link-studio", "permanent": true },
     { "source": "/qr-code-generator", "destination": "/tools/qr-code-generator", "permanent": true },
     { "source": "/url-validator", "destination": "/tools/url-validator", "permanent": true },

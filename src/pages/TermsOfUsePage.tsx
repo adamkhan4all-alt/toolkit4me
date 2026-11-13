@@ -160,11 +160,22 @@ export function TermsOfUsePage() {
 
       <PolicySection id="link-studio" title="12. Short links (Link Studio)">
         <p>
-          Short links on go.toolkit4me.com are created by the Toolkit4Me team and redirect to the destination the team chose, which may be another website. We
-          may disable or change a short link at any time, for example if its destination becomes unsafe or unavailable. Some links expire, and one-time
-          links stop working after their first confirmed use. The public Link Studio tools on
-          toolkit4me.com (UTM Builder, URL Parser &amp; Cleaner, URL Validator and URL Encoder &amp; Decoder) run in your browser and are covered by these Terms
-          like any other tool.
+          Short links on go.toolkit4me.com redirect to another website. They are created by the Toolkit4Me team, or by visitors with the free URL Shortener,
+          which is limited to a small number of links per day per browser and per network. We may disable or change any short link at any time, for example if
+          its destination becomes unsafe or unavailable. Some links expire, and one-time links stop working after their first confirmed use. The other public
+          Link Studio tools on toolkit4me.com (UTM Builder, URL Parser &amp; Cleaner, URL Validator and URL Encoder &amp; Decoder) run in your browser and are
+          covered by these Terms like any other tool.
+        </p>
+        <p>When you use the URL Shortener, you agree not to create links that:</p>
+        <ul>
+          <li>lead to phishing, malware, scams or other deceptive or harmful content;</li>
+          <li>disguise a link's real destination to mislead people, or impersonate a person, brand or organisation;</li>
+          <li>are used for spam or unsolicited bulk messages; or</li>
+          <li>point to unlawful content or content that infringes someone else's rights.</li>
+        </ul>
+        <p>
+          Don't try to get around the daily limits, for example by automating requests or repeatedly clearing cookies. Short links aren't private: anyone who
+          has one can open it. We disable links that break these rules, without notice.
         </p>
       </PolicySection>
 

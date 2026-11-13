@@ -205,7 +205,7 @@ function renderToolBody(tool: ToolDefinition): string {
     <ul>${features}</ul>
 
     <h2>Privacy &amp; security</h2>
-    <p>${escapeHtml(privacyText)}</p>
+    ${(tool.privacyNote ?? [privacyText]).map((p) => `<p>${escapeHtml(p)}</p>`).join("\n    ")}
 
     <h2>Frequently asked questions</h2>
     ${faq}

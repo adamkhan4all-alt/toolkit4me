@@ -14,7 +14,12 @@ export function PrivacySection({ tool }: { tool: ToolDefinition }) {
       <h2 id="privacy-heading" className="text-2xl font-semibold text-neutral-900">
         Privacy &amp; security
       </h2>
-      <div className="rounded-lg border border-neutral-200 bg-white p-4 text-sm leading-6 text-neutral-600">
+      <div className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-4 text-sm leading-6 text-neutral-600">
+        {tool.privacyNote ? (
+          tool.privacyNote.map((p) => <p key={p}>{p}</p>)
+        ) : (
+          <>
+        {/* Standard wording by processing mode (tools without a privacyNote). */}
         {isClient && tool.inputKind === "text" ? (
           <p>
             {tool.shortName} runs entirely in your browser — the text you enter is processed on your device and is
@@ -32,6 +37,8 @@ export function PrivacySection({ tool }: { tool: ToolDefinition }) {
             purely to run the conversion, then automatically deleted within 1 hour. We don't inspect, share, or
             retain your files beyond what's needed to process the job and let you download the result.
           </p>
+        )}
+          </>
         )}
       </div>
     </section>

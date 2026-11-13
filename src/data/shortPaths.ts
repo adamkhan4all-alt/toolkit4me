@@ -3,8 +3,8 @@
 // as 308 redirects for direct visits; App.tsx uses it for in-app navigation. A test keeps the two in sync.
 export const SHORT_PATH_REDIRECTS: { from: string; to: string }[] = [
   { from: "/url-tools", to: "/link-studio" },
-  // Shortening is admin-only, so these lead to the hub, which explains short links and links to the team console.
-  { from: "/url-shortener", to: "/link-studio" },
+  { from: "/url-shortener", to: "/tools/url-shortener" },
+  // Bulk shortening is admin-only, so it leads to the hub, which links to the team console.
   { from: "/bulk-url-shortener", to: "/link-studio" },
   { from: "/qr-code-generator", to: "/tools/qr-code-generator" },
   { from: "/url-validator", to: "/tools/url-validator" },

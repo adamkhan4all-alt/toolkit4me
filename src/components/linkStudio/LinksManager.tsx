@@ -19,13 +19,13 @@ const STATUS_BADGE: Record<ShortLink["status"], string> = {
 };
 const STATUS_LABEL: Record<ShortLink["status"], string> = { active: "Active", inactive: "Disabled", expired: "Expired", used: "Used (one-time)" };
 
-type Query = Required<Pick<ListParams, "page" | "status" | "sort" | "order">> & { search: string };
+type Query = Required<Pick<ListParams, "page" | "status" | "sort" | "order">> & { search: string; source: "" | "admin" | "public" };
 
 export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: number; onShowAnalytics: (code: string) => void }) {
   const id = useId();
   const { showToast } = useToast();
   const [searchInput, setSearchInput] = useState("");
-  const [query, setQuery] = useState<Query>({ page: 1, search: "", status: "all", sort: "created_at", order: "desc" });
+  const [query, setQuery] = useState<Query>({ page: 1, search: "", status: "all", source: "", sort: "created_at", order: "desc" });
   const [data, setData] = useState<{ items: ShortLink[]; pagination: Pagination } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -45,7 +45,7 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
   useEffect(() => {
     let cancelled = false;
     linkStudioApi
-      .list({ ...query, limit: PAGE_SIZE })
+      .list({ ...query, source: query.source || undefined, limit: PAGE_SIZE })
       .then((d) => {
         if (cancelled) return;
         setData(d);
@@ -86,7 +86,7 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto_auto]">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto_auto_auto]">
         <div>
           <label htmlFor={`${id}-search`} className="sr-only">
             Search links
@@ -103,6 +103,16 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
             <option value="inactive">Disabled</option>
             <option value="expired">Expired</option>
             <option value="used">Used one-time links</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor={`${id}-source`} className="sr-only">
+            Created by
+          </label>
+          <select id={`${id}-source`} value={query.source} onChange={(e) => update({ source: e.target.value as Query["source"], page: 1 })} className={inputClass}>
+            <option value="">Team and public</option>
+            <option value="admin">Team links</option>
+            <option value="public">Public shortener links</option>
           </select>
         </div>
         <div>
@@ -157,6 +167,7 @@ export function LinksManager({ refreshKey, onShowAnalytics }: { refreshKey: numb
                   </span>
                 </div>
                 <span className="flex shrink-0 gap-1.5">
+                  {link.source === "public" && <span className="rounded bg-warning-50 px-2 py-0.5 text-xs font-semibold text-warning-600">Public</span>}
                   {link.oneTime && link.status !== "used" && <span className="rounded bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-700">One-time</span>}
                   <span className={`rounded px-2 py-0.5 text-xs font-semibold ${STATUS_BADGE[link.status]}`}>{STATUS_LABEL[link.status]}</span>
                 </span>
