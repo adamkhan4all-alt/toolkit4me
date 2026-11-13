@@ -121,18 +121,23 @@ export default function UrlShortenerWorkspace({ tool }: { tool: ToolDefinition }
 
   return (
     <div className={panelClass}>
-      {unavailable && (
+      {unavailable ? (
         <Alert variant="error" title="The shortener can't be reached right now">
           Please try again in a moment. The other URL tools on this page still work.
         </Alert>
-      )}
-
-      {quota && (
-        <div aria-live="polite" className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-brand-50 px-4 py-3 text-sm text-neutral-800">
-          <span>
-            <strong className="text-neutral-900">{quota.remaining}</strong> of {quota.limit} free short links left today
-          </span>
-          <span className="text-xs text-neutral-600">Resets at {formatReset(quota.resetsAt)}</span>
+      ) : (
+        // Rendered before the allowance arrives too (same box, placeholder text), so the form doesn't move down when it loads.
+        <div aria-live="polite" className="flex min-h-[68px] flex-col justify-center gap-2 rounded-lg sm:min-h-12 sm:flex-row sm:items-center sm:justify-between bg-brand-50 px-4 py-3 text-sm text-neutral-800">
+          {quota ? (
+            <>
+              <span>
+                <strong className="text-neutral-900">{quota.remaining}</strong> of {quota.limit} free short links left today
+              </span>
+              <span className="text-xs text-neutral-600">Resets at {formatReset(quota.resetsAt)}</span>
+            </>
+          ) : (
+            <span className="text-neutral-600">Checking today's allowance…</span>
+          )}
         </div>
       )}
 

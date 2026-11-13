@@ -77,7 +77,13 @@ function CalculatorPage({ listing }: { listing: CalculatorListing }) {
         </header>
 
         {failed && <Alert variant="error">This calculator couldn't be loaded. Check your connection and refresh the page.</Alert>}
-        {!definition && !failed && <LoadingState label="Loading calculator…" />}
+        {/* Hold a full screen of space while the calculator chunk loads, so the footer starts below the fold and
+            nothing visible moves when the content arrives (this was CLS 0.52 desktop / 0.43 mobile). */}
+        {!definition && !failed && (
+          <div className="min-h-svh">
+            <LoadingState label="Loading calculator…" />
+          </div>
+        )}
         {definition && content && (
           <>
             <CalculatorWidget definition={definition} title={listing.name} />

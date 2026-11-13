@@ -41,13 +41,13 @@ import { CALCULATOR_CATALOG } from "../src/data/calculators/catalog";
 import { DISCLAIMERS, type CalculatorDefinition } from "../src/lib/calculators/engine";
 import { GUIDE_AUTHOR, GUIDE_CATEGORIES, GUIDES, GUIDES_INDEX_META, guideCategoryLabel, guidesForTool, readingMinutes, relatedGuidesFor, sectionId, type GuideDefinition } from "../src/data/guides";
 import { formatLongDate } from "../src/lib/format";
-import { ABOUT_META, DISCLAIMER_META, EDITORIAL_META, PRIVACY_META, SUPPORT_EMAIL, TERMS_META } from "../src/data/policies";
+import { ABOUT_META, DISCLAIMER_META, EDITORIAL_META, PRIVACY_META, TERMS_META } from "../src/data/policies";
 import { ALL_ARTICLES } from "../src/data/blog/articles";
 import { articleBreadcrumbs, articlePath, ARTICLES_PER_PAGE, BLOG_INDEX_META, BLOG_PATH } from "../src/data/blog/meta";
 import { tagLabel, tagPageMeta } from "../src/data/blog/tags";
 import { buildBlogIndex, publishedArticles } from "../src/lib/seo/blogIndex";
 import { blogCategoryPages, blogTagPages } from "../src/lib/seo/blogPages";
-import { renderArticle, renderBlogCategory, renderBlogHome, renderBlogTag, renderPolicy } from "./render-pages";
+import { renderArticle, renderBlogCategory, renderBlogHome, renderBlogTag, renderChrome, renderPolicy } from "./render-pages";
 import {
   articleSchema,
   articleShareImage,
@@ -364,14 +364,6 @@ function renderGuideBody(guide: GuideDefinition): string {
   </div>`;
 }
 
-function renderLegalBody(title: string, paragraphs: string[]): string {
-  const body = paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
-  return `<div style="max-width:720px;margin:0 auto;padding:32px 16px;font-family:sans-serif;line-height:1.6">
-    <h1>${escapeHtml(title)}</h1>
-    ${body}
-  </div>`;
-}
-
 function renderDirectoryBody(): string {
   const links = toolRegistry.getListings().map((t) => `<li><a href="${listingPath(t)}">${escapeHtml(t.name)}</a> (${escapeHtml(t.categoryLabel)}) — ${escapeHtml(t.description)}</li>`).join(
     "\n"
@@ -386,6 +378,8 @@ function renderDirectoryBody(): string {
     <ul>${links}</ul>
   </div>`;
 }
+
+const chrome = renderChrome();
 
 function writePage(route: string, headHtml: string, bodyHtml: string) {
   const outputPath =
@@ -403,7 +397,9 @@ function writePage(route: string, headHtml: string, bodyHtml: string) {
   html = html.replace(/<meta\s+name="twitter:[^"]*"[^>]*\/>\s*/g, "");
   // Function replacements, so a "$" in page text is never read as a replacement pattern ($&, $', …).
   html = html.replace("</head>", () => `${headHtml}\n  </head>`);
-  html = html.replace('<div id="root"></div>', () => `<div id="root">${bodyHtml}</div>`);
+  // Same shell as <Layout>: header, <main>, footer.
+  const page = `<div class="flex min-h-screen flex-col bg-neutral-100">${chrome.header}<main class="flex-1">${bodyHtml}</main>${chrome.footer}</div>`;
+  html = html.replace('<div id="root"></div>', () => `<div id="root">${page}</div>`);
 
   mkdirSync(path.dirname(outputPath), { recursive: true });
   writeFileSync(outputPath, html);
@@ -471,9 +467,7 @@ writePage(
       { name: "Contact", path: "/contact" },
     ],
   }),
-  renderLegalBody("Contact", [
-    `Reach us at ${SUPPORT_EMAIL} for a bug report, a tool request, a privacy question, a correction to an article, or anything else about the site.`,
-  ])
+  renderPolicy("/contact")
 );
 
 

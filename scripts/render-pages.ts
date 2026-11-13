@@ -4,8 +4,10 @@
 // exactly the content visitors see — full article and policy text, not a
 // hand-written summary that can drift. Used by scripts/prerender.ts.
 //
-// Only the page body is rendered (no header/footer), matching the other
-// prerendered routes; React replaces it on boot (createRoot, no hydrate).
+// Pages are rendered alone; renderChrome() renders the real site header and
+// footer once, and prerender.ts wraps every page in them, so crawlers that
+// don't run JavaScript can follow the site navigation and reach the trust
+// pages. React replaces all of it on boot (createRoot, no hydrate).
 // Plain createElement rather than JSX: tsx compiles scripts/ outside the
 // app's tsconfig, so JSX here wouldn't get the automatic runtime.
 // ---------------------------------------------------------------------
@@ -19,6 +21,9 @@ import { BlogHomePage } from "../src/pages/blog/BlogHomePage";
 import { BlogCategoryPage } from "../src/pages/blog/BlogCategoryPage";
 import { BlogTagPage } from "../src/pages/blog/BlogTagPage";
 import { AboutPage } from "../src/pages/AboutPage";
+import { ContactPage } from "../src/pages/ContactPage";
+import { Header } from "../src/components/layout/Header";
+import { Footer } from "../src/components/layout/Footer";
 import { PrivacyPolicyPage } from "../src/pages/PrivacyPolicyPage";
 import { TermsOfUsePage } from "../src/pages/TermsOfUsePage";
 import { DisclaimerPage } from "../src/pages/DisclaimerPage";
@@ -48,6 +53,7 @@ export const renderBlogTag = (path: string) => render(path, routed("/blog/tag/:t
 
 const POLICY_PAGES: Record<string, ComponentType> = {
   "/about": AboutPage,
+  "/contact": ContactPage,
   "/privacy": PrivacyPolicyPage,
   "/terms-of-use": TermsOfUsePage,
   "/disclaimer": DisclaimerPage,
@@ -58,4 +64,9 @@ export function renderPolicy(path: string): string {
   const page = POLICY_PAGES[path];
   if (!page) throw new Error(`renderPolicy: no page for ${path}`);
   return render(path, h(page));
+}
+
+/** The real site header and footer, rendered once. Neither depends on the current URL. */
+export function renderChrome(): { header: string; footer: string } {
+  return { header: render("/", h(Header)), footer: render("/", h(Footer)) };
 }
