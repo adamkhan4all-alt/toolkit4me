@@ -107,3 +107,46 @@ A genuine AI anime transform therefore can't ship without either a commercial li
 - **D9** Admin sign-in → owner action, outstanding (`docs/LINK_STUDIO.md` §6).
 - **D10** Worker + D1 → approved: additive migration and redeploy of the existing Worker, after a D1 backup and passing tests.
 - **D11** Routes → keep existing pages; permanent redirects from the brief's short paths; shortener and bulk shortener in the admin console.
+
+## 7. Completion report (2026-11-13)
+
+| Requested feature | Status |
+|---|---|
+| Short links, custom alias, branded go.toolkit4me.com, expiry, disable/re-activate, analytics | ✅ completed and tested (existed; verified end-to-end) · 🔧 live use needs admin sign-in (D9) |
+| QR for original / short / alias URLs: preview, PNG + SVG, size, margin | ✅ completed and tested (QR decoded back to the link in the test) |
+| Branded expired / disabled / missing / used pages | ✅ completed and tested (server-side) |
+| One-time links (atomic redemption) | ✅ completed and tested — 10- and 25-way races, exactly one success · 🔧 creation needs admin sign-in |
+| Bulk shortener (one controlled request, per-row errors, CSV) | ✅ completed and tested · 🔧 needs admin sign-in |
+| Analytics wording (total clicks vs unique visitors) | ✅ |
+| URL Validator, Encoder/Decoder, UTM Builder, Parser/Cleaner, URL tools directory | ✅ (existed; re-verified) |
+| Brief's short paths | ✅ 308 redirects to the existing pages (D11) |
+| WhatsApp Sticker Maker: crop/position, caption, transparent 512×512 WebP | ✅ completed and tested |
+| Picture Avatar | ✅ completed and tested as a non-AI avatar maker (D8) |
+| Picture to Anime | 🟡 shipped as a labelled, non-AI anime-style effect (D7) · ⛔ AI version blocked: no commercially licensed model |
+| phototranslator.net / Gemini audit; Toolkit4Me link audit | ✅ §2 — no correction needed |
+
+### Infrastructure
+
+| Item | Result |
+|---|---|
+| D1 backup before migration | `backups/d1-before-0003-20261113T114050Z.sql` in the Worker folder (git-ignored); production held no links yet |
+| Migration 0003 (remote) | ✅ applied; `one_time` (default 0), `redeemed_at` (default NULL) verified |
+| Worker | `toolkit4me-shortlinks` v1.1.0, version `da5994d7-76ce-4376-b065-aec396253e88`; same name, D1, domain, cron; Worker source now under git (`1af11b6`, `9d704bc`) |
+| Site | merged to `main` as `dcba56e`; Vercel `project-587l0-hd1r77pn8` Ready; Hobby plan; no new project |
+| New infrastructure / paid services | none |
+
+### Verification
+
+| Check | Result |
+|---|---|
+| Worker suite (Miniflare, local D1) | 167 / 167 (147 + 20 new) |
+| Site unit/integration | 560 / 560 (525 + 35 new) |
+| Local end-to-end, Link Studio (site + real functions → local Worker) | 44 / 44 |
+| Pixel tools (local and live) | 18 / 18 each |
+| Live Worker | health v1.1.0; branded 404; API and bulk 401 without key |
+| Live site | 12 redirects 308; `seo:validate --live` 153 URLs OK; 202 page loads, 0 failures |
+
+### Owner actions outstanding
+
+1. **Admin sign-in (D9)** — GitHub OAuth App + 4 Vercel env vars (`docs/LINK_STUDIO.md` §6). Until then no link can be created or managed in production; a live admin smoke test (create → QR → one-time → bulk → analytics) should follow.
+2. A commercial licence for an anime model, if a true AI version is wanted later.
