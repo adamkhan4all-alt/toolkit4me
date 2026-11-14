@@ -319,3 +319,119 @@ describe("analytics: consent region", () => {
     expect(a.analyticsState()).toBe("waiting");
   });
 });
+
+describe("analytics: trackEvent (calculator events)", () => {
+  const tip = { calculator_name: "tip-calculator", calculator_category: "finance", calculator_type: "calculator" } as const;
+  const sentEvents = () => commands().filter((c) => c[0] === "event" && c[1] !== "page_view");
+
+  async function granted() {
+    const a = await load();
+    const cmp = fakeCmp();
+    a.initAnalytics();
+    await flush();
+    a.trackPageView(at("/calculators/tip-calculator"), "Tip");
+    cmp.emit(consent(true, true));
+    return { a, cmp };
+  }
+
+  it("sends each of the four allowed events, with exactly the given parameters, once consent is granted", async () => {
+    const { a } = await granted();
+    a.trackEvent("calculator_calculate", { ...tip, trigger: "button" });
+    a.trackEvent("calculator_calculate", { ...tip, trigger: "example" });
+    a.trackEvent("calculator_result", { ...tip, result_status: "ok" });
+    a.trackEvent("calculator_result", { ...tip, result_status: "invalid" });
+    a.trackEvent("calculator_reset", { ...tip });
+    a.trackEvent("calculator_copy_result", { ...tip, copy_status: "success" });
+    a.trackEvent("calculator_copy_result", { ...tip, copy_status: "failed" });
+    expect(sentEvents()).toEqual([
+      ["event", "calculator_calculate", { ...tip, trigger: "button" }],
+      ["event", "calculator_calculate", { ...tip, trigger: "example" }],
+      ["event", "calculator_result", { ...tip, result_status: "ok" }],
+      ["event", "calculator_result", { ...tip, result_status: "invalid" }],
+      ["event", "calculator_reset", { ...tip }],
+      ["event", "calculator_copy_result", { ...tip, copy_status: "success" }],
+      ["event", "calculator_copy_result", { ...tip, copy_status: "failed" }],
+    ]);
+  });
+
+  it("rejects anything outside the allow-lists or the catalog", async () => {
+    const { a } = await granted();
+    const bad: [string, Record<string, unknown>][] = [
+      ["page_view", { ...tip }], // not a custom event name
+      ["calculator_open", { ...tip }], // not allowed
+      ["calculator_calculate", { ...tip }], // missing trigger
+      ["calculator_calculate", { ...tip, trigger: "button", value: "123" }], // extra parameter
+      ["calculator_calculate", { ...tip, trigger: "keystroke" }], // not in the enum
+      ["calculator_result", { ...tip, result_status: "42.5" }], // not in the enum
+      ["calculator_copy_result", { ...tip, copy_status: "ok" }], // not in the enum
+      ["calculator_reset", { ...tip, calculator_name: "my secret text" }], // not in the catalog
+      ["calculator_reset", { ...tip, calculator_category: "education" }], // category mismatch
+      ["calculator_reset", { ...tip, calculator_type: "converter" }], // type mismatch
+      ["calculator_reset", { ...tip, calculator_name: 123 }], // not a string
+      ["calculator_reset", { calculator_name: "tip-calculator", calculator_category: "finance" }], // missing type
+    ];
+    for (const [name, params] of bad) {
+      expect(a.validEvent(name, params), `${name} ${JSON.stringify(params)}`).toBe(false);
+      (a.trackEvent as (n: string, p: Record<string, unknown>) => void)(name, params);
+    }
+    expect(sentEvents()).toEqual([]);
+  });
+
+  it("drops events before consent, and never queues them for later", async () => {
+    const a = await load();
+    const cmp = fakeCmp();
+    a.initAnalytics();
+    await flush();
+    a.trackEvent("calculator_reset", { ...tip });
+    cmp.emit(consent(true, true));
+    expect(sentEvents()).toEqual([]);
+  });
+
+  it("drops events when consent is refused", async () => {
+    const a = await load();
+    const cmp = fakeCmp();
+    a.initAnalytics();
+    await flush();
+    cmp.emit(consent(false, false));
+    a.trackEvent("calculator_reset", { ...tip });
+    expect(sentEvents()).toEqual([]);
+  });
+
+  it("drops events after withdrawal and resumes on re-consent", async () => {
+    const { a, cmp } = await granted();
+    a.trackEvent("calculator_reset", { ...tip });
+    cmp.emit(consent(false, false));
+    a.trackEvent("calculator_calculate", { ...tip, trigger: "button" });
+    cmp.emit(consent(true, true));
+    a.trackEvent("calculator_result", { ...tip, result_status: "ok" });
+    expect(sentEvents().map((e) => e[1])).toEqual(["calculator_reset", "calculator_result"]);
+  });
+
+  it("drops events when the consent message never appears in the consent area", async () => {
+    const a = await load();
+    vi.useFakeTimers();
+    a.initAnalytics();
+    await flush();
+    vi.advanceTimersByTime(11_000);
+    a.trackEvent("calculator_reset", { ...tip });
+    expect(sentEvents()).toEqual([]);
+  });
+
+  it("does nothing without a Measurement ID", async () => {
+    const a = await load("");
+    a.trackEvent("calculator_reset", { ...tip });
+    expect(window.dataLayer).toEqual([]);
+  });
+
+  it("calculatorEventBase takes everything from the catalog and refuses mismatches", async () => {
+    const a = await load();
+    expect(a.calculatorEventBase("data-storage-converter", "technology")).toEqual({
+      calculator_name: "data-storage-converter",
+      calculator_category: "technology",
+      calculator_type: "converter",
+    });
+    expect(a.calculatorEventBase("tip-calculator", "finance")).toEqual(tip);
+    expect(a.calculatorEventBase("tip-calculator", "home")).toBeNull();
+    expect(a.calculatorEventBase("not-a-calculator", "finance")).toBeNull();
+  });
+});

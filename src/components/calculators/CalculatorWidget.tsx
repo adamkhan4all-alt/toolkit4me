@@ -4,6 +4,8 @@ import { copyToClipboard } from "../../lib/clipboard";
 import { Alert } from "../ui/Alert";
 import { Button } from "../ui/Button";
 import { useToast } from "../ui/ToastProvider";
+import { calculatorEventBase, trackEvent } from "../../lib/analytics";
+import type { CalculatorGroup } from "../../data/calculators/catalog";
 
 const inputClass = "focus-ring h-11 w-full rounded-[var(--radius-control)] border border-neutral-200 bg-white px-3 text-sm text-neutral-900 aria-[invalid=true]:border-error-600";
 const labelClass = "mb-1.5 block text-sm font-semibold text-neutral-900";
@@ -12,8 +14,14 @@ function cloneValues(v: Values): Values {
   return Object.fromEntries(Object.entries(v).map(([k, val]) => [k, Array.isArray(val) ? val.map((row) => ({ ...row })) : val]));
 }
 
-/** Renders any calculator spec: fields, Calculate / Reset / example, and the result with copy. */
-export function CalculatorWidget({ definition, title }: { definition: CalculatorDefinition; title: string }) {
+/**
+ * Renders any calculator spec: fields, Calculate / Reset / example, and the result with copy.
+ *
+ * Analytics: only explicit actions are reported (Calculate, example, Reset, Copy), each once, with parameters from the
+ * catalog (`calculatorId` / `category`, checked by calculatorEventBase). Live recalculation while editing is not
+ * reported, and no value, result or text from the form is ever sent.
+ */
+export function CalculatorWidget({ definition, title, calculatorId, category }: { definition: CalculatorDefinition; title: string; calculatorId: string; category: CalculatorGroup }) {
   const { spec } = definition;
   const id = useId();
   const { showToast } = useToast();
@@ -21,31 +29,45 @@ export function CalculatorWidget({ definition, title }: { definition: Calculator
   const [result, setResult] = useState<CalcResult | null>(null);
   // After the first Calculate, results update live as values change.
   const [live, setLive] = useState(false);
+  const analyticsBase = calculatorEventBase(calculatorId, category);
 
-  const compute = (next: Values) => setResult(spec.calculate(next));
+  const compute = (next: Values): CalcResult => {
+    const r = spec.calculate(next);
+    setResult(r);
+    return r;
+  };
+
+  /** One explicit calculation: calculator_calculate, then calculator_result (ok / invalid). */
+  const calculateExplicitly = (next: Values, trigger: "button" | "example") => {
+    const r = compute(next);
+    if (!analyticsBase) return;
+    trackEvent("calculator_calculate", { ...analyticsBase, trigger });
+    trackEvent("calculator_result", { ...analyticsBase, result_status: r.ok ? "ok" : "invalid" });
+  };
 
   const update = (next: Values) => {
     setValues(next);
-    if (live) compute(next);
+    if (live) compute(next); // live update: not reported
   };
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
     setLive(true);
-    compute(values);
+    calculateExplicitly(values, "button");
   };
 
   const reset = () => {
     setValues(cloneValues(spec.defaults));
     setResult(null);
     setLive(false);
+    if (analyticsBase) trackEvent("calculator_reset", { ...analyticsBase });
   };
 
   const loadExample = () => {
     const ex = cloneValues(spec.example);
     setValues(ex);
     setLive(true);
-    compute(ex);
+    calculateExplicitly(ex, "example");
   };
 
   const errors = result && !result.ok ? result.errors : {};
@@ -55,6 +77,7 @@ export function CalculatorWidget({ definition, title }: { definition: Calculator
     if (!result?.ok) return;
     const ok = await copyToClipboard(resultToText(title, result));
     showToast(ok ? "Result copied" : "Couldn't copy — select the result and copy it manually", ok ? "success" : "error");
+    if (analyticsBase) trackEvent("calculator_copy_result", { ...analyticsBase, copy_status: ok ? "success" : "failed" });
   };
 
   return (

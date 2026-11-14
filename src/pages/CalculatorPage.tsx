@@ -86,7 +86,7 @@ function CalculatorPage({ listing }: { listing: CalculatorListing }) {
         )}
         {definition && content && (
           <>
-            <CalculatorWidget definition={definition} title={listing.name} />
+            <CalculatorWidget definition={definition} title={listing.name} calculatorId={listing.id} category={listing.group} />
 
             {content.disclaimer && (
               <Alert variant="info" title="Please note">
