@@ -26,6 +26,24 @@ const events = (name: string) =>
   (window.dataLayer ?? []).map((a) => Array.from(a as ArrayLike<unknown>)).filter((a) => a[0] === "event" && a[1] === name);
 const consentCalls = () => (window.dataLayer ?? []).map((a) => Array.from(a as ArrayLike<unknown>)).filter((a) => a[0] === "consent");
 
+/** Every gtag command as an array, in order. */
+const commands = () => (window.dataLayer ?? []).map((a) => Array.from(a as ArrayLike<unknown>));
+/** Puts the test page at `path` (what the browser shows) and returns its URL, as <AnalyticsTracker> would report it. */
+const at = (path: string) => {
+  window.history.replaceState({}, "", path);
+  return window.location.href;
+};
+/**
+ * The Google tag sends its own page_view when it loads (GA4 can't turn "Page loads" off), using the page_location
+ * queued before gtag('js'). That hit never appears in the dataLayer, so tests check what it will use.
+ */
+const automaticPageLocation = () => {
+  const cmds = commands();
+  const js = cmds.findIndex((c) => c[0] === "js");
+  const set = cmds.findIndex((c) => c[0] === "set" && (c[1] as { page_location?: string })?.page_location !== undefined);
+  return js > set && set >= 0 ? (cmds[set][1] as { page_location: string }).page_location : null;
+};
+
 /** Lets the region check (a resolved fetch) finish. */
 const flush = async () => {
   for (let i = 0; i < 6; i++) await Promise.resolve();
@@ -93,16 +111,20 @@ describe("analytics: consent", () => {
     expect(events("page_view")).toHaveLength(0);
   });
 
-  it("loads after EEA consent (Purpose 1 + Google) and counts the current page once", async () => {
+  it("loads after EEA consent (Purpose 1 + Google) and counts the current page once, via the tag's own page view", async () => {
     const a = await load();
     const cmp = fakeCmp();
     a.initAnalytics();
     await flush();
-    a.trackPageView("https://www.toolkit4me.com/tools", "All Tools");
+    a.trackPageView(at("/tools?q=secret&utm_source=news"), "All Tools");
     cmp.emit(consent(true, true));
     expect(gaScripts()).toBe(1);
     expect(consentCalls().at(-1)).toEqual(["consent", "update", { analytics_storage: "granted" }]);
-    expect(events("page_view")).toEqual([["event", "page_view", { page_location: "https://www.toolkit4me.com/tools", page_title: "All Tools" }]]);
+    // The tag's automatic page_view counts this page, with the cleaned address queued before it starts...
+    expect(automaticPageLocation()).toBe(`${window.location.origin}/tools?utm_source=news`);
+    // ...so the site sends no second one, even when the tracker reports the page again.
+    a.trackPageView(window.location.href, "All Tools");
+    expect(events("page_view")).toHaveLength(0);
     const config = (window.dataLayer ?? []).map((x) => Array.from(x as ArrayLike<unknown>)).find((x) => x[0] === "config");
     expect(config?.[2]).toEqual({ send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false });
   });
@@ -125,10 +147,11 @@ describe("analytics: consent", () => {
     const cmp = fakeCmp();
     a.initAnalytics();
     await flush();
-    a.trackPageView("https://www.toolkit4me.com/", "Home");
+    a.trackPageView(at("/"), "Home");
     cmp.emit({ gdprApplies: false, eventStatus: "tcloaded" });
     expect(gaScripts()).toBe(1);
-    expect(events("page_view")).toHaveLength(1);
+    expect(automaticPageLocation()).toBe(`${window.location.origin}/`);
+    expect(events("page_view")).toHaveLength(0); // the tag's automatic page_view covers the first page
   });
 
   it("follows withdrawal: denies storage, stops page views, deletes _ga cookies; consenting again resumes", async () => {
@@ -136,8 +159,9 @@ describe("analytics: consent", () => {
     const cmp = fakeCmp();
     a.initAnalytics();
     await flush();
-    cmp.emit(consent(true, true));
-    a.trackPageView("https://www.toolkit4me.com/a", "A");
+    a.trackPageView(at("/a"), "A");
+    cmp.emit(consent(true, true)); // page A: counted by the tag's automatic page_view
+    expect(automaticPageLocation()).toBe(`${window.location.origin}/a`);
     document.cookie = "_ga=GA1.1.123; path=/";
     document.cookie = "_ga_TEST123456=GS1.1.1; path=/";
     document.cookie = "other=keep; path=/";
@@ -146,10 +170,12 @@ describe("analytics: consent", () => {
     expect((window as unknown as Record<string, unknown>)["ga-disable-G-TEST123456"]).toBe(true); // hard stop for the loaded tag
     expect(document.cookie).not.toMatch(/_ga/);
     expect(document.cookie).toContain("other=keep");
-    a.trackPageView("https://www.toolkit4me.com/b", "B");
-    expect(events("page_view").map((e) => (e[2] as { page_title: string }).page_title)).toEqual(["A"]);
-    cmp.emit(consent(true, true));
-    expect(events("page_view").map((e) => (e[2] as { page_title: string }).page_title)).toEqual(["A", "B"]);
+    a.trackPageView(at("/b"), "B"); // withdrawn: not counted
+    expect(events("page_view")).toHaveLength(0);
+    cmp.emit(consent(true, true)); // re-consent: the tag is already loaded, so exactly one manual page_view for B
+    expect(events("page_view")).toEqual([["event", "page_view", { page_location: `${window.location.origin}/b`, page_title: "B" }]]);
+    cmp.emit(consent(true, true)); // a repeated "yes" adds nothing
+    expect(events("page_view")).toHaveLength(1);
     expect((window as unknown as Record<string, unknown>)["ga-disable-G-TEST123456"]).toBe(false);
     expect(gaScripts()).toBe(1); // never a second copy of gtag.js
   });
@@ -175,12 +201,57 @@ describe("analytics: page views", () => {
     const cmp = fakeCmp();
     a.initAnalytics();
     await flush();
+    a.trackPageView(at("/"), "Home");
+    cmp.emit({ gdprApplies: false, eventStatus: "tcloaded" }); // first page: the tag's own page_view
+    a.trackPageView(at("/"), "Home"); // tracker reports the first page again: nothing
+    a.trackPageView(at("/tools/compress-image"), "Compress");
+    a.trackPageView(at("/tools/compress-image"), "Compress"); // StrictMode / re-render
+    a.trackPageView(at("/tools/compress-image#faq"), "Compress"); // hash only
+    a.trackPageView(at("/tools/pdf-to-word"), "PDF to Word");
+    expect(events("page_view").map((e) => (e[2] as { page_title: string }).page_title)).toEqual(["Compress", "PDF to Word"]);
+  });
+
+  it("back and forward count once per page display", async () => {
+    const a = await load();
+    const cmp = fakeCmp();
+    a.initAnalytics();
+    await flush();
+    a.trackPageView(at("/a"), "A");
+    cmp.emit({ gdprApplies: false, eventStatus: "tcloaded" }); // A: automatic
+    a.trackPageView(at("/b"), "B");
+    a.trackPageView(at("/a"), "A"); // back
+    a.trackPageView(at("/b"), "B"); // forward
+    expect(events("page_view").map((e) => (e[2] as { page_title: string }).page_title)).toEqual(["B", "A", "B"]);
+  });
+
+  it("updates the global page_location (clean) before every manual page_view, so the tag's own events use it", async () => {
+    const a = await load();
+    const cmp = fakeCmp();
+    a.initAnalytics();
+    await flush();
+    a.trackPageView(at("/"), "Home");
     cmp.emit({ gdprApplies: false, eventStatus: "tcloaded" });
-    a.trackPageView("https://www.toolkit4me.com/tools/compress-image", "Compress");
-    a.trackPageView("https://www.toolkit4me.com/tools/compress-image", "Compress"); // StrictMode / re-render
-    a.trackPageView("https://www.toolkit4me.com/tools/compress-image#faq", "Compress"); // hash only
-    a.trackPageView("https://www.toolkit4me.com/tools/pdf-to-word", "PDF to Word");
-    expect(events("page_view")).toHaveLength(2);
+    a.trackPageView(at("/tools/x?q=secret&email=a%40b.c&utm_campaign=c"), "X");
+    const cmds = commands();
+    const pv = cmds.findIndex((c) => c[0] === "event" && c[1] === "page_view");
+    const clean = `${window.location.origin}/tools/x?utm_campaign=c`;
+    expect(cmds[pv - 1]).toEqual(["set", { page_location: clean }]);
+    expect(cmds[pv][2]).toEqual({ page_location: clean, page_title: "X" });
+    expect(JSON.stringify(cmds)).not.toMatch(/secret|a%40b|a@b/);
+  });
+
+  it("never loads the Google tag twice across consent changes", async () => {
+    const a = await load();
+    const cmp = fakeCmp();
+    a.initAnalytics();
+    await flush();
+    for (let i = 0; i < 3; i++) {
+      cmp.emit(consent(true, true));
+      cmp.emit(consent(false, false));
+    }
+    cmp.emit(consent(true, true));
+    expect(gaScripts()).toBe(1);
+    expect(commands().filter((c) => c[0] === "js")).toHaveLength(1);
   });
 
   it("keeps only the path and utm_* campaign parameters", async () => {
@@ -210,11 +281,12 @@ describe("analytics: consent region", () => {
     const fetchFn = region(false);
     const a = await load();
     a.initAnalytics();
-    a.trackPageView("https://www.toolkit4me.com/", "Home");
+    a.trackPageView(at("/"), "Home");
     await flush();
     expect(fetchFn).toHaveBeenCalledWith("/api/consent-region", expect.objectContaining({ cache: "no-store", credentials: "omit" }));
     expect(gaScripts()).toBe(1);
-    expect(events("page_view")).toHaveLength(1);
+    expect(automaticPageLocation()).toBe(`${window.location.origin}/`);
+    expect(events("page_view")).toHaveLength(0);
   });
 
   it("outside the consent area, still honours a refusal if the message does appear", async () => {

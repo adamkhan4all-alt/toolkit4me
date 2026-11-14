@@ -17,10 +17,13 @@
 //     shows its message in the consent area, so it can't decide this.
 //   * Consent changes are followed: withdrawal sets analytics_storage to
 //     denied, stops page views and deletes the _ga cookies.
-//   * Page views are sent manually (send_page_view: false), once per route,
-//     so there is exactly one per navigation. In the GA4 stream, turn OFF
-//     Enhanced measurement → "Page changes based on browser history events",
-//     or that would send a second one.
+//   * Exactly one page_view per page display. The Google tag sends one by
+//     itself when it loads (GA4 can't turn "Page loads" off), using the
+//     cleaned page_location queued before it starts; every later route
+//     change, and the page on screen after a re-consent, gets one manual
+//     page_view. In the GA4 stream, Enhanced measurement → "Page changes
+//     based on browser history events" must stay OFF, or navigations
+//     would be counted twice.
 //   * No personal data: page_location keeps only the path and utm_*
 //     campaign parameters, Google signals and ad personalisation are off,
 //     and no tool input, file name or file content is ever sent.
@@ -90,6 +93,12 @@ export function cleanLocation(href: string): string {
 function loadScript(): void {
   if (scriptLoaded) return;
   scriptLoaded = true;
+  // This property's Google tag always sends a page_view when it starts: send_page_view:false is ignored and GA4 has
+  // no setting to turn "Page loads" off. So queue the cleaned address first — the automatic hit then uses it — and
+  // count that hit as the page view for the page on screen (no manual one for it).
+  const first = cleanLocation(window.location.href);
+  gtag("set", { page_location: first });
+  lastSentKey = first;
   gtag("js", new Date());
   gtag("config", MEASUREMENT_ID, {
     send_page_view: false,
@@ -124,8 +133,12 @@ function grant(): void {
   state = "granted";
   setDisabled(false);
   gtag("consent", "update", { analytics_storage: "granted" });
-  loadScript();
-  if (current) send(current.location, current.title);
+  if (scriptLoaded) {
+    // Re-consent after a withdrawal: the tag is already loaded and won't fire again by itself.
+    if (current) send(current.location, current.title);
+  } else {
+    loadScript(); // the tag's automatic page_view counts the page on screen
+  }
 }
 
 function deny(): void {
@@ -143,6 +156,8 @@ function deny(): void {
 function send(pageLocation: string, title: string): void {
   if (pageLocation === lastSentKey) return; // one page view per route, even if called twice
   lastSentKey = pageLocation;
+  // Keep the global page_location in step, so the tag's own events (scroll, outbound click) use the clean URL too.
+  gtag("set", { page_location: pageLocation });
   gtag("event", "page_view", { page_location: pageLocation, page_title: title });
 }
 
