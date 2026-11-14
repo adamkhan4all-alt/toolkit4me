@@ -27,7 +27,14 @@
 //   * No personal data: page_location keeps only the path and utm_*
 //     campaign parameters, Google signals and ad personalisation are off,
 //     and no tool input, file name or file content is ever sent.
+//   * Custom events (trackEvent) follow the same consent state: sent only
+//     while consent is granted, dropped (never queued) otherwise. Event
+//     names and parameters are allow-listed, and every value is checked
+//     against the calculator catalog or a fixed enumeration, so nothing a
+//     visitor types can be sent.
 // ---------------------------------------------------------------------
+
+import { CALCULATOR_CATALOG, type CalculatorGroup } from "../data/calculators/catalog";
 
 const MEASUREMENT_ID = (import.meta.env?.VITE_GA_MEASUREMENT_ID ?? "").trim();
 
@@ -222,6 +229,78 @@ export function trackPageView(href: string, title: string): void {
   if (!ANALYTICS_CONFIGURED) return;
   current = { location: cleanLocation(href), title };
   if (state === "granted") send(current.location, current.title);
+}
+
+// ---------------------------------------------------------------------
+// Custom events
+// ---------------------------------------------------------------------
+
+export type CalculatorType = "calculator" | "converter";
+
+/** Parameters every calculator event carries. All three come from the catalog, never from the page. */
+export interface CalculatorEventBase {
+  calculator_name: string;
+  calculator_category: CalculatorGroup;
+  calculator_type: CalculatorType;
+}
+
+/** The allowed events and the exact parameters each one takes. */
+export interface AnalyticsEvents {
+  calculator_calculate: CalculatorEventBase & { trigger: "button" | "example" };
+  calculator_result: CalculatorEventBase & { result_status: "ok" | "invalid" };
+  calculator_reset: CalculatorEventBase;
+  calculator_copy_result: CalculatorEventBase & { copy_status: "success" | "failed" };
+}
+export type AnalyticsEventName = keyof AnalyticsEvents;
+
+const BASE_KEYS = ["calculator_name", "calculator_category", "calculator_type"] as const;
+/** Required parameter set per event: nothing more, nothing less. */
+const EVENT_PARAMS: Record<AnalyticsEventName, readonly string[]> = {
+  calculator_calculate: [...BASE_KEYS, "trigger"],
+  calculator_result: [...BASE_KEYS, "result_status"],
+  calculator_reset: [...BASE_KEYS],
+  calculator_copy_result: [...BASE_KEYS, "copy_status"],
+};
+/** Fixed values for the non-catalog parameters. */
+const ENUMS: Record<string, readonly string[]> = {
+  trigger: ["button", "example"],
+  result_status: ["ok", "invalid"],
+  copy_status: ["success", "failed"],
+};
+
+/** Converters are the catalog entries whose id ends in "-converter". */
+export const calculatorTypeOf = (id: string): CalculatorType => (id.endsWith("-converter") ? "converter" : "calculator");
+
+/**
+ * The base parameters for a calculator, taken from the catalog. Returns null when the id isn't in the catalog or the
+ * category doesn't match it, so a caller can't attach unverified metadata.
+ */
+export function calculatorEventBase(id: string, category: string): CalculatorEventBase | null {
+  const entry = CALCULATOR_CATALOG.find((c) => c.id === id);
+  if (!entry || entry.group !== category) return null;
+  return { calculator_name: entry.id, calculator_category: entry.group, calculator_type: calculatorTypeOf(entry.id) };
+}
+
+/** Validates one event against the allow-lists and the catalog. Exported for tests. */
+export function validEvent(name: string, params: Record<string, unknown>): boolean {
+  if (!Object.prototype.hasOwnProperty.call(EVENT_PARAMS, name)) return false;
+  const required = EVENT_PARAMS[name as AnalyticsEventName];
+  const keys = Object.keys(params);
+  if (keys.length !== required.length || !required.every((k) => keys.includes(k))) return false;
+  if (!keys.every((k) => typeof params[k] === "string")) return false;
+  const base = calculatorEventBase(params.calculator_name as string, params.calculator_category as string);
+  if (!base || base.calculator_type !== params.calculator_type) return false;
+  return keys.every((k) => !(k in ENUMS) || ENUMS[k].includes(params[k] as string));
+}
+
+/**
+ * Sends one allow-listed event — only while consent is granted and the tag is loaded and enabled. Before consent,
+ * after a refusal or withdrawal, or when anything fails validation, the event is dropped (never queued).
+ */
+export function trackEvent<N extends AnalyticsEventName>(name: N, params: AnalyticsEvents[N]): void {
+  if (!ANALYTICS_CONFIGURED || state !== "granted" || !scriptLoaded) return;
+  if (!validEvent(name, params as unknown as Record<string, unknown>)) return;
+  gtag("event", name, { ...params });
 }
 
 /**

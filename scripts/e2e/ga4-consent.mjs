@@ -83,7 +83,7 @@ async function session({ region, cmp, blockGa = false }) {
     if (/\/g\/collect/.test(url)) {
       const u = new URL(url);
       const body = r.request().postData() ?? "";
-      for (const line of body ? body.split("\n") : [""]) {
+      for (const line of body ? body.split(/\r?\n/) : [""]) {
         // Batched requests: shared parameters in the URL, per-event overrides on each body line.
         const p = new URLSearchParams(u.search.slice(1));
         for (const [k, v] of new URLSearchParams(line)) p.set(k, v);
