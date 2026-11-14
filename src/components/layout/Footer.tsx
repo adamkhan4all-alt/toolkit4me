@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { toolRegistry } from "../../lib/toolRegistry";
+import { openConsentSettings } from "../../lib/analytics";
 
 /** Site-information groups. Contact details live on /contact (the verified support address only). */
 const SITE_GROUPS: { title: string; links: { to: string; label: string }[] }[] = [
@@ -87,6 +88,20 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              {group.title === "Legal & Privacy" && (
+                <li>
+                  {/* A real link (works without JavaScript, or if the consent message is blocked); with the message loaded, it re-opens it instead. */}
+                  <a
+                    href="/privacy#cookies"
+                    onClick={(e) => {
+                      if (openConsentSettings()) e.preventDefault();
+                    }}
+                    className="focus-ring rounded text-sm text-neutral-600 hover:text-brand-600"
+                  >
+                    Privacy &amp; cookie settings
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         ))}

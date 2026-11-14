@@ -54,7 +54,10 @@ export function PrivacyPolicyPage() {
             which deletes the upload once processing finishes and the result within one hour. Each tool page says which applies.
           </li>
           <li>Our servers and providers log technical request information, such as IP addresses, to run and protect the Service.</li>
-          <li>We don't use an analytics service on toolkit4me.com.</li>
+          <li>
+            We use Google Analytics to understand which pages and tools are used. In the European Economic Area it runs only if you agree in Google's consent
+            message, and it never receives your files, what you type into tools, or your email address.
+          </li>
           <li>Ads are served by Google AdSense, which may use cookies. In the European Economic Area, Google's consent message lets you choose.</li>
           <li>Short-link clicks are counted without storing IP addresses or browser user-agent strings.</li>
           <li>We don't sell personal information.</li>
@@ -129,6 +132,11 @@ export function PrivacyPolicyPage() {
             <strong>Advertising cookies.</strong> Google AdSense may set or read cookies and similar identifiers to show and measure ads (see section 7).
           </li>
           <li>
+            <strong>Analytics cookies.</strong> If Google Analytics runs (see section 6), it sets first-party cookies named <code>_ga</code> and{" "}
+            <code>_ga_…</code> holding a random identifier, for up to two years. In the European Economic Area they're set only with your consent, and they're
+            deleted from toolkit4me.com if you withdraw it.
+          </li>
+          <li>
             <strong>Team console cookies.</strong> The Link Studio team console, which visitors never need, uses a strictly necessary session cookie for up to 8
             hours after a team member signs in, plus a short-lived cookie during the GitHub sign-in itself.
           </li>
@@ -147,8 +155,37 @@ export function PrivacyPolicyPage() {
 
       <PolicySection id="analytics" title="6. Analytics">
         <p>
-          We don't currently use an analytics or tracking service, such as Google Analytics, on toolkit4me.com. If we add one, we'll update this policy first and
-          describe what it collects. The short-link click counts described in section 8 are the only usage statistics we keep.
+          We use Google Analytics 4, provided by Google, to see how many people visit, which pages and tools they use and how they found us, so we can decide
+          what to improve. It's the only analytics service on toolkit4me.com.
+        </p>
+        <ul>
+          <li>
+            <strong>When it runs.</strong> For visitors in the European Economic Area, Google Analytics loads only after you agree to it in Google's consent
+            message, which also covers advertising (section 7). Until then no analytics script is loaded and no analytics cookie is set. Elsewhere it runs
+            when you visit.
+          </li>
+          <li>
+            <strong>What it receives.</strong> The address of each page you view without its query string (only standard campaign tags such as{" "}
+            <code>utm_source</code> are kept), the page title, the referring site, and technical information such as browser, device type, screen size and
+            approximate location (country or city) that Google derives from your IP address. Google Analytics 4 doesn't log or store IP addresses.
+          </li>
+          <li>
+            <strong>What it never receives.</strong> Your files or their contents, file names, text or URLs you enter into tools, passwords, or your email
+            address.
+          </li>
+          <li>
+            <strong>Settings.</strong> Google signals and ad personalisation are turned off for our Analytics data, and we don't combine it with other data to
+            identify you. Analytics data is kept for 14 months.
+          </li>
+          <li>
+            <strong>Your choices.</strong> Use the “Privacy &amp; cookie settings” link at the bottom of every page to change or withdraw your consent at any
+            time. You can also block cookies in your browser or use Google's{" "}
+            <ExtLink href="https://tools.google.com/dlpage/gaoptout">Analytics opt-out browser add-on</ExtLink>. The site works fully without Analytics.
+          </li>
+        </ul>
+        <p>
+          The short-link click counts described in section 8 are kept separately, in our own database. Learn more about how Google uses this data at{" "}
+          <ExtLink href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</ExtLink>.
         </p>
       </PolicySection>
 
@@ -159,7 +196,7 @@ export function PrivacyPolicyPage() {
         </p>
         <p>
           For visitors in the European Economic Area, a consent message from Google lets you choose whether your data may be used for personalised ads, and you
-          can change your choice later. You can learn more about how Google uses data at{" "}
+          can change your choice later with the “Privacy &amp; cookie settings” link at the bottom of every page. You can learn more about how Google uses data at{" "}
           <ExtLink href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</ExtLink> and manage ad
           personalisation at <ExtLink href="https://adssettings.google.com">adssettings.google.com</ExtLink>.
         </p>
@@ -244,7 +281,7 @@ export function PrivacyPolicyPage() {
               </tr>
               <tr>
                 <th scope="row" className={th}>Google</th>
-                <td className={td}>AdSense advertising and its consent message</td>
+                <td className={td}>AdSense advertising, its consent message, and Google Analytics</td>
                 <td className={td}>Cookies and identifiers, under Google's policies</td>
               </tr>
             </tbody>
@@ -276,6 +313,7 @@ export function PrivacyPolicyPage() {
           <li>URL Shortener allowance cookie: in your browser for up to 400 days, or until you delete it.</li>
           <li>Links created with the URL Shortener: kept so they keep redirecting, unless disabled or deleted for abuse.</li>
           <li>Team console session cookie: up to 8 hours.</li>
+          <li>Google Analytics data: 14 months in Google Analytics; its cookies last up to two years in your browser, or until you withdraw consent or delete them.</li>
           <li>Technical logs: kept for operating, securing and troubleshooting the Service; logs held by our providers follow their own policies.</li>
           <li>Emails you send us: kept as long as needed to deal with your message and any follow-up.</li>
         </ul>
