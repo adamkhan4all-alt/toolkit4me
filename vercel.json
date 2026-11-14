@@ -44,7 +44,7 @@
       ]
     },
     {
-      "source": "/(sitemap.*\\.xml)",
+      "source": "/(sitemap(?:-(?:pages|pdf-tools|image-tools|pixel-playground|calculators|developer-tools|link-studio|guides|blog)(?:-\\d+)?)?\\.xml)",
       "headers": [
         {
           "key": "Content-Type",

@@ -3,7 +3,9 @@
 //
 //   sitemap.xml          sitemap index → every child below
 //   sitemap-pages.xml    home, directories, about/contact/legal
-//   sitemap-tools.xml    every tool page in TOOL_DEFINITIONS
+//   sitemap-<hub>.xml    one per released hub, e.g. sitemap-pdf-tools.xml,
+//                        sitemap-calculators.xml (Release 1 replaced the
+//                        single sitemap-tools.xml)
 //   sitemap-guides.xml   every guide in GUIDES
 //   sitemap-blog.xml     /blog, every published article, category pages
 //                        with articles, and tag pages with enough articles

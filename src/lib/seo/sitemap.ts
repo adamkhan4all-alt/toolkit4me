@@ -28,7 +28,7 @@ export interface SitemapEntry {
 }
 
 export interface SitemapFile {
-  /** Published file name, e.g. "sitemap-tools.xml". */
+  /** Published file name, e.g. "sitemap-pdf-tools.xml". vercel.json's XML header rule must list it (see sitemapHeaders.test.ts). */
   fileName: string;
   entries: SitemapEntry[];
 }
